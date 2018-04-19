@@ -3,78 +3,67 @@
 <head>
 	<% include ../partials/head %>
 </head>
-	<body class="container">
+	<body class="container bg-info">
 
 		<header>
 			<% include ../partials/header %>
 		</header>
-
-        <div class="jumbotron text-center">
+        <div class="text-center bg-danger text-white ">
             <h1>GCC Compiler</h1>
             <p>Sistema de aprendizaje de lenguaje gcc</p> 
         </div> 
-
-	        <div class="container">
-	            <div class="row">
-	                <div class="col-sm-8">
-	                    <div class="container-fluid"> 
-	                    </div>                
-	                </div>
-	                <div class="col-sm-4">
-	                    <div class="dropdown">
-	                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tipo de lección
-	                        <span class="caret"></span></button>
-	                        <ul class="dropdown-menu">
-	                            <li><a href="#">A-Goach</a></li>
-	                            <li><a href="#">G-Goach</a></li>    
-	                        </ul>
-	                    </div> 
-	                </div>
-	            </div>
-	        </div>
-	        
-	        <br>
-	        <br>
-	        <div class="container">
-	            <div class="row">
-	                <div class="col-sm">
-	                    <div class="container">
-	                        <div class="col-sm">
-	                            <a  class="btn btn-primary" href="/coachA.html">Crear Lección A-Goach</a>
-	                        </div>
-	                        <div class="col-sm">                                
-	                        </div>                         
-	                        <div class="col-sm">
-	                            <button type="button" class="btn btn-success">Crear Lección G-Goach</button>
-	                        </div>
-	                        <div class="col-sm">                                
-	                        </div> 
-	                        <div class="col-sm">                                
-	                        </div> 
-	                        <div class="col-sm">                                
-	                        </div> 
-	                        <div class="col-sm">
-	                                <button type="button" class="btn btn-success">Editor de texto</button>
-	                        </div>                                                                                     
-	                    </div>
-	                </div>
-	                <div class="col-sm">
-	                        <input type="text" id="entrada" onkeyup="filtrado()" placeholder="Nombre de la lección.." title="Escriba el nombre">
-							<ul id="listaLecciones" >
-							    <% titulos.forEach(function(titulo) { %>
-							        <li><a href="#"><%= titulo.titulo %></a></li>
-							    <% }); %>
-							</ul>	                                   
-	                </div>
-	            </div>
-	        </div>
-	    </body>
+		<div class="container">
+		  <div class="row">
+		    <div class="col-sm">
+		    	<div class="col-sm">
+					<a  class="btn btn-primary" href="/coachA.html">Crear Lección A-Goach</a>
+				</div>
+				<div class="col-sm">
+                	<button type="button" class="btn btn-success">Crear Lección G-Goach</button><br>	
+                </div>
+                <div class="col-sm">
+                	<button type="button" class="btn btn-success">Editor de texto</button>					
+                </div>
+		    </div>
+		    <div class="col-9 ">
+				<div class="dropdown">
+				  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				    Tipo de lección
+				  </button>
+				  <div class="dropdown-menu">
+				    <a class="dropdown-item" onclick="filtro('G-Coach');return false;">G-Coach</a>
+				    <a class="dropdown-item" onclick="filtro('A-Coach');return false;">A-Coach</a>				   
+				    <a class="dropdown-item" onclick="filtro('-');return false;">Todas</a>
+				  </div>
+				</div>
+				<input type="text" id="entrada" onkeyup="busqueda()" placeholder="Nombre de la lección.." title="Escriba el nombre">	                        	
+				<ul id="listaLecciones" class="list-group-item list-group-item-action" >
+				    <% titulos.forEach(function(titulo) {%>
+				        <li class="list-group-item" id="<%= titulo.tipo%>" >
+				        	<a href="#">
+								<div class="container">
+								  <div class="row">
+								    <div class="col-sm">
+								      <%= titulo.titulo %>
+								    </div>
+								    <div class="col-sm">
+								      <%= titulo.tipo%>
+								    </div>
+								  </div>
+								</div>
+							</a>								
+						</li>				        
+				    <% }); %>
+				</ul>	                                                                      
+		    </div>
+		  </div>
+		</div>
 		<footer>
 	</body>
 
 
     <script>
-        function filtrado() {
+        function busqueda() {
             var input, filtro, ul, li, a, i;
             input = document.getElementById("entrada");
             filtro = input.value.toUpperCase();
@@ -85,10 +74,27 @@
                 if (a.innerHTML.toUpperCase().indexOf(filtro) > -1) {
                     li[i].style.display = "";
                 } else {
-                    li[i].style.display = "none";
-        
+                    li[i].style.display = "none";        
                 }
             }
+        }
+
+        function filtro(tipo)
+        {
+	        	//alert(tipo);
+	            var input, filtro, ul, li, a, i;
+	            input = document.getElementById("entrada");
+	            filtro = tipo.toUpperCase();           
+	            ul = document.getElementById("listaLecciones");
+	            li = ul.getElementsByTagName("li");
+	            for (i = 0; i < li.length; i++) {
+	                a = li[i].getElementsByTagName("a")[0];
+	                if (a.innerHTML.toUpperCase().indexOf(filtro) > -1) {
+	                    li[i].style.display = "";
+	                } else {
+	                    li[i].style.display = "none";        
+	                }
+	            }
         }
     </script>  
 </html>
