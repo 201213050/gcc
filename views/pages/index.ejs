@@ -16,13 +16,13 @@
 		  <div class="row">
 		    <div class="col-sm">
 		    	<div class="col-sm">
-					<a  class="btn btn-primary" href="/coachA.html">Crear Lección A-Goach</a>
+					<a  class="btn btn-primary" href="/coachA">Crear Lección A-Goach</a>
 				</div>
 				<div class="col-sm">
-                	<button type="button" class="btn btn-success">Crear Lección G-Goach</button><br>	
+					<a  class="btn btn-primary" href="/coachG">Crear Lección G-Goach</a>                	
                 </div>
                 <div class="col-sm">
-                	<button type="button" class="btn btn-success">Editor de texto</button>					
+                	<a  class="btn btn-primary" href="#">Editor de texto</a>                					
                 </div>
 		    </div>
 		    <div class="col-9 ">
@@ -39,8 +39,8 @@
 				<input type="text" id="entrada" onkeyup="busqueda()" placeholder="Nombre de la lección.." title="Escriba el nombre">	                        	
 				<ul id="listaLecciones" class="list-group-item list-group-item-action" >
 				    <% titulos.forEach(function(titulo) {%>
-				        <li class="list-group-item" id="<%= titulo.tipo%>" >
-				        	<a href="#">
+				        <li class="list-group-item" id="<%= titulo.tipo%>"  >
+				        	<a href="/coachA/<%= titulo.codigo%>">
 								<div class="container">
 								  <div class="row">
 								    <div class="col-sm">
@@ -95,6 +95,10 @@
 	                    li[i].style.display = "none";        
 	                }
 	            }
+        }
+        function mensaje(id)
+        {
+        	alert(id);
         }
     </script>  
 </html>

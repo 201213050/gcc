@@ -9,7 +9,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // Conexion con base de datos
 var pgp = require("pg-promise")(/**/);
 var db = pgp("postgres://postgres:123@localhost:5432/gcc");
-
+app.use(express.static('views'));
 
 
 // set the view engine to ejs
@@ -20,10 +20,11 @@ app.set('view engine', 'ejs');
 // index page 
 app.get('/', function(req, res) 
 {
-	db.any('select leccion.titulo, tipoLeccion.nombre as tipo from leccion inner join tipoLeccion on leccion.tipoLeccion = tipoLeccion.codigoTipoLeccion;'
+	db.any('select leccion.codigoLeccion as codigo, leccion.titulo, tipoLeccion.nombre as tipo from leccion inner join tipoLeccion on leccion.tipoLeccion = tipoLeccion.codigoTipoLeccion;'
 		, [])
 	    .then(function(data) 
 	    {			
+			console.log(data);
 		    res.render('pages/index', {
 		    	titulos: data    	       
 		    }); 
@@ -35,22 +36,96 @@ app.get('/', function(req, res)
 		        { titulo: 'Leccion If', tipo: "G-Coach" },
 		        { titulo: 'Leccion Where', tipo: "A-Coach" },
 		        { titulo: 'Leccion Do While', tipo: "A-Coach" }
-
 			]; // Aquí se guardan los títulos de las lecciones.		    	
 			console.log("Error");
 		    res.render('pages/index', {
 		    	titulos: lecciones        	       
 		    }); 	        
 	    });
-
-
- 
 });
 
-// about page 
-app.get('/about', function(req, res) {
-	res.render('pages/about');
+// A-Coach
+app.get('/coachA', function(req, res) {
+	res.render('pages/coachA');
 });
 
-app.listen(8081);
-console.log('8081 is the magic port');
+
+// A-Coach abrir
+app.get('/coachA/:id', function(req, res) 
+{
+
+	console.log(req.params.id);
+
+	var codigo = req.params.id;
+	db.one('select * from leccion where codigoleccion = $1 '
+		, [codigo])
+	    .then(function(data) 
+	    {			
+	    	console.log(data);
+		    res.render('pages/leccion', {
+		    	leccion: data    	       
+		    }); 
+	    })
+	    .catch(function(error) 
+	    {
+			var leccion = [
+				{
+					titulo: '',
+					explicacion: '',
+					codigoejemplo: '',
+					enunciadotarea: '',
+					pruebas : '' 
+				}
+			]; // Aquí se guardan los títulos de las lecciones.		    	
+			console.log("Error");
+		    res.render('pages/leccion', {
+		    	leccion: leccion        	       
+		    }); 	        
+	    });
+});
+
+// G-Coach
+app.get('/coachG', function(req, res) {
+	res.render('pages/coachG');
+});
+
+
+
+// Registra una leccion coach a 
+app.post('/registrarA', urlencodedParser, function(req, res){
+
+	var registro = 0;
+	db.none('INSERT INTO leccion(titulo, explicacion, codigoEjemplo, enunciadoTarea, pruebas, tipoLeccion) VALUES($1, $2, $3, $4, $5, $6)'
+			, [req.body.titulo,req.body.explicacion, req.body.codigoEjemplo, req.body.enunciadoTarea, req.body.pruebas,1])
+	    .then(() => {
+			registro = 1;
+	        console.log("Insercion exitosa.");
+	    })
+	    .catch(error => {
+	        console.log("Error al insertar");
+	    });
+		res.render('pages/coachA', {
+			registro: registro        	       
+		});	
+});
+
+// Registra una leccion G-Coach 
+app.post('/registrarG', urlencodedParser, function(req, res){
+
+	db.none('INSERT INTO leccion(titulo, explicacion, codigoEjemplo, enunciadoTarea, pruebas, tipoLeccion) VALUES($1, $2, $3, $4, $5, $6)'
+			, [req.body.titulo,req.body.explicacion, req.body.codigoEjemplo, req.body.enunciadoTarea, req.body.pruebas,2])
+	    .then(() => {
+			registro = 1;
+	        console.log("Insercion exitosa.");
+	    })
+	    .catch(error => {
+	        console.log("Error al insertar");
+	    });
+		res.render('pages/coachG', {
+			registro: registro        	       
+		});		
+});
+
+
+app.listen(8080);
+console.log('8080 is the magic port');

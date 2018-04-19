@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+	<body class="container bg-info">
+		<header>
+			<% include ../partials/header %>
+		</header>
+        <div class="text-center bg-danger text-white ">
+            <h1>GCC Compiler</h1>
+            <p>Participar en Lección</p> 
+        </div> 
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+                <div class="container-fluid">
+                    <form method="post" action="/registrarA">
+                      <div class="form-group">     
+                        <label type="col-sm">Título</label>                   
+                        <label type="col-sm"><%= leccion.titulo %></label>
+                      </div>
+                      <div class="form-group">  
+                      <label type="col-sm">Explicación</label>                            
+                        <p class="form-control"><%= leccion.explicacion %></p>
+                      </div>       
+                      <div class="form-group">   
+                        <label type="col-sm">Código de Ejemplo</label>                           
+                        <textarea class="form-control" id="codigoEjemplo" name= "codigoEjemplo" rows="8" required="true"><%= leccion.codigoejemplo %></textarea>
+                      </div>  
+                      <div class="form-group">                                                
+                        <button type="button" class="btn btn-primary">
+                          Compilar Ejemplo
+                        </button>
+                      </div>                        
+                      <div class="form-group">  
+                        <label type="col-sm">Enunciado de Tarea</label>                            
+                        <p class="form-control"><%= leccion.enunciadotarea %></p>
+                      </div>   
+                      <div class="form-group">    
+                        <label type="col-sm">Resolución de la tarea</label>                          
+                        <textarea class="form-control" id="code" name = "code" rows="8" required="true"></textarea>
+                      </div> 
+                      <div class="form-group">                                                
+                        <button type="button" class="btn btn-primary ">
+                          Finalizar tarea
+                        </button>
+                      </div>                                               
+                    </form>           
+                </div>              
+            </div>                                        
+          </div>
+        </div>    
+    </body>
+    <script>          
+          var editor = CodeMirror.fromTextArea(document.getElementById("code"), 
+          {
+            lineNumbers: true,
+            mode: "application/x-ejs",
+            indentUnit: 4,
+            indentWithTabs: true,
+            enterMode: "keep",
+            tabMode: "shift"
+          });
+
+
+        function busqueda() {
+            var input, filtro, ul, li, a, i;
+            input = document.getElementById("entrada");
+            filtro = input.value.toUpperCase();
+            ul = document.getElementById("listaLecciones");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filtro) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";        
+                }
+            }
+        }
+
+        function filtro(tipo)
+        {
+	        	//alert(tipo);
+	            var input, filtro, ul, li, a, i;
+	            input = document.getElementById("entrada");
+	            filtro = tipo.toUpperCase();           
+	            ul = document.getElementById("listaLecciones");
+	            li = ul.getElementsByTagName("li");
+	            for (i = 0; i < li.length; i++) {
+	                a = li[i].getElementsByTagName("a")[0];
+	                if (a.innerHTML.toUpperCase().indexOf(filtro) > -1) {
+	                    li[i].style.display = "";
+	                } else {
+	                    li[i].style.display = "none";        
+	                }
+	            }
+        }
+    </script>  
+</html>
