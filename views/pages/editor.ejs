@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+	<body class="container bg-info">
+        <div class="text-center bg-danger text-white ">
+            <h1>GCC Compiler</h1>
+            <p>Participar en Lección</p> 
+        </div> 
+		<header>
+            <% include ../partials/headerE %>
+        </header>                
+        
+        <button class="btn btn-danger" onclick="nuevo('Archivo')">+</button>
+
+
+        <nav id="archivos">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <!--
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+            -->
+            </div>
+          </nav>
+          <div class="tab-content" >
+            <!--
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+            -->
+          </div>
+
+        <!-- Archivos 
+        <ol class="nav nav-tabs" id="archivos1" role="tablist">
+            <li class="nav-titulo">
+                <a class="nav-item nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Home</a>
+            </li>
+            <li class="nav-titulo">
+                <a class="nav-item nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            </li>
+            <li class="nav-titulo">
+                <a class="nav-item nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+        </ol>
+        <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        </div>
+        -->
+
+
+
+    </body>
+    <script>          
+        var cEditor = CodeMirror.fromTextArea(document.getElementById("code"), {
+          lineNumbers: true,
+          matchBrackets: true,
+          mode: "text/x-java"
+        });      
+
+        
+        function nuevo(id) 
+        {         
+                               
+            var nav = document.getElementById('nav-tab'); 
+            //alert(list.className);              
+            var titulo = document.createElement('a');
+            titulo.className = "nav-item nav-link";
+            titulo.id = "nav-home-tab";
+            titulo.setAttribute("data-toggle","tab");
+            titulo.href="#nav-home";
+            titulo.setAttribute("role","tab");
+            titulo.setAttribute("aria-controls","nav-home");
+            titulo.setAttribute("aria-selected","true"); 
+            var textnode = document.createTextNode(id);
+            titulo.appendChild(textnode);
+            //document.getElementById("titulo").appendChild(titulo);
+            /*         
+            */
+            /* 
+            titulo.onclick = function()
+                {                    
+                    var lista = document.getElementById("archivos").getElementsByTagName("li");                    
+                    var i;
+                    for (i = 0; i < lista.length; i++) 
+                    { 
+                        //lista[i].className = "nav-item nav-link ";
+                        //lista[i].setAttribute("aria-selected","false");
+                    }                    
+                }            
+            */            
+            nav.appendChild(titulo);    
+            
+            // Ahora agregamos area de disposición 
+            
+
+
+        }      
+    </script>  
+</html>

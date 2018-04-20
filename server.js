@@ -53,9 +53,7 @@ app.get('/coachA', function(req, res) {
 // A-Coach abrir
 app.get('/coachA/:id', function(req, res) 
 {
-
 	console.log(req.params.id);
-
 	var codigo = req.params.id;
 	db.one('select * from leccion where codigoleccion = $1 '
 		, [codigo])
@@ -89,7 +87,10 @@ app.get('/coachG', function(req, res) {
 	res.render('pages/coachG');
 });
 
-
+// G-Coach
+app.get('/editor', function(req, res) {
+	res.render('pages/editor');
+});
 
 // Registra una leccion coach a 
 app.post('/registrarA', urlencodedParser, function(req, res){
@@ -111,7 +112,7 @@ app.post('/registrarA', urlencodedParser, function(req, res){
 
 // Registra una leccion G-Coach 
 app.post('/registrarG', urlencodedParser, function(req, res){
-
+	var registro = 0;
 	db.none('INSERT INTO leccion(titulo, explicacion, codigoEjemplo, enunciadoTarea, pruebas, tipoLeccion) VALUES($1, $2, $3, $4, $5, $6)'
 			, [req.body.titulo,req.body.explicacion, req.body.codigoEjemplo, req.body.enunciadoTarea, req.body.pruebas,2])
 	    .then(() => {
@@ -126,6 +127,5 @@ app.post('/registrarG', urlencodedParser, function(req, res){
 		});		
 });
 
-
 app.listen(8080);
-console.log('8080 is the magic port');
+console.log('Servidor en puerto 8080');
