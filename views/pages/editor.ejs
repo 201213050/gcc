@@ -11,71 +11,60 @@
 		<header>
             <% include ../partials/headerE %>
         </header>                
-        
-        <button class="btn btn-danger" onclick="nuevo('Archivo')">+</button>
+        <div class="custom-file">            
+            <input type ="file" id = "archivo" name= "archivo" onchange="nuevo()" class = "custom-file-input">            
+            <label class="custom-file-label" for="inputGroupFile01">Abrir Archivo</label>
+        </div>        
+          
+
+        <!--<button class="btn btn-danger" onclick="nuevo()">+</button>-->
 
 
         <nav id="archivos">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <!--
+                <!--                -->
               <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
               <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
               <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
-            -->
             </div>
-          </nav>
-          <div class="tab-content" >
-            <!--
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-            -->
-          </div>
+        </nav>
+        <div class="tab-content" id="tab-content"  >
+            <!--             -->     
+            <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <textarea id="AcercaDe" rows="8" name="AcercaDe">
 
-        <!-- Archivos 
-        <ol class="nav nav-tabs" id="archivos1" role="tablist">
-            <li class="nav-titulo">
-                <a class="nav-item nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Home</a>
-            </li>
-            <li class="nav-titulo">
-                <a class="nav-item nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-            </li>
-            <li class="nav-titulo">
-                <a class="nav-item nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-            </li>
-        </ol>
-        <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </textarea>                
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><a href="#">XXXX</a></div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><h1>Que onda</h1></div>   
         </div>
-        -->
-
-
-
     </body>
     <script>          
-        var cEditor = CodeMirror.fromTextArea(document.getElementById("code"), {
-          lineNumbers: true,
-          matchBrackets: true,
-          mode: "text/x-java"
-        });      
-
         
-        function nuevo(id) 
+        
+        /*document.getElementById('archivo')
+            .addEventListener('change', leerArchivo, false);        
+        */
+        
+        function nuevo() 
         {         
-                               
+            var path = document.getElementById('archivo').value;            
+            var partes = path.split("\\");
+            //alert(partes.length);
+            var sub = partes[2];
+            var subP = sub.split(".");
+            var id = subP[0];
             var nav = document.getElementById('nav-tab'); 
             //alert(list.className);              
             var titulo = document.createElement('a');
             titulo.className = "nav-item nav-link";
-            titulo.id = "nav-home-tab";
+            titulo.id = "nav-"+sub+"-tab";
             titulo.setAttribute("data-toggle","tab");
-            titulo.href="#nav-home";
+            titulo.setAttribute("href" , "#nav-" +sub );
             titulo.setAttribute("role","tab");
-            titulo.setAttribute("aria-controls","nav-home");
+            titulo.setAttribute("aria-controls","nav-"+id);
             titulo.setAttribute("aria-selected","true"); 
-            var textnode = document.createTextNode(id);
+            var textnode = document.createTextNode(sub);
             titulo.appendChild(textnode);
             //document.getElementById("titulo").appendChild(titulo);
             /*         
@@ -92,12 +81,64 @@
                     }                    
                 }            
             */            
-            nav.appendChild(titulo);    
+            nav.appendChild(titulo);       
+            
             
             // Ahora agregamos area de disposición 
             
-
+            //<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><a href="#">XXXX</a></div>
+            var contenido = document.getElementById('tab-content'); 
+            var cont = document.createElement('div');
+            cont.className = "tab-pane fade";
+            cont.id = 'nav-'+sub;
+            cont.setAttribute("role","tabpanel");
+            cont.setAttribute("aria-labelledby", "nav-"+sub+"-tab");
+            cont.setAttribute("aria-controls","nav-"+sub); 
+            cont.setAttribute("aria-selected","false");            
+            var editor = document.createElement('TEXTAREA');
+            editor.id = sub ;
+            editor.setAttribute("rows","8");
+            editor.value =sub;            
+            cont.appendChild(editor);
+            contenido.appendChild(cont);                             
+            //document.getElementsByTagName('body')[0].appendChild(cont);
+            prepararArea(sub);
 
         }      
+
+        function leerArchivo(e) 
+        {            
+            var archivo = e.target.files[0];
+            alert(archivo);
+            if (!archivo) {
+                return;
+            }
+            var lector = new FileReader();
+            lector.onload = function(e) 
+            {
+                var contenido = e.target.result;
+                mostrarContenido(contenido);
+            };
+            lector.readAsText(archivo);
+        }
+
+        function mostrarContenido(contenido) 
+        {
+            alert(contenido);
+            var elemento = document.getElementById('contenido-archivo');
+            elemento.innerHTML = contenido;
+        }
+
+        
+        function prepararArea(area)
+        {
+            var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
+            //var cEditor = CodeMirror.fromTextArea(area,
+            {
+            lineNumbers: true,
+            matchBrackets: true,
+            mode: "text/x-java"
+            });             
+        }                
     </script>  
 </html>
