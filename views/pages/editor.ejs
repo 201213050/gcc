@@ -82,28 +82,77 @@
                 }            
             */            
             nav.appendChild(titulo);       
-            
-            
-            // Ahora agregamos area de disposición 
-            
-            //<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><a href="#">XXXX</a></div>
-            var contenido = document.getElementById('tab-content'); 
-            var cont = document.createElement('div');
-            cont.className = "tab-pane fade";
-            cont.id = 'nav-'+sub;
-            cont.setAttribute("role","tabpanel");
-            cont.setAttribute("aria-labelledby", "nav-"+sub+"-tab");
-            cont.setAttribute("aria-controls","nav-"+sub); 
-            cont.setAttribute("aria-selected","false");            
+                        
+            // Ahora agregamos area de disposición                         
+            var contenedorPaginas = document.getElementById('tab-content');  // Tabla contenedora de archivos.
+            /*Pestaña contenedor de los elementos del archivo.*/
+            var contEdicion = document.createElement('div');
+            contEdicion.className = "tab-pane fade";
+            contEdicion.id = 'nav-'+sub;
+            contEdicion.setAttribute("role","tabpanel");
+            contEdicion.setAttribute("aria-labelledby", "nav-"+sub+"-tab");
+            contEdicion.setAttribute("aria-controls","nav-"+sub); 
+            contEdicion.setAttribute("aria-selected","false");
+            /*Contenedor de area de edicion, debuger y reportes.*/
+            var contenedor = document.createElement('div');
+            contenedor.className = "container";
+            /*Primer fila de la tabla*/
+            var contenedorTexto = document.createElement('div');
+            contenedorTexto.className = "row";
+            /*Primer columna Editor*/
+            var columnaEditor = document.createElement('div');
+            columnaEditor.className = "col-6";            
+            /*Segunda columna Debugger*/
+            var columnaDeb = document.createElement('div');
+            columnaDeb.className = "col-6";                
+            var contenedorEditor = document.createElement('div');
+            /*Editor de texto */
             var editor = document.createElement('TEXTAREA');
             editor.id = sub ;
             editor.setAttribute("rows","8");
-            editor.value =sub;            
-            cont.appendChild(editor);
-            contenido.appendChild(cont);                             
-            //document.getElementsByTagName('body')[0].appendChild(cont);
-            prepararArea(sub);
+            editor.value =sub;                                      
+            /*Editor de debugger*/
+            var editorD = document.createElement('TEXTAREA');
+            editorD.id = sub+"D" ;
+            editorD.setAttribute("rows","8");
+            editorD.value =sub+"Debugger";            
+            
+            columnaEditor.appendChild(editor);
+            columnaDeb.append(editorD);
+            
+            contenedorTexto.appendChild(columnaEditor);
+            contenedorTexto.appendChild(columnaDeb);
+            contenedor.appendChild(contenedorTexto);
+            contEdicion.appendChild(contenedor);
+            contenedorPaginas.appendChild(contEdicion);
 
+            prepararArea(editorD.id);
+            prepararArea(editor.id);
+
+            
+            /*
+                <div class="container">
+                <div class="row">
+                    <div class="col">
+                    1 of 2
+                    </div>
+                    <div class="col">
+                    2 of 2
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    1 of 3
+                    </div>
+                    <div class="col">
+                    2 of 3
+                    </div>
+                    <div class="col">
+                    3 of 3
+                    </div>
+                </div>
+                </div>            
+            */                           
         }      
 
         function leerArchivo(e) 
