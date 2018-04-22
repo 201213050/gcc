@@ -12,7 +12,7 @@
             <% include ../partials/headerE %>
         </header>                
         <div class="custom-file">            
-            <input type ="file" id = "archivo" name= "archivo" onchange="nuevo()" class = "custom-file-input">            
+            <input type ="file" id = "archivo" name= "archivo" class = "custom-file-input">            
             <label class="custom-file-label" for="inputGroupFile01">Abrir Archivo</label>
         </div>        
           
@@ -40,12 +40,15 @@
         </div>
     </body>
     <script>          
-        
-        
-        /*document.getElementById('archivo')
+        /*Agregamos el evento para preparar*/
+        document.getElementById('archivo')
+            .addEventListener('change', nuevo, false);    
+
+
+        /*Agregar evento al input file*/
+        document.getElementById('archivo')
             .addEventListener('change', leerArchivo, false);        
-        */
-        
+
         function nuevo() 
         {         
             var path = document.getElementById('archivo').value;            
@@ -116,8 +119,23 @@
             editorD.id = sub+"D" ;
             editorD.setAttribute("rows","8");
             editorD.value =sub+"Debugger";            
-            
+           
+            /*Titulo área de edicion*/
+            var tituloE = document.createElement('h2');
+            tituloE.className = "display-4";
+            var t1 = document.createTextNode("Editor");
+            tituloE.appendChild(t1);
+
+            /*Titulo área de debugger*/
+            var tituloD = document.createElement('h2');
+            tituloD.className = "display-4";
+            var t2 = document.createTextNode("Debugger");
+            tituloE.appendChild(t2);
+
+            //columnaEditor.appendChild(titulE);
             columnaEditor.appendChild(editor);
+
+            //columnaDeb.append(tituloD);
             columnaDeb.append(editorD);
             
             contenedorTexto.appendChild(columnaEditor);
@@ -126,45 +144,19 @@
             contEdicion.appendChild(contenedor);
             contenedorPaginas.appendChild(contEdicion);
 
-            prepararArea(editorD.id);
-            prepararArea(editor.id);
-
-            
-            /*
-                <div class="container">
-                <div class="row">
-                    <div class="col">
-                    1 of 2
-                    </div>
-                    <div class="col">
-                    2 of 2
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                    1 of 3
-                    </div>
-                    <div class="col">
-                    2 of 3
-                    </div>
-                    <div class="col">
-                    3 of 3
-                    </div>
-                </div>
-                </div>            
-            */                           
+            //prepararArea(editorD.id);
+            //prepararArea(editor.id);
+                             
         }      
 
         function leerArchivo(e) 
-        {            
-            var archivo = e.target.files[0];
-            alert(archivo);
+        {
+            var archivo = e.target.files[0];                           
             if (!archivo) {
                 return;
             }
             var lector = new FileReader();
-            lector.onload = function(e) 
-            {
+            lector.onload = function(e) {
                 var contenido = e.target.result;
                 mostrarContenido(contenido);
             };
@@ -173,9 +165,21 @@
 
         function mostrarContenido(contenido) 
         {
-            alert(contenido);
-            var elemento = document.getElementById('contenido-archivo');
-            elemento.innerHTML = contenido;
+            //alert(contenido);
+
+            /*Para buscar el editor adecuado*/
+            var path = document.getElementById('archivo').value;  
+            var partes = path.split("\\");
+            //alert(partes.length);
+            var sub = partes[2];
+            //alert('Buscando editor ' + sub);
+
+            var elemento = document.getElementById(sub);            
+            elemento.value = contenido;
+
+            prepararArea(sub);
+            prepararArea(sub+"D");
+            //elemento.innerHTML = contenido;
         }
 
         
