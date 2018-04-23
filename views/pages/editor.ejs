@@ -17,26 +17,17 @@
         </div>        
           
 
+
+       
+
         <!--<button class="btn btn-danger" onclick="nuevo()">+</button>-->
 
 
         <nav id="archivos">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <!--                -->
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
             </div>
         </nav>
-        <div class="tab-content" id="tab-content"  >
-            <!--             -->     
-            <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <textarea id="AcercaDe" rows="8" name="AcercaDe">
-
-                </textarea>                
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"><a href="#">XXXX</a></div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><h1>Que onda</h1></div>   
+        <div class="tab-content" id="tab-content"  >                                
         </div>
     </body>
     <script>          
@@ -99,9 +90,33 @@
             /*Contenedor de area de edicion, debuger y reportes.*/
             var contenedor = document.createElement('div');
             contenedor.className = "container";
-            /*Primer fila de la tabla*/
-            var contenedorTexto = document.createElement('div');
-            contenedorTexto.className = "row";
+            /*Primera fila de la tabla.*/
+            var filaTitulos = document.createElement('div');
+            filaTitulos.className = "row";
+            /*Titulo editor*/
+            var colTituloEditor = document.createElement('div');
+            colTituloEditor.className = "col-6";
+            var tituloEditor = document.createElement('h2');
+            tituloEditor.className = "display-3";        
+            tituloEditor.appendChild(document.createTextNode('Editor'));
+            
+            /*Titulo Debugger*/
+            var colTituloDeb = document.createElement('div');
+            colTituloDeb.className = "col-6";
+            var tituloDebo = document.createElement('h2');
+            tituloDebo.className = "display-3";        
+            tituloDebo.appendChild(document.createTextNode('Debugger'));            
+
+            /*Agregamos primer fila a la pestaña-*/            
+            colTituloEditor.appendChild(tituloEditor);
+            colTituloDeb.appendChild(tituloDebo);
+            filaTitulos.appendChild(colTituloEditor);
+            filaTitulos.appendChild(colTituloDeb);
+            contenedor.appendChild(filaTitulos);
+
+            /*Segunda fila de la tabla*/
+            var filaEditores = document.createElement('div');
+            filaEditores.className = "row";
             /*Primer columna Editor*/
             var columnaEditor = document.createElement('div');
             columnaEditor.className = "col-6";            
@@ -137,10 +152,94 @@
 
             //columnaDeb.append(tituloD);
             columnaDeb.append(editorD);
+
+
+            /*Fila de Salida consola----------------------------------------------------------------------*/
+            var filaSalida = document.createElement('div');
+            filaSalida.className = 'row';
+                
+            /*Tab pannel contenedor*/
+            var tabPannel = document.createElement('nav');
+            tabPannel.id = "Tab" + sub;
+
+            /*Navegador del tab*/
+            var navTab = document.createElement('div');
+            navTab.className = "nav nav-tabs";
+            navTab.id = "nav-tab-" + sub;
+            navTab.setAttribute("role","tablist");
+
+            /*Pestaña de tab*/
+            var contenedorSalida = document.createElement('div');
+            contenedorSalida.className = "tab-content";
+            contenedorSalida.id = "tab-content";
+
+            /*Titulos de las pestañas*/
+            /*Consola*/
+            var consolaTab = document.createElement('a');
+            consolaTab.className = "nav-item nav-link";
+            consolaTab.id = "nav-consola-" + sub +"tab";
+            consolaTab.setAttribute("data-toggle","tab");
+            consolaTab.setAttribute("href","#nav-" +sub+"Salida");
+            consolaTab.setAttribute("aria-controls","navSalida"+sub);
+            consolaTab.setAttribute("aria-selected","false");
+            consolaTab.appendChild(document.createTextNode('Salida'));
+
+            /*Contenedor salida*/
+            var contSalida = document.createElement('div');
+            contSalida.className = "tab-pane fade";
+            contSalida.id ="nav-" +sub+"Salida" //"navCont-"+sub;
+            contSalida.setAttribute("role","tabpanel");
+            contSalida.setAttribute("aria-labelledby","nav-"+sub+"tabSalida");
             
-            contenedorTexto.appendChild(columnaEditor);
-            contenedorTexto.appendChild(columnaDeb);
-            contenedor.appendChild(contenedorTexto);
+            /*Area de texto..*/            
+            var areaSalida = document.createElement('TEXTAREA');
+            areaSalida.id = sub ;
+            areaSalida.setAttribute("rows","8");
+            areaSalida.value = "Consola de salida";    
+            contSalida.appendChild(areaSalida);
+            
+            navTab.append(consolaTab);//Titulo Consola de salida
+            contenedorSalida.appendChild(contSalida);
+
+            tabPannel.appendChild(navTab);// Titulos Pestaña
+            tabPannel.appendChild(contenedorSalida);// Contenedor Pestaña
+            filaSalida.appendChild(tabPannel);
+
+
+
+            /*
+            <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+            </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home1" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile1" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                    </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home1" role="tabpanel" aria-labelledby="nav-home-tab">...1</div>
+                        <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab">...2</div>
+                        <div class="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">...3</div>
+                    </div>                
+                
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+            </div>           
+            */
+            
+            filaEditores.appendChild(columnaEditor);
+            filaEditores.appendChild(columnaDeb);
+            contenedor.appendChild(filaEditores);
+            contenedor.appendChild(filaSalida);
             contEdicion.appendChild(contenedor);
             contenedorPaginas.appendChild(contEdicion);
 
