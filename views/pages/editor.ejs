@@ -157,7 +157,12 @@
             /*Fila de Salida consola----------------------------------------------------------------------*/
             var filaSalida = document.createElement('div');
             filaSalida.className = 'row';
-                
+
+            var colConsola = document.createElement('div');
+            colConsola.className = "col-10";
+            
+            filaSalida.appendChild(colConsola);
+            
             /*Tab pannel contenedor*/
             var tabPannel = document.createElement('nav');
             tabPannel.id = "Tab" + sub;
@@ -173,6 +178,8 @@
             contenedorSalida.className = "tab-content";
             contenedorSalida.id = "tab-content";
 
+
+            /*-----------------Salida-----------------------------------*/ 
             /*Titulos de las pestañas*/
             /*Consola*/
             var consolaTab = document.createElement('a');
@@ -193,58 +200,165 @@
             
             /*Area de texto..*/            
             var areaSalida = document.createElement('TEXTAREA');
-            areaSalida.id = sub ;
+            areaSalida.id = sub + "Salida" ;
             areaSalida.setAttribute("rows","8");
             areaSalida.value = "Consola de salida";    
             contSalida.appendChild(areaSalida);
             
             navTab.append(consolaTab);//Titulo Consola de salida
-            contenedorSalida.appendChild(contSalida);
+            contenedorSalida.appendChild(contSalida); // Contenedor consola de salida
+
+            /*-----------------------Tablas de símbolos-----------------------------*/ 
+            /*Titulos de las pestañas*/
+            /*Consola*/
+            var salidaTab = document.createElement('a');
+            salidaTab.className = "nav-item nav-link";
+            salidaTab.id = "nav-simbolos-" + sub +"tab";
+            salidaTab.setAttribute("data-toggle","tab");
+            salidaTab.setAttribute("href","#nav-" +sub+"Simbolos");
+            salidaTab.setAttribute("aria-controls","navSimbolos"+sub);
+            salidaTab.setAttribute("aria-selected","false");
+            salidaTab.appendChild(document.createTextNode('Tabla símbolos'));
+
+            /*Contenedor Tabla de simbolos*/
+            var contSimbolos = document.createElement('div');
+            contSimbolos.className = "tab-pane fade";
+            contSimbolos.id ="nav-" +sub+"Simbolos" //"navCont-"+sub;
+            contSimbolos.setAttribute("role","tabpanel");
+            contSimbolos.setAttribute("aria-labelledby","nav-"+sub+"tabSalida");
+            
+            /*Area de Tabla de simbolos..*/            
+            var areaSimbolos = document.createElement('TEXTAREA');
+            areaSimbolos.id = sub + "Simbolos";
+            areaSimbolos.setAttribute("rows","8");
+            areaSimbolos.value = "Tabla simbolos "+ sub;    
+
+            var tablaStack = tablaSimbolos(sub + "Simbolos");
+            contSimbolos.appendChild(tablaStack);
+            
+            navTab.append(salidaTab);//Titulo Consola de salida
+            contenedorSalida.appendChild(contSimbolos); // Contenedor consola de salida   
+
+            /*------------------Errores :v----------------------------------*/ 
+            /*Titulos de las pestañas*/
+            /*Consola*/
+            var erroresTab = document.createElement('a');
+            erroresTab.className = "nav-item nav-link";
+            erroresTab.id = "nav-simbolos-" + sub +"tab";
+            erroresTab.setAttribute("data-toggle","tab");
+            erroresTab.setAttribute("href","#nav-" +sub+"Errores");
+            erroresTab.setAttribute("aria-controls","navSimbolos"+sub);
+            erroresTab.setAttribute("aria-selected","false");
+            erroresTab.appendChild(document.createTextNode('Errores'));
+
+            /*Contenedor Tabla de simbolos*/
+            var contErrores = document.createElement('div');
+            contErrores.className = "tab-pane fade";
+            contErrores.id ="nav-" +sub+"Errores" //"navCont-"+sub;
+            contErrores.setAttribute("role","tabpanel");
+            contErrores.setAttribute("aria-labelledby","nav-"+sub+"tabSalida");
+            
+            /*Area de Tabla de simbolos..*/            
+            var areaErrores = document.createElement('TEXTAREA');
+            var tablaError = tablaErrores(sub + "Errores");
+            areaErrores.id = sub + "Errores";
+            areaErrores.setAttribute("rows","8");
+            areaErrores.value = "Errores "+ sub;    
+            //contErrores.appendChild(areaErrores);
+            contErrores.appendChild(tablaError);
+            
+            navTab.append(erroresTab);//Titulo Errores
+            contenedorSalida.appendChild(contErrores); // Contenedor consola de Errores     
+            
+            /*------------------Stack :v----------------------------------*/ 
+            /*Titulos de las pestañas*/
+            /*Consola*/
+            var stackTab = document.createElement('a');
+            stackTab.className = "nav-item nav-link";
+            stackTab.id = "nav-simbolos-" + sub +"tab";
+            stackTab.setAttribute("data-toggle","tab");
+            stackTab.setAttribute("href","#nav-" +sub+"Stack");
+            stackTab.setAttribute("aria-controls","navSimbolos"+sub);
+            stackTab.setAttribute("aria-selected","false");
+            stackTab.appendChild(document.createTextNode('Stack'));
+
+            /*Contenedor Tabla de simbolos*/
+            var contStack = document.createElement('div');
+            contStack.className = "tab-pane fade";
+            contStack.id ="nav-" +sub+"Stack" //"navCont-"+sub;
+            contStack.setAttribute("role","tabpanel");
+            contStack.setAttribute("aria-labelledby","nav-"+sub+"tabSalida");
+            
+            /*Area de Tabla de simbolos..*/            
+            var areaStack = document.createElement('TEXTAREA');
+            areaStack.id = sub + "Stack";
+            areaStack.setAttribute("rows","8");
+            areaStack.value = "Stack "+ sub; 
+            
+            
+            
+            /*
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
+            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");            
+            */
+
+            contStack.appendChild(areaStack);
+            
+            navTab.append(stackTab);//Titulo Stack
+            contenedorSalida.appendChild(contStack); // Contenedor consola de Stack             
+                    
+
+            /*------------------Heap :v----------------------------------*/ 
+            /*Titulos de las pestañas*/
+            /*Consola*/
+            var heapTab = document.createElement('a');
+            heapTab.className = "nav-item nav-link";
+            heapTab.id = "nav-simbolos-" + sub +"tab";
+            heapTab.setAttribute("data-toggle","tab");
+            heapTab.setAttribute("href","#nav-" +sub+"Heap");
+            heapTab.setAttribute("aria-controls","navSimbolos"+sub);
+            heapTab.setAttribute("aria-selected","false");
+            heapTab.appendChild(document.createTextNode('Heap'));
+
+            /*Contenedor Tabla de simbolos*/
+            var contHeap = document.createElement('div');
+            contHeap.className = "tab-pane fade";
+            contHeap.id ="nav-" +sub+"Heap" //"navCont-"+sub;
+            contHeap.setAttribute("role","tabpanel");
+            contHeap.setAttribute("aria-labelledby","nav-"+sub+"tabSalida");
+            
+            /*Area de Tabla de simbolos..*/            
+            var areaHeap = document.createElement('TEXTAREA');
+            areaHeap.id = sub + "Heap";
+            areaHeap.setAttribute("rows","8");
+            areaHeap.value = "Heap"+ sub;    
+            contHeap.appendChild(areaHeap);
+            
+            navTab.append(heapTab);//Titulo Stack
+            contenedorSalida.appendChild(contHeap); // Contenedor consola de Stack                         
 
             tabPannel.appendChild(navTab);// Titulos Pestaña
             tabPannel.appendChild(contenedorSalida);// Contenedor Pestaña
-            filaSalida.appendChild(tabPannel);
+            colConsola.appendChild(tabPannel);
 
 
-
-            /*
-            <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
-            </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home1" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile1" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact1" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
-                    </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home1" role="tabpanel" aria-labelledby="nav-home-tab">...1</div>
-                        <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab">...2</div>
-                        <div class="tab-pane fade" id="nav-contact1" role="tabpanel" aria-labelledby="nav-contact-tab">...3</div>
-                    </div>                
-                
-                </div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-            </div>           
-            */
-            
             filaEditores.appendChild(columnaEditor);
             filaEditores.appendChild(columnaDeb);
             contenedor.appendChild(filaEditores);
-            contenedor.appendChild(filaSalida);
+            contenedor.appendChild(colConsola);
             contEdicion.appendChild(contenedor);
             contenedorPaginas.appendChild(contEdicion);
-
-            //prepararArea(editorD.id);
-            //prepararArea(editor.id);
                              
         }      
 
@@ -279,6 +393,11 @@
             prepararArea(sub);
             prepararArea(sub+"D");
             //elemento.innerHTML = contenido;
+            prepararArea(sub + "Salida");
+            //prepararArea(sub + "Simbolos");
+            //prepararArea(sub + "Errores");
+            prepararArea(sub + "Stack");
+            prepararArea(sub + "Heap");
         }
 
         
@@ -291,6 +410,119 @@
             matchBrackets: true,
             mode: "text/x-java"
             });             
-        }                
+        }                        
+
+        function tablaSimbolos(nombre)
+        {
+            var tabla = document.createElement('tab');
+            tabla.id = "tabla"+nombre;
+            tabla.className = "table table-sm table-dark";
+            //var theadT = document.createElement('thead');
+            //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
+            var encabezadoH  = document.createElement('thead');
+            var fila = document.createElement('tr');
+            var idL = document.createElement('th');
+            idL.appendChild(document.createTextNode('ID'));
+            var tipoL = document.createElement('th');
+            tipoL.appendChild(document.createTextNode('TIPO'));
+            var ambitoL = document.createElement('th');
+            ambitoL.appendChild(document.createTextNode('AMBITO'));
+            var posicionL = document.createElement('th');
+            posicionL.appendChild(document.createTextNode('POSICION'));                                    
+            var pesoL = document.createElement('th');
+            pesoL.appendChild(document.createTextNode('PESO'));            
+
+            encabezadoH.append(idL);
+            encabezadoH.append(tipoL);
+            encabezadoH.append(ambitoL);
+            encabezadoH.append(posicionL);
+            encabezadoH.append(pesoL);
+            tabla.appendChild(encabezadoH);
+            return tabla;
+                     
+        }
+
+
+
+        function tablaErrores(nombre)
+        {
+            var tabla = document.createElement('tab');
+            tabla.id = "tabla"+nombre;
+            tabla.className = "table table-sm table-dark";
+            //var theadT = document.createElement('thead');
+            //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
+            var encabezadoH  = document.createElement('thead');
+            var fila = document.createElement('tr');
+            var idL = document.createElement('th');
+            idL.appendChild(document.createTextNode('LINEA'));
+            var tipoL = document.createElement('th');
+            tipoL.appendChild(document.createTextNode('COLUMNA'));
+            var ambitoL = document.createElement('th');
+            ambitoL.appendChild(document.createTextNode('TIPO'));
+            var posicionL = document.createElement('th');
+            posicionL.appendChild(document.createTextNode('DESCRIPCION'));                                    
+         
+
+            encabezadoH.append(idL);
+            encabezadoH.append(tipoL);
+            encabezadoH.append(ambitoL);
+            encabezadoH.append(posicionL);            
+            tabla.appendChild(encabezadoH);
+            return tabla;
+                     
+        }
+
+        function agregarSimbolo(tabla, id, tipo, ambito, posicion, peso)
+        {
+            var theadT = document.createElement('thead');
+            var fila = document.createElement('tr');
+            var idT = document.createElement('th');
+            idT.appendChild(document.createTextNode(id));
+
+            var tipoT = document.createElement('th');
+            tipoT.appendChild(document.createTextNode(tipo));     
+
+            var ambitoT = document.createElement('th');
+            ambitoT.appendChild(document.createTextNode(ambito)); 
+
+            var posicionT = document.createElement('th');
+            posicionT.appendChild(document.createTextNode(posicion)); 
+
+            var pesoT = document.createElement('th');
+            pesoT.appendChild(document.createTextNode(peso)); 
+            
+            fila.appendChild(idT);
+            fila.appendChild(tipoT);
+            fila.appendChild(ambitoT);
+            fila.appendChild(posicionT);
+            fila.appendChild(pesoT);
+            theadT.appendChild(fila);
+            tabla.append(theadT);                    
+        }
+
+        function agregarError(tabla, linea, columna, tipo, descripcion)
+        {
+            var theadT = document.createElement('thead');
+            var fila = document.createElement('tr');
+            var idT = document.createElement('th');
+            idT.appendChild(document.createTextNode(linea));
+
+            var tipoT = document.createElement('th');
+            tipoT.appendChild(document.createTextNode(columna));     
+
+            var ambitoT = document.createElement('th');
+            ambitoT.appendChild(document.createTextNode(tipo)); 
+
+            var posicionT = document.createElement('th');
+            posicionT.appendChild(document.createTextNode(descripcion)); 
+            
+            fila.appendChild(idT);
+            fila.appendChild(tipoT);
+            fila.appendChild(ambitoT);
+            fila.appendChild(posicionT);            
+            theadT.appendChild(fila);
+            tabla.append(theadT);                    
+        }        
+
     </script>  
 </html>
