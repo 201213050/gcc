@@ -3,7 +3,7 @@
 <head>
 	<% include ../partials/head %>
 </head>
-	<body <!--class="container bg-info"--> >
+	<body  >
         <div class="text-center bg-danger text-white ">
             <h1>GCC Compiler</h1>
             <p>Participar en Lección</p> 
@@ -348,8 +348,7 @@
             tabPannel.appendChild(navTab);// Titulos Pestaña
             tabPannel.appendChild(contenedorSalida);// Contenedor Pestaña
             colConsola.appendChild(tabPannel);
-
-
+            
             filaEditores.appendChild(columnaEditor);
             filaEditores.appendChild(columnaDeb);
             contenedor.appendChild(filaEditores);
@@ -388,7 +387,7 @@
             elemento.value = contenido;
 
             prepararArea(sub);
-            prepararArea(sub+"D");
+            prepararAreaDebuger(sub+"D");
             //elemento.innerHTML = contenido;
             prepararArea(sub + "Salida");
             //prepararArea(sub + "Simbolos");
@@ -398,14 +397,14 @@
         }
 
         
-        function prepararArea(area)
+        function prepararArea(area, tipo)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
-            //var cEditor = CodeMirror.fromTextArea(area,
             {
                 lineNumbers: true,
                 matchBrackets: true,
-                mode: "text/x-java",
+                mode: "javascript",
+                inputStyle: "contenteditable",               
                 gutters: ["CodeMirror-linenumbers", "breakpoints"]
             });
             cEditor.on("gutterClick", function(cm, n) 
@@ -414,23 +413,40 @@
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
                 if(info.gutterMarkers == null)
                 {
-                    //alert('Agregar breakpoint ' +  obtenerActivo().substring(4, obtenerActivo().length-4));
                     agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4), n);
                 }
                 else
                 {
-                    //alert('Quitar breakpoint '+  obtenerActivo().substring(4, obtenerActivo().length-4));
                     quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4), n);
-                }
-
-                //listarBreakPoint();
-
-
-
-                
-                //alert("Puntos de detención en linea "+n + " archivo "+ obtenerActivo() ) ;                
+                }       
             });                
-        }                        
+        } 
+        
+        function prepararAreaDebuger(area, tipo)
+        {
+            var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
+            {
+                lineNumbers: true,
+                matchBrackets: true,
+                mode: "javascript",
+                inputStyle: "contenteditable",               
+                gutters: ["CodeMirror-linenumbers", "breakpoints"]
+            });
+            cEditor.on("gutterClick", function(cm, n) 
+            {
+                var info = cm.lineInfo(n);
+                cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
+                if(info.gutterMarkers == null)
+                {
+                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4) + "-D", n);
+                }
+                else
+                {
+                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4) + "-D", n);
+                }       
+            });                
+        }          
+
 
         function tablaSimbolos(nombre)
         {
