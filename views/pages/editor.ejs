@@ -3,7 +3,7 @@
 <head>
 	<% include ../partials/head %>
 </head>
-	<body class="container bg-info">
+	<body <!--class="container bg-info"--> >
         <div class="text-center bg-danger text-white ">
             <h1>GCC Compiler</h1>
             <p>Participar en Lección</p> 
@@ -14,7 +14,10 @@
         <div class="custom-file">            
             <input type ="file" id = "archivo" name= "archivo" class = "custom-file-input">            
             <label class="custom-file-label" for="inputGroupFile01">Abrir Archivo</label>
-        </div>        
+        </div>      
+        <select id="breakpoints" >
+
+        </select>  
           
 
 
@@ -24,13 +27,17 @@
 
 
         <nav id="archivos">
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
             </div>
         </nav>
         <div class="tab-content" id="tab-content"  >                                
         </div>
     </body>
-    <script>          
+    <script>  
+    
+        /*Lista de break points perros :vs*/
+        var breakPoints = {};
+
         /*Agregamos el evento para preparar*/
         document.getElementById('archivo')
             .addEventListener('change', nuevo, false);    
@@ -127,6 +134,7 @@
             /*Editor de texto */
             var editor = document.createElement('TEXTAREA');
             editor.id = sub ;
+           
             editor.setAttribute("rows","8");
             editor.value =sub;                                      
             /*Editor de debugger*/
@@ -297,21 +305,10 @@
             
             
             
-            /*
+            
             agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");            
-            */
+            agregarSimbolo(tablaStack,"var2","numero","metodo_1","1","1");
+
 
             contStack.appendChild(areaStack);
             
@@ -406,17 +403,41 @@
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
             //var cEditor = CodeMirror.fromTextArea(area,
             {
-            lineNumbers: true,
-            matchBrackets: true,
-            mode: "text/x-java"
-            });             
+                lineNumbers: true,
+                matchBrackets: true,
+                mode: "text/x-java",
+                gutters: ["CodeMirror-linenumbers", "breakpoints"]
+            });
+            cEditor.on("gutterClick", function(cm, n) 
+            {
+                var info = cm.lineInfo(n);
+                cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
+                if(info.gutterMarkers == null)
+                {
+                    //alert('Agregar breakpoint ' +  obtenerActivo().substring(4, obtenerActivo().length-4));
+                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4), n);
+                }
+                else
+                {
+                    //alert('Quitar breakpoint '+  obtenerActivo().substring(4, obtenerActivo().length-4));
+                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4), n);
+                }
+
+                //listarBreakPoint();
+
+
+
+                
+                //alert("Puntos de detención en linea "+n + " archivo "+ obtenerActivo() ) ;                
+            });                
         }                        
 
         function tablaSimbolos(nombre)
         {
             var tabla = document.createElement('tab');
-            tabla.id = "tabla"+nombre;
-            tabla.className = "table table-sm table-dark";
+            tabla.id = "tabla-"+nombre;
+            tabla.style = "width:100%";
+            tabla.className = "table table-striped table-bordered";
             //var theadT = document.createElement('thead');
             //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
             var encabezadoH  = document.createElement('thead');
@@ -430,7 +451,11 @@
             var posicionL = document.createElement('th');
             posicionL.appendChild(document.createTextNode('POSICION'));                                    
             var pesoL = document.createElement('th');
-            pesoL.appendChild(document.createTextNode('PESO'));            
+            pesoL.appendChild(document.createTextNode('PESO'));    
+            
+            var cuerpoTabla = document.createElement('tbody');
+            cuerpoTabla.id = "tabla"+nombre;
+
 
             encabezadoH.append(idL);
             encabezadoH.append(tipoL);
@@ -438,6 +463,7 @@
             encabezadoH.append(posicionL);
             encabezadoH.append(pesoL);
             tabla.appendChild(encabezadoH);
+            tabla.appendChild(cuerpoTabla);
             return tabla;
                      
         }
@@ -447,8 +473,9 @@
         function tablaErrores(nombre)
         {
             var tabla = document.createElement('tab');
-            tabla.id = "tabla"+nombre;
-            tabla.className = "table table-sm table-dark";
+            tabla.id = "tabla-"+nombre;
+            tabla.style = "width:100%";
+            tabla.className = "table table-striped table-bordered";
             //var theadT = document.createElement('thead');
             //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
             var encabezadoH  = document.createElement('thead');
@@ -462,12 +489,15 @@
             var posicionL = document.createElement('th');
             posicionL.appendChild(document.createTextNode('DESCRIPCION'));                                    
          
+            var cuerpoTabla = document.createElement('tbody');
+            cuerpoTabla.id = "tabla"+nombre;         
 
             encabezadoH.append(idL);
             encabezadoH.append(tipoL);
             encabezadoH.append(ambitoL);
             encabezadoH.append(posicionL);            
             tabla.appendChild(encabezadoH);
+            tabla.appendChild(cuerpoTabla);
             return tabla;
                      
         }
@@ -523,6 +553,65 @@
             theadT.appendChild(fila);
             tabla.append(theadT);                    
         }        
+
+
+        function makeMarker() {
+        var marker = document.createElement("div");
+        marker.style.color = "#822";
+        marker.innerHTML = "●";
+        return marker;
+        }      
+        
+        function obtenerActivo()
+        {
+            var navegador = document.getElementById('nav-tab');
+            //alert(navegador.childElementCount);
+            var archivos = navegador.childNodes;   
+            var activo = "" ;        
+            var i =0;
+            for(i = 0  ; i < archivos.length; i ++)
+            {
+                //alert('Archivo '+ archivos[i].className);
+                if(archivos[i].className == "nav-item nav-link active show")
+                {
+                    return archivos[i].id;
+                }
+            }
+            return activo;
+        }
+        function agregarBreakPoint(id, numero)
+        {
+            var lista = document.getElementById('breakpoints');
+            var punto = document.createElement('option');
+            punto.id = id + numero;
+            punto.value = numero
+            punto.appendChild(document.createTextNode(id));
+            lista.appendChild(punto);
+        }
+
+        function quitarBreakPoint(id, numero)
+        {
+            var punto  = document.getElementById(id+numero);	
+            if (!punto){
+                //alert("El elemento selecionado no existe");
+            } else {
+                 var padre = punto.parentNode;
+                padre.removeChild(punto);
+            }
+
+        }
+
+        function listarBreakPoint()
+        {
+            
+            alert('Puntos '+ breakPoints.length);
+            /*breakPoints.forEach(element => 
+            {
+                alert('Punto '+element.id + " posicion " + element.numero);
+            });*/
+        }
+
+
 
     </script>  
 </html>
