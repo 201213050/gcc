@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-var bodyParser = require('body-parser');
+
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // Conexion con base de datos
@@ -11,10 +11,9 @@ var pgp = require("pg-promise")(/**/);
 var db = pgp("postgres://postgres:123@localhost:5432/gcc");
 app.use(express.static('views'));
 
-
 // set the view engine to ejs
 app.set('view engine', 'ejs');
-
+app.use(bodyParser.json());
 // use res.render to load up an ejs view file
 
 // index page 
@@ -108,6 +107,33 @@ app.post('/registrarA', urlencodedParser, function(req, res){
 		res.render('pages/coachA', {
 			registro: registro        	       
 		});	
+});
+
+
+
+// Registra una leccion coach a 
+app.post('/cargaMasiva', urlencodedParser, function(req, res){
+
+		//console.log(req.body.data);
+		var entrada = req.body.data;
+		var lecciones = entrada.split('{%');
+		console.log("Se encontraron " + lecciones.length + " lecciones.");
+		var i = 1;
+		for(i=1; i< lecciones.length; i ++)
+		{
+			console.log("---------------------");
+			console.log(lecciones[i]);
+
+			// Para capturar el titulo 
+			console.log(lecciones[i].toLowerCase());
+			var leccion= lecciones[i].toLowerCase();
+			var title = "";
+			//if(){}
+		}
+
+
+
+		res.sendStatus(200);
 });
 
 // Registra una leccion G-Coach 

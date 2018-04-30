@@ -429,16 +429,19 @@
                 lineNumbers: true,
                 matchBrackets: true,
                 mode: "javascript",
-                inputStyle: "contenteditable",               
+                inputStyle: "contenteditable",     
+                styleActiveLine: true,   
+                showCursorWhenSelecting : true,       
                 gutters: ["CodeMirror-linenumbers", "breakpoints"]
             });
             cEditor.on("gutterClick", function(cm, n) 
             {
-                var info = cm.lineInfo(n);
-                cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
+                var info = cm.lineInfo(n);                
+                cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());                
                 if(info.gutterMarkers == null)
                 {
                     agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4) + "-D", n);
+                    
                 }
                 else
                 {
@@ -630,4 +633,6 @@
 
 
     </script>  
+
+    
 </html>

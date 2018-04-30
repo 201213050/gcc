@@ -37,13 +37,98 @@
                         <textarea class="form-control" id="pruebas" name = "pruebas" rows="1" required="true"></textarea>
                       </div> 
                       <div class="form-group">    
-                        <button type="submit" class="btn btn-primary">Crear nueva lección</button>
-                        <a class="btn btn-primary" href ="/cargaMasiva">Carga masiva</a>                        
-                      </div>                       
+                        <button type="submit" class="btn btn-primary">Crear nueva lección</button>                                                                                                       
+                      </div>                                                 
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Carga Masiva</span>
+                          </div>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="archivo">
+                            <label class="custom-file-label" for="inputGroupFile01">Elegir archivo</label>
+                          </div>
+                        </div>                      
                     </form>           
                 </div>              
             </div>                                        
           </div>
         </div>            
     </body> 
+
+  <script>
+        /*Agregar evento al input file*/
+        document.getElementById('archivo')
+            .addEventListener('change', leerArchivo, false);     
+        function leerArchivo(e) 
+        {
+          var archivo = e.target.files[0];                           
+          if (!archivo) 
+          {
+              return;
+          }
+          var lector = new FileReader();
+          lector.onload = function(e)
+          {
+              var contenido = e.target.result;
+              //mostrarContenido(contenido);
+
+              var data = new FormData();
+              data.append('data', contenido);             
+              enviarPeticion(contenido);
+          };
+            lector.readAsText(archivo);
+        }
+
+        function mostrarContenido(contenido) 
+        {
+          enviarPeticion();
+        }  
+
+      var http_request = false;
+
+      function enviarPeticion(data) {
+
+          var url = '/cargaMasiva';
+          http_request = false;
+
+          if (window.XMLHttpRequest) { 
+              http_request = new XMLHttpRequest();
+              if (http_request.overrideMimeType) {
+                  http_request.overrideMimeType('text/xml');
+                  // Ver nota sobre esta linea al final
+              }
+          } else if (window.ActiveXObject) { // IE
+              try {
+                  http_request = new ActiveXObject("Msxml2.XMLHTTP");
+              } catch (e) {
+                  try {
+                      http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                  } catch (e) {}
+              }
+          }
+
+          if (!http_request) {
+              alert('Falla :( No es posible crear una instancia XMLHTTP');
+              return false;
+          }
+
+
+          http_request.onreadystatechange = alertContents;
+          http_request.open('POST', url, true);
+          http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          http_request.send("data="+data);
+
+      }
+
+      function alertContents() {
+
+          if (http_request.readyState == 4) {
+              if (http_request.status == 200) {
+                  alert(http_request.responseText);
+              } else {
+                  alert('Hubo problemas con la petición.');
+              }
+          }
+      }         
+  </script>  
 </html>

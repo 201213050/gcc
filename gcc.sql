@@ -37,7 +37,7 @@ select * from leccion;
 
 select leccion.codigoLeccion as codigo, leccion.titulo, tipoLeccion.nombre as tipo
 from leccion 
-inner join tipoLeccion on leccion.tipoLeccion = tipoLeccion.codigoTipoLeccion;
+inner join tipoLeccion on leccion.tipoLeccion = tipoLeccion.codigoTipoLeccion order by codigo;
 
 insert into leccion(titulo, explicacion, codigoEjemplo, enunciadoTarea, pruebas, tipoLeccion) values
 	('Lección Polimorfismo', 'En este ejemplo explicaremos la sentencia if', 'if(true){imprimir("es verdadero");}', 'Se ingresa un número, si es mayor a 10 se imprime mensaje 1 si no, mensaje 2.', 'prueba(4) = false', 2);

@@ -1,25 +1,3 @@
 {%     
-    Título { If simple} 
-    Ejemplo 
-    { 
-        publico entero comparar(entero valor1, entero valor2)
-        {
-            si(valor1 == valor2)
-            {
-                es_verdadero
-                {
-                    retornar 1;
-                }
-                es_falso
-                {
-                    retornar 0;
-                }
-            }
-            retornar 0;             
-        }
-    } 
-    Tarea { Desarrollar una función que ingresando dos valores enteros devuelva un 1 sí los valores están entre 0 y 100 y 0 en caso contrario. } 
-    Descripción { La sentencia de control if permite verificar una expresión booleana y ejecutar un conjunto de sentencias en caso de ser verdadero u otro en caso de ser 
-    falso. }
-    Resultado {  }
+
 %}
