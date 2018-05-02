@@ -1,5 +1,5 @@
 {% 
-Tipo {A-Goach}
+Tipo {A-coach}
 Titulo { ----Tipos de ordenamientos} 
 descripcion {El siguiente algoritmo tomara una serie de números los cuales deberán ser ordenados de menor a mayor y el resultado deberá ser impreso en pantalla.} 
 Ejemplo { vacio burbuja( Entero numeros[])
@@ -21,10 +21,7 @@ Ejemplo { vacio burbuja( Entero numeros[])
         } 
     } 
 } 
-
-
 Resultado { burbuja_inverso("{10,43,34,15,89,90}") = {90,89,43,34,15,10} } 
-
 %}
 
 
@@ -52,7 +49,7 @@ Resultado { burbuja_inverso("{10,43,34,15,89,90}") = {90,89,43,34,15,10} }
     } 
     Tarea { Desarrollar una función llamada valor(entero valor) que ingresando dos valores enteros devuelva un 1 sí los valores están entre 0 y 100 y 0 en caso contrario. } 
     Resultado { valor(10) = 1 }
-    Tipo {G-Goach}
+    Tipo {G-coach}
 %}
 
 
@@ -80,35 +77,9 @@ Ejemplo { vacio burbuja( Entero numeros[])
 } 
 Tarea {Crear un método burbuja inverso, que reciba como parámetro un arreglo, el método deberá de devolver el arreglo en una cadena de texto, con los datos ordenados de mayor a menor.} 
 Resultado { burbuja_inverso({1,2,3,4,5,6}) = {6,5,4,3,2,1} } 
-Tipo {G-Goach}
+Tipo {G-coach}
 %}
 
-{% 
-Titulo {Ordenamiento 2} 
-descripcion {El siguiente algoritmo tomara una serie de números los cuales deberán ser ordenados de menor a mayor y el resultado deberá ser impreso en pantalla.} 
-Ejemplo { vacio burbuja( Entero numeros[])
-{ 
-    Entero aux; 
-    Para (entero i = 1 ; i < numeros.tamanio(); i++)
-    { 
-        Para (entero j = 0 ; j < numeros.tamanio() - i ; j++)
-        { 
-            Si( numeros[j] > numeros[j+1]) 
-            { 
-                Aux = numeros[j]; numeros[j] = numeros[j + 1] numeros[j+1] = Aux 
-            } 
-        } 
-    }
-    Para (entero i = 0 ; i < números.tamanio() ;i++)
-    { 
-        imprimir(números[i]); 
-        } 
-    } 
-} 
-Tarea {Crear un método burbuja inverso, que reciba como parámetro un arreglo, el método deberá de devolver el arreglo en una cadena de texto, con los datos ordenados de mayor a menor.} 
-Resultado { burbuja_inverso({99,98,97,96,95}) = {99,98,97,96,95} } 
-Tipo {G-Goach}
-%}
 
 
 {% 
@@ -135,7 +106,7 @@ Ejemplo { vacio burbuja( Entero numeros[])
 } 
 Tarea {Crear un método burbuja inverso, que reciba como parámetro un arreglo, el método deberá de devolver el arreglo en una cadena de texto, con los datos ordenados de mayor a menor.} 
 Resultado { burbuja_inverso3({99,98,97,96,95}) = {99,98,97,96,95} } 
-Tipo {G-Goach}
+Tipo {G-coach}
 %}
 
 
@@ -163,6 +134,33 @@ Ejemplo { vacio burbuja( Entero numeros[])
 } 
 Tarea {Crear un método burbuja inverso, que reciba como parámetro un arreglo, el método deberá de devolver el arreglo en una cadena de texto, con los datos ordenados de mayor a menor. :v :v y más :v} 
 Resultado { burbuja_inverso4({99,98,97,96,95}) = {99,98,97,96,95} } 
-Tipo {G-Goach}
+Tipo {G-coach}
 %}
 
+
+{% 
+Titulo {Ordenamiento 2} 
+descripcion {El siguiente algoritmo tomara una serie de números los cuales deberán ser ordenados de menor a mayor y el resultado deberá ser impreso en pantalla.} 
+Ejemplo { vacio burbuja( Entero numeros[])
+{ 
+    Entero aux; 
+    Para (entero i = 1 ; i < numeros.tamanio(); i++)
+    { 
+        Para (entero j = 0 ; j < numeros.tamanio() - i ; j++)
+        { 
+            Si( numeros[j] > numeros[j+1]) 
+            { 
+                Aux = numeros[j]; numeros[j] = numeros[j + 1] numeros[j+1] = Aux 
+            } 
+        } 
+    }
+    Para (entero i = 0 ; i < números.tamanio() ;i++)
+    { 
+        imprimir(números[i]); 
+        } 
+    } 
+} 
+Tarea {Crear un método burbuja inverso, que reciba como parámetro un arreglo, el método deberá de devolver el arreglo en una cadena de texto, con los datos ordenados de mayor a menor.} 
+Resultado { burbuja_inverso({99,98,97,96,95}) = {99,98,97,96,95} } 
+Tipo {G-coach}
+%}

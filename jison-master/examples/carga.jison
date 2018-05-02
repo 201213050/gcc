@@ -26,7 +26,7 @@
                 case "titulo":
                     this.titulo = valor;
                     break;
-                case "explicacion":
+                case "descripcion":
                     this.descripcion = valor;
                     break;
                 case "ejemplo":
@@ -35,14 +35,17 @@
                 case "resultado":
                     this.pruebas = valor;
                     break;
+                case "tarea":
+                    this.enunciadoTarea = valor;
+                    break;                    
                 case "tipo":
                     if(valor.toLowerCase() == "a-coach")
                     {
-                        this.tipo = 2;
+                        this.tipoLeccion = 2;
                     }
                     if(valor.toLowerCase() == "g-coach")
                     {
-                        this.tipo = 1;
+                        this.tipoLeccion = 1;
                     }                    
                     break;                                                                                
             }
@@ -58,16 +61,22 @@
 %s LECCION CUERPO CONTENIDO
 
 %%
+inicio        this.begin('INITIAL');
 
-\s+                   /* skip whitespace */
-
-"{%"                  
+<INITIAL>\s+               
+                    %{ 
+                        //console.log("ESPACIO EN BLANCO :V");                      
+                    %}
+<INITIAL>"{%"                  
                     %{ 
                         this.begin('LECCION');  
                         console.log("|--|\t"+yytext);                      
                         return 'IL';
-                    %}
-<LECCION>"\s+"      %{%}              
+                    %}      
+<LECCION>\s+     
+                    %{ 
+                        //console.log("ESPACIO EN BLANCO :V");                      
+                    %}                        
 <LECCION>"titulo"  
                     %{
                         this.begin('CUERPO');    
@@ -110,8 +119,11 @@
                         console.log("|--|\t"+yytext);                         
                         return 'FL';
                     %}  
-<LECCION>.          return 'INVALID' 
-<CUERPO>"\s+"      %{%}    
+<LECCION>.          return 'INVALID'    
+<CUERPO>\s+     
+                    %{ 
+                        //console.log("ESPACIO EN BLANCO :V");                      
+                    %} 
 <CUERPO>"{"         
                     %{
                         this.begin('CONTENIDO'); 
@@ -127,16 +139,13 @@
 <CUERPO>.           
                     %{
                         return 'INVALID';
-                    %}
-
-<CONTENIDO>"\n"     %{ 
-                        cadena = cadena + yytext;
-                    %}
-                   
+                    %} 
+<CONTENIDO>\s+     
+                    %{ 
+                        cadena = cadena + yytext;                    
+                    %}                                                                  
 <CONTENIDO>.
-                    %{
-                                               
-
+                    %{                                            
                         if(yytext == "}")
                         {
                             contador = contador - 1;
@@ -176,29 +185,32 @@
 
 %% /* language grammar */
 
-LECCION
-    : LECCION1 LECCION
+LECCION :  LECCIONES EOF { return $1;};
+
+
+LECCIONES
+    : LECCIONES LECCION1
                 {                 
-                var lecciones = $2;    
-                lecciones.push($1[0]);
-                $$ = lecciones;
-                return $$;                
+                    var lecciones = $1;  
+                    var lecciones2 = $2;
+                    lecciones.push(lecciones2);
+                    $$ = lecciones;
                 }    
-    | LECCION1 EOF   
+    | LECCION1 
                 {                 
-                var lecciones = [];    
-                lecciones.push($1);
-                $$ = lecciones;
-                }    
-    | LECCION1 {                 
-                var lecciones = [];    
-                lecciones.push($1);
-                $$ = lecciones;                
+                    var lecciones = []; 
+                    lecciones.push($1);
+                    $$ = lecciones;                
                 }     
     ;
 
 LECCION1 
-    : IL CONTENIDO FL { $$ = $2;};
+    : IL CONTENIDO FL 
+                    { 
+                        console.log("---------LECCION------------");
+                        console.log($2);
+                        $$ = $2;
+                    };
 
 CONTENIDO
     : CONTENIDO1 CONTENIDO

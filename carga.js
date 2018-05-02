@@ -72,41 +72,41 @@
   }
 */
 var carga = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,3],$V1=[1,9],$V2=[1,10],$V3=[1,11],$V4=[1,12],$V5=[1,13],$V6=[1,14];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[5,7],$V2=[1,10],$V3=[1,11],$V4=[1,12],$V5=[1,13],$V6=[1,14],$V7=[1,15];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"LECCION":3,"LECCION1":4,"EOF":5,"IL":6,"CONTENIDO":7,"FL":8,"CONTENIDO1":9,"ATRIB":10,"AP":11,"VALOR":12,"CP":13,"TITULO":14,"DESCRIPCION":15,"EJEMPLO":16,"TAREA":17,"RESULTADO":18,"TIPO":19,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",6:"IL",8:"FL",11:"AP",12:"VALOR",13:"CP",14:"TITULO",15:"DESCRIPCION",16:"EJEMPLO",17:"TAREA",18:"RESULTADO",19:"TIPO"},
-productions_: [0,[3,2],[3,2],[3,1],[4,3],[7,2],[7,1],[9,4],[10,1],[10,1],[10,1],[10,1],[10,1],[10,1]],
+symbols_: {"error":2,"LECCION":3,"LECCIONES":4,"EOF":5,"LECCION1":6,"IL":7,"CONTENIDO":8,"FL":9,"CONTENIDO1":10,"ATRIB":11,"AP":12,"VALOR":13,"CP":14,"TITULO":15,"DESCRIPCION":16,"EJEMPLO":17,"TAREA":18,"RESULTADO":19,"TIPO":20,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"IL",9:"FL",12:"AP",13:"VALOR",14:"CP",15:"TITULO",16:"DESCRIPCION",17:"EJEMPLO",18:"TAREA",19:"RESULTADO",20:"TIPO"},
+productions_: [0,[3,2],[4,2],[4,1],[6,3],[8,2],[8,1],[10,4],[11,1],[11,1],[11,1],[11,1],[11,1],[11,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
-                 
-                var lecciones = $$[$0];    
-                lecciones.push($$[$0-1][0]);
-                this.$ = lecciones;
-                return this.$;                
-                
+ return $$[$0-1];
 break;
 case 2:
                  
-                var lecciones = [];    
-                lecciones.push($$[$0-1]);
-                this.$ = lecciones;
+                    var lecciones = $$[$0-1];  
+                    var lecciones2 = $$[$0];
+                    lecciones.push(lecciones2);
+                    this.$ = lecciones;
                 
 break;
 case 3:
                  
-                var lecciones = [];    
-                lecciones.push($$[$0]);
-                this.$ = lecciones;                
+                    var lecciones = []; 
+                    lecciones.push($$[$0]);
+                    this.$ = lecciones;                
                 
 break;
 case 4:
- this.$ = $$[$0-1];
+ 
+                        console.log("---------LECCION------------");
+                        console.log($$[$0-1]);
+                        this.$ = $$[$0-1];
+                    
 break;
 case 5:
         
@@ -135,8 +135,8 @@ this.$ = $$[$0];
 break;
 }
 },
-table: [{3:1,4:2,6:$V0},{1:[3]},{1:[2,3],3:4,4:2,5:[1,5],6:$V0},{7:6,9:7,10:8,14:$V1,15:$V2,16:$V3,17:$V4,18:$V5,19:$V6},{1:[2,1]},{1:[2,2]},{8:[1,15]},{7:16,8:[2,6],9:7,10:8,14:$V1,15:$V2,16:$V3,17:$V4,18:$V5,19:$V6},{11:[1,17]},{11:[2,8]},{11:[2,9]},{11:[2,10]},{11:[2,11]},{11:[2,12]},{11:[2,13]},o([1,5,6],[2,4]),{8:[2,5]},{12:[1,18]},{13:[1,19]},o([8,14,15,16,17,18,19],[2,7])],
-defaultActions: {4:[2,1],5:[2,2],9:[2,8],10:[2,9],11:[2,10],12:[2,11],13:[2,12],14:[2,13],16:[2,5]},
+table: [{3:1,4:2,6:3,7:$V0},{1:[3]},{5:[1,5],6:6,7:$V0},o($V1,[2,3]),{8:7,10:8,11:9,15:$V2,16:$V3,17:$V4,18:$V5,19:$V6,20:$V7},{1:[2,1]},o($V1,[2,2]),{9:[1,16]},{8:17,9:[2,6],10:8,11:9,15:$V2,16:$V3,17:$V4,18:$V5,19:$V6,20:$V7},{12:[1,18]},{12:[2,8]},{12:[2,9]},{12:[2,10]},{12:[2,11]},{12:[2,12]},{12:[2,13]},o($V1,[2,4]),{9:[2,5]},{13:[1,19]},{14:[1,20]},o([9,15,16,17,18,19,20],[2,7])],
+defaultActions: {5:[2,1],10:[2,8],11:[2,9],12:[2,10],13:[2,11],14:[2,12],15:[2,13],17:[2,5]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -306,7 +306,7 @@ parse: function parse(input) {
                 case "titulo":
                     this.titulo = valor;
                     break;
-                case "explicacion":
+                case "descripcion":
                     this.descripcion = valor;
                     break;
                 case "ejemplo":
@@ -315,14 +315,17 @@ parse: function parse(input) {
                 case "resultado":
                     this.pruebas = valor;
                     break;
+                case "tarea":
+                    this.enunciadoTarea = valor;
+                    break;                    
                 case "tipo":
                     if(valor.toLowerCase() == "a-coach")
                     {
-                        this.tipo = 2;
+                        this.tipoLeccion = 2;
                     }
                     if(valor.toLowerCase() == "g-coach")
                     {
-                        this.tipo = 1;
+                        this.tipoLeccion = 1;
                     }                    
                     break;                                                                                
             }
@@ -656,85 +659,91 @@ options: {"case-insensitive":true},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:/* skip whitespace */
+case 0:this.begin('INITIAL');
 break;
 case 1: 
+                        //console.log("ESPACIO EN BLANCO :V");                      
+                    
+break;
+case 2: 
                         this.begin('LECCION');  
                         console.log("|--|\t"+yy_.yytext);                      
-                        return 6;
+                        return 7;
                     
 break;
-case 2:
-break;
-case 3:
-                        this.begin('CUERPO');    
-                        console.log("|--|\t"+yy_.yytext);                                        
-                        return 14;
-                   
+case 3: 
+                        //console.log("ESPACIO EN BLANCO :V");                      
+                    
 break;
 case 4:
-                       this.begin('CUERPO');  
-                       console.log("|--|\t"+yy_.yytext);                                             
-                       return 15;
-                    
+                        this.begin('CUERPO');    
+                        console.log("|--|\t"+yy_.yytext);                                        
+                        return 15;
+                   
 break;
 case 5:
-                       this.begin('CUERPO'); 
-                       console.log("|--|\t"+yy_.yytext);                         
+                       this.begin('CUERPO');  
+                       console.log("|--|\t"+yy_.yytext);                                             
                        return 16;
                     
 break;
 case 6:
-                       this.begin('CUERPO');  
-                       console.log("|--|\t"+yy_.yytext);                        
+                       this.begin('CUERPO'); 
+                       console.log("|--|\t"+yy_.yytext);                         
                        return 17;
                     
 break;
 case 7:
-                       this.begin('CUERPO'); 
+                       this.begin('CUERPO');  
                        console.log("|--|\t"+yy_.yytext);                        
                        return 18;
                     
 break;
 case 8:
                        this.begin('CUERPO'); 
-                       console.log("|--|\t"+yy_.yytext);                      
-                       return 14;
+                       console.log("|--|\t"+yy_.yytext);                        
+                       return 19;
                     
 break;
 case 9:
-                        this.begin('INITIAL'); 
-                        console.log("|--|\t"+yy_.yytext);                         
-                        return 8;
+                       this.begin('CUERPO'); 
+                       console.log("|--|\t"+yy_.yytext);                      
+                       return 15;
                     
 break;
-case 10:return 'INVALID' 
+case 10:
+                        this.begin('INITIAL'); 
+                        console.log("|--|\t"+yy_.yytext);                         
+                        return 9;
+                    
 break;
-case 11:
+case 11:return 'INVALID'    
 break;
-case 12:
-                        this.begin('CONTENIDO'); 
-                        console.log("|--|\t"+yy_.yytext);
-                        return 11;                        
+case 12: 
+                        //console.log("ESPACIO EN BLANCO :V");                      
                     
 break;
 case 13:
-                        this.begin('LECCION'); 
+                        this.begin('CONTENIDO'); 
                         console.log("|--|\t"+yy_.yytext);
-                        return 13;                        
+                        return 12;                        
                     
 break;
 case 14:
+                        this.begin('LECCION'); 
+                        console.log("|--|\t"+yy_.yytext);
+                        return 14;                        
+                    
+break;
+case 15:
                         return 'INVALID';
                     
 break;
-case 15: 
-                        cadena = cadena + yy_.yytext;
+case 16: 
+                        cadena = cadena + yy_.yytext;                    
                     
 break;
-case 16:
-                                               
-
+case 17:                                            
                         if(yy_.yytext == "}")
                         {
                             contador = contador - 1;
@@ -747,7 +756,7 @@ case 16:
                                 cadena = "";
                                 contador = 0;                                
                                 this.begin('CUERPO');
-                                return 12;
+                                return 13;
                             }
                             cadena = cadena + yy_.yytext; 
                         } 
@@ -762,14 +771,14 @@ case 16:
                         }                                                                       
                     
 break;
-case 17:return 5
+case 18:return 5
 break;
-case 18:return 'INVALID'
+case 19:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/i,/^(?:\{%)/i,/^(?:\\s\+)/i,/^(?:titulo\b)/i,/^(?:descripcion\b)/i,/^(?:ejemplo\b)/i,/^(?:tarea\b)/i,/^(?:resultado\b)/i,/^(?:tipo\b)/i,/^(?:%\})/i,/^(?:.)/i,/^(?:\\s\+)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:.)/i,/^(?:\\n)/i,/^(?:.)/i,/^(?:$)/i,/^(?:.)/i],
-conditions: {"LECCION":{"rules":[0,1,2,3,4,5,6,7,8,9,10,17,18],"inclusive":true},"CUERPO":{"rules":[0,1,11,12,13,14,17,18],"inclusive":true},"CONTENIDO":{"rules":[0,1,15,16,17,18],"inclusive":true},"INITIAL":{"rules":[0,1,17,18],"inclusive":true}}
+rules: [/^(?:inicio\b)/i,/^(?:\s+)/i,/^(?:\{%)/i,/^(?:\s+)/i,/^(?:titulo\b)/i,/^(?:descripcion\b)/i,/^(?:ejemplo\b)/i,/^(?:tarea\b)/i,/^(?:resultado\b)/i,/^(?:tipo\b)/i,/^(?:%\})/i,/^(?:.)/i,/^(?:\s+)/i,/^(?:\{)/i,/^(?:\})/i,/^(?:.)/i,/^(?:\s+)/i,/^(?:.)/i,/^(?:$)/i,/^(?:.)/i],
+conditions: {"LECCION":{"rules":[0,3,4,5,6,7,8,9,10,11,18,19],"inclusive":true},"CUERPO":{"rules":[0,12,13,14,15,18,19],"inclusive":true},"CONTENIDO":{"rules":[0,16,17,18,19],"inclusive":true},"INITIAL":{"rules":[0,1,2,18,19],"inclusive":true}}
 });
 return lexer;
 })();
