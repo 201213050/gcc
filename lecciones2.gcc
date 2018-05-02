@@ -1,6 +1,5 @@
 {% 
 Tipo {A-Goach}
-tarea {Crear un metodo burbuja inverso, que reciba como parámetro un arreglo, el método deberá de devolver el arreglo en una cadena de texto, con los datos ordenados de mayor a menor.} 
 Titulo { ----Tipos de ordenamientos} 
 descripcion {El siguiente algoritmo tomara una serie de números los cuales deberán ser ordenados de menor a mayor y el resultado deberá ser impreso en pantalla.} 
 Ejemplo { vacio burbuja( Entero numeros[])

@@ -6,6 +6,48 @@
 %{
     var cadena = "";
     var contador = 0;
+
+    class Leccion
+    {
+        constructor() 
+        {
+            this.titulo = "";
+            this.descripcion = "";            
+            this.codigoEjemplo = "";
+            this.enunciadoTarea = "";
+            this.pruebas = "";
+            this.tipoLeccion = "";
+        }
+
+        setAtributo(atributo, valor)
+        {
+            switch(atributo.toLowerCase())
+            {
+                case "titulo":
+                    this.titulo = valor;
+                    break;
+                case "explicacion":
+                    this.descripcion = valor;
+                    break;
+                case "ejemplo":
+                    this.codigoEjemplo = valor;
+                    break;
+                case "resultado":
+                    this.pruebas = valor;
+                    break;
+                case "tipo":
+                    if(valor.toLowerCase() == "a-coach")
+                    {
+                        this.tipo = 2;
+                    }
+                    if(valor.toLowerCase() == "g-coach")
+                    {
+                        this.tipo = 1;
+                    }                    
+                    break;                                                                                
+            }
+        }
+    }
 %}
 
 
@@ -64,7 +106,7 @@
                     %}  
 <LECCION>"%}"                 
                     %{
-                        this.begin('YYINITIAL'); 
+                        this.begin('INITIAL'); 
                         console.log("|--|\t"+yytext);                         
                         return 'FL';
                     %}  
@@ -136,26 +178,55 @@
 
 LECCION
     : LECCION1 LECCION
-    | LECCION1
+                {                 
+                var lecciones = $2;    
+                lecciones.push($1[0]);
+                $$ = lecciones;
+                return $$;                
+                }    
+    | LECCION1 EOF   
+                {                 
+                var lecciones = [];    
+                lecciones.push($1);
+                $$ = lecciones;
+                }    
+    | LECCION1 {                 
+                var lecciones = [];    
+                lecciones.push($1);
+                $$ = lecciones;                
+                }     
     ;
 
 LECCION1 
-    : IL CONTENIDO FL;
+    : IL CONTENIDO FL { $$ = $2;};
 
 CONTENIDO
     : CONTENIDO1 CONTENIDO
-    | CONTENIDO1 ;
-
+                {        
+                    var leccionC = $2;    
+                    leccionC.setAtributo($1[0],$1[1]);
+                    $$ = leccionC;
+                }    
+    | CONTENIDO1 
+                {                               
+                    var leccion = new Leccion();
+                    leccion.setAtributo($1[0],$1[1]);
+                    $$ = leccion;
+                };
 CONTENIDO1
-    : ATRIB AP VALOR CP;
-
-
+    : ATRIB AP VALOR CP 
+                    {                               
+                        var atributo = [];
+                        atributo.push($1);
+                        atributo.push($3);
+                        $$ = atributo; 
+                    };
 
 ATRIB
-    :TITULO
-    |DESCRIPCION
-    |EJEMPLO
-    |TAREA  
-    |RESULTADO 
-    |TIPO;
+    :TITULO {$$ = $1;} 
+    |DESCRIPCION {$$ = $1;} 
+    |EJEMPLO {$$ = $1;} 
+    |TAREA  {$$ = $1;} 
+    |RESULTADO {$$ = $1;} 
+    |TIPO {$$ = $1;} ;
  

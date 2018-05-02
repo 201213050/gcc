@@ -73,7 +73,8 @@
               //mostrarContenido(contenido);
 
               var data = new FormData();
-              data.append('data', contenido);             
+              data.append('data', contenido); 
+              parseo(contenido);         
               enviarPeticion(contenido);
           };
             lector.readAsText(archivo);
@@ -81,6 +82,7 @@
 
         function mostrarContenido(contenido) 
         {
+            parseo(contenido);
           enviarPeticion();
         }  
 
@@ -129,6 +131,14 @@
                   alert('Hubo problemas con la petición.');
               }
           }
-      }         
+      }    
+      
+      function parseo(cadena)
+      {
+          var lecciones = carga.parse(cadena);
+          console.log(lecciones);
+      }
+
+
   </script>  
 </html>
