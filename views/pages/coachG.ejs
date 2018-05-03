@@ -117,7 +117,7 @@
           }
 
 
-          http_request.onreadystatechange = alertContents;
+          http_request.onreadystatechange = receptor;
           http_request.open('POST', url, true);
           http_request.setRequestHeader("Content-type", "application/json");
           http_request.setRequestHeader("dataType", "json");
@@ -126,7 +126,7 @@
 
       }
 
-      function alertContents() {
+      function receptor() {
 
           if (http_request.readyState == 4) {
               if (http_request.status == 200) {
@@ -141,7 +141,5 @@
       {
           var lecciones = carga.parse(cadena);
       }
-
-
   </script>  
 </html>

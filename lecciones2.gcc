@@ -22,7 +22,7 @@
         } 
     } 
     Resultado { burbuja_inverso("{10,43,34,15,89,90}") = {90,89,43,34,15,10} } 
-    Tarea { Desarrollar una función llamada valor(entero valor) que ingresando dos valores enteros devuelva un 1 sí los valores están entre 0 y 100 y 0 en caso contrario. } 
+    Tarea { Desarrollar una función llamada valor(entero valor) que ingresando dos valores enteros devuelva un 1 sí los valores están entre 0 y 100 y 0 en caso contrario. }
 %}
 
 

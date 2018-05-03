@@ -122,17 +122,12 @@ class Leccion
 		this.pruebas = "";
 		this.tipoLeccion = "";
 	}
-
 }
 
 // Registra una leccion coach a 
-app.post('/cargaMasiva', urlencodedParser, function(req, res){
-
-		
-		
+app.post('/cargaMasiva', urlencodedParser, function(req, res){			
 		console.log(req.body);
 		var lecciones = req.body;
-
 		for(var i = 0 ; i< lecciones.length ; i ++)
 		{
 			console.log(
@@ -145,18 +140,6 @@ app.post('/cargaMasiva', urlencodedParser, function(req, res){
 					lecciones[i].tipoLeccion)
 				);
 		}
-		
-		//var lecciones = JSON.parse(req.body);
-
-
-		//var  lecciones = JSON.parse(req.body);
-		//console.log(lecciones);
-		/*
-		for(var i = 0; i< lecciones.lenght; i ++)
-		{
-			var leccion = lecciones[i];			
-			console.log(leccion.titulo);
-		}*/		
 		res.sendStatus(200);
 });
 
