@@ -74,8 +74,10 @@
 
               var data = new FormData();
               data.append('data', contenido); 
-              parseo(contenido);         
-              enviarPeticion(contenido);
+              //parseo(contenido);         
+              var lecciones = carga.parse(contenido);
+              enviarPeticion(lecciones);
+              //enviarPeticion(contenido);
           };
             lector.readAsText(archivo);
         }
@@ -117,8 +119,10 @@
 
           http_request.onreadystatechange = alertContents;
           http_request.open('POST', url, true);
-          http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          http_request.send("data="+data);
+          http_request.setRequestHeader("Content-type", "application/json");
+          http_request.setRequestHeader("dataType", "json");
+          http_request.send(JSON.stringify(data));
+          //http_request.send(data);
 
       }
 
@@ -136,7 +140,6 @@
       function parseo(cadena)
       {
           var lecciones = carga.parse(cadena);
-          console.log(lecciones);
       }
 
 

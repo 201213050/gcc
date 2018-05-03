@@ -1,27 +1,28 @@
 {% 
-Tipo {A-coach}
-Titulo { ----Tipos de ordenamientos} 
-descripcion {El siguiente algoritmo tomara una serie de números los cuales deberán ser ordenados de menor a mayor y el resultado deberá ser impreso en pantalla.} 
-Ejemplo { vacio burbuja( Entero numeros[])
-{ 
-    Entero aux; 
-    Para (entero i = 1 ; i < numeros.tamanio(); i++)
+    Tipo {A-coach}
+    Titulo { ----Tipos de ordenamientos} 
+    descripcion {El siguiente algoritmo tomara una serie de números los cuales deberán ser ordenados de menor a mayor y el resultado deberá ser impreso en pantalla.} 
+    Ejemplo { vacio burbuja( Entero numeros[])
     { 
-        Para (entero j = 0 ; j < numeros.tamanio() - i ; j++)
+        Entero aux; 
+        Para (entero i = 1 ; i < numeros.tamanio(); i++)
         { 
-            Si( numeros[j] > numeros[j+1]) 
+            Para (entero j = 0 ; j < numeros.tamanio() - i ; j++)
             { 
-                Aux = numeros[j]; numeros[j] = numeros[j + 1] numeros[j+1] = Aux 
+                Si( numeros[j] > numeros[j+1]) 
+                { 
+                    Aux = numeros[j]; numeros[j] = numeros[j + 1] numeros[j+1] = Aux 
+                } 
+            } 
+        }
+        Para (entero i = 0 ; i < números.tamanio() ;i++)
+        { 
+            imprimir(números[i]); 
             } 
         } 
-    }
-    Para (entero i = 0 ; i < números.tamanio() ;i++)
-    { 
-        imprimir(números[i]); 
-        } 
     } 
-} 
-Resultado { burbuja_inverso("{10,43,34,15,89,90}") = {90,89,43,34,15,10} } 
+    Resultado { burbuja_inverso("{10,43,34,15,89,90}") = {90,89,43,34,15,10} } 
+    Tarea { Desarrollar una función llamada valor(entero valor) que ingresando dos valores enteros devuelva un 1 sí los valores están entre 0 y 100 y 0 en caso contrario. } 
 %}
 
 

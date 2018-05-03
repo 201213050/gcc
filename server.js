@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-
+var parser = require('json-parser');
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -111,28 +111,52 @@ app.post('/registrarA', urlencodedParser, function(req, res){
 
 
 
+class Leccion
+{
+	constructor() 
+	{
+		this.titulo = "";
+		this.descripcion = "";            
+		this.codigoEjemplo = "";
+		this.enunciadoTarea = "";
+		this.pruebas = "";
+		this.tipoLeccion = "";
+	}
+
+}
+
 // Registra una leccion coach a 
 app.post('/cargaMasiva', urlencodedParser, function(req, res){
 
-		//console.log(req.body.data);
-		var entrada = req.body.data;
-		var lecciones = entrada.split('{%');
-		console.log("Se encontraron " + lecciones.length + " lecciones.");
-		var i = 1;
-		for(i=1; i< lecciones.length; i ++)
+		
+		
+		console.log(req.body);
+		var lecciones = req.body;
+
+		for(var i = 0 ; i< lecciones.length ; i ++)
 		{
-			console.log("---------------------");
-			console.log(lecciones[i]);
-
-			// Para capturar el titulo 
-			console.log(lecciones[i].toLowerCase());
-			var leccion= lecciones[i].toLowerCase();
-			var title = "";
-			//if(){}
+			console.log(
+				registrarLeccion(
+					lecciones[i].titulo, 
+					lecciones[i].descripcion,
+					lecciones[i].codigoEjemplo, 
+					lecciones[i].enunciadoTarea,
+					lecciones[i].pruebas, 
+					lecciones[i].tipoLeccion)
+				);
 		}
+		
+		//var lecciones = JSON.parse(req.body);
 
 
-
+		//var  lecciones = JSON.parse(req.body);
+		//console.log(lecciones);
+		/*
+		for(var i = 0; i< lecciones.lenght; i ++)
+		{
+			var leccion = lecciones[i];			
+			console.log(leccion.titulo);
+		}*/		
 		res.sendStatus(200);
 });
 
@@ -152,6 +176,20 @@ app.post('/registrarG', urlencodedParser, function(req, res){
 			registro: registro        	       
 		});		
 });
+
+
+function registrarLeccion(titulo, explicacion, ejemplo, tarea, pruebas, tipo)
+{
+	db.none('INSERT INTO leccion(titulo, explicacion, codigoEjemplo, enunciadoTarea, pruebas, tipoLeccion) VALUES($1, $2, $3, $4, $5, $6)'
+			, [titulo, explicacion, ejemplo, tarea, pruebas, tipo])
+	    .then(() => {
+			return 1;
+	    })
+	    .catch(error => {
+	        return 0;
+	    });	
+}
+
 
 app.listen(8080);
 console.log('Servidor en puerto 8080');
