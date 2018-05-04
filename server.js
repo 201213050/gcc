@@ -190,6 +190,18 @@ app.post('/abrirArchivo', urlencodedParser, function(req, res){
 });
 
 
+// Registra una leccion G-Coach 
+app.post('/compilarEjemplo', urlencodedParser, function(req, res)
+{
+	//Sólo reenviamos la data.
+	var data = req.body.data;
+	res.render('pages/editor', 
+	{
+		codigo : data
+	});
+});
+
+
 function registrarLeccion(titulo, explicacion, ejemplo, tarea, pruebas, tipo)
 {
 	db.none('INSERT INTO leccion(titulo, explicacion, codigoEjemplo, enunciadoTarea, pruebas, tipoLeccion) VALUES($1, $2, $3, $4, $5, $6)'
