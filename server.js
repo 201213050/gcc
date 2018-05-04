@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var parser = require('json-parser');
+let lector = require('fs'); // Modulo para abrir archivos 
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -158,6 +159,34 @@ app.post('/registrarG', urlencodedParser, function(req, res){
 		res.render('pages/coachG', {
 			registro: registro        	       
 		});		
+});
+
+app.post('/abrirArchivo', urlencodedParser, function(req, res){
+
+	console.log(req.body.path);
+	
+	var path = req.body.path;
+
+	lector.readFile(path,'utf-8', (err,data)=>
+	{
+		if(err)
+		{
+			var result = {'estado': '0', 'archivo':path , 'contenido': ''};			
+			console.log(result.estado );
+			console.log(result.archivo);
+			res.jsonp(result);
+			//res.sendStatus(200);
+		}
+		else
+		{
+			var result = {'estado':1, 'archivo': path,'contenido':data};
+			console.log(result.estado );
+			console.log(result.archivo);			
+			
+			res.jsonp(result);
+			//res.sendStatus(200);
+		}
+	})	
 });
 
 

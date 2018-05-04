@@ -35,24 +35,40 @@
     </body>
     <script>  
     
+
+        
+        //var path = document.getElementById('archivo'); 
+        importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
+        
+        //nuevo();                 
+        //pedirArchivo('');
+
         /*Lista de break points perros :vs*/
         var breakPoints = {};
 
         /*Agregamos el evento para preparar*/
         document.getElementById('archivo')
-            .addEventListener('change', nuevo, false);    
+            .addEventListener('change', abrir, false);    
 
 
         /*Agregar evento al input file*/
         document.getElementById('archivo')
-            .addEventListener('change', leerArchivo, false);        
+            .addEventListener('change', abrirArchivo, false);        
 
-        function nuevo() 
-        {         
-            var path = document.getElementById('archivo').value;            
+
+        function abrir()
+        {
+            var path = document.getElementById('archivo').value;   
+            nuevo(path);
+        }
+
+        function nuevo(path) 
+        {   
+
+            //var path = document.getElementById('archivo').value;             
             var partes = path.split("\\");
             //alert(partes.length);
-            var sub = partes[2];
+            var sub = partes[partes.length-1];
             var subP = sub.split(".");
             var id = subP[0];
             var nav = document.getElementById('nav-tab'); 
@@ -82,8 +98,7 @@
                     }                    
                 }            
             */            
-            nav.appendChild(titulo);       
-                        
+            nav.appendChild(titulo);                               
             // Ahora agregamos area de disposición                         
             var contenedorPaginas = document.getElementById('tab-content');  // Tabla contenedora de archivos.
             /*Pestaña contenedor de los elementos del archivo.*/
@@ -358,7 +373,7 @@
                              
         }      
 
-        function leerArchivo(e) 
+        function abrirArchivo(e) 
         {
             var archivo = e.target.files[0];                           
             if (!archivo) {
@@ -371,6 +386,7 @@
             };
             lector.readAsText(archivo);
         }
+     
 
         function mostrarContenido(contenido) 
         {
@@ -395,6 +411,30 @@
             prepararArea(sub + "Stack");
             prepararArea(sub + "Heap");
         }
+
+
+        function mostrarContenido2(contenido, path) 
+        {
+            //alert(contenido);
+            var cont = JSON.parse(contenido);
+            /*Para buscar el editor adecuado*/             
+            var partes = path.split("\\");
+            //alert(partes.length);
+            var sub = partes[partes.length - 1];
+            //alert('Buscando editor ' + sub);
+
+            var elemento = document.getElementById(sub);            
+            elemento.value = cont.contenido;
+
+            prepararArea(sub);
+            prepararAreaDebuger(sub+"D");
+            //elemento.innerHTML = contenido;
+            prepararArea(sub + "Salida");
+            //prepararArea(sub + "Simbolos");
+            //prepararArea(sub + "Errores");
+            prepararArea(sub + "Stack");
+            prepararArea(sub + "Heap");
+        }        
 
         
         function prepararArea(area, tipo)
@@ -631,51 +671,23 @@
         }
 
 
-        /*Abrimos archivos importados desde archivo*/
-
-        function leerArchivo(e) 
-        {
-          var archivo = e.target.files[0];                           
-          if (!archivo) 
-          {
-              return;
-          }
-          var lector = new FileReader();
-          lector.onload = function(e)
-          {
-              var contenido = e.target.result;
-              //mostrarContenido(contenido);
-
-              var data = new FormData();
-              data.append('data', contenido); 
-              //parseo(contenido);         
-              var lecciones = carga.parse(contenido);
-              enviarPeticion(lecciones);
-              //enviarPeticion(contenido);
-          };
-            lector.readAsText(archivo);
-        }
-
-        function mostrarContenido(contenido) 
-        {
-            parseo(contenido);
-          enviarPeticion();
-        }  
-
+        /*Abrimos archivos importados desde archivo-------------------------------------------------------------*/
+        
       var http_request = false;
+      function abrirArchivo2(data) {
 
-      function enviarPeticion(data) {
-
-          var url = '/cargaMasiva';
+          var url = '/abrirArchivo'; // Este metodo devuelve 0 si no existe y un 1 si sí :v y la data ahuevos.
           http_request = false;
-
-          if (window.XMLHttpRequest) { 
+          if (window.XMLHttpRequest) 
+          { 
               http_request = new XMLHttpRequest();
-              if (http_request.overrideMimeType) {
-                  http_request.overrideMimeType('text/xml');
-                  // Ver nota sobre esta linea al final
+              if (http_request.overrideMimeType) 
+              {
+                  http_request.overrideMimeType('text/xml');                  
               }
-          } else if (window.ActiveXObject) { // IE
+          } 
+          else if (window.ActiveXObject) 
+          { 
               try {
                   http_request = new ActiveXObject("Msxml2.XMLHTTP");
               } catch (e) {
@@ -690,22 +702,32 @@
               return false;
           }
 
-
-          http_request.onreadystatechange = receptor;
+        
+          http_request.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {                    
+                    mostrarContenido2(this.responseText, data);
+                }                
+            };
           http_request.open('POST', url, true);
           http_request.setRequestHeader("Content-type", "application/json");
           http_request.setRequestHeader("dataType", "json");
-          http_request.send(JSON.stringify(data));
-          //http_request.send(data);
-
+          var path = {'path':data};
+          http_request.send(JSON.stringify(path)); 
       }
 
       function receptor() {
 
-          if (http_request.readyState == 4) {
-              if (http_request.status == 200) {
-                  alert(http_request.responseText);
-              } else {
+          
+          if (http_request.readyState == 4) 
+          {
+              if (http_request.status == 200) 
+              {
+                alert(http_request.body);                  
+              } 
+              else 
+              {
                   alert('Hubo problemas con la petición.');
               }
           }
@@ -714,7 +736,15 @@
       function parseo(cadena)
       {
           var lecciones = carga.parse(cadena);
-      }        
+      }  
+      
+      function importar(path)
+      {
+          /*Primero abrimos el archivo y lo mostramos :v qué pros+++:v*/
+        nuevo(path);
+        abrirArchivo2(path);
+        /*Ahora analizamos los archivos para generar sus salidas.*/
+      }
 
 
 
