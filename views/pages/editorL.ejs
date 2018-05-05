@@ -15,13 +15,11 @@
             <input type ="file" id = "archivo" name= "archivo" class = "custom-file-input">            
             <label class="custom-file-label" for="inputGroupFile01">Abrir Archivo</label>
         </div>      
+
+        
         <select id="breakpoints" >
-
-        </select>  
-          
-
-
-       
+        </select>                 
+        
 
         <!--<button class="btn btn-danger" onclick="nuevo()">+</button>-->
         <p id = "leccionI" name = "leccionI" hidden><%= leccion.path %></p>
@@ -38,7 +36,7 @@
 
         
         //var path = document.getElementById('archivo'); 
-        importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
+        //importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
         
         //nuevo();                 
         //pedirArchivo('');
@@ -440,10 +438,10 @@
         function prepararArea(area, tipo)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
-            {
+            {                 
                 lineNumbers: true,
                 matchBrackets: true,
-                mode: "javascript",
+                mode: "text/x-java",
                 inputStyle: "contenteditable",               
                 gutters: ["CodeMirror-linenumbers", "breakpoints"]
             });
