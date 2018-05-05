@@ -194,10 +194,12 @@ app.post('/abrirArchivo', urlencodedParser, function(req, res){
 app.post('/compilarEjemplo', urlencodedParser, function(req, res)
 {
 	//Sólo reenviamos la data.
-	var data = req.body.data;
-	res.render('pages/editor', 
+	var path = req.body.path;
+	var codigo = req.body.codigoEjemplo;
+	var data = {'codigo':codigo, 'path':path};
+	res.render('pages/editorL', 
 	{
-		codigo : data
+		leccion : data		
 	});
 });
 

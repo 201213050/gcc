@@ -24,7 +24,8 @@
        
 
         <!--<button class="btn btn-danger" onclick="nuevo()">+</button>-->
-
+        <p id = "leccionI" name = "leccionI" hidden><%= leccion.path %></p>
+        <textarea id = "codigoI" name = "codigoI" hidden><%= leccion.codigo %></textarea>
         <nav id="archivos">
             <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
             </div>
@@ -745,11 +746,43 @@
         /*Ahora analizamos los archivos para generar sus salidas.*/
       }
 
-        function leccion(path, contenido)
+      /*Lanzamos la aplicacion que estamos jalando desde el inicio*/
+
+        function mostrarContenido3(contenido, path) 
         {
-            nuevo(path);
-            mostrarContenido2(contenido, path);            
-        }
+            //alert(contenido);
+            /*Para buscar el editor adecuado*/             
+            var partes = path.split("\\");
+            //alert(partes.length);
+            var sub = partes[partes.length - 1];
+            //alert('Buscando editor ' + sub);
+
+            var elemento = document.getElementById(sub);            
+            elemento.value = contenido;
+
+            prepararArea(sub);
+            prepararAreaDebuger(sub+"D");
+            //elemento.innerHTML = contenido;
+            prepararArea(sub + "Salida");
+            //prepararArea(sub + "Simbolos");
+            //prepararArea(sub + "Errores");
+            prepararArea(sub + "Stack");
+            prepararArea(sub + "Heap");
+        }       
+
+
+    function leccion(path, contenido)
+    {
+        nuevo(path);
+        mostrarContenido3(contenido, path);            
+    }
+    inicio();
+    function inicio()
+    {
+        var pathI = document.getElementById("leccionI").innerText;
+        var codigoI = document.getElementById("codigoI").value;
+        leccion(pathI,codigoI);
+    }
 
 
     </script>  
