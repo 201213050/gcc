@@ -34,6 +34,9 @@ insert into tipoLeccion(codigoTipoLeccion,nombre) values (1,'G-Coach');
 insert into tipoLeccion(codigoTipoLeccion,nombre) values (2,'A-Coach');
 select * from tipoLeccion;
 select * from leccion;
+delete from leccion where codigoleccion< 55 ;
+ALTER SEQUENCE leccion_codigoLeccion_seq RESTART WITH 1;
+
 
 select leccion.codigoLeccion as codigo, leccion.titulo, tipoLeccion.nombre as tipo
 from leccion 

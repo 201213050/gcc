@@ -65,7 +65,7 @@
         var cEditor = CodeMirror.fromTextArea(document.getElementById("codigoEjemplo"), {
           lineNumbers: true,
           matchBrackets: true,
-          mode: "text/x-csrc"
+          mode: "text/x-csrc"          
         });             
         function busqueda() {
             var input, filtro, ul, li, a, i;
@@ -101,8 +101,6 @@
 	            }
         }
 
-
-
         function compilarEjemplo()
         {
           var titulo = document.getElementById("tituloLeccion").value;
@@ -117,9 +115,6 @@
             alert("Data: " + data + "\nStatus: " + status);
           });
         }
-
-
-
 
         $(document).ready(function(){
             $("botonEjemplo").click(function(){
