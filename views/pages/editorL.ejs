@@ -791,6 +791,7 @@
     /*Variables globales para el debuger */
     function debugear()
     {
+        posicionPuntos=0;
         var ul = document.getElementById('breakpoints');        
         var array = ul.getElementsByTagName("option"); 
         var li = quicksort(array);    
@@ -916,7 +917,7 @@
 
            }           
            lineas.childNodes[numero].className = "CodeMirror-activeline" ;
-           lineas.childNodes[numero].childNodes[0].className="CodeMirror-activeline-background CodeMirror-linebackground";
+           lineas.childNodes[numero].childNodes[0].className="CodeMirror-activeline-backgroundD CodeMirror-linebackground";
            alert('Siguiente');
         }
 
