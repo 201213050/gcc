@@ -32,12 +32,9 @@
         <div class="tab-content" id="tab-content"  >                                
         </div>
     </body>
-    <script>  
-    
-
-        
+    <script>
         //var path = document.getElementById('archivo'); 
-        importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
+        //importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
         
         //nuevo();                 
         //pedirArchivo('');
@@ -439,16 +436,16 @@
         function prepararArea(area, tipo)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
-            {
+            {                 
                 lineNumbers: true,
                 matchBrackets: true,
-                mode: "javascript",
-                inputStyle: "contenteditable",               
+                mode: "text/x-csrc",                
+                styleActiveLine: true,            
                 gutters: ["CodeMirror-linenumbers", "breakpoints"]
             });
             cEditor.on("gutterClick", function(cm, n) 
             {
-                var info = cm.lineInfo(n);
+                var info = cm.lineInfo(n);            
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
                 if(info.gutterMarkers == null)
                 {
@@ -457,7 +454,8 @@
                 else
                 {
                     quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4), n);
-                }       
+                }                       
+                //clearActiveLines(cm);
             });                
         } 
         
@@ -468,6 +466,7 @@
                 lineNumbers: true,
                 matchBrackets: true,
                 mode: "javascript",
+                showCursorWhenSelecting: true,
                 inputStyle: "contenteditable",     
                 styleActiveLine: true,   
                 showCursorWhenSelecting : true,       
@@ -479,12 +478,12 @@
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());                
                 if(info.gutterMarkers == null)
                 {
-                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4) + "-D", n);
+                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
                     
                 }
                 else
                 {
-                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4) + "-D", n);
+                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
                 }       
             });                
         }          
@@ -641,7 +640,7 @@
         {
             var lista = document.getElementById('breakpoints');
             var punto = document.createElement('option');
-            punto.id = id + numero;
+            punto.id = id +"-" +numero;
             punto.value = numero
             punto.appendChild(document.createTextNode(id));
             lista.appendChild(punto);
@@ -649,7 +648,7 @@
 
         function quitarBreakPoint(id, numero)
         {
-            var punto  = document.getElementById(id+numero);	
+            var punto  = document.getElementById(id+"-" +numero);	
             if (!punto){
                 //alert("El elemento selecionado no existe");
             } else {
@@ -689,7 +688,8 @@
           { 
               try {
                   http_request = new ActiveXObject("Msxml2.XMLHTTP");
-              } catch (e) {
+              } catch (e) 
+              {
                   try {
                       http_request = new ActiveXObject("Microsoft.XMLHTTP");
                   } catch (e) {}
@@ -745,10 +745,193 @@
         /*Ahora analizamos los archivos para generar sus salidas.*/
       }
 
-        function leccion(path, contenido)
+      /*Lanzamos la aplicacion que estamos jalando desde el inicio*/
+
+        function mostrarContenido3(contenido, path) 
         {
-            nuevo(path);
-            mostrarContenido2(contenido, path);            
+            //alert(contenido);
+            /*Para buscar el editor adecuado*/             
+            var partes = path.split("\\");
+            //alert(partes.length);
+            var sub = partes[partes.length - 1];
+            //alert('Buscando editor ' + sub);
+
+            var elemento = document.getElementById(sub);            
+            elemento.value = contenido;
+
+            prepararArea(sub);
+            prepararAreaDebuger(sub+"D");
+            //elemento.innerHTML = contenido;
+            prepararArea(sub + "Salida");
+            //prepararArea(sub + "Simbolos");
+            //prepararArea(sub + "Errores");
+            prepararArea(sub + "Stack");
+            prepararArea(sub + "Heap");
+        }       
+
+
+    function leccion(path, contenido)
+    {
+        nuevo(path);
+        mostrarContenido3(contenido, path);            
+    }
+    //inicio();
+    function inicio()
+    {
+        var pathI = document.getElementById("leccionI").innerText;
+        var codigoI = document.getElementById("codigoI").value;
+        leccion(pathI,codigoI);
+    }
+
+
+    /*Variables globales para el debuger */
+    var puntos = [];
+    var posicionPuntos = 0;
+    /*Variables globales para el debuger */
+    function debugear()
+    {
+        posicionPuntos=0;
+        var ul = document.getElementById('breakpoints');        
+        var array = ul.getElementsByTagName("option"); 
+        var li = quicksort(array);    
+        puntos = li;
+        /*
+                for (i = 0; i < li.length; i++) 
+                {
+                    var numero  = li[i].value;
+                    var archivo = li[i].id.split("-");
+                    debug(numero,archivo);                    
+                }
+        */
+    }
+
+    function siguientePunto()
+    {
+        var numero  = puntos[posicionPuntos].value;
+        var archivo = puntos[posicionPuntos].id.split("-");
+        debug(numero,archivo);        
+        posicionPuntos ++ ;
+    }
+
+        function quicksort(array) {
+            if (array.length <= 1) 
+            {
+                return array;
+            }
+
+            var pivot = array[0];            
+            var left = []; 
+            var right = [];
+
+            for (var i = 1; i < array.length; i++) 
+            {
+                //console.log(array[i].value +"<"+ pivot.value);
+                var item = array[i];
+                
+
+                if(parseInt(item.value) < parseInt(pivot.value))
+                {
+                    left.push(array[i]);
+                }
+                else
+                {
+                    right.push(array[i]);
+                }
+                //array[i].value < pivot.value ? left.push(array[i]) : right.push(array[i]);
+            }
+            
+            var l_ =quicksort(left); 
+            var r_ = quicksort(right);
+            l_.push(pivot);
+            for(i =0; i<r_.length;i++)
+            {
+                l_.push(r_[i]);
+            }
+            return l_;
+            //quicksort(left).concat(pivot, quicksort(right));
+        };
+
+
+        function filtro(tipo)
+        {
+	        	//alert(tipo);
+	            var input, filtro, ul, li, a, i;
+	            input = document.getElementById("entrada");
+	            filtro = tipo.toUpperCase();           
+	            ul = document.getElementById("listaLecciones");
+	            li = ul.getElementsByTagName("li");
+	            for (i = 0; i < li.length; i++) {
+	                a = li[i].getElementsByTagName("a")[0];
+	                if (a.innerHTML.toUpperCase().indexOf(filtro) > -1) {
+	                    li[i].style.display = "";
+	                } else {
+	                    li[i].style.display = "none";        
+	                }
+	            }
+        }    
+
+        function busqueda() {
+            var input, filtro, ul, li, a, i;
+            input = document.getElementById("entrada");
+            filtro = input.value.toUpperCase();
+            ul = document.getElementById("listaLecciones");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filtro) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";        
+                }
+            }
+        }   
+        
+        function debug(numero, archivo)
+        {
+            var nombre = "nav-"+archivo[0];
+            /*var area = document.getElementById(nombre).childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[5];
+            var lineas = area.childNodes[0].childNodes[0].childNodes[0].childNodes[0];*/
+            var area = document.getElementById(nombre).childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[5];
+            var lineas = area.childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[4];            
+            /*class="CodeMirror-activeline"
+            Hacemos un for para encontra la linea y se fue a la puta papu :v
+            */
+           var i = 0;        
+           for (i = 0; i < lineas.childElementCount; i++) 
+           {
+               /*if(lineas.childNodes[i].childElementCount == 4)
+               {
+                    lineas.childNodes[i].className="";
+                    lineas.childNodes[i](lineas.childNodes[i].childNodes[0]);
+                    lineas.childNodes[i](lineas.childNodes[i].childNodes[1]);
+                    lineas.childNodes[i].childNodes[2].className= "CodeMirror-gutter-wrapper";
+                    lineas.childNodes[i].childNodes[3].className= " CodeMirror-line " ;
+               }
+               else
+               {
+                */
+                    lineas.childNodes[i].childNodes[0].className= "CodeMirror-gutter-wrapper";
+                    lineas.childNodes[i].childNodes[1].className= " CodeMirror-line " ;                   
+               /*}*/
+
+           }           
+           lineas.childNodes[numero].className = "CodeMirror-activeline" ;
+           lineas.childNodes[numero].childNodes[0].className="CodeMirror-activeline-backgroundD CodeMirror-linebackground";
+           alert('Siguiente');
+        }
+
+
+
+        function compilar()
+        {
+
+            //alert(obtenerActivo());
+            var vector = obtenerActivo().split("-");
+            var contenedor =  document.getElementById(vector[1]);
+            //alert(contenedor.value);
+
+            //Enviamos el contenido para ser parseado.
+            Iniciar(contenedor.value);
         }
 
 
