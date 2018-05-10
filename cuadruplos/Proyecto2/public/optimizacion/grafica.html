@@ -1,0 +1,15 @@
+<md-content layout="column" flex ng-controller="graficaCtrl as main" layout-align="center">
+	<h2 align="center" style="color: blue;">Grafica de bloques simple</h2>
+	<hr/>
+	<div id="idDiv">
+		
+	</div ng-click="main.agregarGrafica()">
+
+	 <script>
+    
+    document.body.innerHTML += Viz("digraph { a -> b; }");
+    
+    </script>
+
+
+</md-content>

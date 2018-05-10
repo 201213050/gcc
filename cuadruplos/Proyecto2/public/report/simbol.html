@@ -1,0 +1,28 @@
+<md-content layout="column" flex ng-controller="simbolCtrl as main" layout-align="center">
+	<h2 align="center">{{main.tabla.titulo}}</h2>
+	<table align="center" >
+
+			<tr>
+				<th>indice</th>
+				<th>Nombre</th>
+				<th>Tipo</th>
+				<th>Ambito</th>
+				<th>Rol</th>
+				<th>Direccion</th>
+				<th>Tamaño</th>
+				<th>Dimension</th>
+				<th>Ref</th>
+			</tr>
+		<tr ng-repeat="simbolo in main.tabla.simbolos" ng-init="indice=$index" ng-class="{even: $even, odd: $odd}">
+			<td>{{indice}}</td>
+			<td>{{simbolo.nombre}}</td>
+			<td>{{simbolo.tipo}}</td>
+			<td>{{simbolo.ambito}}</td>
+			<td>{{simbolo.rol}}</td>
+			<td>{{simbolo.direccion}}</td>
+			<td>{{simbolo.tamanio}}</td>
+			<th>{{simbolo.dimension}}</th>
+			<th>{{simbolo.ref}}</th>
+		</tr>
+	</table>
+</md-content>

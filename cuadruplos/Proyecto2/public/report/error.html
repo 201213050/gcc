@@ -1,0 +1,21 @@
+<md-content layout="column" flex ng-controller="errorCtrl as main" layout-align="center">
+	<h2 align="center" style="color: red;">Errores</h2>
+	<hr/>
+	<table align="center" >
+
+			<tr>
+				<th>Indice</th>
+				<th>Tipo</th>
+				<th>Descripcion</th>
+				<th>Linea</th>
+				<th>Columna</th>
+			</tr>
+		<tr ng-repeat="error in main.errores" ng-init="indice=$index" ng-class="{even: $even, odd: $odd}">
+			<td>{{indice}}</td>
+			<td>{{error.tipo}}</td>
+			<td>{{error.descripcion}}</td>
+			<td>{{error.linea}}</td>
+			<td>{{error.columna}}</td>
+		</tr>
+	</table>
+</md-content>

@@ -1,0 +1,175 @@
+
+<div class="container" layout="column" flex layout-fill ng-controller="hard3DCtrl as main" ng-mouseleave="main.respaldarDatos()">
+  <md-toolbar class="md-hue-2">
+
+    <div class="md-toolbar-tools">
+
+      <md-button ng-href="">  
+        <md-icon md-svg-src="resouses/img/icons/debug.svg"></md-icon>
+        <md-tooltip>Debug</md-tooltip>
+        Debug
+      </md-button>
+
+      <md-button ng-href="#!/optimizacion" >  
+        <md-icon md-svg-src="resouses/img/icons/optimize.svg"></md-icon>
+        <md-tooltip>Optimizar</md-tooltip>
+        Optimizar
+      </md-button>
+
+
+      <md-menu >
+        <md-button  ng-mouseenter ="$mdMenu.open($event)">  
+          <md-icon md-svg-src="resouses/img/icons/reports.svg"></md-icon>
+          Reportes
+        </md-button>
+
+        <md-menu-content width="2" ng-mouseleave="$mdMenu.close()">
+          <md-menu-item>
+            <md-button md-prevent-menu-close="md-prevent-menu-close"  href="#!/simbol" class="md-primary md-hue-2"> 
+              <md-icon md-svg-src="resouses/img/icons/download.svg"></md-icon>
+              Tabla de Simbolos
+            </md-button>
+          </md-menu-item>
+
+          <md-menu-item>
+            <md-button md-prevent-menu-close="md-prevent-menu-close" href="#!/error"  class="md-primary md-hue-2"> 
+              <md-icon md-svg-src="resouses/img/icons/download.svg"></md-icon>
+              Errores
+            </md-button>
+          </md-menu-item>
+
+        </md-menu-content>
+
+      </md-menu>
+      <h3 md-truncate flex></h3>
+
+      <a href="#!/">
+        <md-tooltip>Ir a inicio</md-tooltip>
+        Basic3D
+      </a>
+      <small>-Edición Codigo3D</small>
+
+      <md-menu >
+      <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-mouseenter="$mdMenu.open()">
+        <md-icon md-menu-origin md-svg-icon="resouses/img/icons/edition.svg"></md-icon>
+      </md-button>
+      <md-menu-content width="2" ng-mouseleave="$mdMenu.close()">
+        <md-menu-item >
+          <md-button md-prevent-menu-close="md-prevent-menu-close" ng-href="#!/basic" class="md-primary md-hue-2">  
+            <md-icon md-svg-src="resouses/img/icons/basic.svg"></md-icon>
+            Basica  
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-item >
+          <md-button md-prevent-menu-close="md-prevent-menu-close" ng-href="#!/medium" class="md-primary md-hue-2"> 
+            <md-icon md-svg-src="resouses/img/icons/medium.svg"></md-icon>
+            Intermedia  
+          </md-button>
+        </md-menu-item>
+         <md-menu-item >
+          <md-button md-prevent-menu-close="md-prevent-menu-close" ng-href="#!/hard" class="md-primary md-hue-2">  
+            <md-icon md-svg-src="resouses/img/icons/hard.svg"></md-icon>
+            Avanzada
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+
+    </div>
+
+  </md-toolbar>
+  <md-content  flex layout="column" layout-align="center" class="md-padding">
+
+ 
+    <md-content flex layout="row" >
+
+        <!--drag and drop-->
+        <md-content  flex layout="column">
+          <md-content layout="row">
+            <h3  flex>Código 3 direcciones</h3>
+
+            <md-button class="md-fab md-mini md-primary md-hue-2" onclick  ="document.getElementById('archivo').click();">
+              <md-icon md-svg-src="resouses/img/icons/upload.svg"></md-icon>
+              <md-tooltip>Cargar</md-tooltip>
+            </md-button>  
+            <input type="file"  name="userfile" style="display:none;" ng-click="main.inicio()" id="archivo">
+            <md-button ng-click="main.descargarPrograma()"  class="md-fab md-mini md-hue-2" style="background-color: orange;"> 
+              <md-icon md-svg-src="resouses/img/icons/download.svg"></md-icon>
+              <md-tooltip>Descargar</md-tooltip>
+            </md-button>
+
+            <md-button ng-click="main.interpretar()" class="md-fab md-mini md-warn md-hue-2">  
+              <md-icon md-svg-src="resouses/img/icons/run.svg"></md-icon>
+              <md-tooltip>Ejecutar</md-tooltip>
+            </md-button>
+            
+            <md-button  onclick  ="cambiar()" class="md-fab md-mini md-primary md-hue-2">  
+              <md-icon md-svg-src="resouses/img/icons/debug.svg"></md-icon>
+              <md-tooltip>Debug</md-tooltip>
+            </md-button>
+
+           
+
+            <div flex="5"></div>
+
+          </md-content>
+
+
+          <div flex >
+            <form action="debugger" method="post" layout-fill target="_blank">
+            <textarea id="editorCodigo3D" name="editorCodigo3D" ng-mouseleave="main.respaldarDatos()"  ng-model="main.txtCodigo3D" flex="95"  class="textArea">
+            
+            </textarea>
+              <input type="submit" id="enviarCodigo3D" style="display:none;">
+            </form>
+          </div> 
+        </md-content>
+
+        <!--salida codigo 3d-->
+        <md-content  flex layout="column">
+
+          <md-content layout="row">
+            <h3 flex-offset="5" flex>Consola</h3>
+
+            <md-button class="md-fab md-mini md-primary md-hue-2" onclick  ="document.getElementById('archivo').click();">
+              <md-icon md-svg-src="resouses/img/icons/upload.svg"></md-icon>
+              <md-tooltip>Cargar</md-tooltip>
+            </md-button>  
+
+            <md-button ng-click="main.descargarEstructuras()"  class="md-fab md-mini md-hue-2" style="background-color: orange;"> 
+              <md-icon md-svg-src="resouses/img/icons/download.svg"></md-icon>
+              <md-tooltip>Descargar</md-tooltip>
+            </md-button>
+
+          </md-content>
+
+          <div flex>
+            <textarea id="editorConsola" ng-model="main.txtConsola" flex="95" flex-offset="5" class="textArea">
+
+            </textarea>
+          </div> 
+        </md-content>
+
+
+    </md-content>
+
+  </md-content>
+        
+</div>
+
+<!--
+Incorporacion de blockly
+-->
+
+
+
+
+
+
+
+
+
+
+
+

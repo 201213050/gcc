@@ -1,0 +1,146 @@
+
+<div layout="column" layout-fill ng-controller="mediumCtrl as main">
+  <md-toolbar class="md-hue-2">
+
+    <div class="md-toolbar-tools">
+
+      <md-button ng-href="">  
+        <md-icon md-svg-src="resouses/img/icons/debug.svg"></md-icon>
+        <md-tooltip>Debug</md-tooltip>
+        Debug
+      </md-button>
+
+      <md-button ng-href="">  
+        <md-icon md-svg-src="resouses/img/icons/optimize.svg"></md-icon>
+        <md-tooltip>Optimizar</md-tooltip>
+        Optimizar
+      </md-button>
+
+      <md-button ng-href="">  
+        <md-icon md-svg-src="resouses/img/icons/reports.svg"></md-icon>
+        <md-tooltip>Reportes</md-tooltip>
+        Reportes
+      </md-button>
+      <h3 md-truncate flex></h3>
+
+      <a href="#!/">
+        <md-tooltip>Ir a inicio</md-tooltip>
+        Basic3D
+      </a>
+      <small>-Edición intermedia</small>
+
+      <md-menu >
+      <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-mouseenter="$mdMenu.open()">
+        <md-icon md-menu-origin md-svg-icon="resouses/img/icons/edition.svg"></md-icon>
+      </md-button>
+      <md-menu-content width="2" ng-mouseleave="$mdMenu.close()">
+        <md-menu-item >
+          <md-button ng-href="#!/basic" class="md-primary md-hue-2">  
+            <md-icon md-svg-src="resouses/img/icons/basic.svg"></md-icon>
+            Basica  
+          </md-button>
+        </md-menu-item>
+
+        <md-menu-item >
+          <md-button ng-href="#!/medium" class="md-primary md-hue-2"> 
+            <md-icon md-svg-src="resouses/img/icons/medium.svg"></md-icon>
+            Intermedia  
+          </md-button>
+        </md-menu-item>
+         <md-menu-item >
+          <md-button ng-href="#!/hard" class="md-primary md-hue-2">  
+            <md-icon md-svg-src="resouses/img/icons/hard.svg"></md-icon>
+            Avanzada
+          </md-button>
+        </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+
+    </div>
+
+  </md-toolbar>
+  <md-content  flex layout="column" layout-align="center" class="md-padding">
+
+ 
+    <md-content flex layout="row" >
+
+        <!--drag and drop-->
+        <div flex id="workspaceMedium">
+          
+        </div>
+
+        <!--salida codigo 3d-->
+        <div  flex layout="column">
+          <md-content layout="row">
+
+           
+
+         <md-input-container flex-offset="5">
+          <label>Funciones</label>
+          <md-select ng-model="funcionSeleccionada" ng-mouseenter="actualizar()" ng-change="mostrarFuncion()">
+           
+            <md-option ng-repeat="funcion in funciones" ng-value="funcion">
+              {{funcion.nombre}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+          <md-input-container flex-offset="5">
+          <label>Estructuras</label>
+          <md-select ng-model="estructuraSeleccionada" ng-mouseenter="actualizarEstructura()" ng-change="mostrarEstructura()">
+           
+            <md-option ng-repeat="estructura in estructuras" ng-value="estructura">
+              {{estructura.nombre}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+          <div flex></div>
+
+          <md-button ng-click="guardarFuncion()"  class="md-fab md-mini md-warn md-hue-2">  
+              <md-icon ></md-icon>
+              <md-tooltip>Guardar Funcion</md-tooltip>
+            </md-button>
+
+            <md-button ng-click="guardarElement()"  class="md-fab md-mini md-warn md-hue-2">  
+              <md-icon ></md-icon>
+              <md-tooltip>Guardar Element</md-tooltip>
+            </md-button>
+
+            <md-button ng-click="compilar()" href="#!/hard3D" class="md-fab md-mini md-warn md-hue-2">  
+              <md-icon md-svg-src="resouses/img/icons/run.svg"></md-icon>
+              <md-tooltip>Ejecutar</md-tooltip>
+            </md-button>
+
+            <md-button ng-click="debuggear()"; class="md-fab md-mini md-primary md-hue-2">  
+              <md-icon md-svg-src="resouses/img/icons/debug.svg"></md-icon>
+              <md-tooltip>Debug</md-tooltip>
+            </md-button>
+          </md-content>
+          <div flex>
+            <textarea  ng-model="txtCodigo" flex="95" id="txtCodigo" flex-offset="5" class="textArea">
+                        
+            </textarea>
+          </div> 
+        </div>
+
+
+    </md-content>
+
+  </md-content>
+</div>
+<a  ng-controller="mediumLoadCtrl"></a>
+<!--
+Incorporacion de blockly
+-->
+
+
+
+
+
+
+
+
+
+
+
+

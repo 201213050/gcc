@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Basic3D</title>
+	<link rel="stylesheet" href="assets/css/materialize.min.css">
+	<link rel="stylesheet" href="assets/css/estilo.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+		<!-- scripts analizador-->
+		
+		<script src="src/jison/gramaticaHard3D.js"></script>
+		<script src="src/ast/grafica.js"></script>
+		<!-- Conjunto de clases que se utilizan para crear el ast-->
+		<script src="src/ast/arbol.js"></script>
+		<!-- Tabla de simbolos que se utiliza en la generacion de codigo -->
+		<script src="src/codigo3D/TablaSimbolo.js"></script>
+		<!-- conjunto de funcioens que controlan el codigo 3D -->
+		<script src="src/codigo3D/controlCodigo3D.js"></script>
+		<!-- operaciones -->
+		<script src="src/codigo3D/operaciones/aritmetica.js"></script>
+		<script src="src/codigo3D/operaciones/logica.js"></script>
+		<script src="src/codigo3D/operaciones/relacional.js"></script>
+		
+		<!-- recorre el ast para guardar los datos -->
+		<script src="src/codigo3D/compiladorBasic.js"></script>
+		
+		<!-- contiene todas las funciones primitivas en codigo3D -->
+		<script src="src/codigo3D/core.js"></script>
+
+		<script src="src/codigo3D/casteo.js"></script>
+
+		<!-- Sentencias-->
+		<script src="src/codigo3D/sentencias/declaracion.js"></script>
+		<script src="src/codigo3D/sentencias/create.js"></script>
+		<script src="src/codigo3D/sentencias/asignacion.js"></script>
+		<script src="src/codigo3D/sentencias/branching.js"></script>
+		<script src="src/codigo3D/sentencias/control.js"></script>
+		<script src="src/codigo3D/sentencias/primitivas.js"></script>
+
+		<script src="src/jison/gramatica3D.js"></script>
+
+		<script src="src/interprete/interprete.js"></script>
+		<script src="src/interprete/interpretePrimitivas.js"></script>
+
+
+
+
+
+
+
+	<!--
+	-->
+	<style>
+		td, th {
+			border: solid 1px rgba(0,0,0,0.3);
+			line-height: 1;
+			padding: 4px;
+			text-align: center;
+		}
+		th{
+			text-transform: uppercase;
+			font-weight: 300;
+		}
+		td.texto{
+			text-align: left;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="container" style="width: 95%;">
+			<div class="row">
+
+				<div class="col s4 ">
+					<div class="col s12" style="height: 680px;">
+						<h6 class="light white-text">Código Original</h6>
+						<div id="c3d" name="c3d" contenteditable="true" class="scroll" ></div>
+						<h6 class="light white-text">Salida:</h6>
+						<textarea name="out" id="out" cols="30" rows="10" style="background-color: #fff; height: 20%; width: 95%; border: solid 1px rgba(0,0,0,0.2); border-radius: 3px;"></textarea>
+					</div>
+				</div>
+				<div class="col s6">
+					<h3 class="thin col s2 white-text">Optimización</h3>
+					<div class="col s6" style="padding-top: 2em;">
+					<a onclick="resaltar()" class="btn-floating darken-2 yellow"><i class="material-icons">playlist_play</i></a>
+
+						<a onclick="interpretar()" class="btn-floating darken-2 green"><i class="material-icons">play_arrow</i></a>
+
+						<a onclick="disminuir()" class="btn-floating darken-2 blue"><i class="material-icons">fast_rewind</i></a>
+
+						<a onclick="aumentar()" class="btn-floating darken-2 orange"><i class="material-icons">fast_forward</i></a>
+
+						<a onclick="pausar()" class="btn-floating darken-2 red"><i class="material-icons">cancel</i></a>
+					</div>
+				</div>
+
+
+
+
+
+
+				<div class="col s3 blue lighten-5" style="position: absolute; margin-left: 400px; height: 100%;">
+					<h5 class="thin">Stack <span class="light">P=17</span></h5>
+					<hr>
+					<table style="font-size: 9px;" class="col s12">
+						<tr><th width="6em;">Posición</th><th>Valor</th><th>ambito</th></tr>
+						<tbody id="stack"></tbody>
+					</table>
+				</div>
+
+				<div class="col s3 green lighten-5" style="position: absolute; margin-left: 700px; height: 100%;">
+					<h5 class="thin">Heap <span class="light" id="punteroH">H=12</span></h5>
+					<hr>
+					<div class="col s12">
+						<table style="font-size: 9px;">
+							<tr><th width="6em;">Posición</th><th>Valor</th></tr>
+							<tbody id="heap"></tbody>
+						</table>						
+					</div>
+				</div>
+				<div class="col s4 orange lighten-5" style="position: absolute; margin-left: 1000px; height: 100%;">
+					<h5 class="thin">String Pool <span class="light" id="punteroS">S=60</span></h5>
+					<hr>
+					<table style="font-size: 9px;">
+						<tr><th width="6em;">Posición</th><th>Valor</th></tr>
+						<tbody id="pool">
+							<tr class="orange lighten-3">
+								<td>0</td>
+								<td class="texto">Esta cadena ocupa 29 espacios</td>
+							</tr>
+							<tr class="orange lighten-1">
+								<td>30</td>
+								<td class="texto">Cadena de prueba</td>
+							</tr>
+							<tr class="orange lighten-3">
+								<td>46</td>
+								<td class="texto">Compiladores 2</td>
+							</tr>
+							<tr class="orange lighten-3">
+								<td>60</td>
+								<td class="texto"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+    <script type="text/javascript" src="assets/js/jquery-2.1.1.min.js"></script>
+    <script src="assets/js/Concurrent.Thread.js"></script>
+	<script src="assets/js/materialize.min.js"></script>
+	<script>
+	
+
+	codigoAltoNivel=decodeURIComponent(location.search.substring(8,location.search.length));
+
+	function compilar(){
+		
+		var raiz=null;
+		try {
+
+	  		raiz=gramaticaHard3D.parse(codigoAltoNivel);
+	  		grafica(raiz);
+	  		//debugger;
+	  		compilador=new compiladorBasic(raiz);
+	  		compilador.iniciar(raiz);	
+	  		//console.log(codigo3D);  			
+		}
+		catch (e) {
+			scope.txtEstructuras=e.message;
+	  		console.log("Error: "+e.message);
+		}
+	} 
+
+	compilar();
+
+
+
+
+
+
+
+
+    function resaltar(){
+    	if(resaltado){
+    		resaltado=false;
+    	}else{
+    		resaltado=true;
+    	}	
+    }
+	
+
+	var resaltado=true;
+	function pintar(linea){
+		if(resaltado){
+			var contenido="";
+			//codigo3D=decodeURIComponent(location.search.substring(8,location.search.length));
+			var lineas=codigo3D.split("\n");
+			for(var i=0;i<lineas.length;i++){
+				if(linea===i){
+					contenido+="<span style=\"background-color: yellow;\">"+lineas[i]+"<span>"+"<br>";
+				}else{
+					contenido+="<span style=\"background-color: white;\">"+lineas[i]+"<span>"+"<br>";
+				}
+			}
+			$("#c3d").html(contenido);
+		}
+	}
+
+	pintar(0);
+	//console.log(parametro);
+	var nulo=532226811*201213402;
+	
+  function actualizar(){
+		$(document).ready(function() {
+
+
+			
+			content = ""; 
+			claro = true;
+			ambitos = [{"pos" : 12, "valor": "ámbito de Principal","ambito":"global"}, {"pos" : 17, "valor": "ámbito de Buscar","ambito":"global"}, {"pos" : 21, "valor": "ámbito de Comparar","ambito":"global"}];
+
+//console.log(stack)
+      var p=tabla3D.getSimbolo("p");
+      i =0;
+			for (j = 0; j < ambitos.length; j++) {
+				while(i<(p.valor+simboloMetodo.tamanio)) {
+          var ambito="__";
+          if(metodo3DActual!=null){
+            if(metodo3DActual.valor!=null){
+              ambito=metodo3DActual.valor;
+            }else{
+              ambito="global";
+            }
+          }else{ambito="global";}
+          var ambitoReal=stack[i];
+          //console.log("posicion "+p.valor);
+          //console.log(ambitoReal);
+          //console.log(ambitoReal+"   "+metodo3DActual.valor);
+          /*console.log("------------------------------");
+          console.log(stack);
+          console.log(i)
+          console.log("------------------------------");*/
+          if(ambitoReal==null){
+            ambitoReal={"ambito":"__","valor":"0"};
+            i++;
+            continue;
+          }
+
+          	if(interprete3D.stack[i]==null){
+          		content += "<tr class='blue " + (claro ? "lighten-1" : "lighten-3") + "'><td>" + i +"</td><td>"+"NULL"+"</td>"+ "<td>"+ambitoReal.ambito+"</td></tr>";
+          	}else{
+					content += "<tr class='blue " + (claro ? "lighten-1" : "lighten-3") + "'><td>" + i +"</td><td>"+interprete3D.stack[i]+"</td>"+ "<td>"+ambitoReal.ambito+"</td></tr>";
+				}
+          i++;
+				}
+				claro = !claro;
+			}
+			$("#stack").html(content);
+
+
+
+			i = 0;
+			content = "";
+			claro = true;
+			ambitos = [ {"pos" : 7, "valor" : "Árbol:arbolito"},  {"pos" : 12, "valor" : "Nodo:Raíz"}];
+			for (j = 0; j < ambitos.length; j++) {
+				while(i<interprete3D.heap.length) {
+					if(interprete3D.heap[i]==nulo){
+						content += "<tr class='green " + (claro ? "lighten-1" : "lighten-3") + "'><td>" + (i) + "</td><td>"+"NULL"+"</td></tr>";
+					}else{
+					content += "<tr class='green " + (claro ? "lighten-1" : "lighten-3") + "'><td>" + (i) + "</td><td>"+interprete3D.heap[i]+"</td></tr>";
+					}
+					i++;
+				}
+				claro = !claro;
+			}
+			$("#heap").html(content);
+
+
+			var auxPunteroH=tabla3D.getSimbolo("h");
+			var content="H="+auxPunteroH.valor;
+			$("#punteroH").html(content);
+
+			var auxPunteroS=tabla3D.getSimbolo("s");
+			var content="S="+auxPunteroS.valor;
+			$("#punteroS").html(content);
+
+
+      var cadena="";
+      content="";
+      claro=true;
+
+      for(i=0;i<interprete3D.pool.length;i++){
+          var char=interprete3D.pool[i];
+          if(char!=0){
+             cadena=cadena+String.fromCharCode(char);
+          }else{
+            
+            content += "<tr class='orange lighten-3" + (claro ? "orange lighten-1" : "orange lighten-3") + "'><td>" + (i-cadena.length) + "</td><td>"+cadena+"</td></tr>";
+            cadena="";
+          }
+      }
+
+      content += "<tr class='orange lighten-3" + (claro ? "orange lighten-1" : "orange lighten-3") + "'><td>" + (i) + "</td><td>"+""+"</td></tr>";
+
+      $("#pool").html(content);
+
+		});
+
+  }
+
+	var interprete3D;
+
+    function interpretar(){
+    	
+        //var codigo3D=document.getElementById('c3d').value;
+        var raiz=gramatica3D.parse(codigo3D);
+        interprete3D=new interprete(raiz);
+        interpretar2(raiz);
+        //Concurrent.Thread.create(interpretar2,raiz);
+    }
+
+		function interpretar2(raiz){
+
+			//while(true){
+			//	console.log(".i.");
+			//}
+			//debugger;
+			
+	  		//debugger;
+	  		//Concurrent.Thread.create(interprete3D.ejecucionGlobal,raiz);
+	  		//interprete3D.ejecucionGlobal(raiz);
+	  		//Concurrent.Thread.create(interprete3D.ejecutarMetodoPrincipal,raiz);
+	  		//debugger;
+	  		//interprete3D.ejecutarMetodoPrincipal(interprete3D.ejecutarMetodoPrincipal(raiz));
+
+	  		interprete3D.ejecutarMetodoPrincipal(raiz);
+
+		}
+var tiempoD=100;
+var pausa=false;
+function pausar(){
+	if(pausa){
+		pausa=false;
+	}else{
+		pausa=true;
+	}
+}
+
+function reaudar(){
+	pausa=false;
+}
+
+function disminuir(){
+	tiempoD=tiempoD-10;
+	console.log(tiempoD);
+}
+
+var aumentarT=false;
+function aumentar(){
+	tiempoD=tiempoD+10;
+	console.log(tiempoD);
+}
+
+	</script>
+</body>
+</html>
+
+

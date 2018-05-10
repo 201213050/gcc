@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+   </head>
+  <body>
+    <div id="mocha"></div>
+ 
+    <script src="Concurrent.Thread.js"></script>
+
+    <script type="text/javascript" src="resouses/Thread/Concurrent.Thread.js"></script>
+ <script type="text/javascript">
+     
+
+   function imprimir ( i ){
+
+        while ( 1 ) {
+
+            document.body.innerHTML += i + "<br />";
+            i++;
+        }
+
+        
+    }
+    setTimeout(function() { imprimir(i) }, 500);
+    Concurrent.Thread.create(imprimir, 0);
+    //Concurrent.Thread.create(imprimir, 100);
+  /*  function imprimir(val) {
+  document.body.innerHTML += val + "<br />";
+  val=val+1;
+  setTimeout(function() { imprimir(val) }, 500);
+}
+*/
+
+ </script>
+  </body>
+</html>

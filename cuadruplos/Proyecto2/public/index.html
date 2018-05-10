@@ -1,0 +1,228 @@
+<!DOCTYPE 	HTML>
+<html  lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Basic3D</title>
+		<!-- css e iconos-->
+		<link rel="shortcut icon"  href="resouses/img/icons/favicon.png" type="image/png">
+		<link rel="stylesheet" href="resouses/angular/angular-material/angular-material.css">
+		<link rel="stylesheet" href="resouses/css/styles.css">
+
+		<script src="resouses/Thread/viz.js"></script>
+
+		<!-- scripts angular-->
+		<script src="resouses/angular/angular/angular.js"></script>
+		<script src="resouses/angular/angular/angular-route.js"></script>
+		<script src="resouses/angular/angular-animate/angular-animate.js"></script>
+		<script src="resouses/angular/angular-aria/angular-aria.js"></script>
+		<script src="resouses/angular/angular-material/angular-material.js"></script>
+		
+		<!-- scripts blocly-->
+		<script src="resouses/blockly/blockly_compressed.js"></script>
+		<script src="resouses/blockly/blocks_compressed.js"></script>
+		<script src="resouses/blockly/msg/js/en.js"></script>
+		<script src="resouses/blockly/javascript_compressed.js"></script>
+
+		<script type="text/javascript" src="resouses/Thread/jquery-2.1.1.min.js"></script>
+
+		<!-- scripts principal-->
+		<script src="app.js"></script>
+
+
+		<!-- scripts basic-->
+		<script src="basic/basic.js"></script>
+		<script src="basic/blocklyBasic.js"></script>
+
+
+		<!-- scripts medium-->
+		<script src="medium/medium.js"></script>
+		<script src="medium/blocklyMedium.js"></script>
+
+
+		<!-- scripts hard-->
+		<script src="hard/hard.js"></script>
+		<script src="hard/hard3D.js"></script>
+
+		<!-- scripts reportes-->		
+		<script src="report/simbol.js"></script>
+		<script src="report/error.js"></script>
+
+
+		<!-- scripts analizador-->
+		<script src="src/jison/gramaticaHard3D.js"></script>
+		<script src="src/ast/grafica.js"></script>
+		<!-- Conjunto de clases que se utilizan para crear el ast-->
+		<script src="src/ast/arbol.js"></script>
+		<!-- Tabla de simbolos que se utiliza en la generacion de codigo -->
+		<script src="src/codigo3D/TablaSimbolo.js"></script>
+		<!-- conjunto de funcioens que controlan el codigo 3D -->
+		<script src="src/codigo3D/controlCodigo3D.js"></script>
+		<!-- operaciones -->
+		<script src="src/codigo3D/operaciones/aritmetica.js"></script>
+		<script src="src/codigo3D/operaciones/logica.js"></script>
+		<script src="src/codigo3D/operaciones/relacional.js"></script>
+		
+		<!-- recorre el ast para guardar los datos -->
+		<script src="src/codigo3D/compiladorBasic.js"></script>
+		
+		<!-- contiene todas las funciones primitivas en codigo3D -->
+		<script src="src/codigo3D/core.js"></script>
+
+		<script src="src/codigo3D/casteo.js"></script>
+
+		<!-- Sentencias-->
+		<script src="src/codigo3D/sentencias/declaracion.js"></script>
+		<script src="src/codigo3D/sentencias/create.js"></script>
+		<script src="src/codigo3D/sentencias/asignacion.js"></script>
+		<script src="src/codigo3D/sentencias/branching.js"></script>
+		<script src="src/codigo3D/sentencias/control.js"></script>
+		<script src="src/codigo3D/sentencias/primitivas.js"></script>
+
+		<script src="src/cuadruplos/cuadruplos.js"></script>
+
+		<script src="src/interprete/interprete.js"></script>
+		<script src="src/interprete/interpretePrimitivas.js"></script>
+
+		<script src="src/interprete/optimizacion.js"></script>
+
+
+		<script src="optimizacion/bloques.js"></script>
+		<script src="optimizacion/opti.js"></script>
+		<script src="optimizacion/grafica.js"></script>
+
+
+	</head>
+	<body ng-app="app" ng-controller="navCtrl as nav">
+		<div layout="column" flex layout-fill>
+			<md-content flex>
+			<div ng-view layout-fill></div>
+			</md-content>
+			<footer >
+        <md-toolbar class="md-hue-2">
+          <div layout="row" layout-align="center center" flex>
+            © 2017 Universidad de San Carlos de Guatemala
+          </div>
+        </md-toolbar>
+      </footer>
+		</div>
+
+		<script type="text/javascript">
+
+					function getMensaje(){
+				return mensaje;
+			}
+			function alerta(tipo){
+				if(tipo==1){
+				alert(getMensaje());
+				}else{
+					alert(getMensaje());
+				}
+			}
+
+			var mensaje="mensaje";
+
+		</script>
+
+</body>
+
+
+<!--
+configuracion de drag and drop Basic
+-->
+
+<xml id="toolboxBasic" style="display: none" >
+		<category name="Variables" colour="330">
+			<label text="Crear variable" web-class="myLabelStyle"></label>
+			<block type="bloquecrearvariableprimitiva"></block>
+			<block type="bloquedeclaracioninput"></block>
+			<label text="Asignar variable"></label>
+			<block type="bloqueasignarvariableprimitiva"></block>
+			<label text="Usar variable"></label>
+			<block type="bloquevariable"></block>
+		</category>
+		<category name="Control" colour="230">
+			<block type="bloqueif"></block>	
+			<block type="bloqueelse"></block>
+			<block type="bloqueswitch"></block>	
+			<block type="bloquecase1"></block>	
+			<block type="bloquecase2"></block>		
+		</category>
+		<category name="Ciclos" colour="130">
+			<block type="bloquewhile"></block>
+			<block type="bloquedowhile"></block>
+			<block type="bloquerepeat"></block>
+			<block type="bloquefor"></block>
+			<block type="bloqueloop"></block>
+			<block type="bloquecount"></block>
+			<block type="bloquedowhilex"></block>
+		</category>
+		<category name="Branching" colour="65">
+		<block type="bloquebreak"></block>
+		<block type="bloquebreaknormal"></block>
+		<block type="bloquecontinue"></block>
+		</category>
+		<category name="Condiciones" colour="150">
+			<block type="logic_compare"></block>
+    		<block type="logic_operation"></block> 
+    		<block type="bloquelogico"></block>  
+    		<block type="bloquenot"></block>   		
+		</category>
+		<category name="Valores" colour="250">
+			<block type="bloqueoperaciones"></block>
+			<block type="math_number"></block>
+			<block type="text"></block>
+			<block type="logic_boolean"></block>
+		</category>
+		<category name="Primitivas" colour="300">
+			<block type="bloqueshow"></block>
+			<block type="bloquegetbool"></block>
+			<block type="bloquegetnum"></block>
+			<block type="bloqueoutstr"></block>
+			<block type="bloqueoutnum"></block>
+			<block type="bloqueinstr"></block>
+			<block type="bloqueinnum"></block>
+			<block type="bloquegetrandom"></block>
+			<block type="bloquegetarrlength"></block>
+			<block type="bloquegetcadlength"></block>
+		</category>
+		<category name="Comentarios" colour="350">
+			<block type="bloquecomentario1"></block>
+			<block type="bloquecomentario2"></block>
+			<block type="bloquetexto"></block>
+		</category>
+</xml>
+
+
+<!--
+configuracion de drag and drop Medium
+-->
+
+<xml id="toolboxMedium" style="display: none" >
+		<category name="Estructuras" colour="230">
+				<block type="bloqueelement"></block>
+		</category>
+		<category name="Variables" colour="330">
+			<label text="Parametros"></label>
+			<block type="bloqueparametro"></block>
+			<block type="bloqueparametroarray"></block>
+			<block type="bloquedimension2"></block>
+			<block type="bloquedimension1"></block>
+			<label text="Atributos de un element"></label>
+			<block type="bloquetipo"></block>
+			<block type="bloqueid"></block>
+			<block type="bloquedeclaracion"></block>
+			<block type="bloquedeclaracionprimitiva"></block>
+			<block type="bloquedeclaracionelement"></block>
+		</category>
+		<category name="Valores" colour="250">
+			<block type="bloqueoperaciones"></block>
+			<block type="math_number"></block>
+			<block type="text"></block>
+			<block type="logic_boolean"></block>
+		</category>
+		<category name="Metodos" colour="300">
+			<block type="bloquemetodo"></block>
+			<block type="bloquemetodoprincipal"></block>
+		</category>
+
+</xml>
