@@ -1,61 +1,5 @@
 /* lexical grammar */
 
-%{
-var codigoHash=0;
-
-function getCodigo(){
-    return "nodo"+(codigoHash++);
-}
-
-function reiniciar(){
-    temp=1;
-    codigoHash=0;
-}
-
-function crearNodo(etiqueta,linea,columna){
-    var nodo=new Nodo(etiqueta,linea,columna+1);
-    nodo.codigo=getCodigo();
-    return nodo;
-}
-
-function crearHoja(etiqueta,valor,linea,columna){
-    var nodo=new Nodo(etiqueta,linea,columna+1);
-    nodo.valor=valor;
-    nodo.codigo=getCodigo();
-    return nodo;
-}
-
-class Nodo{
-    constructor(etiqueta,linea,columna){
-        this.etiqueta=etiqueta;
-        this.valor=null;
-        this.linea=linea;
-        this.columna=columna;
-        this.hijos=new Array();
-
-
-        
-        this.add=function(nodo){
-            if(nodo!=null){
-                this.hijos.push(nodo);
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-%}
-
-
-
 %lex
 %options case-insensitive
 
@@ -263,11 +207,11 @@ CUERPOINICIO: IMPORTAR CLASES {
 	;
 
 IMPORTAR : IMPORTAR importar '(' E ')' ';'
-	{
-		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
+	{				
 		$$.add($4);
 	}
 	|importar '(' E ')' ';'{
+		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
 		$$.add($3);
 	}
 	;
@@ -1755,45 +1699,32 @@ E   : '(' E ')'
 	}
     | numero
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-	//	$$.add($1);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}	
 	| double
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		//$$.add($1);
+		$$ = crearHoja("double",$1,@1.first_line,@1.first_columna);
 	}
     | id 
     {
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		//$$.add($1);
+		$$ = crearHoja("id",$1,@1.first_line,@1.first_columna);
 	}
 	| texto
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		//$$.add($1);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		
 	}
     | textosimple
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		//$$.add($1);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}
 	| nada
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		//$$.add($1);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}
 	| nulo
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		//$$.add($1);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}
 	| este '.' id 
 	{
