@@ -468,14 +468,12 @@ INSTRUCCION : PRINCIPAL
 
 PRINCIPAL	: principal '(' ')' '{'  LISTA_INSTRUCCIONES '}'
 		{
-			hojita = crearNodo("Principal",@1.first_line,@1.first_column);
-			$$.add(hojita);
+			$$=crearHoja("MET_PRINCIPAL",$1,@1.first_line,@1.first_column);
 			$$.add($5);
 		}
 		|	principal '(' ')' '{' '}'
 		{
-			hojita = crearNodo("Principal",@1.first_line,@1.first_column);
-			$$.add(hojita);
+			$$=crearHoja("MET_PRINCIPAL",$1,@1.first_line,@1.first_column);
 		}
 ;
 
@@ -505,56 +503,49 @@ PRINCIPAL	: principal '(' ')' '{'  LISTA_INSTRUCCIONES '}'
 	}
 	;
 
-METODOS_ESTRUCTURAS	: id '.' FUNCION_ESTRUCTURAS '(' E ')' ';' 
+METODOS_ESTRUCTURAS	: id '.' FUNCION_ESTRUCTURAS ';' 
 	{
-		ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$= crearNodo("ESTRUCT_PRIM",@1.first_line,@1.first_column);
+
+		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
 		$$.add(ident);
 		$$.add($3);
-		$$.add($5);
 	}
-	|id '.' FUNCION_ESTRUCTURAS '(' ')' ';'
-	{
-		ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
-		$$.add(ident);
-		$$.add($3);
-	} 
 	;
 
 
-FUNCION_ESTRUCTURAS  : insertar 
+FUNCION_ESTRUCTURAS  : insertar '(' E ')' 
 	{
-		hojita = crearNodo("insertar",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("INSERTAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|obtener 
+	|obtener '(' E ')'
 	{
-		hojita = crearNodo("obtener",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("OBTENER",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|buscar 
+	|buscar '(' E ')'
 	{
-		hojita = crearNodo("buscar",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("BUSCAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|apilar 
+	|apilar '(' E ')'
 	{
-		hojita = crearNodo("Funcion_Estructura",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("APILAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|desapilar 
+	|desapilar  '(' ')'
 	{
-		hojita = crearNodo("desapilar",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("DESAPILAR",@1.first_line,@1.first_column);
 	}
-	|encolar 
+	|encolar '(' E ')'
 	{
-		hojita = crearNodo("encolar",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("ENCOLAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|desencolar 
+	|desencolar '(' ')'
 	{
-		hojita = crearNodo("desencolar",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$= crearNodo("DESENCOLAR",@1.first_line,@1.first_column);
 	}
 	;
 
@@ -608,49 +599,55 @@ TIPO: entero
 
 DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';' 
 	{
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
-		ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
 		$$.add(ident);
 		$$.add($4);
 		$$.add($5);
 	}
 	| TIPO id DIMENSION ASIGNAR ';' 
 	{
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add($1);
-		ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(ident);
 		$$.add($3);
 		$$.add($4);
 	}
 	| VISIBILIDAD TIPO id ASIGNAR ';'
 	{
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
-		ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
 		$$.add(ident);
 		$$.add($4);
 	}
 	| VISIBILIDAD id id ASIGNAR ';'
 	{
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add($1);
-		ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
-		ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
 		$$.add(ident);
 		$$.add(ident2);
 		$$.add($4);
 	}
 	| TIPO id ASIGNAR ';'
 	{
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add($1);
-		ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(ident);
 		$$.add($3);
 	}
 	| id id ASIGNAR ';'
 	{
-		ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
-		ident2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		var ident2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(ident);
 		$$.add(ident2);
 		$$.add($3);
