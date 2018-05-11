@@ -378,16 +378,19 @@ TIPO	: entero { //1
 		nodo1 = new Nodo('vacio',$1,@1,[]);
 		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
 		$$ = nodo;
+
 	}
 	| funcion{ //1
 		nodo1 = new Nodo('funcion',$1,@1,[]);
 		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
 		$$ = nodo;
+
 	}
 	|lista {
 		nodo1 = new Nodo('lista',$1,@1,[]);
 		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
 		$$ = nodo;
+		
 	}
 	| pila {
 		nodo1 = new Nodo('pila',$1,@1,[]);
