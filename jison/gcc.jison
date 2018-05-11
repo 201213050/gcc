@@ -599,7 +599,7 @@ TIPO: entero
 
 DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';' 
 	{
-		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
 		var ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
@@ -609,7 +609,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	}
 	| TIPO id DIMENSION ASIGNAR ';' 
 	{
-		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
 		$$.add($1);
 		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(ident);
@@ -618,7 +618,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	}
 	| VISIBILIDAD TIPO id ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
 		var ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
@@ -627,7 +627,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	}
 	| VISIBILIDAD id id ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
 		$$.add($1);
 		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		var ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
@@ -637,7 +637,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	}
 	| TIPO id ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
 		$$.add($1);
 		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(ident);
@@ -645,7 +645,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	}
 	| id id ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
 		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
 		var ident2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(ident);
