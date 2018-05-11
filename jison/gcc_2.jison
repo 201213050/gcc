@@ -13,9 +13,10 @@ MultilineaComentario   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 \"(\\.|[^"])*\" 	  return 'cadenaDoble'
 \'(\\.|[^'])*\' 	  return 'cadenaSimple'
 
-"//"(.)*              /*IGNORAR*/;
-"/*"[^"*"]"*/"        /*IGNORAR*/;
-"/*"[^"*"]~"*/"       /*IGNORAR*/;
+//comentarios
+"/*"[^'*']*"*/"         return;
+"//"[^\r\n]*[^\r\n]     return;
+"/*"[^"*"]~"*/"         return;
 
 "++"                  return '++'
 "--"                  return '--'
@@ -253,7 +254,7 @@ INSTRUCCION : VARIABLE{
 		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
 		$$ = nodo;
 	}
-	| CONCATENAR{
+	| CONCATENAR ';'{
 		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
 		$$ = nodo;
 	}
@@ -390,7 +391,7 @@ TIPO	: entero { //1
 		nodo1 = new Nodo('lista',$1,@1,[]);
 		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
 		$$ = nodo;
-		
+
 	}
 	| pila {
 		nodo1 = new Nodo('pila',$1,@1,[]);
@@ -932,7 +933,7 @@ FUNCIONES : id '.' tamanio { //3
 	};
 
 
-CONCATENAR : concatenar '(' id ',' OP ',' OP ')' ';'{ //6
+CONCATENAR : concatenar '(' OP ',' OP ',' OP ')' { //6
 		nodo1 = new Nodo('concatenar',$1,@1,[]);
 		nodo2 = new Nodo('(',$2,@2,[]);
 		nodo3 = new Nodo('id',$3,@3,[]);
@@ -942,7 +943,7 @@ CONCATENAR : concatenar '(' id ',' OP ',' OP ')' ';'{ //6
 		nodo  = new Nodo("CONCATENAR",$1,@1,[nodo1,nodo2,nodo3,nodo4,$5,nodo6,$7,nodo8]);
 		$$ = nodo;
 	}
-	|concatenar '(' id ',' OP ')' ';'{ //6
+	|concatenar '(' OP ',' OP ')' { //6
 		nodo1 = new Nodo('concatenar',$1,@1,[]);
 		nodo2 = new Nodo('(',$2,@2,[]);
 		nodo3 = new Nodo('id',$3,@3,[]);
