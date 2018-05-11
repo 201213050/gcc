@@ -1,5 +1,48 @@
 /* lexical grammar */
+%{
+var codigoHash=0;
 
+function getCodigo(){
+    return "nodo"+(codigoHash++);
+}
+
+function reiniciar(){
+    temp=1;
+    codigoHash=0;
+}
+
+function crearNodo(etiqueta,linea,columna){
+    var nodo=new Nodo(etiqueta,linea,columna+1);
+    nodo.codigo=getCodigo();
+    return nodo;
+}
+
+function crearHoja(etiqueta,valor,linea,columna){
+    var nodo=new Nodo(etiqueta,linea,columna+1);
+    nodo.valor=valor;
+    nodo.codigo=getCodigo();
+    return nodo;
+}
+
+class Nodo{
+    constructor(etiqueta,linea,columna){
+        this.etiqueta=etiqueta;
+        this.valor=null;
+        this.linea=linea;
+        this.columna=columna;
+        this.hijos=new Array();
+
+
+        
+        this.add=function(nodo){
+            if(nodo!=null){
+                this.hijos.push(nodo);
+            }
+        }
+    }
+}
+
+	%}
 %lex
 %options case-insensitive
 
@@ -180,10 +223,11 @@ INICIO	:  CUERPO EOF{
 };
 
 CUERPO : CUERPOINICIO{
-		var nuevo = crearNodo("Cuerpo",1,1);
+		/*var nuevo = crearNodo("Cuerpo",1,1);
 		nuevo = $1;
 		$$ = nuevo;
-		//$$=$1;
+		*/
+		$$=$1;
 	}	
 	|
 	{
@@ -193,7 +237,8 @@ CUERPO : CUERPOINICIO{
 
 
 CUERPOINICIO: IMPORTAR CLASES {
-		var nuevo = crearNodo("INICIO",@1.first_line-1,@1.first_column-1);
+		var nuevo = crearNodo("INICIO",@1.first_line,@1.first_column);
+		nuevo.add($1)
 		nuevo.add($2)
 		$$ = nuevo;
 		//$$.add($2);
@@ -210,7 +255,7 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	{				
 		$$.add($4);
 	}
-	|importar '(' E ')' ';'{
+	|	importar '(' E ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
 		$$.add($3);
 	}
@@ -218,7 +263,7 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 
 
 CLASES	: CLASES CLASE {
-			$$=crearNodo("CLASES",@1.first_line,@1.first_column);
+			/*$$=crearNodo("CLASES",@1.first_line,@1.first_column);*/
 			$$.add($2);
 		}
 	| CLASE{
@@ -229,70 +274,72 @@ CLASES	: CLASES CLASE {
 
 
 CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
-		visi = crearNodo("VISIBILIDAD",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
-		id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$.add($1);
 		$$.add(id1);
 		$$.add(id2);
-		$$.add($6);
+		$$.add($7);
 		}
 	| VISIBILIDAD clase id hereda_de id '{'  '}'
 		{
-		visi = crearNodo("VISIBILIDAD",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
-		id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$.add($1);
 		$$.add(id1);
 		$$.add(id2);
 		}
 	| VISIBILIDAD clase id '{' LISTA_INSTRUCCIONES '}'
 		{
-		visi = crearNodo("VISIBILIDAD",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+        $$.add($1);
 		$$.add(id1);
-		$$.add($4);
+		$$.add($5);
 		}
 	| VISIBILIDAD clase id '{'  '}'
 	{
-		visi = crearNodo("VISIBILIDAD",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+        $$.add($1);
 		$$.add(id1);
 		} 
 	| clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'
 		{
-		visi = crearNodo("CLASE",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
-		id2=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
+        var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var id2=crearHoja("ID",$4,@4.first_line,@4.first_column);
 		$$.add(id1);
 		$$.add(id2);
-		$$.add($5);
+		$$.add($6);
 		}
 	| clase id hereda_de id '{'  '}' 
 		{
-		visi = crearNodo("CLASE",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
-		id2=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
+		var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var id2=crearHoja("ID",$4,@4.first_line,@4.first_column);
 		$$.add(id1);
 		$$.add(id2);
 		}
 	| clase id '{' LISTA_INSTRUCCIONES '}' 
 		{
-		visi = crearNodo("CLASE",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
+        var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+
 		$$.add(id1);
 		$$.add($4);
 		}
 	| clase id '{''}'
 		{
-		visi = crearNodo("CLASE",@1.first_line,@1.first_column);
-		$$.add(visi);
-        id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
+        var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(id1);
 		}
 	;
@@ -434,18 +481,27 @@ PRINCIPAL	: principal '(' ')' '{'  LISTA_INSTRUCCIONES '}'
 
 	VISIBILIDAD	: publico
 	{
+		$$= crearHoja("VISIBILIDAD",$1,@1.first_line,@1.first_column);
+		/*
 		hojita = crearNodo("Publico",@1.first_line,@1.first_column);
 		$$.add(hojita);
+		*/
 	} 
 	| privado
 	{
+		$$= crearHoja("VISIBILIDAD",$1,@1.first_line,@1.first_column);
+		/*
 		hojita = crearNodo("Privado",@1.first_line,@1.first_column);
 		$$.add(hojita);
+		*/
 	}
 	| protegido
 	{
+		$$= crearHoja("VISIBILIDAD",$1,@1.first_line,@1.first_column);
+		/*
 		hojita = crearNodo("Protegido",@1.first_line,@1.first_column);
 		$$.add(hojita);
+		*/
 	}
 	;
 
@@ -507,54 +563,43 @@ FUNCION_ESTRUCTURAS  : insertar
 
 TIPO: entero 
 	{
-		hojita = crearNodo("entero",@1.first_line,@1.first_column);
-		$$.add(hojita);
-
+		$$=crearHoja("ENTERO",$1,@1.first_line,@1.first_column);
 	}
 	| decimal
 	{
-		hojita = crearNodo("decimal",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("DECIMAL",$1,@1.first_line,@1.first_column);
 	}
 	| booleano
 	{
-		hojita = crearNodo("booleano",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("BOOLEANO",$1,@1.first_line,@1.first_column);
 	}
 	| cadena
 	{
-		hojita = crearNodo("cadena",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("CADENA",$1,@1.first_line,@1.first_column);
 	}
 	| caracter
 	{
-		hojita = crearNodo("caracter",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("VACIO",$1,@1.first_line,@1.first_column);
 	}
 	| vacio
 	{
-		hojita = crearNodo("vacio",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("VACIO",$1,@1.first_line,@1.first_column);
 	}
 	| funcion
 	{
-		hojita = crearNodo("funcion",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("FUNCION",$1,@1.first_line,@1.first_column);
 	}
 	| lista 
 	{
-		hojita = crearNodo("lista",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("LISTA",$1,@1.first_line,@1.first_column);
 	}
 	| pila
 	{
-		hojita = crearNodo("pila",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("PILA",$1,@1.first_line,@1.first_column);
 	}
 	| cola
 	{
-		hojita = crearNodo("cola",@1.first_line,@1.first_column);
-		$$.add(hojita);
+		$$=crearHoja("COLA",$1,@1.first_line,@1.first_column);
 	}
 	;
 
