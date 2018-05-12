@@ -171,18 +171,7 @@ app.post('/grafica', urlencodedParser, function(req, res){
 	exec(cadena, function(error, stdout, stderr) {
 	  // command output is in stdout
 	});	
-
-
 	
-
-	/*
-	var nrc = require('node-run-cmd');
-	nrc.run(cadena).then(function(exitCodes) {
-		console.log("comando ejecutado.");
-	  }, function(err) {
-		console.log('Comando de mierda no sirve ', err);
-	  });	
-	  */	
 	res.sendStatus(200);
 });
 
