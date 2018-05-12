@@ -1,1450 +1,1839 @@
 /* lexical grammar */
-
+%{
+var codigoHash=0;
+function getCodigo(){
+    return "nodo"+(codigoHash++);
+}
+function reiniciar(){
+    temp=1;
+    codigoHash=0;
+}
+function crearNodo(etiqueta,linea,columna){
+    var nodo=new Nodo(etiqueta,linea,columna+1);
+    nodo.codigo=getCodigo();
+    return nodo;
+}
+function crearHoja(etiqueta,valor,linea,columna){
+    var nodo=new Nodo(etiqueta,linea,columna+1);
+    nodo.valor=valor;
+    nodo.codigo=getCodigo();
+    return nodo;
+}
+class Nodo{
+    constructor(etiqueta,linea,columna){
+        this.etiqueta=etiqueta;
+        this.valor=null;
+        this.linea=linea;
+        this.columna=columna;
+        this.hijos=new Array();
+        
+        this.add=function(nodo){
+            if(nodo!=null){
+                this.hijos.push(nodo);
+            }
+        }
+    }
+}
+	%}
 %lex
 %options case-insensitive
-MultilineaComentario   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+
 %%
 
 \s+                   /* skip whitespace */
 \n+                   /* skip whitespace */
 \t+                   /* skip whitespace */
-[0-9]+"."[0-9]+	 	  return 'numDecimal'
-[0-9]+				  return 'numEntero'
-\"(\\.|[^"])*\" 	  return 'cadenaDoble'
-\'(\\.|[^'])*\' 	  return 'cadenaSimple'
-
-
+//comentarios
 "/*"[^'*']*"*/"         return;
 "//"[^\r\n]*[^\r\n]     return;
 "/*"[^"*"]~"*/"         return;
 
+[0-9]+"."[0-9]+	 	  return 'double'
+[0-9]+				  return 'numero'
+
+\'([a-zA-Z])(":")(\\([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" ")+("."([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" "))?)+\' 		%{ console.log(yytext); return 'path' %}
+\"([a-zA-Z])(":")(\\([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" ")+("."([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" "))?)+\" 		%{ console.log(yytext); return 'path' %}
 
 
-"++"                  return '++'
-"--"                  return '--'
-"+="                  return '+='
-"-="                  return '-='
-"*="                  return '*='
-"/="                  return '/='
-"->"                  return '->'
-"*"                   return '*'
-"/"                   return '/'
-"-"                   return '-'
-"+"                   return '+'
-"^"                   return '^'
-"("                   return '('
-")"                   return ')'
-">="                  return '>='
-"<="                  return '<='
-"=="                  return '=='
-"!="                  return '!='
-">"                   return '>'
-"<"                   return '<'
-"&&"                  return '&&'
-"||"                  return '||'
-"??"                  return '??'
-"!"                   return '!'
-"{"                   return '{'
-"}"                   return '}'
-","                   return ','
-"."                   return '.'
-":"                   return ':'
-";"                   return ';'
-"["                   return '['
-"]"                   return ']'
-"="                   return '='
-"booleano"            return 'booleano'
-"entero"              return 'entero'
-"decimal"             return 'decimal'
-"caracter"            return 'caracter'
-"nada"                return 'nada'
-"tamanio"             return 'tamanio'
-"concatenar"          return 'concatenar'
-"convertiracadena"    return 'convertiracadena'
-"convertiraentero"    return 'convertiraentero'
-"si"                  return 'si'
-"es_verdadero"        return 'esverdadero'
-"es_falso"            return 'esfalso'
-"fin-si"		      return 'finsi'
-"evaluar_si"          return 'evaluarsi'
-"es_igual_a"          return 'esiguala'
-"defecto"             return 'defecto'
-"true"                return 'verdadero'
-"false"               return 'falso'
-"romper"              return 'romper'
-"continuar"           return 'continuar'
-"retorno"             return 'retorno'
-"repetir_mientras"    return 'repetirmientras'
-"hacer"               return 'hacer'
-"mientras"            return 'mientras'
-"ciclo_doble_condicion"       return 'ciclodoble'
-"repetir"		      return 'repetir'
-"hasta_que"		      return 'hastaque'
-"hasta"               return 'hasta'
-"desde"               return 'desde'
-"repetir_contando"    return 'repetircontando'
-"enciclar"            return 'enciclar'
-"contador"            return 'contador'
-"leer_teclado"        return 'leerteclado'
-"vacio"               return 'vacio'
-"Principal"           return 'Principal'
-"insertar"            return 'insertar'
-"lista"               return 'lista'
-"destruirPuntero"     return 'destruirPuntero'
-"reservarMemoria"     return 'reservarMemoria'
-"consultarTamanio"    return 'consultarTamanio'
-"obtenerDireccion"    return 'obtenerDireccion'
-"crearPuntero"        return 'crearPuntero'
-"estructura"          return 'estructura'
-"variable"            return 'variable'
-"'\0'"                return 'nulo'
-"nuevo"               return 'nuevo'
-"hereda_de"           return 'hereda_de'
-"importar"			  return 'importar'
-"@sobrescribir"       return 'sobrescribir'
-"protegido"      	  return 'protegido'
-"privado"    		  return 'privado'
-"publico"       	  return 'publico'
-"este"			      return 'este'
-"clase"     		  return 'clase'
-"imprimir"		      return 'imprimir'
-"funcion"		      return 'funcion'
-"pila"		      	  return 'pila'
-"cola"		      	  return 'cola'
-"apilar"		      return 'apilar'
-"desapilar"		      return 'desapilar'
-"encolar"		      return 'encolar'
-"desencolar"	      return 'desencolar'
-[a-zA-z_0-9]+		  return 'id'
+\"(\\.|[^"])*\" 	  return 'texto'
+\'(\\.|[^'])*\' 	  return 'textosimple'
 
+//AUMENTO DECREMENTO
+"++"                  %{ console.log('++');return '++'; %}
+"--"                  %{ console.log('--');return '--'; %}
+//asignacion y Eeracion
+"+="                  %{ console.log('+=');return '+='; %}
+"*="                  %{ console.log('*-');return '*-'; %}
+"-="                  %{ console.log('-=');return '-='; %}
+"/="                  %{ console.log('/=k');return '/='; %}
+//Eeradores relacionales
+">="                  %{ console.log('>=');return '>='; %}
+"<="                  %{ console.log('<=');return '<='; %}
+"=="                  %{ console.log('==');return '=='; %}
+"!="                  %{ console.log('!=');return '!='; %}
+
+//Eeradores Logicos
+"||"                  %{ console.log('||');return '||'; %}
+"??"                  %{ console.log('??');return '??'; %}
+"&&"                  %{ console.log('&&');return '&&'; %}
+"!"                   %{ console.log('!');return '!'; %}
+//Eeradores aritmeticos
+"*"                   %{ console.log('*');return '*'; %}
+"->"                 %{ console.log('->');return 'flecha'; %} 
+"/"                   %{ console.log('/');return '/'; %}
+"-"                   %{ console.log('-');return '-'; %}
+"+"                   %{ console.log('+');return '+'; %}
+"^"                   %{ console.log('^');return '^'; %}
+"="                   %{ console.log('=');return '='; %}
+//signos de agrupacion
+"("                   %{ console.log('(');return '('; %}
+")"                   %{ console.log(')');return ')'; %}
+"{"                   %{ console.log('{');return '{'; %}
+"}"                   %{ console.log('}');return '}'; %}
+"["                   %{ console.log('[');return '['; %}
+"]"                   %{ console.log(']');return ']'; %}
+//otros signitos culeros
+
+">"                   %{ console.log('>');return '>'; %}
+"<"                   %{ console.log('<');return '<'; %}
+","                   %{ console.log(',');return ','; %}
+"."                   %{ console.log('.');return '.'; %}
+					  
+":"                   %{ console.log(':');return ':'; %}
+";"                   %{ console.log(';');return ';'; %}
+//PALABRAS RESERVADAS
+"entero"              %{ console.log(yytext);return 'entero'; %}
+"booleano"            %{ console.log(yytext);return 'booleano'; %}
+"decimal"             %{ console.log(yytext);return 'decimal'; %}
+"caracter"            %{ console.log(yytext);return 'caracter'; %}
+"tamanio"             %{ console.log(yytext);return 'tamanio'; %}
+"concatenar"          %{ console.log(yytext);return 'concatenar'; %}
+"convertiracadena"    %{ console.log(yytext);return 'convertiracadena'; %}
+"convertiraentero"    %{ console.log(yytext);return 'convertiraentero'; %}
+"imprimir"		      %{ console.log(yytext);return 'imprimir'; %}
+//CLASE
+"clase"     		  %{ console.log(yytext);return 'clase'; %}
+"este"			      %{ console.log(yytext);return 'este'; %}
+//VISIBILIDAD
+"publico"       	  %{ console.log(yytext);return 'publico'; %}
+"protegido"      	  %{ console.log(yytext);return 'protegido'; %}
+"privado"    		  %{ console.log(yytext);return 'privado'; %}
+//HERENCIA
+"hereda_de"           %{ console.log(yytext);return 'hereda_de'; %}
+//FUNCIONES Y PROCEDIMIENTOS
+"vacio"               %{ console.log(yytext);return 'vacio'; %}
+"retorno"             %{ console.log(yytext);return 'retorno'; %}
+"funcion"		      %{ console.log(yytext);return 'funcion'; %}
+//SOBREESCRIBIR
+"@sobrescribir"       %{ console.log(yytext);return 'sobrescribir'; %}
+//PROCEDIMIENTO PRINCIPAL
+"principal"           %{ console.log(yytext);return 'principal'; %}
+//PUNTEROS
+"crearpuntero"        %{ console.log(yytext);return 'crearPuntero'; %}
+"reservarmemoria"     %{ console.log(yytext);return 'reservarMemoria'; %}
+"consultartamanio"    %{ console.log(yytext);return 'consultartamanio'; %}
+"destruirPuntero"     %{ console.log(yytext);return 'destruirPuntero'; %}
+
+
+"obtenerDireccion"    %{ console.log(yytext);return 'obtenerDireccion'; %}
+//SENTENCIAS
+"importar"			  %{ console.log(yytext);return 'importar'; %}
+"nuevo"               %{ console.log(yytext);return 'nuevo'; %}
+"'\0'"                %{ console.log(yytext);return 'nulo'; %}
+"nada"				  %{ console.log(yytext);return 'nada'; %}
+//ROMPER CICLOS
+"romper"              %{ console.log(yytext);return 'romper'; %}
+"continuar"           %{ console.log(yytext);return 'continuar'; %}
+//ESTRUCTURAS
+"estructura"          %{ console.log(yytext);return 'estructura'; %}
+"lista"               %{ console.log(yytext);return 'lista'; %}
+"insertar"            %{ console.log(yytext);return 'insertar'; %}
+"obtener"			  %{ console.log(yytext);return 'obtener'; %}
+"buscar"			  %{ console.log(yytext);return 'buscar'; %}
+//PILA -- COLA
+"pila"		      	  %{ console.log(yytext);return 'pila'; %}
+"apilar"		      %{ console.log(yytext);return 'apilar'; %}
+"desapilar"		      %{ console.log(yytext);return 'desapilar'; %}
+"cola"		      	  %{ console.log(yytext);return 'cola'; %}
+"encolar"		      %{ console.log(yytext);return 'encolar'; %}
+"desencolar"	      %{ console.log(yytext);return 'desencolar'; %}
+//SENTENCIAS DE CONTROL
+"si"                  %{ console.log(yytext);return 'si'; %}
+"es_verdadero"        %{ console.log(yytext);return 'esverdadero'; %}
+"es_falso"            %{ console.log(yytext);return 'esfalso'; %}
+"fin-si"		      %{ console.log(yytext);return 'finsi'; %}
+"evaluar_si"          %{ console.log(yytext);return 'evaluarsi'; %}
+"es_igual_a"          %{ console.log(yytext);return 'esiguala'; %}
+"repetir_mientras"    %{ console.log(yytext);return 'repetirmientras'; %}
+"hacer"               %{ console.log(yytext);return 'hacer'; %}
+"mientras"            %{ console.log(yytext);return 'mientras'; %}
+"ciclo_doble_condicion"       %{ console.log(yytext);return 'ciclodoble'; %}
+"repetir"		      %{ console.log(yytext);return 'repetir'; %}
+"hasta_que"		      %{ console.log(yytext);return 'hastaque'; %}
+"repetir_contando"    %{ console.log(yytext);return 'repetircontando'; %}
+"variable"            %{ console.log(yytext);return 'variable'; %}
+"desde"               %{ console.log(yytext);return 'desde'; %}
+"hasta"               %{ console.log(yytext);return 'hasta'; %}
+"enciclar"            %{ console.log(yytext);return 'enciclar'; %}
+"contador"            %{ console.log(yytext);return 'contador'; %}
+"defecto"             %{ console.log(yytext);return 'defecto'; %}
+"true"                %{ console.log(yytext);return 'verdadero'; %}
+"false"               %{ console.log(yytext);return 'falso'; %}
+//ENTRADA Y LECTURA DE DATOS
+"leer_teclado"        %{ console.log(yytext);return 'leerteclado'; %}
+([a-zA-Z]|"_"|"$")([a-zA-Z]|[0-9]|"_"|"$")* %{ console.log(yytext);
+					  return 'id'; %}
 
 <<EOF>>               return 'EOF'
 .                     return 'INVALIDO'
-
 /lex
 
-/* operator associations and precedence */
+/* Eerator associations and precedence */
 
 
 %left '+' '-'
 %left '*' '/'
 %left '^'
+%left '(' ')'
 %left '->'
 %left UMINUS
-%left '||' '&&' 
-%left '>' '<' '>=' '<=' '==' '!='
+%left '||' '??'
+%left '=' 
+%left '==' '!=' '>' '>=' '<' '<='
 %left '+=' '-=' '*=' '/=' 
-%left '??'
+%left '&&'
 %left '++' '--'
-
 %right '!'
-%error-verbose
 
+
+%error-verbose
 
 %start INICIO
 
 %% /* language grammar */
 
 
-INICIO	: ENTRADA EOF{
-	parser.arbol.raiz = $1;
-	console.log(" * * * * * * CORRECTO * * * * * * *");
+INICIO	:  CUERPO EOF{
+	console.log($1+ "//Ultima linea");
+	reiniciar();
+	return $1; 
 };
 
-
-ENTRADA	: IMPORTAR CLASES {
-		nodo  = new Nodo("ENTRADA",$1,@1,[$1,$2]);
-		$$ = nodo;
+CUERPO : CUERPOINICIO{
+		/*var nuevo = crearNodo("Cuerpo",1,1);
+		nuevo = $1;
+		$$ = nuevo;
+		*/
+		$$=$1;
+	}	
+	|
+	{
+		$$=crearNodo("Cuerpo",1,1);
 	}
-	| CLASES{
-		nodo  = new Nodo("ENTRADA",$1,@1,[$1]);
-		$$ = nodo;
-	};
+	;
 
 
-IMPORTAR : IMPORTAR importar '(' OP ')' ';'{ //6
-		nodo1 = new Nodo('importar',$2,@2,[]);
-		nodo2 = new Nodo('(',$3,@3,[]);
-		nodo5 = new Nodo(')',$5,@5,[]);
-		nodo  = new Nodo("IMPORTAR",$1,@1,[$1,nodo1,nodo2,$4,nodo5]);
-		$$ = nodo;
+CUERPOINICIO: IMPORTAR CLASES {
+		var nuevo = crearNodo("INICIO",@1.first_line,@1.first_column);
+		nuevo.add($1)
+		nuevo.add($2)
+		$$ = nuevo;
+		//$$.add($2);
 	}
-	|importar '(' OP ')' ';'{ //6
-		nodo1 = new Nodo('importar',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("IMPORTAR",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	};
+	| CLASES
+	{
+		$$=crearNodo("INICIO",@1.first_line,@1.first_column);
+		$$.add($1);
+	}
+	;
+
+IMPORTAR : IMPORTAR importar '(' E ')' ';'
+	{				
+		$$.add($4);
+	}
+	|
+	IMPORTAR importar '(' path ')' ';'
+	{				
+		$$.add($4);
+	}
+	|	importar '(' E ')' ';'{
+		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
+		$$.add($3);
+	}
+	
+	|	importar '(' path ')' ';'{
+		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
+		$$.add($3);
+	}	
+	;
 
 
 CLASES	: CLASES CLASE {
-		nodo  = new Nodo("CLASES",$1,@1,[$1,$2]);
-		$$ = nodo;
-	}
+			/*$$=crearNodo("CLASES",@1.first_line,@1.first_column);*/
+			$$.add($2);
+		}
 	| CLASE{
-		nodo  = new Nodo("CLASES",$1,@1,[$1]);
-		$$ = nodo;
-	};
-
-
-CLASE : VISIBILIDAD clase id hereda_de id '{' INSTRUCCIONES '}' { //6
-		nodo2 = new Nodo('clase',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo('hereda_de',$4,@4,[]);
-		nodo5 = new Nodo('id',$5,@5,[]);
-		nodo6 = new Nodo('{',$6,@6,[]);
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("CLASE",$1,@1,[$1,nodo2,nodo3,nodo4,nodo5,nodo6,$7,nodo8]);
-		$$ = nodo;
+			$$=crearNodo("CLASES",@1.first_line,@1.first_column);
+            $$.add($1);
 	}
-	| VISIBILIDAD clase id '{' INSTRUCCIONES '}' { //6
-		nodo2 = new Nodo('clase',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo('{',$4,@4,[]);
-		nodo6 = new Nodo('}',$6,@6,[]);
-		nodo  = new Nodo("CLASE",$1,@1,[$1,nodo2,nodo3,nodo4,$5,nodo6]);
-		$$ = nodo;
-	}
-	| clase id hereda_de id '{' INSTRUCCIONES '}' { //6
-		nodo1 = new Nodo('clase',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo3 = new Nodo('hereda_de',$3,@3,[]);
-		nodo4 = new Nodo('id',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("CLASE",$1,@1,[nodo1,nodo2,nodo3,nodo4,nodo4,$6,nodo7]);
-		$$ = nodo;
-	}
-	|clase id '{' INSTRUCCIONES '}' { //6
-		nodo1 = new Nodo('clase',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo3 = new Nodo('{',$3,@3,[]);
-		nodo5 = new Nodo('}',$5,@5,[]);
-		nodo  = new Nodo("CLASE",$1,@1,[nodo1,nodo2,nodo3,$4,nodo5]);
-		$$ = nodo;
-	};
+	;
 
 
-INSTRUCCIONES	: INSTRUCCIONES INSTRUCCION {
-		nodo  = new Nodo("INSTRUCCIONES",$1,@1,[$1,$2]);
-		$$ = nodo;
+CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$.add($1);
+		$$.add(id1);
+		$$.add(id2);
+		$$.add($7);
+		}
+	| VISIBILIDAD clase id hereda_de id '{'  '}'
+		{
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+		var id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$.add($1);
+		$$.add(id1);
+		$$.add(id2);
+		}
+	| VISIBILIDAD clase id '{' LISTA_INSTRUCCIONES '}'
+		{
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+        $$.add($1);
+		$$.add(id1);
+		$$.add($5);
+		}
+	| VISIBILIDAD clase id '{'  '}'
+	{
+		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+        var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
+        $$.add($1);
+		$$.add(id1);
+		} 
+	| clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'
+		{
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+        var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var id2=crearHoja("ID",$4,@4.first_line,@4.first_column);
+		$$.add(id1);
+		$$.add(id2);
+		$$.add($6);
+		}
+	| clase id hereda_de id '{'  '}' 
+		{
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+		var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var id2=crearHoja("ID",$4,@4.first_line,@4.first_column);
+		$$.add(id1);
+		$$.add(id2);
+		}
+	| clase id '{' LISTA_INSTRUCCIONES '}' 
+		{
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+        var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(id1);
+		$$.add($4);
+		}
+	| clase id '{''}'
+		{
+		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+        var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(id1);
+		}
+	;
+
+
+LISTA_INSTRUCCIONES	: LISTA_INSTRUCCIONES INSTRUCCION
+	{
+		$$=crearNodo("INSTRUCCIONES",@1.first_line,@1.first_column);
+		$$.add($2);
 	}
 	| INSTRUCCION{
-		nodo  = new Nodo("INSTRUCCIONES",$1,@1,[$1]);
-		$$ = nodo;
-	};
+		$$=crearNodo("INSTRUCCIONES",@1.first_line,@1.first_column);
+		$$.add($1);
+	}
+	;
 
-		
-INSTRUCCION : VARIABLE{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+INSTRUCCION : PRINCIPAL
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| ASIGNACION{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| ESTRUCTURA
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| CONSTRUCTOR{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| METODOS_ESTRUCTURAS
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| CONCATENAR{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| PUNTEROS
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| IMPRIMIR{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| SI
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| PROCEDIMIENTO{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| SWITCH
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| PRINCIPAL{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| CICLO
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| ESTRUCTURA{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| FOR
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| PUNTEROS{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| TECLADO
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| FUNCION_EDD{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| DECLARACION
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| SI{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| ASIGNACION
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| SWITCH{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| CONSTRUCTOR
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| CICLO{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| CONCATENAR
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| FOR{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| IMPRIMIR
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| TECLADO{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| PROCEDIMIENTO
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| id INSTANCIA {
-		nodo1 = new Nodo("id",$1,@1,[]);
-		nodo	= new Nodo("INSTRUCCION",$1,@1,[nodo1,$2]);
-		$$ = nodo;
+	| LLAMADA ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| LLAMADA ';'{
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[$1]);
-		$$ = nodo;
+	| romper ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| romper ';'{
-		nodo1 = new Nodo('romper',$1,@1,[]);
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[nodo1]);
-		$$ = nodo;
+	| romper E ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($2);
 	}
-	| romper OP ';'{
-		nodo1 = new Nodo('romper',$1,@1,[]);
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[nodo1,$2]);
-		$$ = nodo;
+	| continuar ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| continuar ';'{
-		nodo1 = new Nodo('continuar',$1,@1,[]);
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[nodo1]);
-		$$ = nodo;
+	| retorno ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
 	}
-	| retorno ';'{
-		nodo1 = new Nodo('retorno',$1,@1,[]);
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[nodo1]);
-		$$ = nodo;
+	| retorno E ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($2);
 	}
-	| retorno OP ';'{
-		nodo1 = new Nodo('retorno',$1,@1,[]);
-		nodo  = new Nodo("INSTRUCCION",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	};
-
-
-VISIBILIDAD	: publico { //1
-		nodo1 = new Nodo('publico',$1,@1,[]);
-		nodo  = new Nodo("VISIBILIDAD",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| privado{ //1
-		nodo1 = new Nodo('privado',$1,@1,[]);
-		nodo  = new Nodo("VISIBILIDAD",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| protegido{ //1
-		nodo1 = new Nodo('protegido',$1,@1,[]);
-		nodo  = new Nodo("VISIBILIDAD",$1,@1,[nodo1]);
-		$$ = nodo;
-	};
+	;
 
 
-TIPO	: entero { //1
-		nodo1 = new Nodo('entero',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| decimal{ //1
-		nodo1 = new Nodo('decimal',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| booleano{ //1
-		nodo1 = new Nodo('booleano',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| caracter{ //1
-		nodo1 = new Nodo('caracter',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| vacio{ //1
-		nodo1 = new Nodo('vacio',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| funcion{ //1
-		nodo1 = new Nodo('funcion',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	|lista {
-		nodo1 = new Nodo('lista',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| pila {
-		nodo1 = new Nodo('pila',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| cola {
-		nodo1 = new Nodo('cola',$1,@1,[]);
-		nodo  = new Nodo("TIPO",$1,@1,[nodo1]);
-		$$ = nodo;
-	};
 
 
-VARIABLE :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';' { //5
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("VARIABLE",$1,@1,[$1,$2,nodo3,$4,$5]);
-		$$ = nodo;
-	}
-	| TIPO id DIMENSION ASIGNAR ';' { //4
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("VARIABLE",$1,@1,[$1,nodo2,$3,$4]);
-		$$ = nodo;
-	}
-	|VISIBILIDAD TIPO id ASIGNAR ';'{ //4
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("VARIABLE",$1,@1,[$1,$2,nodo3,$4]);
-		$$ = nodo;
-	}
-	|VISIBILIDAD id id ASIGNAR ';'{ //4
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("VARIABLE",$1,@1,[$1,nodo2,nodo3,$4]);
-		$$ = nodo;
-	}
-	| TIPO id ASIGNAR ';'{ //3
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("VARIABLE",$1,@1,[$1,nodo2,$3]);
-		$$ = nodo;
-	}
-	| id id ASIGNAR ';'{ //3
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("VARIABLE",$1,@1,[nodo1,nodo2,$3]);
-		$$ = nodo;
-	};
+PRINCIPAL	: principal '(' ')' '{'  LISTA_INSTRUCCIONES '}'
+		{
+			$$=crearHoja("MET_PRINCIPAL",$1,@1.first_line,@1.first_column);
+			$$.add($5);
+		}
+		|	principal '(' ')' '{' '}'
+		{
+			$$=crearHoja("MET_PRINCIPAL",$1,@1.first_line,@1.first_column);
+		}
+;
 
-
-DIMENSION	: DIMENSION '[' OP ']'{ //4
-		nodo1 = new Nodo('[',$2,@2,[]);
-		nodo2 = new Nodo(']',$4,@4,[]);
-		nodo  = new Nodo("DIMENSION",$1,@1,[$1,nodo1,$3,nodo2]);
-		$$ = nodo;
-	}
-	| '[' OP ']' { //3
-		nodo1 = new Nodo('[',$1,@1,[]);
-		nodo2 = new Nodo(']',$3,@3,[]);
-		nodo  = new Nodo("DIMENSION",$1,@1,[nodo1,$2,nodo2]);
-		$$ = nodo;
-	};
-
-
-ASIGNAR	: '=' OP{ //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	}
-	|'=' '{' LARREGLO '}' { //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo2 = new Nodo('{',$2,@2,[]);
-		nodo4 = new Nodo('}',$4,@4,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	}
-	|'=' nuevo id '(' ')'{ //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo2 = new Nodo('nuevo',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo('(',$4,@4,[]);
-		nodo5 = new Nodo(')',$5,@5,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,nodo2,nodo3,nodo4,nodo5]);
-		$$ = nodo;
-	}
-	|'=' nuevo id '(' VALOR ')'{ //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo2 = new Nodo('nuevo',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo5 = new Nodo('(',$5,@5,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,nodo2,nodo3,nodo5,$5,nodo6]);
-		$$ = nodo;
-	}
-	|'=' nuevo TIPO '(' ')'{ //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo2 = new Nodo('nuevo',$2,@2,[]);
-		nodo4 = new Nodo('(',$4,@4,[]);
-		nodo5 = new Nodo(')',$5,@5,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5]);
-		$$ = nodo;
-	}
-	|'=' nuevo TIPO '(' TIPO ')'{ //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo2 = new Nodo('nuevo',$2,@2,[]);
-		nodo4 = new Nodo('(',$4,@4,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,nodo2,$3,nodo4,$5,nodo6]);
-		$$ = nodo;
-	}
-	|'=' nuevo TIPO '(' id ')'{ //2
-		nodo1 = new Nodo('=',$1,@1,[]);
-		nodo2 = new Nodo('nuevo',$2,@2,[]);
-		nodo4 = new Nodo('(',$4,@4,[]);
-		nodo5 = new Nodo('id',$5,@5,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,nodo6]);
-		$$ = nodo;
-	}
-	|{ //1
-		nodo1 = new Nodo('nulo',$1,@1,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1]);
-		$$ = nodo;
-	};
-
-LARREGLO :  LARREGLO ',' ARREGLO{ //2
-		nodo2 = new Nodo(',',$2,@2,[]);
-		nodo  = new Nodo("LARREGLO",$1,@1,[$1,nodo2,$3]);
-		$$ = nodo;
-	}
-    | ARREGLO{ //2
-		nodo  = new Nodo("LARREGLO",$1,@1,[$1]);
-		$$ = nodo;
-	};
-		
-ARREGLO : OP {
-		nodo  = new Nodo("ARREGLO",$1,@1,[$1]);
-		$$ = nodo;
-	}
-    |'{' LARREGLO '}' { //2
-		nodo1 = new Nodo('{',$1,@1,[]);
-		nodo3 = new Nodo('}',$3,@3,[]);
-		nodo  = new Nodo("ARREGLO",$1,@1,[nodo1,$2,nodo3]);
-		$$ = nodo;
-	};
-
-ARREGLOB : ARREGLO ',' '{' ARREGLO '}' { //2
-		nodo2 = new Nodo(',',$2,@2,[]);
-		nodo3 = new Nodo('{',$3,@3,[]);
-		nodo5 = new Nodo('}',$5,@5,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[$1,nodo2,nodo3,$4,nodo5]);
-		$$ = nodo;
-	}
-    | ARREGLO ',' OP{ //2
-		nodo2 = new Nodo(',',$2,@2,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[$1,nodo2,$3]);
-		$$ = nodo;
-	}
-    | OP{ //2
-		nodo  = new Nodo("ASIGNAR",$1,@1,[$1]);
-		$$ = nodo;
-	}
-    |'{' ARREGLO '}' { //2
-		nodo1 = new Nodo('{',$1,@1,[]);
-		nodo3 = new Nodo('}',$3,@3,[]);
-		nodo  = new Nodo("ASIGNAR",$1,@1,[nodo1,$2,nodo3]);
-		$$ = nodo;
-	};
-
-
-ASIGNACION	: id ASIGNAR ';'{ 
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	}
-	| id DIMENSION ASIGNAR ';'{ 
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,$2,$3]);
-		$$ = nodo;
-	}
-	| este '.' id ASIGNAR ';'{ //3
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,nodo2,nodo3,$4]);
-		$$ = nodo;
-	}
-	| este '.' id INSTANCIA ASIGNAR ';'{ //3
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,nodo2,nodo3,$4,$5]);
-		$$ = nodo;
-	}
-	| id INSTANCIA ASIGNAR ';'{ 
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,$2,$3]);
-		$$ = nodo;
-	}
-	| id INSTANCIA '++' ';'{ //4
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo3 = new Nodo('++',$3,@3,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,$2,nodo3]);
-		$$ = nodo;
-	}
-	| id INSTANCIA '--' ';'{ //4
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo3 = new Nodo('--',$3,@3,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,$2,nodo3]);
-		$$ = nodo;
-	}
-	| id '++' ';'{ //4
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('++',$2,@2,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,nodo2]);
-		$$ = nodo;
-	}
-	| id '--' ';'{ //4
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('--',$2,@2,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,nodo2]);
-		$$ = nodo;
+	VISIBILIDAD	: publico
+	{
+		$$= crearHoja("VISIBILIDAD",$1,@1.first_line,@1.first_column);
+		/*
+		hojita = crearNodo("Publico",@1.first_line,@1.first_column);
+		$$.add(hojita);
+		*/
 	} 
-	| id OP_ASIGNACION OP ';' {
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,$2,$3]);
-		$$ = nodo;
-	} 	
-	| este '.' id '++' ';'{ //3
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo('++',$4,@4,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,nodo2,nodo3,nodo4]);
-		$$ = nodo;
+	| privado
+	{
+		$$= crearHoja("VISIBILIDAD",$1,@1.first_line,@1.first_column);
+		/*
+		hojita = crearNodo("Privado",@1.first_line,@1.first_column);
+		$$.add(hojita);
+		*/
 	}
-	| este '.' id '--' ';'{ //3
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo('--',$4,@4,[]);
-		nodo  = new Nodo("ASIGNACION",$1,@1,[nodo1,nodo2,nodo3,nodo4]);
-		$$ = nodo;
-	};
+	| protegido
+	{
+		$$= crearHoja("VISIBILIDAD",$1,@1.first_line,@1.first_column);
+		/*
+		hojita = crearNodo("Protegido",@1.first_line,@1.first_column);
+		$$.add(hojita);
+		*/
+	}
+	;
 
-OP_ASIGNACION : '+=' {
-		nodo1 = new Nodo('+',$1,@1,[]);
-		//nodo  = new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo1;
+METODOS_ESTRUCTURAS	: id '.' FUNCION_ESTRUCTURAS ';' 
+	{
+		$$= crearNodo("ESTRUCT_PRIM",@1.first_line,@1.first_column);
+		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(ident);
+		$$.add($3);
 	}
-    | '-=' {
-		nodo1 = new Nodo('-',$1,@1,[]);
-		//nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo1;
-	}
-    | '*=' {
-		nodo1 = new Nodo('*',$1,@1,[]);
-		//nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo1;
-	}
-    | '/=' {
-		nodo1 = new Nodo('/',$1,@1,[]);
-		//nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo1;
-	};
-
-PRINCIPAL	: Principal '(' ')' '{'  INSTRUCCIONES '}'{
-		nodo1 = new Nodo('Principal',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo(')',$3,@3,[]);
-		nodo4 = new Nodo('{',$4,@4,[]);
-		nodo6 = new Nodo('{',$6,@6,[]);
-		nodo  = new Nodo("PRINCIPAL",$1,@1,[nodo1,nodo2,nodo3,nodo4,$5,nodo6]);
-		$$ = nodo;
-	};
+	;
 
 
-PROCEDIMIENTO : sobrescribir METODO {
-		nodo1 = new Nodo('sobrescribir',$1,@1,[]);
-		nodo  = new Nodo("PROCEDIMIENTO",$1,@1,[nodo1,$2]);
-		$$ = nodo;
+FUNCION_ESTRUCTURAS  : insertar '(' E ')' 
+	{
+		$$= crearNodo("INSERTAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|METODO {
-		nodo  = new Nodo("PROCEDIMIENTO",$1,@1,[$1]);
-		$$ = nodo;
-	};
-
-
-METODO : VISIBILIDAD TIPO id '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //9
-		nodo3 = new Nodo('id',$3,@3,[]); nodo4 = new Nodo('(',$4,@4,[]); nodo6 = new Nodo(')',$6,@6,[]); nodo7 = new Nodo('{',$7,@7,[]);
-		nodo9 = new Nodo('}',$9,@9,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,$2,nodo3,nodo4,$5,nodo6,nodo7,$8,nodo9]);
-		$$ = nodo;
+	|obtener '(' E ')'
+	{
+		$$= crearNodo("OBTENER",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	|VISIBILIDAD TIPO id '(' ')' '{' INSTRUCCIONES '}'{ //8
-		nodo3 = new Nodo('id',$3,@3,[]); nodo4 = new Nodo('(',$4,@4,[]); nodo6 = new Nodo(')',$5,@5,[]); nodo7 = new Nodo('{',$6,@6,[]);
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,$2,nodo3,nodo4,nodo6,nodo7,$7,nodo8]);
-		$$ = nodo;
+	|buscar '(' E ')'
+	{
+		$$= crearNodo("BUSCAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	| TIPO id '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //8
-		nodo3 = new Nodo('id',$2,@2,[]); nodo4 = new Nodo('(',$3,@3,[]); nodo6 = new Nodo(')',$5,@5,[]); nodo7 = new Nodo('{',$6,@6,[]); 
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,nodo3,nodo4,$4,nodo6,nodo7,$7,nodo8]);
-		$$ = nodo;
+	|apilar '(' E ')'
+	{
+		$$= crearNodo("APILAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	| TIPO id '(' ')' '{' INSTRUCCIONES '}'{ //7
-		nodo3 = new Nodo('id',$2,@2,[]); nodo4 = new Nodo('(',$3,@3,[]); nodo4 = new Nodo(')',$4,@4,[]); nodo5 = new Nodo('{',$5,@5,[]); 
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,nodo3,nodo4,nodo6,nodo7,$6,nodo7]);
-		$$ = nodo;
+	|desapilar  '(' ')'
+	{
+		$$= crearNodo("DESAPILAR",@1.first_line,@1.first_column);
 	}
-	| VISIBILIDAD id id '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //9
-		nodo2 = new Nodo('id',$2,@2,[]); nodo3 = new Nodo('id',$3,@3,[]); nodo4 = new Nodo('(',$4,@4,[]); nodo6 = new Nodo(')',$6,@6,[]);
-		nodo7 = new Nodo('{',$7,@7,[]); nodo9 = new Nodo('}',$9,@9,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,nodo2,nodo3,nodo4,$5,nodo6,nodo7,$8,nodo9]);
-		$$ = nodo;
+	|encolar '(' E ')'
+	{
+		$$= crearNodo("ENCOLAR",@1.first_line,@1.first_column);
+		$$.add($3);
 	}
-	| VISIBILIDAD id id '(' ')' '{' INSTRUCCIONES '}'{ //8
-		nodo2 = new Nodo('id',$2,@2,[]); nodo3 = new Nodo('id',$3,@3,[]); nodo4 = new Nodo('(',$4,@4,[]); nodo5 = new Nodo(')',$5,@5,[]); nodo6 = new Nodo('{',$6,@6,[]); nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,nodo2,nodo3,nodo4,nodo5,nodo6,$7,nodo8]);
-		$$ = nodo;
+	|desencolar '(' ')'
+	{
+		$$= crearNodo("DESENCOLAR",@1.first_line,@1.first_column);
 	}
-	| id id '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ 
-		nodo1 = new Nodo('id',$1,@1,[]); nodo2 = new Nodo('id',$2,@2,[]); nodo3 = new Nodo('(',$3,@3,[]); nodo6 = new Nodo(')',$5,@5,[]);
-		nodo7 = new Nodo('{',$6,@6,[]); nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("METODO",$1,@1,[nodo1,nodo2,nodo3,$4,nodo6,nodo7,$7,nodo8]);
-		$$ = nodo;
-	}
-	| id id '(' ')' '{' INSTRUCCIONES '}'{ 
-		nodo1 = new Nodo('id',$1,@1,[]); nodo2 = new Nodo('id',$2,@2,[]); nodo3 = new Nodo('(',$3,@3,[]); nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]); nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("METODO",$1,@1,[nodo1,nodo2,nodo3,nodo4,nodo5,$6,nodo7]);
-		$$ = nodo;
-	}
-	|VISIBILIDAD TIPO id DIMENSION '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //9
-		nodo3 = new Nodo('id',$3,@3,[]); nodo4 = new Nodo('(',$5,@5,[]); nodo6 = new Nodo(')',$7,@7,[]); nodo7 = new Nodo('{',$8,@8,[]);
-		nodo10 = new Nodo('}',$10,@10,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,$2,nodo3,$4, nodo4,$6,nodo6,nodo7,$9,nodo10]);
-		$$ = nodo;
-	}
-	|VISIBILIDAD TIPO id DIMENSION '(' ')' '{' INSTRUCCIONES '}'{ //8
-		nodo3 = new Nodo('id',$3,@3,[]); nodo4 = new Nodo('(',$5,@5,[]); nodo6 = new Nodo(')',$6,@6,[]); nodo7 = new Nodo('{',$7,@7,[]);
-		nodo9 = new Nodo('}',$9,@9,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,$2,nodo3,$4,nodo4,nodo6,nodo7,$8,nodo9]);
-		$$ = nodo;
-	}
-	| TIPO id DIMENSION '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //9
-		nodo3 = new Nodo('id',$2,@2,[]); nodo4 = new Nodo('(',$4,@4,[]); nodo6 = new Nodo(')',$6,@6,[]); nodo7 = new Nodo('{',$7,@7,[]); 
-		nodo9 = new Nodo('}',$9,@9,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,nodo3,$4,nodo4,$5,nodo6,nodo7,$8,nodo9]);
-		$$ = nodo;
-	}
-	| TIPO id DIMENSION '(' ')' '{' INSTRUCCIONES '}'{ //7
-		nodo3 = new Nodo('id',$2,@2,[]); nodo4 = new Nodo('(',$4,@4,[]); nodo4 = new Nodo(')',$5,@5,[]); nodo5 = new Nodo('{',$6,@6,[]); 
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("METODO",$1,@1,[$1,nodo3,$3, nodo4,nodo6,nodo7,$7,nodo8]);
-		$$ = nodo;
-	};
-
-
-PARAMETRO 	: PARAMETRO ',' PARAM{
-		nodo1 = new Nodo(',',$2,@2,[]);
-		nodo  = new Nodo("PARAMETRO",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
-	}
-	| PARAM{
-		nodo  = new Nodo("PARAMETRO",$1,@1,[$1]);
-		$$ = nodo;
-	};
-
-
-PARAM 	: TIPO id{
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("PARAM",$1,@1,[$1,nodo2]);
-		$$ = nodo;
-	}
-	| TIPO id DIMENSION{
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("PARAM",$1,@1,[$1,nodo2,$3]);
-		$$ = nodo;
-	}
-	| id id{
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("PARAM",$1,@1,[nodo1,nodo2]);
-		$$ = nodo;
-	}
-	| id id DIMENSION{
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("PARAM",$1,@1,[nodo1,nodo2,$3]);
-		$$ = nodo;
-	};
-
-
-CONSTRUCTOR : VISIBILIDAD id '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //9
-		nodo3 = new Nodo('id',$2,@2,[]);
-		nodo4 = new Nodo('(',$3,@3,[]);
-		nodo6 = new Nodo(')',$5,@5,[]);
-		nodo7 = new Nodo('{',$6,@6,[]);
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("CONSTRUCTOR",$1,@1,[$1,nodo3,nodo4,$4,nodo6,nodo7,$7,nodo8]);
-		$$ = nodo;
-	}
-	| id '(' PARAMETRO ')' '{' INSTRUCCIONES '}'{ //9
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("CONSTRUCTOR",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,$6,nodo7]);
-		$$ = nodo;
-	}
-	|VISIBILIDAD id '(' ')' '{' INSTRUCCIONES '}'{ //9
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo3 = new Nodo('(',$3,@3,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("CONSTRUCTOR",$1,@1,[$1,nodo2,nodo3,nodo4,nodo5,$6,nodo7]);
-		$$ = nodo;
-	}
-	| id '(' ')' '{' INSTRUCCIONES '}'{ //9
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo(')',$3,@3,[]);
-		nodo4 = new Nodo('{',$4,@4,[]);
-		nodo6 = new Nodo('}',$6,@6,[]);
-		nodo  = new Nodo("CONSTRUCTOR",$1,@1,[nodo1,nodo2,nodo3,nodo4,$5,nodo6]);
-		$$ = nodo;
-	};
-
-
-LLAMADA	: id '(' VALOR ')' {
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("LLAMADA",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	}
-	|id '(' ')' {
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo(')',$3,@3,[]);
-		nodo  = new Nodo("LLAMADA",$1,@1,[nodo1,nodo2,nodo3]);
-		$$ = nodo;
-	} 
-	|este '.' LLAMADA {
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo  = new Nodo("LLAMADA",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	};
-			
-			
-VALOR 	: VALOR ',' OP{
-		nodo1 = new Nodo(',',$2,@2,[]);
-		nodo  = new Nodo("VALOR",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
-	}
-		| OP{
-		nodo  = new Nodo("VALOR",$1,@1,[$1]);
-		$$ = nodo;
-	};
-
-				
-INSTANCIA	: INSTANCIA '.' LLAMADA{
-		nodo1 = new Nodo('.',$2,@2,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
-	}
-	| INSTANCIA '.' id{
-		nodo1 = new Nodo('.',$2,@2,[]);
-		nodo2 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[$1,nodo1,nodo2]);
-		$$ = nodo;
-	}
-	| INSTANCIA '->' id{
-		nodo1 = new Nodo('->',$2,@2,[]);
-		nodo2 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[$1,nodo1,nodo2]);
-		$$ = nodo;
-	}
-	| INSTANCIA '.' id DIMENSION{
-		nodo1 = new Nodo('.',$2,@2,[]);
-		nodo2 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[$1,nodo1,nodo2,$3]);
-		$$ = nodo;
-	}
-	|'.' LLAMADA{
-		nodo1 = new Nodo('.',$1,@1,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	}
-	|'.' id{
-		nodo1 = new Nodo('.',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[nodo1,nodo2]);
-		$$ = nodo;
-	}
-	| '->' id{
-		nodo1 = new Nodo('->',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[nodo1,nodo2]);
-		$$ = nodo;
-	}
-	| '.' id DIMENSION{
-		nodo1 = new Nodo('.',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo  = new Nodo("INSTANCIA",$1,@1,[nodo1,nodo2,$3]);
-		$$ = nodo;
-	};
+	;
 
 
 
-FUNCIONES : id '.' tamanio { //3
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('=',$2,@2,[]);
-		nodo3 = new Nodo('tamanio',$3,@3,[]);
-		nodo  = new Nodo("FUNCIONES",$1,@1,[nodo1,nodo2,nodo3]);
-		$$ = nodo;
+
+TIPO: entero 
+	{
+		$$=crearHoja("ENTERO",$1,@1.first_line,@1.first_column);
 	}
-	|convertiracadena '(' OP ')'{ //3
-		nodo1 = new Nodo('convertiracadena',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("FUNCIONES",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
+	| decimal
+	{
+		$$=crearHoja("DECIMAL",$1,@1.first_line,@1.first_column);
 	}
-	|convertiraentero '(' OP ')'{ //3
-		nodo1 = new Nodo('convertiraentero',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("FUNCIONES",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	};
-
-
-CONCATENAR : concatenar '(' id ',' OP ',' OP ')' ';'{ //6
-		nodo1 = new Nodo('concatenar',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo(',',$4,@4,[]);
-		nodo6 = new Nodo(',',$6,@6,[]);
-		nodo8 = new Nodo(')',$8,@8,[]);
-		nodo  = new Nodo("CONCATENAR",$1,@1,[nodo1,nodo2,nodo3,nodo4,$5,nodo6,$7,nodo8]);
-		$$ = nodo;
+	| booleano
+	{
+		$$=crearHoja("BOOLEANO",$1,@1.first_line,@1.first_column);
 	}
-	|concatenar '(' OP ',' OP ')' ';'{ //6
-		nodo1 = new Nodo('concatenar',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo(',',$4,@4,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("CONCATENAR",$1,@1,[nodo1,nodo2,nodo3,nodo4,$5,nodo6]);
-		$$ = nodo;
-	};
-
-
-IMPRIMIR : imprimir '(' OP ')' ';'{ //6
-		nodo1 = new Nodo('imprimir',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("IMPRIMIR",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	};
-
-
-ESTRUCTURA : estructura id '[' INSTRUCCIONES ']' ';'{ //6
-		nodo1 = new Nodo('estructura',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo3 = new Nodo('[',$3,@3,[]);
-		nodo5 = new Nodo(']',$5,@5,[]);
-		nodo  = new Nodo("ESTRUCTURA",$1,@1,[nodo1,nodo2,nodo3,$4,nodo5]);
-		$$ = nodo;
-	};
-
-
-PUNTEROS : crearPuntero '(' TIPO ',' id ')' ASIGNAR ';'{ //6
-		nodo1 = new Nodo('crearPuntero',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(',',$4,@4,[]);
-		nodo5 = new Nodo('id',$5,@5,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("PUNTEROS",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,nodo6,$7]);
-		$$ = nodo;
+	| cadena
+	{
+		$$=crearHoja("CADENA",$1,@1.first_line,@1.first_column);
 	}
-	|crearPuntero '(' id ',' id ')' ASIGNAR ';'{ //6
-		nodo1 = new Nodo('crearPuntero',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo(',',$4,@4,[]);
-		nodo5 = new Nodo('id',$5,@5,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("PUNTEROS",$1,@1,[nodo1,nodo2,nodo3,nodo4,nodo5,nodo6,$7]);
-		$$ = nodo;
+	| caracter
+	{
+		$$=crearHoja("VACIO",$1,@1.first_line,@1.first_column);
 	}
-	|destruirPuntero '(' id ')' ';'{ //6
-		nodo1 = new Nodo('crearPuntero',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("PUNTEROS",$1,@1,[nodo1,nodo2,nodo3,nodo4]);
-		$$ = nodo;
-	};
+	| vacio
+	{
+		$$=crearHoja("VACIO",$1,@1.first_line,@1.first_column);
+	}
+	| funcion
+	{
+		$$=crearHoja("FUNCION",$1,@1.first_line,@1.first_column);
+	}
+	| lista 
+	{
+		$$=crearHoja("LISTA",$1,@1.first_line,@1.first_column);
+	}
+	| pila
+	{
+		$$=crearHoja("PILA",$1,@1.first_line,@1.first_column);
+	}
+	| cola
+	{
+		$$=crearHoja("COLA",$1,@1.first_line,@1.first_column);
+	}
+	;
 
 
-MEMORIA : obtenerDireccion '(' id ')' { //6
-		nodo1 = new Nodo('obtenerDireccion',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("MEMORIA",$1,@1,[nodo1,nodo2,nodo3,nodo4]);
-		$$ = nodo;
-	}
-	|reservarMemoria '(' OP ')' { //6
-		nodo1 = new Nodo('reservarMemoria',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("MEMORIA",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	}
-	|consultarTamanio '(' OP ')' { //6
-		nodo1 = new Nodo('consultarTamanio',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo  = new Nodo("MEMORIA",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	};
 
 
-FUNCION_EDD	: id '.' OPCION_EDD '(' OP ')' ';' { //2
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo4 = new Nodo('(',$4,@4,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("FUNCION_EDD",$1,@1,[nodo1,nodo2,$3,nodo4,$5,nodo6]);
-		$$ = nodo;
+DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';' 
+	{
+		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		var ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(ident);
+		$$.add($4);
+		$$.add($5);
 	}
-	|id '.' OPCION_EDD '(' ')' ';' { //2
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('insertar',$3,@3,[]);
-		nodo4 = new Nodo('(',$4,@4,[]);
-		nodo5 = new Nodo(')',$5,@5,[]);
-		nodo  = new Nodo("FUNCION_EDD",$1,@1,[nodo1,nodo2,nodo3,nodo4,nodo5]);
-		$$ = nodo;
-	};
+	| TIPO id DIMENSION ASIGNAR ';' 
+	{
+		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
+		$$.add($1);
+		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(ident);
+		$$.add($3);
+		$$.add($4);
+	}
+	| VISIBILIDAD TIPO id ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		var ident = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(ident);
+		$$.add($4);
+	}
+	| VISIBILIDAD id id ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
+		$$.add($1);
+		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		var ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(ident);
+		$$.add(ident2);
+		$$.add($4);
+	}
+	| TIPO id ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
+		$$.add($1);
+		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(ident);
+		$$.add($3);
+	}
+	| id id ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
+		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		var ident2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(ident);
+		$$.add(ident2);
+		$$.add($3);
+	}
+	;
 
-
-OPCION_EDD  : insertar {
-		nodo1 = new Nodo('insertar',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
+	
+ASIGNAR	: '=' E 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		$$.add($2);
 	}
-	|obtener {
-		nodo1 = new Nodo('obtener',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
+	|'=' '{' ARRAY '}' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		$$.add($3);
 	}
-	|buscar {
-		nodo1 = new Nodo('buscar',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
+	|'=' nuevo id '(' ')'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
+		ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(nuevito);
+		$$.add(ident2);
 	}
-	|apilar {
-		nodo1 = new Nodo('apilar',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	|desapilar {
-		nodo1 = new Nodo('desapilar',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	|encolar {
-		nodo1 = new Nodo('encolar',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	|desencolar {
-		nodo1 = new Nodo('desencolar',$1,@1,[]);
-		nodo  = new Nodo("OPCION_EDD",$1,@1,[nodo1]);
-		$$ = nodo;
-	};
-
-
-SI	: si '(' OP ')' OPCION_SI finsi { //8
-		nodo1 = new Nodo('si',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo(')',$4,@4,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("SI",$1,@1,[nodo1,nodo2,$3,nodo3,$5,nodo6]);
-		$$ = nodo;
-	};
-
-
-OPCION_SI : esverdadero '{' INSTRUCCIONES '}' esfalso '{' INSTRUCCIONES '}' { //8
-		nodo1 = new Nodo('esverdadero',$1,@1,[]);
-		nodo2 = new Nodo('{',$2,@2,[]);
-		nodo4 = new Nodo('}',$4,@4,[]);
-		nodo5 = new Nodo('esfalso',$5,@5,[]);
-		nodo6 = new Nodo('{',$6,@6,[]);
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("OPCION_SI",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,nodo6,$7,nodo8]);
-		$$ = nodo;
-	}
-	| esfalso '{' INSTRUCCIONES '}' esverdadero '{' INSTRUCCIONES '}' { //8
-		nodo1 = new Nodo('esfalso',$1,@1,[]);
-		nodo2 = new Nodo('{',$2,@2,[]);
-		nodo4 = new Nodo('}',$4,@4,[]);
-		nodo5 = new Nodo('esverdadero',$5,@5,[]);
-		nodo6 = new Nodo('{',$6,@6,[]);
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("OPCION_SI",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,nodo6,$7,nodo8]);
-		$$ = nodo;
-	}
-	| esverdadero '{' INSTRUCCIONES '}' { //8
-		nodo1 = new Nodo('esverdadero',$1,@1,[]);
-		nodo2 = new Nodo('{',$2,@2,[]);
-		nodo4 = new Nodo('}',$4,@4,[]);
-		nodo  = new Nodo("OPCION_SI",$1,@1,[nodo1,nodo2,$3,nodo4]);
-		$$ = nodo;
-	};
-
-
-SWITCH	: evaluarsi '(' OP ')' '{' CASO '}'{
-		nodo1 = new Nodo('evaluarsi',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("SWITCH",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,$6,nodo7]);
-		$$ = nodo;
-	}
-	| evaluarsi '(' OP ')' '{' DEFECTO '}'{
-		nodo1 = new Nodo('evaluarsi',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("SWITCH",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,$6,nodo7]);
-		$$ = nodo;
-	}
-	| evaluarsi '(' OP ')' '{' CASO DEFECTO '}'{
-		nodo1 = new Nodo('evaluarsi',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo8 = new Nodo('}',$8,@8,[]);
-		nodo  = new Nodo("SWITCH",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,$6,$7,nodo8]);
-		$$ = nodo;
-	};
-
-
-CASO 	: CASO esiguala OP ':' INSTRUCCIONES{
-		nodo1 = new Nodo('esiguala',$2,@2,[]);
-		nodo4 = new Nodo(':',$4,@4,[]);
-		nodo  = new Nodo("CASO",$1,@1,[$1,nodo1,$3,nodo4,$5]);
-		$$ = nodo;
-	}
-	| esiguala OP ':' INSTRUCCIONES{
-		nodo1 = new Nodo('esiguala',$1,@1,[]);
-		nodo4 = new Nodo(':',$3,@3,[]);
-		nodo  = new Nodo("CASO",$1,@1,[nodo1,$2,nodo4,$4]);
-		$$ = nodo;
-	};
+	|'=' nuevo id '(' VALOR ')'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
+		ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(nuevito);
+		$$.add(ident2);
+		$$.add($5);
 		
-
-DEFECTO	: defecto ':' INSTRUCCIONES{
-		nodo1 = new Nodo('defecto',$1,@1,[]);
-		nodo2 = new Nodo(':',$2,@2,[]);
-		nodo  = new Nodo("DEFECTO",$1,@1,[nodo1,nodo2,$3]);
-		$$ = nodo;
-	};
-
-
-CICLO 	: repetirmientras '(' OP ')' '{' INSTRUCCIONES'}'{ //7
-		nodo1 = new Nodo('repetirmientras',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo7 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("CICLO",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,$6,nodo7]);
-		$$ = nodo;
 	}
-	| hacer '{' INSTRUCCIONES'}' mientras '(' OP ')' ';'{ //8
-		nodo1 = new Nodo('hacer',$1,@1,[]);
-		nodo2 = new Nodo('{',$2,@2,[]);
-		nodo3 = new Nodo('}',$4,@4,[]);
-		nodo4 = new Nodo('mientras',$5,@5,[]);
-		nodo5 = new Nodo('(',$6,@6,[]);
-		nodo8 = new Nodo(')',$8,@8,[]);
-		nodo  = new Nodo("CICLO",$1,@1,[nodo1,nodo2,$3,nodo3,nodo4,nodo5,$7,nodo8]);
-		$$ = nodo;
+	|'=' nuevo TIPO '(' ')'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
+		$$.add(nuevito);
+		$$.add($3);
 	}
-	| repetir '{' INSTRUCCIONES'}' hastaque '(' OP ')' ';'{ //9
-		nodo1 = new Nodo('repetir',$1,@1,[]);
-		nodo2 = new Nodo('{',$2,@2,[]);
-		nodo3 = new Nodo('}',$4,@4,[]);
-		nodo4 = new Nodo('hastaque',$5,@5,[]);
-		nodo5 = new Nodo('(',$6,@6,[]);
-		nodo8 = new Nodo(')',$8,@8,[]);
-		nodo  = new Nodo("CICLO",$1,@1,[nodo1,nodo2,$3,nodo3,nodo4,nodo5,$7,nodo8]);
-		$$ = nodo;
+	|'=' nuevo TIPO '(' TIPO ')'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
+		$$.add($3);
+		$$.add($5);
 	}
-	| ciclodoble '(' OP "," OP ')' '{' INSTRUCCIONES '}'{ //10
-		nodo1 = new Nodo('ciclodoble',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo(',',$4,@4,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo7 = new Nodo('{',$7,@7,[]);
-		nodo9 = new Nodo('}',$9,@9,[]);
-		nodo  = new Nodo("CICLO",$1,@1,[nodo1,nodo2,$3,nodo3,$5,nodo6,nodo7,$8,nodo9]);
-		$$ = nodo;
+	|'=' nuevo TIPO '(' id ')'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
+		ident2 = crearHoja("ID",$5,@5.first_line,@5.first_column);
+		$$.add(nuevito);
+		$$.add($3);
+		$$.add(ident2);
 	}
-	| enciclar id '{' INSTRUCCIONES '}'{ //5
-		nodo1 = new Nodo('enciclar',$1,@1,[]);
-		nodo2 = new Nodo('id',$2,@2,[]);
-		nodo3 = new Nodo('{',$3,@3,[]);
-		nodo4 = new Nodo('}',$5,@5,[]);
-		nodo  = new Nodo("CICLO",$1,@1,[nodo1,nodo2,nodo3,$4,nodo4]);
-		$$ = nodo;
-	};
+	|
+	;
 
-
-FOR 	: repetircontando '(' variable ':' id ';' desde ':' OP ';' hasta ':' OP ')' '{' INSTRUCCIONES'}'{ //5//9//13//16
-		nodo1 = new Nodo('repetircontando',$1,@1,[]); nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo('variable',$3,@3,[]); nodo4 = new Nodo('id',$5,@5,[]);
-		nodo5 = new Nodo(';',$5,@5,[]); nodo6 = new Nodo('desde',$6,@6,[]);
-		nodo8 = new Nodo(';',$8,@8,[]); nodo9 = new Nodo('hasta',$9,@9,[]);
-		nodo11 = new Nodo(')',$11,@11,[]);
-		nodo  = new Nodo("FOR",$1,@1,[nodo1,nodo2,nodo3,nodo4,nodo5,nodo6, $9,nodo8,nodo9,$13,nodo11,$16]);
-		$$ = nodo;
+ARRAY : ARRAY ',' '{' ARRAY '}' 
+	{
+		$$ = crearNodo("ARREGLO",null,null);
+		$$.add($1);
+		$$.add($4);
 	}
-	| contador '(' OP ')' '{' INSTRUCCIONES'}'{//7
-		nodo1 = new Nodo('contador',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo4 = new Nodo(')',$4,@4,[]);
-		nodo5 = new Nodo('{',$5,@5,[]);
-		nodo6 = new Nodo('}',$7,@7,[]);
-		nodo  = new Nodo("FOR",$1,@1,[nodo1,nodo2,$3,nodo4,nodo5,$6,nodo6]);
-		$$ = nodo;
-	};
-
-
-TECLADO : leerteclado '(' OP "," id ')' ';'{ //10
-		nodo1 = new Nodo('ciclodoble',$1,@1,[]);
-		nodo2 = new Nodo('(',$2,@2,[]);
-		nodo3 = new Nodo(',',$4,@4,[]);
-		nodo5 = new Nodo('id',$5,@5,[]);
-		nodo6 = new Nodo(')',$6,@6,[]);
-		nodo  = new Nodo("CICLO",$1,@1,[nodo1,nodo2,$3,nodo3,nodo5,nodo6,$7,nodo6]);
-		$$ = nodo;
-	};
-
-
-
-
-
-
-
-
-OP: E { 
-		nodo  = new Nodo("OP",$1,@1,[$1]);
-		$$ = nodo;
-		//console.log("Expresion"); 
-	};
-
-
-E   : '(' E ')'{
-		nodo1 = new Nodo('(',$1,@1,[]);
-		nodo2 = new Nodo(')',$3,@3,[]);
-		nodo  = new Nodo("E",$1,@1,[nodo1,$2,nodo2]);
-		$$ = nodo;
+    | ARRAY ',' E
+	{
+		$$ = crearNodo("ARREGLO",null,null);
+		$$.add($1);
+		$$.add($3);
 	}
-    | E '+' E{
-		nodo1 = new Nodo('+',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+    | E
+	{
+		$$ = crearNodo("ARREGLO",null,null);
+		$$.add($1);
 	}
-    | E '-' E{
-		nodo1 = new Nodo('-',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+    |'{' ARRAY '}' 
+	{
+		$$ = crearNodo("ARREGLO",null,null);
+		$$.add($2);
 	}
-    | E '*' E{
-		nodo1 = new Nodo('*',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	;
+
+
+ASIGNACION	: id ASIGNAR ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		//$$.add(nuevito);
+		$$.add($2);
+		
 	}
-    | E '/' E{
-		nodo1 = new Nodo('/',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
-	}
-    | E '^' E{
-		nodo1 = new Nodo('^',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
-	}
-    | E '!'{
-		nodo1 = new Nodo('!',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1]);
-		$$ = nodo;
-	}
-    | '-' E %prec UMINUS{
-		nodo1 = new Nodo('-',$1,@1,[]);
-		nodo  = new Nodo("E",$1,@1,[nodo1,$2]);
-		$$ = nodo;
+	| id DIMENSION ASIGNAR ';'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($2);
+		$$.add($3);
 	} 
-    | E '>=' E{
-		nodo1 = new Nodo('>=',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| este '.' id ASIGNAR ';'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		este = crearNodo("este",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(este);
+		$$.add(identificador);
+		$$.add($4);
+	} 
+	| este '.' id INSTANCIA ASIGNAR ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		este = crearNodo("este",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(este);
+		$$.add(identificador);
+		$$.add($4);
+		$$.add($5);
 	}
-    | E '<=' E{
-		nodo1 = new Nodo('<=',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| este flecha id ASIGNAR ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		este = crearNodo("este",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(este);
+		$$.add(identificador);
+		$$.add($4);
 	}
-    | E '==' E{
-		nodo1 = new Nodo('==',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| este flecha id INSTANCIA ASIGNAR ';'
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		este = crearNodo("este",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(este);
+		$$.add(identificador);
+		$$.add($4);
+		$$.add($5);
+	} 
+	| id INSTANCIA ASIGNAR ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		este = crearNodo("este",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(este);
+		$$.add(identificador);
+		$$.add($4);
 	}
-    | E '!=' E{
-		nodo1 = new Nodo('!=',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| id INSTANCIA '++' ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($2);
 	}
-    | E '>' E{
-		nodo1 = new Nodo('>',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| id INSTANCIA '--' ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($2);
 	}
-    | E '<' E{
-		nodo1 = new Nodo('<',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| id '++' ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
 	}
-    | E '||' E{
-		nodo1 = new Nodo('||',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| id '--' ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
 	}
-    | E '&&' E{
-		nodo1 = new Nodo('&&',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	| id ASIGNACION_EXPR E ';' 
+	{
+		$$ = crearNodo("ASIGNACION",null,null);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($2);
+		$$.add($3);
 	}
-    | E '??' E{
-		nodo1 = new Nodo('??',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1,$3]);
-		$$ = nodo;
+	;
+
+ASIGNACION_EXPR : '+=' 
+	{
+		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
+		asignacion.add($1);
+		$$= asignacion;
+		//$$.add($1);
 	}
-	| verdadero{
-		nodo1 = new Nodo("verdadero",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}	
-	| falso{
-		nodo1 = new Nodo("falso",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}	
-	| E '++'{
-		nodo1 = new Nodo('++',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1]);
-		$$ = nodo;
+    | '-=' 
+	{
+		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
+		asignacion.add($1);
+		$$= asignacion;
+		//$$.add($1);
 	}
-	| E '--'{
-		nodo1 = new Nodo('--',$2,@2,[]);
-		nodo  = new Nodo("E",$1,@1,[$1,nodo1]);
-		$$ = nodo;
+    | '*=' 
+	{
+		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
+		asignacion.add($1);
+		$$= asignacion;
+		//$$.add($1);
 	}
-    | numEntero{
-		nodo1 = new Nodo("entero",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}	
-	| numDecimal{
-		nodo1 = new Nodo("decimal",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
+    | '/=' 
+	{
+		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
+		asignacion.add($1);
+		$$= asignacion;
+		//$$.add($1);
 	}
-    | id {
-		nodo1 = new Nodo("id",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}	
-    | cadenaDoble{
-		nodo1 = new Nodo("cadenaDoble",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}	
-    | cadenaSimple{
-		nodo1 = new Nodo("cadenaSimple",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| nada{
-		nodo1 = new Nodo("nada",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| nulo{
-		nodo1 = new Nodo("nulo",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1]);
-		$$ = nodo;
-	}
-	| este '.' id { //3
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("E",$1,@1,[nodo1,nodo2,nodo3,nodo1]);
-		$$ = nodo;
-	}
-	| este '.' id INSTANCIA{ //3
-		nodo1 = new Nodo('este',$1,@1,[]);
-		nodo2 = new Nodo('.',$2,@2,[]);
-		nodo3 = new Nodo('id',$3,@3,[]);
-		nodo  = new Nodo("E",$1,@1,[nodo1,nodo2,nodo3,$4]);
-		$$ = nodo;
-	}
- 	| FUNCIONES {
-		nodo	= new Nodo("E",$1,@1,[$1]);
-		$$ = nodo;
-	}
-	| LLAMADA {
-		nodo	= new Nodo("E",$1,@1,[$1]);
-		$$ = nodo;
-	}
-	| CONCATENAR {
-		nodo	= new Nodo("E",$1,@1,[$1]);
-		$$ = nodo;
-	}
-	| MEMORIA {
-		nodo	= new Nodo("E",$1,@1,[$1]);
-		$$ = nodo;
-	}
-	|FUNCION_EDD {
-		nodo	= new Nodo("E",$1,@1,[$1]);
-		$$ = nodo;
-	}
-	| id INSTANCIA {
-		nodo1 = new Nodo("id",$1,@1,[]);
-		nodo	= new Nodo("E",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	}	
-	| id DIMENSION { 
-		nodo1 = new Nodo('id',$1,@1,[]);
-		nodo  = new Nodo("E",$1,@1,[nodo1,$2]);
-		$$ = nodo;
-	};
+	;
 
 
-			
-%%
-function Nodo(nombre, token, posicion, hijos){
-	this.nombre = nombre;
-	this.token = token;
-	this.posicion = posicion;
-	this.hijos = hijos;	
-}
-parser.arbol = {
-	raiz:null
-};
+PROCEDIMIENTO : sobrescribir METODO
+	{	
+		nodoSobreEs = crearNodo("SobreEscribir",@1.first_line,@1.first_column);
+		$$.add(nodoSobreEs);
+		$$.add($2);
+	}
+	|METODO 
+	{
+		$$ = crearNodo("PROCEDIMIENTO",@1.first_line,@1.first_column);
+		$$.add($1);
+	}
+	;
+
+
+METODO : VISIBILIDAD TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '	}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add($5);
+		$$.add($8);
+	}
+	| VISIBILIDAD TIPO id '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add($7);
+	}
+	| TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($4);
+		$$.add($7);
+	}
+	| TIPO id '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($6);
+	}
+	| VISIBILIDAD id id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		identificador2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add(identificador2);
+		$$.add($5);
+		$$.add($8);
+	}
+	| VISIBILIDAD id id '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		identificador2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add(identificador2);
+		$$.add($5);
+		$$.add($8);
+	}
+	| id id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		identificador2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add(identificador2);
+		$$.add($4);
+		$$.add($7);
+	}
+	| id id '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		identificador2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add(identificador2);
+		$$.add($6);
+	}
+	| VISIBILIDAD TIPO id DIMENSION '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add($4);
+		$$.add($6);
+		$$.add($9);
+	}
+	| VISIBILIDAD TIPO id DIMENSION '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add($4);
+		$$.add($8);
+	}
+	| TIPO id DIMENSION '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add($3);
+		$$.add($5);
+		$$.add($8);
+	}
+	| TIPO id DIMENSION '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add($3);
+		$$.add($7);
+	}
+	;
+
+PARAMETROS 	: PARAMETROS ',' PARAMETRO
+	{
+		var Parametro = crearNodo("PARAMETROS", $1.first_line-1, $1.first_column-1  );
+		Parametro.add($3);
+		$$= Parametro;
+		//$$.add($3);
+	}
+	| PARAMETRO
+	{
+		$$ = crearNodo("PARAMETROS",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+	}
+	;
+
+
+PARAMETRO 	: TIPO id
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+	}
+	| id id
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		identificador2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add(identificador2);
+	}
+	| id id DIMENSION
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		identificador2 = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add(identificador2);
+		$$.add($3);
+	}
+	| TIPO id DIMENSION
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($3);
+	}
+	
+	;
+
+CONSTRUCTOR : VISIBILIDAD id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($4);
+		$$.add($7);
+	}
+	| VISIBILIDAD id '(' PARAMETROS ')' '{' '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($4);
+	}
+	| id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($3);
+		$$.add($6);
+	}
+	| id '(' PARAMETROS ')' '{'  '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($3);
+	}
+	| VISIBILIDAD id '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($6);
+	}
+	| VISIBILIDAD id '(' ')' '{'  '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+	}
+	| id '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($5);
+	}
+	| id '(' ')' '{'  '}'
+	{
+		$$ = crearNodo("CONSTRUCTOR",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+	}
+	;
+
+
+LLAMADA	: id '(' VALOR ')'
+	{
+		$$ = crearNodo("LLAMADA",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		$$.add($3);
+	}
+	|id '(' ')'  
+	{
+		$$ = crearNodo("LLAMADA",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+	}
+	|este '.' LLAMADA 
+	{
+		$$ = crearNodo("LLAMADA",@1.first_line-1,@1.first_column-1);
+		ESTEE = crearNodo("este",@1.first_line,@1.first_column);
+		$$.add(ESTEE);
+		$$.add($3);
+	}
+	|este flecha LLAMADA
+	{
+		$$ = crearNodo("LLAMADA",@1.first_line-1,@1.first_column-1);
+		ESTEE = crearNodo("este",@1.first_line,@1.first_column);
+		$$.add(ESTEE);
+		$$.add($3);
+	}
+	;
+
+VALOR 	: VALOR ',' E
+		{
+			var valor = crearNodo("VALOR", $1.first_line-1, $1.first_column-1  );
+			valor.add($1);
+			valor.add($3);
+			$$= valor;
+		
+//			$$.add($1);
+//			$$.add($3);
+		}
+		| E
+		{
+			$$ = crearNodo("VALOR",@1.first_line-1,@1.first_column-1);
+			$$.add($1);
+		}
+		;
+
+INSTANCIA	: INSTANCIA '.' LLAMADA
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+	| INSTANCIA flecha LLAMADA
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+	| INSTANCIA '.' id
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+	}
+	| INSTANCIA flecha	 id
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+	}
+	| INSTANCIA '.' id DIMENSION
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add($4)
+	}
+	| INSTANCIA flecha id DIMENSION
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
+		$$.add(identificador);
+		$$.add($4);
+	}
+	|'.' LLAMADA
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($2);
+	}
+	| flecha LLAMADA
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		$$.add($2);
+		
+	}
+	|'.' id 
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		
+	}
+	|flecha id 
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+	}
+	|'.' id DIMENSION
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($3);
+	}
+	|flecha id DIMENSION
+	{
+		$$ = crearNodo("INSTANCIA",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
+		$$.add(identificador);
+		$$.add($3);
+	}
+	;
+
+
+FUNCIONES : id '.' tamanio
+	{
+		$$ = crearNodo("FUNCIONES",@1.first_line-1,@1.first_column-1);
+		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
+		$$.add(identificador);
+		tamanio = $$ = crearNodo("tamanio",@3.first_line,@3.first_column);
+		$$.add(tamanio);
+	}
+	|convertiracadena '(' E ')'
+	{
+		$$ = crearNodo("FUNCIONES",@1.first_line-1,@1.first_column-1);
+		convertir = $$ = crearNodo("convertirCadena",@1.first_line,@1.first_column);
+		$$.add(convertir);
+		$$.add($3);
+	}
+	|convertiraentero '(' E ')'
+	{
+		$$ = crearNodo("FUNCIONES",@1.first_line-1,@1.first_column-1);
+		convertir = $$ = crearNodo("convertirEntero",@1.first_line,@1.first_column);
+		$$.add(convertir);
+		$$.add($3);
+	}
+	;
+
+CONCATENAR : concatenar '(' E ',' E ',' E ')'
+	{
+		$$ = crearNodo("CONCATENAR",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($5);
+		$$.add($7);
+	}
+	| concatenar '(' E ',' E ')' 
+	{
+		$$ = crearNodo("CONCATENAR",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($5);
+	}
+	;
+
+IMPRIMIR : imprimir '(' E ')' ';'
+		{
+			$$ = crearNodo("IMPRIMIR",@1.first_line-1,@1.first_column-1);
+			$$.add($3);
+		}
+;
+
+ESTRUCTURA : estructura id '[' LISTA_INSTRUCCIONES ']' ';'
+		{
+			$$ = crearNodo("Estructura",@1.first_line-1,@1.first_column-1);
+			identificador = ("ID", $2, @2.first_line, @2.first_column);
+			$$.add(identificador);
+			$$.add($4);
+		}
+		;
+
+PUNTEROS : crearPuntero '(' TIPO ',' id ')' ASIGNAR ';'
+	{
+		$$ = crearNodo("PUNTEROS",@1.first_line-1,@1.first_column-1);
+		crearPuntero = ("CrearPuntero", $1, @1.first_line, @1.first_column);
+		identificador = ("ID", $5, @5.first_line, @5.first_column);
+		$$.add(crearPuntero);
+		$$.add($3);
+		$$.add(identificador);
+		$$.add($7);
+	}
+	|crearPuntero '(' id ',' id ')' ASIGNAR ';'
+	{
+		$$ = crearNodo("PUNTEROS",@1.first_line-1,@1.first_column-1);
+		crearPuntero = ("CrearPuntero", $1, @1.first_line, @1.first_column);
+		identificador = ("ID", $3, @3.first_line, @3.first_column);
+		identificador2 = ("ID", $5, @5.first_line, @5.first_column);
+		$$.add(crearPuntero);
+		$$.add(identificador);
+		$$.add(identificador2);
+		$$.add($7);
+	}
+	|destruirPuntero '(' id ')' ';'
+	{
+		$$ = crearNodo("PUNTEROS",@1.first_line-1,@1.first_column-1);
+		destruiPuntero = ("destruirPuntero", $1, @1.first_line, @1.first_column);
+		identificador = ("ID", $3, @3.first_line, @3.first_column);
+		$$.add(destruiPuntero);
+		$$.add(identificador);
+	}
+	;
+
+MEMORIA : obtenerDireccion '(' id ')' 
+	{
+		$$ = crearNodo("MEMORIA",@1.first_line-1,@1.first_column-1);
+		obtenerDireccion = ("ObtenerDireccion", $1, @1.first_line, @1.first_column);
+		identificador = ("ID", $3, @3.first_line, @3.first_column);
+		$$.add(obtenerDireccion);
+		$$.add(identificador);	
+	}
+	|reservarMemoria '(' E ')'
+	{
+		$$ = crearNodo("MEMORIA",@1.first_line-1,@1.first_column-1);
+		reservarMemoria = ("reservarMemoria", $1, @1.first_line, @1.first_column);
+		$$.add(reservarMemoria);
+		$$.add($3);
+	
+	} 
+	|consultarTamanio '(' E ')' 
+	{
+		$$ = crearNodo("MEMORIA",@1.first_line-1,@1.first_column-1);
+		consultarTamanio = ("consultarTamanio", $1, @1.first_line, @1.first_column);
+		$$.add(consultarTamanio);
+		$$.add($3);
+	}	
+	;
+
+
+SI	: si '(' E ')' CUERPO_IF finsi 
+	{
+		$$ = crearNodo("SI",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($5);
+	}
+	;
+
+CUERPO_IF : esverdadero '{' LISTA_INSTRUCCIONES '}' esfalso '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
+		condicionV = crearNodo("EsVerdaderoF",@1.first_line,@1.first_column);
+		$$.add(condicionv);
+		$$.add($3);
+		condicionF = crearNodo("EsVerdaderoF",@5.first_line,@5.first_column);
+		$$.add(condicionF);
+		$$.add($7);
+	}
+	| esverdadero '{'  '}' esfalso '{'  '}'
+	{
+		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
+		condicionV = crearNodo("EsVerdaderoF",@1.first_line,@1.first_column);
+		$$.add(condicionv);
+		condicionF = crearNodo("EsVerdaderoF",@4.first_line,@4.first_column);
+		$$.add(condicionF);
+	}
+	| esfalso '{' LISTA_INSTRUCCIONES '}' esverdadero '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
+		condicionF = crearNodo("esFalso",@1.first_line,@1.first_column);
+		condicionV = crearNodo("esVerdadero",@5.first_line,@5.first_column);
+		$$.add(condicionF);
+		$$.add($3);
+		$$.add(condicionV);
+		$$.add($7);
+	}
+	| esfalso '{'  '}' esverdadero '{'  '}' 
+	{
+		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
+		condicionF = crearNodo("EsFalso",@1.first_line,@1.first_column);
+		$$.add(condicionF);
+		condicionV = crearNodo("EsVerdadero",@4.first_line,@4.first_column);
+		$$.add(condicionV);
+	}
+	| esverdadero '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
+		condicionV = crearNodo("esVerdadero",@1.first_line,@1.first_column);
+		$$.add(condicionV);
+		$$.add($3);
+	}
+	| esverdadero '{'  '}'
+	{
+		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
+		condicionV = crearNodo("esVerdadero",@1.first_line,@1.first_column);
+		$$.add(condicionV);
+	}
+	 ;
+
+SWITCH	: evaluarsi '(' E ')' '{' CASO '}'
+	{
+		$$ = crearNodo("SUITCH",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($6);
+	}
+	| evaluarsi '(' E ')' '{' DEFECTO '}'
+	{
+		$$ = crearNodo("SUITCH",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($6);
+	}
+	| evaluarsi '(' E ')' '{' CASO DEFECTO '}'
+	{
+		$$ = crearNodo("SUITCH",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($6);
+		$$.add($7);
+	}
+	;
+
+
+CASO 	: CASO esiguala E ':' LISTA_INSTRUCCIONES
+	{
+		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		$$.add($5);
+	}
+	| CASO esiguala E ':' 
+	{
+		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+	}
+	| esiguala E ':' LISTA_INSTRUCCIONES
+	{
+		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
+		$$.add($2);
+		$$.add($4);
+	}
+	| esiguala E ':' 
+	{
+		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
+		$$.add($2);
+	}
+	;
+
+DEFECTO	: defecto ':' LISTA_INSTRUCCIONES
+	{
+		{
+		$$ = crearNodo("DEFECTO",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+	}
+	}
+	;
+
+CICLO 	: repetirmientras '(' E ')' '{' LISTA_INSTRUCCIONES'}'
+	{
+		
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("repetirMientras",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		$$.add($3);
+		$$.add($6);
+	
+	}
+	| repetirmientras '(' E ')' '{' '}'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("repetirMientras",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		$$.add($3);
+	
+	}
+	| hacer '{' LISTA_INSTRUCCIONES'}' mientras '(' E ')' ';'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("Hacer",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		nodito2 = crearNodo("Mientras",@5.first_line,@5.first_column);
+		$$.add(nodito2);
+		$$.add($7);
+	
+	}
+	| hacer '{' '}' mientras '(' E ')' ';'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("Hacer",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		nodito2 = crearNodo("Mientras",@4.first_line,@4.first_column);
+		$$.add(nodito2)
+		$$.add($6);
+	
+	}
+	| repetir '{' LISTA_INSTRUCCIONES'}' hastaque '(' E ')' ';'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("Repetir",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		$$.add($3);
+		nodito2 = crearNodo("hastaQue",@5.first_line,@5.first_column);
+		$$.add(nodito2);
+		$$.add($6);
+	}
+	| repetir '{' '}' hastaque '(' E ')' ';'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("Repetir",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		nodito2 = crearNodo("hastaQue",@5.first_line,@5.first_column);
+		$$.add(2);
+		$$.add($6);
+	}
+	| ciclodoble '(' E "," E ')' '{' LISTA_INSTRUCCIONES'}'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("cicloDoble",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		$$.add($3);
+		$$.add($5);
+		$$.add($8);
+	}
+	| ciclodoble '(' E "," E ')' '{' '}'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("cicloDoble",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		$$.add($3);
+		$$.add($5);
+	}
+	| enciclar id '{' LISTA_INSTRUCCIONES '}'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("enciclar",@1.first_line,@1.first_column);
+		$$.add(nodito);
+		nodito2 = crearHoja("ID", $2, @2.first_linem, @2.first_column);
+		$$.add(nodito2);
+		$$.add($4);
+	}
+	| enciclar id '{'  '}'
+	{
+		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("enciclar",@1.first_line,@1.first_column);
+		$$.add(1);
+		nodito2 = crearHoja("ID", $2, @2.first_linem, @2.first_column);
+		$$.add(nodito2);
+	}
+	;
+
+
+
+FOR 	: repetircontando '(' variable ':' id ';' desde ':' E ';' hasta ':' E ')' '{' LISTA_INSTRUCCIONES'}'
+	{
+		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
+		nodito = crearNodo("repetircontando",@1.first_line,@1.first_column);
+		$$.add(1);
+		nodito2 = crearHoja("ID", $5, @5.first_linem, @5.first_column);
+		$$.add(nodito2);
+		nodito3 = crearNodo("desde",@7.first_line,@7.first_column);
+		$$.add(nodito3);
+		$$.add($9);
+		nodito4 = crearNodo("hasta",@11.first_line,@11.first_column);
+		$$.add(nodito4);
+		$$.add($13);
+		$$.add($16);
+	}
+	| repetircontando '(' variable ':' id ';' desde ':' E ';' hasta ':' E ')' '{' '}'
+	{
+		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
+		nodito1 = crearNodo("repetircontando",@1.first_line,@1.first_column);
+		$$.add(nodito1);
+		nodito2 = crearHoja("ID", $5, @5.first_linem, @5.first_column);
+		$$.add(nodito2);
+		nodito3 = crearNodo("desde",@7.first_line,@7.first_column);
+		$$.add(nodito3);
+		$$.add($9);
+		nodito4 = crearNodo("hasta",@11.first_line,@11.first_column);
+		$$.add(nodito4);
+		$$.add($13);
+	}
+	| contador '(' E ')' '{' LISTA_INSTRUCCIONES'}'
+	{
+		
+		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
+		nodito1 = crearNodo("contador",@1.first_line,@1.first_column);
+		$$.add(nodito1);
+		$$.add($3);
+		$$.add($6);
+	}
+	| contador '(' E ')' '{' '}'
+	{
+		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
+		nodito1 = crearNodo("contador",@1.first_line,@1.first_column);
+		$$.add(nodito1);
+		
+		$$.add($3);
+	}
+	;
+
+
+TECLADO : leerteclado '(' E "," id ')' ';'
+	{
+		$$ = crearNodo("LEER_TECLADO",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+		nodito2 = crearHoja("ID", $5, @5.first_linem, @5.first_column);
+		$$.add(2);
+	}
+;
+
+E   : '(' E ')'
+	{
+		$$ = crearNodo("Expresion",@1.first_line-1,@1.first_column-1);
+		$$.add($2);
+	}
+    | E '+' E
+	{
+		$$ = crearNodo("+",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '-' E
+	{
+		$$ = crearNodo("-",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '*' E
+	{
+		$$ = crearNodo("*",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '/' E
+	{
+		$$ = crearNodo("/",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '^' E
+	{
+		$$ = crearNodo("^",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '!'
+	{
+		$$ = crearNodo("!",@2.first_line-1,@2.first_column-1);
+		$$.add($1);
+	}
+    | '-' E %prec UMINUS
+	{
+		$$ = crearNodo("-",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+	}
+    | E '>=' E
+	{
+		$$ = crearNodo(">=",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '<=' E
+	{
+		$$ = crearNodo("<=",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '==' E
+	{
+		$$ = crearNodo("==",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '!=' E
+	{
+		$$ = crearNodo("!=",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '>' E
+	{
+		$$ = crearNodo(">",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '<' E
+	{
+		$$ = crearNodo("<",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '||' E
+	{
+		$$ = crearNodo("||",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '&&' E
+	{
+		$$ = crearNodo("&&",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+    | E '??' E
+	{
+		$$ = crearNodo("??",@1.first_line-1,@1.first_column-1);
+		$$.add($1);
+		$$.add($3);
+	}
+	| verdadero
+	{
+		$$ = crearNodo("Verdadero",@1.first_line,@1.first_column);
+	}
+	| falso
+	{
+		$$ = crearNodo("falso",@1.first_line,@1.first_column);
+	}
+	| E '++'
+	{
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+	}
+	| E '--'
+	{
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+	}
+    | numero
+	{
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+	}	
+	| double
+	{
+		$$ = crearHoja("double",$1,@1.first_line,@1.first_columna);
+	}
+    | id 
+    {
+		$$ = crearHoja("id",$1,@1.first_line,@1.first_columna);
+	}
+	| texto
+	{
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		
+	}
+    | textosimple
+	{
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+	}
+	| nada
+	{
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+	}
+	| nulo
+	{
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+	}
+	| este '.' id 
+	{
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		$$.add($3);
+		
+	}
+	| este '.' id INSTANCIA
+ 	{
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		$$.add($3);
+		$$.add($4);
+	}
+	| FUNCIONES
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		$$ = Expresion;
+		//$$.add($1);
+	}
+	| LLAMADA 
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		$$ = Expresion;
+		//$$.add($1);
+	}
+	| CONCATENAR
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		$$ = Expresion;
+		//$$.add($1);
+	}
+	| MEMORIA 
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		$$ = Expresion;
+		//$$.add($1);
+	}
+	| METODOS_ESTRUCTURAS 
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		$$ = Expresion;
+		//$$.add($1);
+	}
+	| id INSTANCIA 
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		Expresion.add($2);
+		$$ = Expresion;
+		/*$$.add($1);
+		$$.add($2);*/
+	}
+	;
+
+DIMENSION	: DIMENSION '[' E ']'
+	{	var Expresion = crearNodo("DIMENSION",@1.first_line,@1.first_column);
+		Expresion.add($3);
+		$$ = Expresion;
+	//	$$.add($3);
+	}
+	| '[' E ']'
+	{
+		$$ = crearNodo("Dimension",@1.first_line,@1.first_column);
+		$$.add($2);
+	}	
+	;
