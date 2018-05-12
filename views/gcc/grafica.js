@@ -6,6 +6,7 @@ function grafica( opRaiz  )
         recorrerArbol(opRaiz);
         cadenaDot = cadenaDot + "}";
         enviarGrafo(cadenaDot);
+        console.log(cadenaDot);
 
 }
 
@@ -22,7 +23,7 @@ function recorrerArbol(raiz){
         for(var i=0;i<raiz.hijos.length;i++) {
         	var hijo=raiz.hijos[i];
             cadenaDot = cadenaDot + "\"" + raiz.codigo + "\"-> \"" + hijo.codigo + "\"" + "\n";
-            console.log(cadenaDot);
+            //console.log(cadenaDot);
         }
 
         for(var i=0;i<raiz.hijos.length;i++) {
@@ -60,12 +61,12 @@ function enviarGrafo(data) {
         return false;
     }
 
-
+    var datos = {'data':data};
     requestGrafo.onreadystatechange = receptorGrafo;
     requestGrafo.open('POST', url, true);
     requestGrafo.setRequestHeader("Content-type", "application/json");
     requestGrafo.setRequestHeader("dataType", "json");
-    requestGrafo.send(JSON.stringify(data));
+    requestGrafo.send(JSON.stringify(datos));
     //requestGrafo.send(data);
 
 }

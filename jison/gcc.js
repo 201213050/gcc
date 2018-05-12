@@ -1338,7 +1338,7 @@ case 188:
 		this.$ = crearNodo("LEER_TECLADO",_$[$0-6].first_line-1,_$[$0-6].first_column-1);
 		this.$.add($$[$0-4]);
 		nodito2 = crearHoja("ID", $$[$0-2], _$[$0-2].first_linem, _$[$0-2].first_column);
-		this.$.add(2);
+		this.$.add(nodito2);
 	
 break;
 case 189:

@@ -1612,7 +1612,7 @@ TECLADO : leerteclado '(' E "," id ')' ';'
 		$$ = crearNodo("LEER_TECLADO",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		nodito2 = crearHoja("ID", $5, @5.first_linem, @5.first_column);
-		$$.add(2);
+		$$.add(nodito2);
 	}
 ;
 

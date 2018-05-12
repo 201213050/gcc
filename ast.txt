@@ -1,0 +1,22 @@
+digraph lista{ rankdir=TB;node [shape = box, style=rounded]; nodo884[label="INICIO  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo884"-> "nodo1"
+"nodo884"-> "nodo883"
+nodo1[label="IMPORTAR  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo1"-> "nodo0"
+nodo0[label="\"/ruta/archivo_importado.gcc\"  [Expresion]{1,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo883[label="CLASES  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo883"-> "nodo881"
+nodo881[label="CLASE  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo881"-> "nodo882"
+"nodo881"-> "nodo880"
+nodo882[label="miClase  [ID]{3,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo880[label="INSTRUCCIONES  {4,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo880"-> "nodo879"
+nodo879[label="INSTRUCCION  {227,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo879"-> "nodo877"
+nodo877[label="DECLARACION_VAR  {227,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo877"-> "nodo876"
+"nodo877"-> "nodo878"
+nodo876[label="Decimal  [DECIMAL]{227,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo878[label="Id_5  [ID]{227,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+}

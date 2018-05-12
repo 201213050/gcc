@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var parser = require('json-parser');
 let lector = require('fs'); // Modulo para abrir archivos 
 
+
+
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // Conexion con base de datos
@@ -148,24 +150,39 @@ app.post('/cargaMasiva', urlencodedParser, function(req, res){
 
 // Generar grafo perros
 app.post('/grafica', urlencodedParser, function(req, res){			
-	console.log(req.body);
+	console.log(req.body.data);
 
 
 	/*Primero creamos el archivo para la grafica.*/	
 	var fs = require('fs');
 	var stream = fs.createWriteStream("ast.txt");
 	stream.once('open', function(fd) {
-	  stream.write(req.body);	  
+	  stream.write(req.body.data);	  
 	  stream.end();
 	});	
 
 
+	var cadena = '\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpng ' + __dirname +'\\ast.txt >  '+ __dirname +'\\ast.png';
+	console.log(cadena);
+
 	/* Ahora ejecutamos el comando para genera la imagen.*/
 	var exec = require('child_process').exec;
-	var cmd = 'dot -Tpng ast.txt" > ast.png';
-	exec(cmd, function(error, stdout, stderr) {
+	//var cmd = 'C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe -Tpng ast.txt" > ast.png';
+	exec(cadena, function(error, stdout, stderr) {
 	  // command output is in stdout
 	});	
+
+
+	
+
+	/*
+	var nrc = require('node-run-cmd');
+	nrc.run(cadena).then(function(exitCodes) {
+		console.log("comando ejecutado.");
+	  }, function(err) {
+		console.log('Comando de mierda no sirve ', err);
+	  });	
+	  */	
 	res.sendStatus(200);
 });
 

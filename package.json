@@ -8,6 +8,7 @@
     "express": "^4.6.1",
     "express-ejs-layouts": "^1.1.0",
     "json-parser": "^1.1.5",
+    "node-run-cmd": "^1.0.1",
     "pg": "^7.4.1",
     "pg-promise": "^8.3.2"
   }
