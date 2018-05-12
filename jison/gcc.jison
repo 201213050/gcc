@@ -123,6 +123,7 @@ class Nodo{
 //FUNCIONES Y PROCEDIMIENTOS
 "vacio"               %{ console.log(yytext);return 'vacio'; %}
 "retorno"             %{ console.log(yytext);return 'retorno'; %}
+"retornar"             %{ console.log(yytext);return 'retorno'; %}
 "funcion"		      %{ console.log(yytext);return 'funcion'; %}
 //SOBREESCRIBIR
 "@sobrescribir"       %{ console.log(yytext);return 'sobrescribir'; %}
@@ -1742,6 +1743,15 @@ E   : '(' E ')'
 	{
 		$$ = crearHoja("double",$1,@1.first_line,@1.first_columna);
 	}
+	| id INSTANCIA 
+	{
+		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
+		Expresion.add($1);
+		Expresion.add($2);
+		$$ = Expresion;
+		/*$$.add($1);
+		$$.add($2);*/
+	}	
     | id 
     {
 		$$ = crearHoja("id",$1,@1.first_line,@1.first_columna);
@@ -1813,15 +1823,6 @@ E   : '(' E ')'
 		Expresion.add($1);
 		$$ = Expresion;
 		//$$.add($1);
-	}
-	| id INSTANCIA 
-	{
-		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
-		Expresion.add($1);
-		Expresion.add($2);
-		$$ = Expresion;
-		/*$$.add($1);
-		$$.add($2);*/
 	}
 	;
 

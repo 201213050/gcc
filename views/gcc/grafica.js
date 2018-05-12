@@ -1,5 +1,5 @@
 var cadenaDot="";
-function grafica(   ) 
+function grafica( opRaiz  ) 
 {
 		cadenaDot="";
         cadenaDot = cadenaDot + "digraph lista{ rankdir=TB;node [shape = box, style=rounded]; ";
@@ -22,6 +22,7 @@ function recorrerArbol(raiz){
         for(var i=0;i<raiz.hijos.length;i++) {
         	var hijo=raiz.hijos[i];
             cadenaDot = cadenaDot + "\"" + raiz.codigo + "\"-> \"" + hijo.codigo + "\"" + "\n";
+            console.log(cadenaDot);
         }
 
         for(var i=0;i<raiz.hijos.length;i++) {

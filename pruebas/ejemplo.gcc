@@ -226,11 +226,11 @@ clase miClase{
     Booleano Id_4; 
     Decimal Id_5; 
  
-    Leer_Teclado ( "Ingrese un número", Id_1); 
+    /*Leer_Teclado ( "Ingrese un número", Id_1); 
     Leer_Teclado ( "Ingrese una Cadena", Id_2); 
     Leer_Teclado ( "Ingrese un carácter", Id_3); 
     Leer_Teclado ( "Ingrese un True o false", Id_4); 
-    Leer_Teclado ( "Ingrese un número decimal", Id_5); 
+    Leer_Teclado ( "Ingrese un número decimal", Id_5); */
  
  
 
