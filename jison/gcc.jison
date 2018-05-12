@@ -255,7 +255,7 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	|
 	IMPORTAR importar '(' path ')' ';'
 	{				
-		$$.add(crearHoja("PATH",$4,@4.first_line,@4.first_column));
+		$$.add($4);
 	}
 	|	importar '(' E ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
@@ -264,7 +264,7 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	
 	|	importar '(' path ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
-		$$.add(crearHoja("PATH",$3,@3.first_line,@3.first_column));
+		$$.add($3);
 	}	
 	;
 
@@ -454,12 +454,12 @@ INSTRUCCION : PRINCIPAL
 	}
 	| retorno ';'
 	{
-		$$=crearNodo("retorno",@1.first_line,@1.first_column);
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
 		$$.add($1);
 	}
 	| retorno E ';'
 	{
-		$$=crearNodo("retorno",@1.first_line,@1.first_column);
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
 		$$.add($2);
 	}
 	;
@@ -997,9 +997,10 @@ METODO : VISIBILIDAD TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '	}'
 
 PARAMETROS 	: PARAMETROS ',' PARAMETRO
 	{
-		//$$ = crearNodo("PARAMETROS", $1.first_line-1, $1.first_column-1  );
-		$1.add($3);
-		$$ = $1;		
+		var Parametro = crearNodo("PARAMETROS", $1.first_line-1, $1.first_column-1  );
+		Parametro.add($3);
+		$$= Parametro;
+		//$$.add($3);
 	}
 	| PARAMETRO
 	{
@@ -1724,19 +1725,19 @@ E   : '(' E ')'
 	}
 	| E '++'
 	{
-		$$ = crearNodo("INCREMENTO",@1.first_line,@1.first_column);
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
 		$$.add($1);
-		
+		$$.add($2);
 	}
 	| E '--'
 	{
-		$$ = crearNodo("DECREMENTO",@1.first_line,@1.first_column);
-		$$.add($1);		
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
 	}
     | numero
 	{
-		$$ = crearHoja("numero",$1,@1.first_line,@1.first_columna);
-		
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}	
 	| double
 	{
@@ -1745,9 +1746,11 @@ E   : '(' E ')'
 	| id INSTANCIA 
 	{
 		var Expresion = crearNodo("Expresion",@1.first_line,@1.first_column);
-		Expresion.add(crearHoja("id",$1,@1.first_line,@1.first_columna));
+		Expresion.add($1);
 		Expresion.add($2);
 		$$ = Expresion;
+		/*$$.add($1);
+		$$.add($2);*/
 	}	
     | id 
     {
@@ -1755,42 +1758,36 @@ E   : '(' E ')'
 	}
 	| texto
 	{
-		$$ = crearHoja("texto",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 		
 	}
     | textosimple
 	{
-		$$ = crearHoja("texto",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}
 	| nada
 	{
-		$$ = crearHoja("nada",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}
 	| nulo
 	{
-		$$ = crearHoja("nada",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
 	}
 	| este '.' id 
 	{
-		$$ = crearNodo("este",@1.first_line,@1.first_column);
-		$$.add(crearHoja("id",$3,@3.first_line,@3.first_columna));
-		/*
-		$$.add($1);
-		$$.add($2);
-		$$.add($3);
-		*/
-	}
-	| este '.' id INSTANCIA
- 	{
-		$$ = crearNodo("este",@1.first_line,@1.first_column);
-		$$.add(crearHoja("id",$3,@3.first_line,@3.first_columna));
-		$$.add($4);
-		/*		 
 		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
 		$$.add($3);
-		$$.add($4);*/
+		
+	}
+	| este '.' id INSTANCIA
+ 	{
+		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		$$.add($3);
+		$$.add($4);
 	}
 	| FUNCIONES
 	{

@@ -1,54 +1,22 @@
-digraph lista{ rankdir=TB;node [shape = box, style=rounded]; nodo469[label="INICIO  {5,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo469"-> "nodo0"
-"nodo469"-> "nodo468"
-nodo0[label="IMPORTAR  {5,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo0"-> "nodo1"
-nodo1[label="'C:\gcc\estructuras\estructuras\usuario.gcc'  [PATH]{5,10} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo468[label="CLASES  {7,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo468"-> "nodo466"
-nodo466[label="CLASE  {7,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo466"-> "nodo467"
-"nodo466"-> "nodo465"
-nodo467[label="nodo  [ID]{7,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo465[label="INSTRUCCIONES  {10,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo465"-> "nodo464"
-nodo464[label="INSTRUCCION  {97,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo464"-> "nodo463"
-nodo463[label="PROCEDIMIENTO  {97,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo463"-> "nodo461"
-nodo461[label="METODO  {97,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo461"-> "nodo445"
-"nodo461"-> "nodo462"
-"nodo461"-> "nodo449"
-"nodo461"-> "nodo460"
-nodo445[label="entero  [ENTERO]{97,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo462[label="suma  [ID]{97,12} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo449[label="PARAMETROS  {96,16} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo449"-> "nodo446"
-"nodo449"-> "nodo451"
-nodo446[label="PARAMETRO  {96,16} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo446"-> "nodo447"
-"nodo446"-> "nodo448"
-nodo447[label="Persona  [ID]{97,17} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo448[label="per  [ID]{97,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo451[label="PARAMETRO  {96,29} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo451"-> "nodo450"
-"nodo451"-> "nodo452"
-nodo450[label="entero  [ENTERO]{97,30} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo452[label="parametro2  [ID]{97,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo460[label="INSTRUCCIONES  {99,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo460"-> "nodo459"
-nodo459[label="retorno  {99,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo459"-> "nodo458"
-nodo458[label="+  {98,15} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo458"-> "nodo455"
-"nodo458"-> "nodo457"
-nodo455[label="Expresion  {99,16} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo455"-> "nodo456"
-"nodo455"-> "nodo453"
-nodo456[label="per  [id]{99,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo453[label="INSTANCIA  {98,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo453"-> "nodo454"
-nodo454[label="operador1  [ID]{99,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo457[label="operador2  [id]{99,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
+digraph lista{ rankdir=TB;node [shape = box, style=rounded]; nodo884[label="INICIO  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo884"-> "nodo1"
+"nodo884"-> "nodo883"
+nodo1[label="IMPORTAR  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo1"-> "nodo0"
+nodo0[label="\"/ruta/archivo_importado.gcc\"  [Expresion]{1,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo883[label="CLASES  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo883"-> "nodo881"
+nodo881[label="CLASE  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo881"-> "nodo882"
+"nodo881"-> "nodo880"
+nodo882[label="miClase  [ID]{3,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo880[label="INSTRUCCIONES  {4,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo880"-> "nodo879"
+nodo879[label="INSTRUCCION  {227,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo879"-> "nodo877"
+nodo877[label="DECLARACION_VAR  {227,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo877"-> "nodo876"
+"nodo877"-> "nodo878"
+nodo876[label="Decimal  [DECIMAL]{227,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo878[label="Id_5  [ID]{227,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
 }

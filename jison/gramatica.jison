@@ -1,24 +1,29 @@
 /* lexical grammar */
 %{
 var codigoHash=0;
+
 function getCodigo(){
     return "nodo"+(codigoHash++);
 }
+
 function reiniciar(){
     temp=1;
     codigoHash=0;
 }
+
 function crearNodo(etiqueta,linea,columna){
     var nodo=new Nodo(etiqueta,linea,columna+1);
     nodo.codigo=getCodigo();
     return nodo;
 }
+
 function crearHoja(etiqueta,valor,linea,columna){
     var nodo=new Nodo(etiqueta,linea,columna+1);
     nodo.valor=valor;
     nodo.codigo=getCodigo();
     return nodo;
 }
+
 class Nodo{
     constructor(etiqueta,linea,columna){
         this.etiqueta=etiqueta;
@@ -26,6 +31,8 @@ class Nodo{
         this.linea=linea;
         this.columna=columna;
         this.hijos=new Array();
+
+
         
         this.add=function(nodo){
             if(nodo!=null){
@@ -34,6 +41,7 @@ class Nodo{
         }
     }
 }
+
 	%}
 %lex
 %options case-insensitive
@@ -50,11 +58,6 @@ class Nodo{
 
 [0-9]+"."[0-9]+	 	  return 'double'
 [0-9]+				  return 'numero'
-
-\'([a-zA-Z])(":")(\\([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" ")+("."([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" "))?)+\' 		%{ console.log(yytext); return 'path' %}
-\"([a-zA-Z])(":")(\\([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" ")+("."([a-zA-Z]([a-zA-Z]|[0-9]+|"_"|"-")*|" "))?)+\" 		%{ console.log(yytext); return 'path' %}
-
-
 \"(\\.|[^"])*\" 	  return 'texto'
 \'(\\.|[^'])*\' 	  return 'textosimple'
 
@@ -244,6 +247,7 @@ CUERPOINICIO: IMPORTAR CLASES {
 	{
 		$$=crearNodo("INICIO",@1.first_line,@1.first_column);
 		$$.add($1);
+
 	}
 	;
 
@@ -251,26 +255,16 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	{				
 		$$.add($4);
 	}
-	|
-	IMPORTAR importar '(' path ')' ';'
-	{				
-		$$.add($4);
-	}
 	|	importar '(' E ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
 		$$.add($3);
 	}
-	
-	|	importar '(' path ')' ';'{
-		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
-		$$.add($3);
-	}	
 	;
 
 
 CLASES	: CLASES CLASE {
-			/*$$=crearNodo("CLASES",@1.first_line,@1.first_column);*/
-			$$.add($2);
+			$1.add($2);
+			$$ = $1;
 		}
 	| CLASE{
 			$$=crearNodo("CLASES",@1.first_line,@1.first_column);
@@ -308,6 +302,7 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
 	| VISIBILIDAD clase id '{'  '}'
 	{
 		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
+
         var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
         $$.add($1);
 		$$.add(id1);
@@ -315,6 +310,7 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
 	| clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'
 		{
 		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
         var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
 		var id2=crearHoja("ID",$4,@4.first_line,@4.first_column);
 		$$.add(id1);
@@ -324,6 +320,7 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
 	| clase id hereda_de id '{'  '}' 
 		{
 		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
 		var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
 		var id2=crearHoja("ID",$4,@4.first_line,@4.first_column);
 		$$.add(id1);
@@ -332,13 +329,16 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
 	| clase id '{' LISTA_INSTRUCCIONES '}' 
 		{
 		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
         var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
+
 		$$.add(id1);
 		$$.add($4);
 		}
 	| clase id '{''}'
 		{
 		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
+
         var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
 		$$.add(id1);
 		}
@@ -506,6 +506,7 @@ PRINCIPAL	: principal '(' ')' '{'  LISTA_INSTRUCCIONES '}'
 METODOS_ESTRUCTURAS	: id '.' FUNCION_ESTRUCTURAS ';' 
 	{
 		$$= crearNodo("ESTRUCT_PRIM",@1.first_line,@1.first_column);
+
 		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
 		$$.add(ident);
 		$$.add($3);
@@ -671,6 +672,7 @@ ASIGNAR	: '=' E
 		ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
 		$$.add(nuevito);
 		$$.add(ident2);
+
 	}
 	|'=' nuevo id '(' VALOR ')'
 	{
@@ -688,6 +690,7 @@ ASIGNAR	: '=' E
 		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
 		$$.add(nuevito);
 		$$.add($3);
+
 	}
 	|'=' nuevo TIPO '(' TIPO ')'
 	{
@@ -695,6 +698,7 @@ ASIGNAR	: '=' E
 		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
 		$$.add($3);
 		$$.add($5);
+
 	}
 	|'=' nuevo TIPO '(' id ')'
 	{
@@ -713,6 +717,7 @@ ARRAY : ARRAY ',' '{' ARRAY '}'
 		$$ = crearNodo("ARREGLO",null,null);
 		$$.add($1);
 		$$.add($4);
+
 	}
     | ARRAY ',' E
 	{
@@ -865,6 +870,7 @@ ASIGNACION_EXPR : '+='
 
 PROCEDIMIENTO : sobrescribir METODO
 	{	
+
 		nodoSobreEs = crearNodo("SobreEscribir",@1.first_line,@1.first_column);
 		$$.add(nodoSobreEs);
 		$$.add($2);
@@ -1024,7 +1030,7 @@ PARAMETRO 	: TIPO id
 		$$.add(identificador);
 		$$.add(identificador2);
 	}
-	| id id DIMENSION
+	| id id DIMEN
 	{
 		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
 		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
@@ -1033,7 +1039,7 @@ PARAMETRO 	: TIPO id
 		$$.add(identificador2);
 		$$.add($3);
 	}
-	| TIPO id DIMENSION
+	| TIPO id DIMEN
 	{
 		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
 		$$.add($1);
@@ -1617,7 +1623,7 @@ TECLADO : leerteclado '(' E "," id ')' ';'
 
 E   : '(' E ')'
 	{
-		$$ = crearNodo("Expresion",@1.first_line-1,@1.first_column-1);
+		$$ = crearHoja("EXPRESION",@1.first_line,@1.first_column-1);
 		$$.add($2);
 	}
     | E '+' E
@@ -1736,47 +1742,43 @@ E   : '(' E ')'
 	}
     | numero
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("NUMERO",$1,@1.first_line,@1.first_columna);
 	}	
 	| double
 	{
-		$$ = crearHoja("double",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("DOUBLE",$1,@1.first_line,@1.first_columna);
 	}
     | id 
     {
-		$$ = crearHoja("id",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("ID",$1,@1.first_line,@1.first_columna);
 	}
 	| texto
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("TEXTO",$1,@1.first_line,@1.first_columna);
 		
 	}
     | textosimple
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("TEXTO",$1,@1.first_line,@1.first_columna);
 	}
 	| nada
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("TEXTO",$1,@1.first_line,@1.first_columna);
 	}
 	| nulo
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_columna);
+		$$ = crearHoja("NULO",$1,@1.first_line,@1.first_columna);
 	}
 	| este '.' id 
 	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		$$.add($2);
-		$$.add($3);
+		$$ = crearNodo("ESTE",@1.first_line,@1.first_column);		
+		$$.add(crearHoja("NULO",$3,@3.first_line,@3.first_columna));		
 		
 	}
 	| este '.' id INSTANCIA
  	{
-		$$ = crearNodo("Expresion",@1.first_line,@1.first_column);
-		$$.add($1);
-		$$.add($2);
-		$$.add($3);
+		$$ = crearNodo("ESTE",@1.first_line,@1.first_column);		
+		$$.add(crearHoja("NULO",$3,@3.first_line,@3.first_columna));
 		$$.add($4);
 	}
 	| FUNCIONES
@@ -1837,3 +1839,5 @@ DIMENSION	: DIMENSION '[' E ']'
 		$$.add($2);
 	}	
 	;
+
+
