@@ -144,6 +144,31 @@ app.post('/cargaMasiva', urlencodedParser, function(req, res){
 		res.sendStatus(200);
 });
 
+
+
+// Generar grafo perros
+app.post('/grafica', urlencodedParser, function(req, res){			
+	console.log(req.body);
+
+
+	/*Primero creamos el archivo para la grafica.*/	
+	var fs = require('fs');
+	var stream = fs.createWriteStream("ast.txt");
+	stream.once('open', function(fd) {
+	  stream.write(req.body);	  
+	  stream.end();
+	});	
+
+
+	/* Ahora ejecutamos el comando para genera la imagen.*/
+	var exec = require('child_process').exec;
+	var cmd = 'dot -Tpng ast.txt" > ast.png';
+	exec(cmd, function(error, stdout, stderr) {
+	  // command output is in stdout
+	});	
+	res.sendStatus(200);
+});
+
 // Registra una leccion G-Coach 
 app.post('/registrarG', urlencodedParser, function(req, res){
 	var registro = 0;

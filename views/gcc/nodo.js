@@ -1,4 +1,4 @@
-var codigoHash=0;
+/*var codigoHash=0;
 
 function getCodigo(){
     return "nodo"+(codigoHash++);
@@ -22,20 +22,22 @@ function crearHoja(etiqueta,valor,linea,columna){
     return nodo;
 }
 
-class Nodo{
-    constructor(etiqueta,linea,columna){
+class Nodo
+{
+    constructor(etiqueta,linea,columna)
+    {
         this.etiqueta=etiqueta;
         this.valor=null;
         this.linea=linea;
         this.columna=columna;
-        this.hijos=new Array();
-
-
-        
-        this.add=function(nodo){
+        this.hijos=new Array();        
+        this.add=function(nodo)
+        {
             if(nodo!=null){
                 this.hijos.push(nodo);
             }
         }
     }
 }
+
+*/

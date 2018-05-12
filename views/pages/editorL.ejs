@@ -921,6 +921,18 @@
            alert('Siguiente');
         }
 
+        function compilar()
+        {
+
+            //alert(obtenerActivo());
+            var vector = obtenerActivo().split("-");
+            var contenedor =  document.getElementById(vector[1]);
+            //alert(contenedor.value);
+
+            //Enviamos el contenido para ser parseado.
+            Iniciar(contenedor.value);            
+        }        
+
 
 
     </script>  

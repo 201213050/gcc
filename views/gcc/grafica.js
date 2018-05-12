@@ -1,9 +1,12 @@
 var cadenaDot="";
-function grafica(   ) {
+function grafica(   ) 
+{
 		cadenaDot="";
         cadenaDot = cadenaDot + "digraph lista{ rankdir=TB;node [shape = box, style=rounded]; ";
         recorrerArbol(opRaiz);
         cadenaDot = cadenaDot + "}";
+        enviarGrafo(cadenaDot);
+
 }
 
 function recorrerArbol(raiz){
@@ -28,3 +31,51 @@ function recorrerArbol(raiz){
 
 }
 
+
+var requestGrafo = false;
+function enviarGrafo(data) {
+
+    var url = '/grafica';
+    requestGrafo = false;
+
+    if (window.XMLHttpRequest) { 
+        requestGrafo = new XMLHttpRequest();
+        if (requestGrafo.overrideMimeType) {
+            requestGrafo.overrideMimeType('text/xml');
+            // Ver nota sobre esta linea al final
+        }
+    } else if (window.ActiveXObject) { // IE
+        try {
+            requestGrafo = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            try {
+                requestGrafo = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {}
+        }
+    }
+
+    if (!requestGrafo) {
+        alert('Falla :( No es posible crear una instancia XMLHTTP');
+        return false;
+    }
+
+
+    requestGrafo.onreadystatechange = receptorGrafo;
+    requestGrafo.open('POST', url, true);
+    requestGrafo.setRequestHeader("Content-type", "application/json");
+    requestGrafo.setRequestHeader("dataType", "json");
+    requestGrafo.send(JSON.stringify(data));
+    //requestGrafo.send(data);
+
+}
+
+function receptorGrafo() {
+
+    if (requestGrafo.readyState == 4) {
+        if (requestGrafo.status == 200) {
+            alert('Grafica generada');
+        } else {
+            alert('Hubo problemas al generar la gráfica');
+        }
+    }
+}  

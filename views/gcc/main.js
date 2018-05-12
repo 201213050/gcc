@@ -1,12 +1,10 @@
 
 function Iniciar(texto) {
-    //console.log("Holaaa");
-    //alert("Hola");
+
 
     var raiz=null;
-		try {
-            //var nodo = crearNodo("putas",1,20);
-            //var texto = document.getElementById('texto').value;//obtiene el texto del area de texto
+        try 
+        {         
             raiz = gcc.parse(texto);	  	
 	  		grafica(raiz);	  		  			
 		}
@@ -27,3 +25,5 @@ function IniciarVariables() {
     ambito.push("Global");
   
 }
+
+

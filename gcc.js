@@ -119,8 +119,9 @@ case 5:
 	
 break;
 case 6:
-				
-		this.$.add($$[$0-2]);
+		
+		$$[$0-5].add($$[$0-2]);
+		this.$ = $$[$0-5];
 	
 break;
 case 7:
@@ -294,7 +295,7 @@ case 47:
 	
 break;
 case 48:
-
+		
 		hojita = crearNodo("insertar",_$[$0].first_line,_$[$0].first_column);
 		this.$.add(hojita);
 	
@@ -1478,61 +1479,92 @@ case 204:
 break;
 case 205:
 
-		this.$ = crearNodo("Verdadero",_$[$0].first_line,_$[$0].first_column);
+		this.$ = crearHoja("verdadero",_$[$0].first_line,_$[$0].first_column);
 	
 break;
 case 206:
 
-		this.$ = crearNodo("falso",_$[$0].first_line,_$[$0].first_column);
+		this.$ = crearHoja("falso",_$[$0].first_line,_$[$0].first_column);
 	
 break;
-case 207: case 208:
+case 207:
 
-		this.$ = crearNodo("Expresion",_$[$0-1].first_line,_$[$0-1].first_column);
+		this.$ = crearNodo("inc",_$[$0-1].first_line,_$[$0-1].first_column);
 		this.$.add($$[$0-1]);
 		this.$.add($$[$0]);
 	
 break;
-case 209: case 213: case 214: case 215:
+case 208:
 
-		this.$ = crearHoja("Expresion",$$[$0],_$[$0].first_line,_$[$0].first_columna);
+		this.$ = crearNodo("dec",_$[$0-1].first_line,_$[$0-1].first_column);
+		this.$.add($$[$0-1]);
+		this.$.add($$[$0]);
+	
+break;
+case 209:
+
+		this.$ = crearHoja("numero",$$[$0],_$[$0].first_line,_$[$0].first_column);
 	
 break;
 case 210:
 
-		this.$ = crearHoja("double",$$[$0],_$[$0].first_line,_$[$0].first_columna);
+		this.$ = crearHoja("double",$$[$0],_$[$0].first_line,_$[$0].first_column);
 	
 break;
 case 211:
 
-		this.$ = crearHoja("id",$$[$0],_$[$0].first_line,_$[$0].first_columna);
+		this.$ = crearHoja("id",$$[$0],_$[$0].first_line,_$[$0].first_column);
 	
 break;
 case 212:
 
-		this.$ = crearHoja("Expresion",$$[$0],_$[$0].first_line,_$[$0].first_columna);
+		var nueva = crearHoja("texto",$$[$0],_$[$0].first_line,_$[$0].first_column);
+		this.$ = nueva;
 		
+	
+break;
+case 213:
+
+		this.$ = crearHoja("textoSimple",$$[$0],_$[$0].first_line,_$[$0].first_column);
+	
+break;
+case 214:
+
+		this.$ = crearHoja("nada",$$[$0],_$[$0].first_line,_$[$0].first_column);
+	
+break;
+case 215:
+
+		this.$ = crearHoja("nulo",$$[$0],_$[$0].first_line,_$[$0].first_column);
 	
 break;
 case 216:
 
-		this.$ = crearNodo("Expresion",_$[$0-2].first_line,_$[$0-2].first_column);
-		this.$.add($$[$0-2]);
-		this.$.add($$[$0-1]);
-		this.$.add($$[$0]);
-		
+		this.$ = crearNodo("este",_$[$0-2].first_line,_$[$0-2].first_column);
+		//this.$.add($$[$0]);		
+		this.$.add(crearHoja("id",$$[$0],_$[$0].first_line,_$[$0].first_column));
 	
 break;
 case 217:
 
-		this.$ = crearNodo("Expresion",_$[$0-3].first_line,_$[$0-3].first_column);
-		this.$.add($$[$0-3]);
+		this.$ = crearNodo("este",_$[$0-3].first_line,_$[$0-3].first_column);
+		/*this.$.add($$[$0-3]);
 		this.$.add($$[$0-2]);
 		this.$.add($$[$0-1]);
-		this.$.add($$[$0]);
+		this.$.add($$[$0]);*/
+		this.$.add(crearHoja("id",$$[$0-1],_$[$0-1].first_line,_$[$0-1].first_column));
+		this.$.add($$[$0-1]);
 	
 break;
-case 218: case 219: case 220: case 221: case 222:
+case 218:
+
+		var Expresion = crearNodo("funciones",_$[$0].first_line,_$[$0].first_column);
+		Expresion.add($$[$0]);
+		this.$ = Expresion;
+		//this.$.add($$[$0]);
+	
+break;
+case 219: case 220: case 221: case 222:
 
 		var Expresion = crearNodo("Expresion",_$[$0].first_line,_$[$0].first_column);
 		Expresion.add($$[$0]);
@@ -1542,23 +1574,21 @@ case 218: case 219: case 220: case 221: case 222:
 break;
 case 223:
 
-		var Expresion = crearNodo("Expresion",_$[$0-1].first_line,_$[$0-1].first_column);
-		Expresion.add($$[$0-1]);
-		Expresion.add($$[$0]);
-		this.$ = Expresion;
-		/*this.$.add($$[$0-1]);
-		this.$.add($$[$0]);*/
+		this.$ = crearNodo("instancia",_$[$0-1].first_line,_$[$0-1].first_column);
+		this.$.add($$[$0]);
 	
 break;
 case 224:
-	var Expresion = crearNodo("DIMENSION",_$[$0-3].first_line,_$[$0-3].first_column);
-		Expresion.add($$[$0-1]);
-		this.$ = Expresion;
-	//	this.$.add($$[$0-1]);
+	
+		/*Aquí en $$[$0-3] ya viene un nodo. Agregamos la hoja que trae E*/
+		$$[$0-3].add($$[$0-1]); 
+		/*Retornamos el nodo con su hijo.*/
+		this.$ = $$[$0-3];
 	
 break;
 case 225:
 
+		/*Creamos un nodo y le agreamos la hoja que traemos en E.*/
 		this.$ = crearNodo("Dimension",_$[$0-2].first_line,_$[$0-2].first_column);
 		this.$.add($$[$0-1]);
 	
