@@ -638,12 +638,12 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	
 ASIGNAR	: '=' E 
 	{
-		$$ = crearNodo("ASIGNACION",@1.first_line,@1.first_column);
+		$$ = crearNodo("EXPRESION",@1.first_line,@1.first_column);
 		$$.add($2);
 	}
 	|'=' '{' ARRAY '}' 
 	{
-		$$ = crearNodo("ASIGNACION",@1.first_line,@1.first_column);
+		$$ = crearNodo("ARRAY",@1.first_line,@1.first_column);
 		$$.add($3);
 	}
 	|'=' nuevo id '(' ')'
@@ -692,26 +692,24 @@ ASIGNAR	: '=' E
 
 ARRAY : ARRAY ',' '{' ARRAY '}' 
 	{
-		$$ = crearNodo("ARREGLO",null,null);
-		$$.add($1);
+		$$ = $1;
 		$$.add($4);
-	}
-    | ARRAY ',' E
-	{
-		$$ = crearNodo("ARREGLO",null,null);
-		$$.add($1);
-		$$.add($3);
-	}
-    | E
-	{
-		$$ = crearNodo("ARREGLO",null,null);
-		$$.add($1);
 	}
     |'{' ARRAY '}' 
 	{
 		$$ = crearNodo("ARREGLO",null,null);
 		$$.add($2);
 	}
+    | ARRAY ',' E
+	{
+		$$ = $1;
+		$$.add($3);
+	}	
+    | E
+	{
+		$$ = crearNodo("ARREGLO",null,null);
+		$$.add($1);
+	}	
 	;
 
 
@@ -968,10 +966,8 @@ METODO : VISIBILIDAD TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '	}'
 
 PARAMETROS 	: PARAMETROS ',' PARAMETRO
 	{
-		var Parametro = crearNodo("PARAMETROS", $1.first_line-1, $1.first_column-1  );
-		Parametro.add($3);
-		$$= Parametro;
-		//$$.add($3);
+		$$ = $1;		
+		$$.add($3);
 	}
 	| PARAMETRO
 	{
@@ -1263,8 +1259,8 @@ IMPRIMIR : imprimir '(' E ')' ';'
 
 ESTRUCTURA : estructura id '[' LISTA_INSTRUCCIONES ']' ';'
 		{
-			$$ = crearNodo("Estructura",@1.first_line-1,@1.first_column-1);
-			identificador = ("ID", $2, @2.first_line, @2.first_column);
+			$$ = crearNodo("ESTRUCTURA",@1.first_line-1,@1.first_column-1);
+			identificador = crearHoja("ID", $2, @2.first_line, @2.first_column);
 			$$.add(identificador);
 			$$.add($4);
 		}
@@ -1272,56 +1268,40 @@ ESTRUCTURA : estructura id '[' LISTA_INSTRUCCIONES ']' ';'
 
 PUNTEROS : crearPuntero '(' TIPO ',' id ')' ASIGNAR ';'
 	{
-		$$ = crearNodo("PUNTEROS",@1.first_line-1,@1.first_column-1);
-		crearPuntero = ("CrearPuntero", $1, @1.first_line, @1.first_column);
-		identificador = ("ID", $5, @5.first_line, @5.first_column);
-		$$.add(crearPuntero);
+		$$ = crearNodo("CREARPUNTERO",@1.first_line,@1.first_column);
 		$$.add($3);
-		$$.add(identificador);
+		$$.add(crearHoja("ID",$5,@5.first_line,@5.first_column));
 		$$.add($7);
 	}
 	|crearPuntero '(' id ',' id ')' ASIGNAR ';'
 	{
-		$$ = crearNodo("PUNTEROS",@1.first_line-1,@1.first_column-1);
-		crearPuntero = ("CrearPuntero", $1, @1.first_line, @1.first_column);
-		identificador = ("ID", $3, @3.first_line, @3.first_column);
-		identificador2 = ("ID", $5, @5.first_line, @5.first_column);
-		$$.add(crearPuntero);
-		$$.add(identificador);
-		$$.add(identificador2);
+		$$ = crearNodo("CREARPUNTERO",@1.first_line,@1.first_column);
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+		$$.add(crearHoja("ID",$5,@5.first_line,@5.first_column));
 		$$.add($7);
 	}
 	|destruirPuntero '(' id ')' ';'
 	{
-		$$ = crearNodo("PUNTEROS",@1.first_line-1,@1.first_column-1);
-		destruiPuntero = ("destruirPuntero", $1, @1.first_line, @1.first_column);
-		identificador = ("ID", $3, @3.first_line, @3.first_column);
-		$$.add(destruiPuntero);
-		$$.add(identificador);
+		$$ = crearNodo("DESTRUIRPUNTERO",@1.first_line,@1.first_column)
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
 	}
 	;
 
 MEMORIA : obtenerDireccion '(' id ')' 
 	{
-		$$ = crearNodo("MEMORIA",@1.first_line-1,@1.first_column-1);
-		obtenerDireccion = ("ObtenerDireccion", $1, @1.first_line, @1.first_column);
-		identificador = ("ID", $3, @3.first_line, @3.first_column);
-		$$.add(obtenerDireccion);
-		$$.add(identificador);	
+		$$ = crearNodo("OBTENERDIRECCION",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
+
 	}
 	|reservarMemoria '(' E ')'
 	{
-		$$ = crearNodo("MEMORIA",@1.first_line-1,@1.first_column-1);
-		reservarMemoria = ("reservarMemoria", $1, @1.first_line, @1.first_column);
-		$$.add(reservarMemoria);
+		$$ = crearNodo("RESERVARMEMORIA",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 	
 	} 
-	|consultarTamanio '(' E ')' 
+	|consultartamanio '(' E ')' 
 	{
-		$$ = crearNodo("MEMORIA",@1.first_line-1,@1.first_column-1);
-		consultarTamanio = ("consultarTamanio", $1, @1.first_line, @1.first_column);
-		$$.add(consultarTamanio);
+		$$ = crearNodo("CONSULTARTAMANO",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 	}	
 	;
@@ -1699,7 +1679,7 @@ E   : '(' E ')'
 	}
 	| falso
 	{
-		$$ = crearNodo("falso",@1.first_line,@1.first_column);
+		$$ = crearNodo("Falso",@1.first_line,@1.first_column);
 	}
 	| E '++'
 	{
@@ -1731,24 +1711,24 @@ E   : '(' E ')'
     | id 
     {
 		//alert($1);
-		$$ = crearHoja("id",$1,@1.first_line,@1.first_column);
+		$$ = crearHoja("ID",$1,@1.first_line,@1.first_column);
 	}
 	| texto
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_column);
+		$$ = crearHoja("CADENA",$1,@1.first_line,@1.first_column);
 		
 	}
     | textosimple
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_column);
+		$$ = crearHoja("TXTSIMPLE",$1,@1.first_line,@1.first_column);
 	}
 	| nada
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_column);
+		$$ = crearHoja("NADA",$1,@1.first_line,@1.first_column);
 	}
 	| nulo
 	{
-		$$ = crearHoja("Expresion",$1,@1.first_line,@1.first_column);
+		$$ = crearHoja("NULO",$1,@1.first_line,@1.first_column);
 	}
 	| este '.' id 
 	{
@@ -1793,10 +1773,8 @@ E   : '(' E ')'
 
 DIMENSION	: DIMENSION '[' E ']'
 	{
-		$$ = $1;
-		var nodo = crearNodo("Dimension",@2.first_line,@2.first_column);
-		nodo.add($3);
-		$$.add(nodo);
+		$$ = $1;	
+		$$.add($3);
 	}
 	| '[' E ']'
 	{

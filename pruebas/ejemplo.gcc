@@ -1,106 +1,19 @@
 importar ("/ruta/archivo_importado.gcc"); 
 
 clase miClase{
-    Entero Identificador; 
-    //si se desea inicializar una variable 
-    Entero numero = 10;
-    publico entero atributo1 = 0;
-    publico caracter atributo_cadena[25] = "este es un ejemplo de cadena"; 
-    //este es un comentario
-    /* Este es un comentario
-    que lleva mas de una linea*/
-    
-    resultado_op = 5 - (9 + cualquiervariable)*14;
-    miClase(entero param1, cadena param2){         
-        este.atributo1 = param1;         
-        este.atributo_cadena = param2;     
+
+Usuario->nombre = nuevo d(); 
+    destruirPuntero(Id1);
+    //cadena de caracteres  
+    crearPuntero(caracter, cad) =  "HOLA MUNDO"; 
+    //se ejecuta mientras no sea fin de cadena 
+    repetir_Mientras (cad > '0' )
+    {   
+        imprimir (cad); 
+        //imprime el caracter actual   
+        cad++; 
+        //pasa a la siguiente direccion de memoria. 
     } 
 
-    //ACEESO A POSICIONES DENTRO DEL ARREGLO
-    arreglo[4][3] = 1; 
- 
-    caracter cadena[10]; 
-    //Esta asignación solamente será válida con los arreglos de caracteres. 
-    cadena = "mi cadena"; 
-
-    //TAMANIO DE UN VECTOR
-    caracter cadena[10]; 
-    cadena = "mi cadena"; 
- 
-    imprimir(concatenar("salida ", putas.tamanio)); 
-    //salida: 10 
-    //asignación de un nulo con la palabra reservada Nada. 
-    Caracter persona[20] = Nada; 
-    Caracter letra = Nada; 
- 
-    //asignación de un nulo con el valor {'\0'} 
-    Caracter persona_2[10] = {"\0"}; 
-    Caracter letra_2 = {"\0"}; 
-
-    /* OBJETOS */
-    Nombre_clase Nombre_instancia = nuevo Nombre_clase();
-    Persona Jorge; 
-    //en este punto se llama al constructor de persona 
-    Jorge = nuevo Persona(); 
- 
-    //también es posible realizarlo en una misma línea 
-    Persona Carlos = nuevo Persona(); 
- 
-    //Esta sería la forma en caso que la clase persona tuviera un constructor con un parámetro entero. 
-    Persona Carlos = nuevo Persona(15);
-    //ACCESO A PROCEDIMIENTOS
-    Persona per = nuevo Persona(); 
-    per.nombre = "miNombre"; 
-    carlos.setEdad(22); 
-    Entero var1; 
-    //si se desea inicializar una variable 
-    Caracter var2[15] = concatenar( concatenar( "cadena", "a"),"concatenar"); 
-
-    caracter cadena[20]; 
-    Entero miNumero = 10; 
- 
-    cadena = "convertir a cadena";   
- 
-    Concatena(cadena, convertirAcadena(miNumero) ); 
-    //cadena = "convertir a cadena 10".
-
-    Decimal miDecimal = 0.1; 
- 
-    Concatena(cadena,"Mi número es #E",miNumero); 
-    //cadena = “Mi número es 1”. 
-    Concatena(cadena,"Mi bandera es #B",miBandera); 
-    //cadena = “Mi bandera es true”. 
-    Concatena(cadena,"Mi número es #D",miDecimal); 
-    //cadena = “Mi número es 0.1”. 
-    caracter cadena[20]; 
-    Entero miNumero = 1; 
-    Booleano miBandera = true; 
-
-    //DECLARACION DE arreglos
-    Decimal arreglo[4][3]; 
-    caracter cadena[10];
-    //ASIGNAR POSICION DENTRO DE ARREGLO
-    arreglo[4][3] = 1; 
- 
-    caracter cadena[10]; 
-    //Esta asignación solamente será válida con los arreglos de caracteres. 
-    cadena = "mi cadena"; 
-
-    caracter cadena[10]; 
-    cadena = "mi cadena"; 
-    imprimir(concatenar("salida", cadena.tamanio)); 
-    //salida: 10 
-
-    Entero FuncionLlamada2(persona param, FUNCION FUNCION2) 
-    {      
-        param = param + 500;  
-        imprimir (concatenar("parametro: ", convertiracadena(param)));      
-         
-        retorno param;
-    }
-
-
- 
- 
 
 } 
