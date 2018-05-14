@@ -405,15 +405,15 @@ INSTRUCCION : PRINCIPAL
 	{
 		$$ = $1;
 	}
-	| CONCATENAR
+	| CONCATENAR ';'
 	{
 		$$ = $1;
 	}
-	| IMPRIMIR
+	| IMPRIMIR 
 	{
 		$$ = $1;
 	}
-	| PROCEDIMIENTO
+	| PROCEDIMIENTO 
 	{
 		$$ = $1;
 	}
@@ -423,23 +423,25 @@ INSTRUCCION : PRINCIPAL
 	}
 	| romper ';'
 	{
-		$$ = $1;
+		$$ = crearNodo("ROMPER",@1.first_line,@1.first_column);
 	}
+	/*
 	| romper E ';'
 	{
-		$$ = $1;
-	}
+		$$ = crearNodo("ROMPER",@1.first_line,@1.first_column);
+	}*/
 	| continuar ';'
 	{
-		$$ = $1;
+		$$ = crearNodo("CONTINUAR",@1.first_line,@1.first_column);
 	}
 	| retorno ';'
 	{
-		$$ = $1;
+		$$ = crearNodo("RETORNO",@1.first_line,@1.first_column);		
 	}
 	| retorno E ';'
 	{
-		$$ = $1;
+		$$ = crearNodo("RETORNO",@1.first_line,@1.first_column);			
+		$$.add($2);
 	}
 	;
 
@@ -769,42 +771,44 @@ ASIGNACION	: id ASIGNAR ';'
 	} 
 	| id INSTANCIA ASIGNAR ';' 
 	{
-		$$ = crearNodo("ASIGNACION",null,null);
-		este = crearNodo("este",@1.first_line,@1.first_column);
-		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
-		$$.add(este);
-		$$.add(identificador);
-		$$.add($4);
+		$$ = crearNodo("ASIGNACION",@1.first_line,@1.first_column);
+		var nodo = crearNodo("INSTANCIA",@1.first_line,@1.first_column);
+		nodo.add(crearHoja("ID",$1,@1.first_line,@1.first_column));
+		nodo.add($2);
+		$$.add(nodo);
+		$$.add($3);
 	}
 	| id INSTANCIA '++' ';' 
 	{
-		$$ = crearNodo("ASIGNACION",null,null);
-		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
-		$$.add(identificador);
-		$$.add($2);
+		$$ = crearNodo("ASIGNACIONINC",@1.first_line,@1.first_column);
+		var nodo = crearNodo("INSTANCIA",@1.first_line,@1.first_column);
+		nodo.add(crearHoja("ID",$1,@1.first_line,@1.first_column));
+		nodo.add($2);
+		$$.add(nodo);		
 	}
 	| id INSTANCIA '--' ';' 
 	{
-		$$ = crearNodo("ASIGNACION",null,null);
-		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
-		$$.add(identificador);
-		$$.add($2);
+		$$ = crearNodo("ASIGNACIONDEC",@1.first_line,@1.first_column);
+		var nodo = crearNodo("INSTANCIA",@1.first_line,@1.first_column);
+		nodo.add(crearHoja("ID",$1,@1.first_line,@1.first_column));
+		nodo.add($2);
+		$$.add(nodo);	
 	}
 	| id '++' ';' 
 	{
-		$$ = crearNodo("ASIGNACION",null,null);
+		$$ = crearNodo("ASIGNACIONINC",null,null);
 		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
 		$$.add(identificador);
 	}
 	| id '--' ';' 
 	{
-		$$ = crearNodo("ASIGNACION",null,null);
+		$$ = crearNodo("ASIGNACIONDEC",null,null);
 		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
 		$$.add(identificador);
 	}
 	| id ASIGNACION_EXPR E ';' 
 	{
-		$$ = crearNodo("ASIGNACION",null,null);
+		$$ = crearNodo("ASIGNACIONOPERACION",@1.first_line,@1.first_column);
 		identificador = crearHoja("ID",$1,@1.first_line,@1.first_column);
 		$$.add(identificador);
 		$$.add($2);
@@ -814,31 +818,19 @@ ASIGNACION	: id ASIGNAR ';'
 
 ASIGNACION_EXPR : '+=' 
 	{
-		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
-		asignacion.add($1);
-		$$= asignacion;
-		//$$.add($1);
+		$$ = crearHoja("+=",$1,@1.first_line,@1.first_column);
 	}
     | '-=' 
 	{
-		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
-		asignacion.add($1);
-		$$= asignacion;
-		//$$.add($1);
+		$$ = crearHoja("-=",$1,@1.first_line,@1.first_column);
 	}
     | '*=' 
 	{
-		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
-		asignacion.add($1);
-		$$= asignacion;
-		//$$.add($1);
+		$$ = crearHoja("*=",$1,@1.first_line,@1.first_column);
 	}
     | '/=' 
 	{
-		var asignacion = crearNodo("Asignacion", $1.first_line-1, $1.first_column-1  );
-		asignacion.add($1);
-		$$= asignacion;
-		//$$.add($1);
+		$$ = crearHoja("/=",$1,@1.first_line,@1.first_column);
 	}
 	;
 
@@ -1247,7 +1239,7 @@ FUNCIONES : id '.' tamanio
 
 CONCATENAR : concatenar '(' E ',' E ',' E ')'
 	{
-		//alert('3');
+
 		$$ = crearNodo("CONCATENAR",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($5);
@@ -1255,7 +1247,7 @@ CONCATENAR : concatenar '(' E ',' E ',' E ')'
 	}
 	| concatenar '(' E ',' E ')' 
 	{
-		//alert('2');
+
 		$$ = crearNodo("CONCATENAR",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($5);
