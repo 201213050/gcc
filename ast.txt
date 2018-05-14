@@ -1,52 +1,318 @@
-digraph lista{ rankdir=TB;node [shape = box, style=rounded]; nodo25[label="INICIO  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo25"-> "nodo1"
-"nodo25"-> "nodo24"
+digraph lista{ rankdir=TB;node [shape = box, style=rounded]; nodo162[label="INICIO  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo162"-> "nodo1"
+"nodo162"-> "nodo161"
 nodo1[label="IMPORTAR  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
 "nodo1"-> "nodo0"
-nodo0[label="\"/ruta/archivo_importado.gcc\"  [Expresion]{1,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo24[label="CLASES  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo24"-> "nodo22"
-nodo22[label="CLASE  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo22"-> "nodo23"
-"nodo22"-> "nodo21"
-nodo23[label="miClase  [ID]{3,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo21[label="INSTRUCCIONES  {4,6} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo0[label="\"/ruta/archivo_importado.gcc\"  [Expresion]{1,11} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo161[label="CLASES  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo161"-> "nodo159"
+nodo159[label="CLASE  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo159"-> "nodo160"
+"nodo159"-> "nodo6"
+nodo160[label="miClase  [ID]{3,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo6[label="INSTRUCCIONES  {4,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo6"-> "nodo4"
+"nodo6"-> "nodo10"
+"nodo6"-> "nodo16"
+"nodo6"-> "nodo24"
+"nodo6"-> "nodo35"
+"nodo6"-> "nodo56"
+"nodo6"-> "nodo64"
+"nodo6"-> "nodo70"
+"nodo6"-> "nodo74"
+"nodo6"-> "nodo80"
+"nodo6"-> "nodo84"
+"nodo6"-> "nodo91"
+"nodo6"-> "nodo97"
+"nodo6"-> "nodo102"
+"nodo6"-> "nodo110"
+"nodo6"-> "nodo116"
+"nodo6"-> "nodo121"
+"nodo6"-> "nodo125"
+"nodo6"-> "nodo131"
+"nodo6"-> "nodo136"
+"nodo6"-> "nodo144"
+"nodo6"-> "nodo156"
+nodo4[label="DECLARACION_VAR  {4,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo4"-> "nodo2"
+"nodo4"-> "nodo5"
+"nodo4"-> "nodo3"
+nodo2[label="Entero  [TIPO]{4,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo5[label="Identificador  [ID]{4,12} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo3[label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo10[label="DECLARACION_VAR  {6,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo10"-> "nodo7"
+"nodo10"-> "nodo11"
+"nodo10"-> "nodo9"
+nodo7[label="Entero  [TIPO]{6,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo11[label="numero  [ID]{6,12} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo9[label="ASIGNACION  {6,19} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo9"-> "nodo8"
+nodo8[label="10  [ENTERO]{6,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo16[label="DECLARACION_VAR  {7,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo16"-> "nodo12"
+"nodo16"-> "nodo13"
+"nodo16"-> "nodo17"
+"nodo16"-> "nodo15"
+nodo12[label="publico  [VISIBILIDAD]{7,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo13[label="entero  [TIPO]{7,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo17[label="atributo1  [ID]{7,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo15[label="ASIGNACION  {7,30} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo15"-> "nodo14"
+nodo14[label="0  [ENTERO]{7,32} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo24[label="DECLARACION_VECTOR  {8,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo24"-> "nodo18"
+"nodo24"-> "nodo19"
+"nodo24"-> "nodo25"
+"nodo24"-> "nodo21"
+"nodo24"-> "nodo23"
+nodo18[label="publico  [VISIBILIDAD]{8,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo19[label="caracter  [TIPO]{8,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo25[label="atributo_cadena  [ID]{8,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo21[label="Dimension  {8,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
 "nodo21"-> "nodo20"
-nodo20[label="IMPRIMIR  {3,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo20"-> "nodo19"
-nodo19[label="CONCATENAR  {3,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo19"-> "nodo2"
-"nodo19"-> "nodo3"
-nodo2[label="\"salida \"  [Expresion]{4,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo3[label="INSTANCIAP  {3,36} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo3"-> "nodo4"
-"nodo3"-> "nodo5"
-"nodo3"-> "nodo7"
-"nodo3"-> "nodo9"
-"nodo3"-> "nodo11"
-"nodo3"-> "nodo13"
-"nodo3"-> "nodo15"
-"nodo3"-> "nodo17"
-nodo4[label="var  [ID]{4,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo5[label="ACCESOVAR  {4,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo5"-> "nodo6"
-nodo6[label="x1  [ID]{4,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo7[label="INSTANCIAP  {3,42} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo7"-> "nodo8"
-nodo8[label="xx2  [ACCESOVAR]{3,43} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo9[label="INSTANCIAP  {3,46} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo9"-> "nodo10"
-nodo10[label="xx3  [ACCESOVAR]{3,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo11[label="INSTANCIAP  {3,50} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo11"-> "nodo12"
-nodo12[label="xx3  [ACCESOVAR]{3,51} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo13[label="INSTANCIAP  {3,54} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo13"-> "nodo14"
-nodo14[label="xx4  [ACCESOVAR]{3,55} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo15[label="INSTANCIAP  {3,58} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo15"-> "nodo16"
-nodo16[label="xx5  [ACCESOVAR]{3,59} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo17[label="INSTANCIAP  {3,62} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo17"-> "nodo18"
-nodo18[label="xx6  [ACCESOVAR]{3,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo20[label="25  [ENTERO]{8,38} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo23[label="ASIGNACION  {8,42} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo23"-> "nodo22"
+nodo22[label="\"este es un ejemplo de cadena\"  [Expresion]{8,44} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo35[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo35"-> "nodo36"
+"nodo35"-> "nodo34"
+nodo36[label="resultado_op  [ID]{13,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo34[label="ASIGNACION  {13,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo34"-> "nodo33"
+nodo33[label="-  {12,19} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo33"-> "nodo26"
+"nodo33"-> "nodo32"
+nodo26[label="5  [ENTERO]{13,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo32[label="*  {12,23} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo32"-> "nodo30"
+"nodo32"-> "nodo31"
+nodo30[label="Expresion  {12,23} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo30"-> "nodo29"
+nodo29[label="+  {12,24} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo29"-> "nodo27"
+"nodo29"-> "nodo28"
+nodo27[label="9  [ENTERO]{13,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo28[label="cualquiervariable  [id]{13,29} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo31[label="14  [ENTERO]{13,48} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo56[label="CONSTRUCTOR  {13,4} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo56"-> "nodo57"
+"nodo56"-> "nodo44"
+"nodo56"-> "nodo50"
+nodo57[label="miClase  [ID]{14,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo44[label="PARAMETROS  {NaN,NaN} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo44"-> "nodo41"
+nodo41[label="PARAMETRO  {13,27} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo41"-> "nodo42"
+"nodo41"-> "nodo43"
+nodo42[label="cadena  [ID]{14,28} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo43[label="param2  [ID]{14,35} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo50[label="INSTRUCCIONES  {15,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo50"-> "nodo47"
+"nodo50"-> "nodo53"
+nodo47[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo47"-> "nodo48"
+"nodo47"-> "nodo49"
+"nodo47"-> "nodo46"
+nodo48[label="este  {15,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo49[label="atributo1  [ID]{15,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo46[label="ASIGNACION  {15,24} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo46"-> "nodo45"
+nodo45[label="param1  [id]{15,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo53[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo53"-> "nodo54"
+"nodo53"-> "nodo55"
+"nodo53"-> "nodo52"
+nodo54[label="este  {16,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo55[label="atributo_cadena  [ID]{16,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo52[label="ASIGNACION  {16,30} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo52"-> "nodo51"
+nodo51[label="param2  [id]{16,32} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo64[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo64"-> "nodo65"
+"nodo64"-> "nodo59"
+"nodo64"-> "nodo63"
+nodo65[label="arreglo  [ID]{20,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo59[label="Dimension  {20,12} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo59"-> "nodo58"
+"nodo59"-> "nodo61"
+nodo58[label="4  [ENTERO]{20,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo61[label="Dimension  {20,15} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo61"-> "nodo60"
+nodo60[label="3  [ENTERO]{20,16} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo63[label="ASIGNACION  {20,19} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo63"-> "nodo62"
+nodo62[label="1  [ENTERO]{20,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo70[label="DECLARACION_VECTOR  {22,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo70"-> "nodo66"
+"nodo70"-> "nodo71"
+"nodo70"-> "nodo68"
+"nodo70"-> "nodo69"
+nodo66[label="caracter  [TIPO]{22,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo71[label="cadena  [ID]{22,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo68[label="Dimension  {22,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo68"-> "nodo67"
+nodo67[label="10  [ENTERO]{22,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo69[label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo74[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo74"-> "nodo75"
+"nodo74"-> "nodo73"
+nodo75[label="cadena  [ID]{24,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo73[label="ASIGNACION  {24,12} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo73"-> "nodo72"
+nodo72[label="\"mi cadena\"  [Expresion]{24,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo80[label="DECLARACION_VECTOR  {27,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo80"-> "nodo76"
+"nodo80"-> "nodo81"
+"nodo80"-> "nodo78"
+"nodo80"-> "nodo79"
+nodo76[label="caracter  [TIPO]{27,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo81[label="cadena  [ID]{27,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo78[label="Dimension  {27,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo78"-> "nodo77"
+nodo77[label="10  [ENTERO]{27,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo79[label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo84[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo84"-> "nodo85"
+"nodo84"-> "nodo83"
+nodo85[label="cadena  [ID]{28,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo83[label="ASIGNACION  {28,12} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo83"-> "nodo82"
+nodo82[label="\"mi cadena\"  [Expresion]{28,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo91[label="IMPRIMIR  {29,4} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo91"-> "nodo90"
+nodo90[label="CONCATENAR  {29,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo90"-> "nodo86"
+"nodo90"-> "nodo87"
+nodo86[label="\"salida \"  [Expresion]{30,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo87[label="FUNCION  {29,35} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo87"-> "nodo88"
+"nodo87"-> "nodo89"
+nodo88[label="putas  [ID]{30,36} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo89[label="tamanio  [TAMANO]{30,42} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo97[label="DECLARACION_VECTOR  {33,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo97"-> "nodo92"
+"nodo97"-> "nodo98"
+"nodo97"-> "nodo94"
+"nodo97"-> "nodo96"
+nodo92[label="Caracter  [TIPO]{33,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo98[label="persona  [ID]{33,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo94[label="Dimension  {33,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo94"-> "nodo93"
+nodo93[label="20  [ENTERO]{33,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo96[label="ASIGNACION  {33,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo96"-> "nodo95"
+nodo95[label="Nada  [Expresion]{33,28} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo102[label="DECLARACION_VAR  {34,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo102"-> "nodo99"
+"nodo102"-> "nodo103"
+"nodo102"-> "nodo101"
+nodo99[label="Caracter  [TIPO]{34,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo103[label="letra  [ID]{34,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo101[label="ASIGNACION  {34,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo101"-> "nodo100"
+nodo100[label="Nada  [Expresion]{34,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo110[label="DECLARACION_VECTOR  {37,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo110"-> "nodo104"
+"nodo110"-> "nodo111"
+"nodo110"-> "nodo106"
+"nodo110"-> "nodo109"
+nodo104[label="Caracter  [TIPO]{37,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo111[label="persona_2  [ID]{37,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo106[label="Dimension  {37,23} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo106"-> "nodo105"
+nodo105[label="10  [ENTERO]{37,24} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo109[label="ASIGNACION  {37,28} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo109"-> "nodo108"
+nodo108[label="ARREGLO  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo108"-> "nodo107"
+nodo107[label="\"\0\"  [Expresion]{37,31} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo116[label="DECLARACION_VAR  {38,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo116"-> "nodo112"
+"nodo116"-> "nodo117"
+"nodo116"-> "nodo115"
+nodo112[label="Caracter  [TIPO]{38,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo117[label="letra_2  [ID]{38,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo115[label="ASIGNACION  {38,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo115"-> "nodo114"
+nodo114[label="ARREGLO  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo114"-> "nodo113"
+nodo113[label="\"\0\"  [Expresion]{38,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo121[label="DECLARACION_OBJETO  {41,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo121"-> "nodo122"
+"nodo121"-> "nodo123"
+"nodo121"-> "nodo118"
+nodo122[label="Nombre_clase  [TIPO]{41,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo123[label="Nombre_instancia  [ID]{41,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo118[label="FUNCION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo118"-> "nodo119"
+"nodo118"-> "nodo120"
+nodo119[label="NUEVO  {41,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo120[label="Nombre_clase  [ID]{41,43} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo125[label="DECLARACION_OBJETO  {42,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo125"-> "nodo126"
+"nodo125"-> "nodo127"
+"nodo125"-> "nodo124"
+nodo126[label="Persona  [TIPO]{42,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo127[label="Jorge  [ID]{42,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo124[label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo131[label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo131"-> "nodo132"
+"nodo131"-> "nodo128"
+nodo132[label="Jorge  [ID]{44,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo128[label="FUNCION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo128"-> "nodo129"
+"nodo128"-> "nodo130"
+nodo129[label="NUEVO  {44,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo130[label="Persona  [ID]{44,19} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo136[label="DECLARACION_OBJETO  {47,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo136"-> "nodo137"
+"nodo136"-> "nodo138"
+"nodo136"-> "nodo133"
+nodo137[label="Persona  [TIPO]{47,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo138[label="Carlos  [ID]{47,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo133[label="FUNCION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo133"-> "nodo134"
+"nodo133"-> "nodo135"
+nodo134[label="NUEVO  {47,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo135[label="Persona  [ID]{47,28} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo144[label="DECLARACION_OBJETO  {50,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo144"-> "nodo145"
+"nodo144"-> "nodo146"
+"nodo144"-> "nodo141"
+nodo145[label="Persona  [TIPO]{50,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo146[label="Carlos  [ID]{50,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo141[label="FUNCION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo141"-> "nodo142"
+"nodo141"-> "nodo143"
+"nodo141"-> "nodo140"
+nodo142[label="NUEVO  {50,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo143[label="Persona  [ID]{50,28} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo140[label="VALOR  {49,35} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo140"-> "nodo139"
+nodo139[label="15  [ENTERO]{50,36} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo156[label="DECLARACION_OBJETO  {52,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo156"-> "nodo157"
+"nodo156"-> "nodo158"
+"nodo156"-> "nodo153"
+nodo157[label="Persona  [TIPO]{52,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo158[label="per  [ID]{52,13} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo153[label="FUNCION  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo153"-> "nodo154"
+"nodo153"-> "nodo155"
+"nodo153"-> "nodo148"
+nodo154[label="NUEVO  {52,19} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo155[label="Persona  [ID]{52,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo148[label="VALOR  {51,32} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo148"-> "nodo147"
+"nodo148"-> "nodo149"
+"nodo148"-> "nodo150"
+"nodo148"-> "nodo151"
+"nodo148"-> "nodo152"
+nodo147[label="a  [id]{52,33} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo149[label="b  [id]{52,35} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo150[label="c  [id]{52,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo151[label="d  [id]{52,39} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo152[label="e  [id]{52,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
 }
