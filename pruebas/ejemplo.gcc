@@ -24,7 +24,8 @@ clase miClase{
     cadena = "mi cadena"; 
 
     //TAMANIO DE UN VECTOR
-    caracter cadena[10]; cadena = "mi cadena"; 
+    caracter cadena[10]; 
+    cadena = "mi cadena"; 
  
     imprimir(concatenar("salida ", cadena.tamanio)); 
     //salida: 10 
