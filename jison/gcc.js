@@ -1110,56 +1110,58 @@ break;
 case 159:
 
 		this.$ = crearNodo("CUERPO_IF",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
-		condicionV = crearNodo("EsVerdaderoF",_$[$0-7].first_line,_$[$0-7].first_column);
-		this.$.add(condicionv);
-		this.$.add($$[$0-5]);
-		condicionF = crearNodo("EsVerdaderoF",_$[$0-3].first_line,_$[$0-3].first_column);
-		this.$.add(condicionF);
-		this.$.add($$[$0-1]);
+		verdadero = crearNodo("VERDADERO",_$[$0-5].first_line,_$[$0-5].first_column);
+		verdadero.add($$[$0-5]);
+		falso = crearNodo("FALSO",_$[$0-5].first_line,_$[$0-5].first_column);
+		falso.add($$[$0-1]);
+		this.$.add(verdadero);
+		this.$.add(falso);
+
 	
 break;
 case 160:
 
 		this.$ = crearNodo("CUERPO_IF",_$[$0-5].first_line-1,_$[$0-5].first_column-1);
-		condicionV = crearNodo("EsVerdaderoF",_$[$0-5].first_line,_$[$0-5].first_column);
-		this.$.add(condicionv);
-		condicionF = crearNodo("EsVerdaderoF",_$[$0-2].first_line,_$[$0-2].first_column);
-		this.$.add(condicionF);
+
+		verdadero = crearNodo("VERDADERO",_$[$0-5].first_line,_$[$0-5].first_column);	
+		falso = crearNodo("FALSO",_$[$0-3].first_line,_$[$0-3].first_column);		
+
+		this.$.add(verdadero);
+		this.$.add(falso);
 	
 break;
 case 161:
 
 		this.$ = crearNodo("CUERPO_IF",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
-		condicionF = crearNodo("esFalso",_$[$0-7].first_line,_$[$0-7].first_column);
-		condicionV = crearNodo("esVerdadero",_$[$0-3].first_line,_$[$0-3].first_column);
-		this.$.add(condicionF);
-		this.$.add($$[$0-5]);
-		this.$.add(condicionV);
-		this.$.add($$[$0-1]);
+		verdadero = crearNodo("VERDADERO",_$[$0-3].first_line,_$[$0-3].first_column);
+		verdadero.add($$[$0-1]);
+
+		falso = crearNodo("FALSO",_$[$0-7].first_line,_$[$0-7].first_column);
+		falso.add($$[$0-5]);		
+		this.$.add(verdadero);
+		this.$.add(falso);		
 	
 break;
 case 162:
 
 		this.$ = crearNodo("CUERPO_IF",_$[$0-5].first_line-1,_$[$0-5].first_column-1);
-		condicionF = crearNodo("EsFalso",_$[$0-5].first_line,_$[$0-5].first_column);
-		this.$.add(condicionF);
-		condicionV = crearNodo("EsVerdadero",_$[$0-2].first_line,_$[$0-2].first_column);
-		this.$.add(condicionV);
+
+		verdadero = crearNodo("VERDADERO",_$[$0-5].first_line,_$[$0-5].first_column);	
+		falso = crearNodo("FALSO",_$[$0-3].first_line,_$[$0-3].first_column);		
+
+		this.$.add(verdadero);
+		this.$.add(falso);					
 	
 break;
 case 163:
 
-		this.$ = crearNodo("CUERPO_IF",_$[$0-3].first_line-1,_$[$0-3].first_column-1);
-		condicionV = crearNodo("esVerdadero",_$[$0-3].first_line,_$[$0-3].first_column);
-		this.$.add(condicionV);
+		this.$ = crearNodo("VERDADERO",_$[$0-3].first_line-1,_$[$0-3].first_column-1);
 		this.$.add($$[$0-1]);
 	
 break;
 case 164:
 
-		this.$ = crearNodo("CUERPO_IF",_$[$0-2].first_line-1,_$[$0-2].first_column-1);
-		condicionV = crearNodo("esVerdadero",_$[$0-2].first_line,_$[$0-2].first_column);
-		this.$.add(condicionV);
+		this.$ = crearNodo("VERDADERO",_$[$0-2].first_line-1,_$[$0-2].first_column-1);
 	
 break;
 case 165: case 166:

@@ -5,11 +5,34 @@ clase miClase{
 
     Principal()
     {     
-        Llamador(  VAR1);
-        entero var1 = obtenerDireccion(FuncionLlamada);
+
+
+
+
+
     } 
 
-
+    vacio actualizarSaldo(nodo list, Caracter nombre, decimal saldo)
+    {
+        nodo aux = list;
+        Repetir_Mientras(aux!=nada)
+        {
+            si(aux.nombre == nombre)
+            es_verdadero
+            {
+                aux.saldo = saldo;
+                aux.saldo = saldo;
+                aux.saldo = saldo;
+                aux.saldo = saldo;
+            }
+            es_falso
+            {
+                imprimir("falso");
+                aux.saldo = saldo;
+            }
+            fin-si
+        }
+    }
 
 
 

@@ -1318,51 +1318,53 @@ SI	: si '(' E ')' CUERPO_IF finsi
 CUERPO_IF : esverdadero '{' LISTA_INSTRUCCIONES '}' esfalso '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
-		condicionV = crearNodo("EsVerdaderoF",@1.first_line,@1.first_column);
-		$$.add(condicionv);
-		$$.add($3);
-		condicionF = crearNodo("EsVerdaderoF",@5.first_line,@5.first_column);
-		$$.add(condicionF);
-		$$.add($7);
+		verdadero = crearNodo("VERDADERO",@3.first_line,@3.first_column);
+		verdadero.add($3);
+		falso = crearNodo("FALSO",@3.first_line,@3.first_column);
+		falso.add($7);
+		$$.add(verdadero);
+		$$.add(falso);
+
 	}
 	| esverdadero '{'  '}' esfalso '{'  '}'
 	{
 		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
-		condicionV = crearNodo("EsVerdaderoF",@1.first_line,@1.first_column);
-		$$.add(condicionv);
-		condicionF = crearNodo("EsVerdaderoF",@4.first_line,@4.first_column);
-		$$.add(condicionF);
+
+		verdadero = crearNodo("VERDADERO",@1.first_line,@1.first_column);	
+		falso = crearNodo("FALSO",@3.first_line,@3.first_column);		
+
+		$$.add(verdadero);
+		$$.add(falso);
 	}
 	| esfalso '{' LISTA_INSTRUCCIONES '}' esverdadero '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
-		condicionF = crearNodo("esFalso",@1.first_line,@1.first_column);
-		condicionV = crearNodo("esVerdadero",@5.first_line,@5.first_column);
-		$$.add(condicionF);
-		$$.add($3);
-		$$.add(condicionV);
-		$$.add($7);
+		verdadero = crearNodo("VERDADERO",@5.first_line,@5.first_column);
+		verdadero.add($7);
+
+		falso = crearNodo("FALSO",@1.first_line,@1.first_column);
+		falso.add($3);		
+		$$.add(verdadero);
+		$$.add(falso);		
 	}
 	| esfalso '{'  '}' esverdadero '{'  '}' 
 	{
 		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
-		condicionF = crearNodo("EsFalso",@1.first_line,@1.first_column);
-		$$.add(condicionF);
-		condicionV = crearNodo("EsVerdadero",@4.first_line,@4.first_column);
-		$$.add(condicionV);
+
+		verdadero = crearNodo("VERDADERO",@1.first_line,@1.first_column);	
+		falso = crearNodo("FALSO",@3.first_line,@3.first_column);		
+
+		$$.add(verdadero);
+		$$.add(falso);					
 	}
 	| esverdadero '{' LISTA_INSTRUCCIONES '}'
 	{
-		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
-		condicionV = crearNodo("esVerdadero",@1.first_line,@1.first_column);
-		$$.add(condicionV);
+		$$ = crearNodo("VERDADERO",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 	}
 	| esverdadero '{'  '}'
 	{
-		$$ = crearNodo("CUERPO_IF",@1.first_line-1,@1.first_column-1);
-		condicionV = crearNodo("esVerdadero",@1.first_line,@1.first_column);
-		$$.add(condicionV);
+		$$ = crearNodo("VERDADERO",@1.first_line-1,@1.first_column-1);
 	}
 	 ;
 
