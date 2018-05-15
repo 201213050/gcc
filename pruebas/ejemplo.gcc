@@ -2,18 +2,15 @@ importar ("/ruta/archivo_importado.gcc");
 
 clase miClase{
 
-Usuario->nombre = nuevo d(); 
-    destruirPuntero(Id1);
-    //cadena de caracteres  
-    crearPuntero(caracter, cad) =  "HOLA MUNDO"; 
-    //se ejecuta mientras no sea fin de cadena 
-    repetir_Mientras (cad > '0' )
-    {   
-        imprimir (cad); 
-        //imprime el caracter actual   
-        cad++; 
-        //pasa a la siguiente direccion de memoria. 
+
+    Principal()
+    {     
+        Llamador(  VAR1);
+        entero var1 = obtenerDireccion(FuncionLlamada);
     } 
+
+
+
 
 
 } 

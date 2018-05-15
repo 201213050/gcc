@@ -1290,7 +1290,7 @@ PUNTEROS : crearPuntero '(' TIPO ',' id ')' ASIGNAR ';'
 MEMORIA : obtenerDireccion '(' id ')' 
 	{
 		$$ = crearNodo("OBTENERDIRECCION",@1.first_line-1,@1.first_column-1);
-		$$.add($3);
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
 
 	}
 	|reservarMemoria '(' E ')'
@@ -1424,93 +1424,63 @@ DEFECTO	: defecto ':' LISTA_INSTRUCCIONES
 CICLO 	: repetirmientras '(' E ')' '{' LISTA_INSTRUCCIONES'}'
 	{
 		
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("repetirMientras",@1.first_line,@1.first_column);
-		$$.add(nodito);
+		$$ = crearNodo("WHILE",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($6);
 	
 	}
 	| repetirmientras '(' E ')' '{' '}'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("repetirMientras",@1.first_line,@1.first_column);
-		$$.add(nodito);
-		$$.add($3);
+		$$ = crearNodo("WHILE",@1.first_line-1,@1.first_column-1);
+		$$.add($3);		
 	
 	}
 	| hacer '{' LISTA_INSTRUCCIONES'}' mientras '(' E ')' ';'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("Hacer",@1.first_line,@1.first_column);
-		$$.add(nodito);
-		nodito2 = crearNodo("Mientras",@5.first_line,@5.first_column);
-		$$.add(nodito2);
+		$$ = crearNodo("DOWHILE",@1.first_line-1,@1.first_column-1);
+		$$.add($3);
 		$$.add($7);
-	
 	}
 	| hacer '{' '}' mientras '(' E ')' ';'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("Hacer",@1.first_line,@1.first_column);
-		$$.add(nodito);
-		nodito2 = crearNodo("Mientras",@4.first_line,@4.first_column);
-		$$.add(nodito2)
+		$$ = crearNodo("DOWHILE",@1.first_line-1,@1.first_column-1);		
 		$$.add($6);
 	
 	}
 	| repetir '{' LISTA_INSTRUCCIONES'}' hastaque '(' E ')' ';'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("Repetir",@1.first_line,@1.first_column);
-		$$.add(nodito);
+		$$ = crearNodo("REPETIR",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
-		nodito2 = crearNodo("hastaQue",@5.first_line,@5.first_column);
-		$$.add(nodito2);
-		$$.add($6);
+		$$.add($7);
 	}
 	| repetir '{' '}' hastaque '(' E ')' ';'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("Repetir",@1.first_line,@1.first_column);
-		$$.add(nodito);
-		nodito2 = crearNodo("hastaQue",@5.first_line,@5.first_column);
-		$$.add(2);
+		$$ = crearNodo("REPETIR",@1.first_line-1,@1.first_column-1);
 		$$.add($6);
 	}
 	| ciclodoble '(' E "," E ')' '{' LISTA_INSTRUCCIONES'}'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("cicloDoble",@1.first_line,@1.first_column);
-		$$.add(nodito);
+		$$ = crearNodo("CICLOX",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($5);
 		$$.add($8);
 	}
 	| ciclodoble '(' E "," E ')' '{' '}'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("cicloDoble",@1.first_line,@1.first_column);
-		$$.add(nodito);
+		$$ = crearNodo("CICLOX",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
-		$$.add($5);
+		$$.add($5);		
 	}
 	| enciclar id '{' LISTA_INSTRUCCIONES '}'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("enciclar",@1.first_line,@1.first_column);
-		$$.add(nodito);
-		nodito2 = crearHoja("ID", $2, @2.first_linem, @2.first_column);
-		$$.add(nodito2);
+		$$ = crearNodo("ENCICLAR",@1.first_line-1,@1.first_column-1);
+		$$.add ( crearHoja("ID",$2,@2.first_line,@2.first_column));		
 		$$.add($4);
 	}
 	| enciclar id '{'  '}'
 	{
-		$$ = crearNodo("CICLO",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("enciclar",@1.first_line,@1.first_column);
-		$$.add(1);
-		nodito2 = crearHoja("ID", $2, @2.first_linem, @2.first_column);
-		$$.add(nodito2);
+		$$ = crearNodo("ENCICLAR",@1.first_line-1,@1.first_column-1);
+		$$.add ( crearHoja("ID",$2,@2.first_line,@2.first_column));				
 	}
 	;
 
@@ -1519,48 +1489,29 @@ CICLO 	: repetirmientras '(' E ')' '{' LISTA_INSTRUCCIONES'}'
 FOR 	: repetircontando '(' variable ':' id ';' desde ':' E ';' hasta ':' E ')' '{' LISTA_INSTRUCCIONES'}'
 	{
 		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
-		nodito = crearNodo("repetircontando",@1.first_line,@1.first_column);
-		$$.add(1);
-		nodito2 = crearHoja("ID", $5, @5.first_linem, @5.first_column);
-		$$.add(nodito2);
-		nodito3 = crearNodo("desde",@7.first_line,@7.first_column);
-		$$.add(nodito3);
+		$$.add(crearHoja("ID",$5,@5.first_line,@5.first_column));
 		$$.add($9);
-		nodito4 = crearNodo("hasta",@11.first_line,@11.first_column);
-		$$.add(nodito4);
 		$$.add($13);
 		$$.add($16);
 	}
 	| repetircontando '(' variable ':' id ';' desde ':' E ';' hasta ':' E ')' '{' '}'
 	{
 		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
-		nodito1 = crearNodo("repetircontando",@1.first_line,@1.first_column);
-		$$.add(nodito1);
-		nodito2 = crearHoja("ID", $5, @5.first_linem, @5.first_column);
-		$$.add(nodito2);
-		nodito3 = crearNodo("desde",@7.first_line,@7.first_column);
-		$$.add(nodito3);
+		$$.add(crearHoja("ID",$5,@5.first_line,@5.first_column));
 		$$.add($9);
-		nodito4 = crearNodo("hasta",@11.first_line,@11.first_column);
-		$$.add(nodito4);
-		$$.add($13);
+		$$.add($13);		
 	}
 	| contador '(' E ')' '{' LISTA_INSTRUCCIONES'}'
 	{
 		
-		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
-		nodito1 = crearNodo("contador",@1.first_line,@1.first_column);
-		$$.add(nodito1);
+		$$ = crearNodo("CONTADOR",@1.first_line-1,@1.first_column-1);		
 		$$.add($3);
 		$$.add($6);
 	}
 	| contador '(' E ')' '{' '}'
 	{
-		$$ = crearNodo("FOR",@1.first_line-1,@1.first_column-1);
-		nodito1 = crearNodo("contador",@1.first_line,@1.first_column);
-		$$.add(nodito1);
-		
-		$$.add($3);
+		$$ = crearNodo("CONTADOR",@1.first_line-1,@1.first_column-1);		
+		$$.add($3);		
 	}
 	;
 

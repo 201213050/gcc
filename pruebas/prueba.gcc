@@ -178,6 +178,7 @@ clase miClase{
 
     Repetir_Mientras( Persona.estado != 2){     
         imprimir (concatenar("Estado :", convertirAcadena(Persona.estado)));     
+        imprimir(concatenar("Queputas", funcionvergas(persona.a,persona.b)));
         actualizar_estado(Persona); 
     }
 
@@ -227,11 +228,11 @@ clase miClase{
     Booleano Id_4; 
     Decimal Id_5; 
  
-    /*Leer_Teclado ( "Ingrese un número", Id_1); 
+    Leer_Teclado ( "Ingrese un número", Id_1); 
     Leer_Teclado ( "Ingrese una Cadena", Id_2); 
     Leer_Teclado ( "Ingrese un carácter", Id_3); 
     Leer_Teclado ( "Ingrese un True o false", Id_4); 
-    Leer_Teclado ( "Ingrese un número decimal", Id_5); */
+    Leer_Teclado ( "Ingrese un número decimal", Id_5); 
  
  
 

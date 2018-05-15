@@ -1083,7 +1083,7 @@ break;
 case 155:
 
 		this.$ = crearNodo("OBTENERDIRECCION",_$[$0-3].first_line-1,_$[$0-3].first_column-1);
-		this.$.add($$[$0-1]);
+		this.$.add(crearHoja("ID",$$[$0-1],_$[$0-1].first_line,_$[$0-1].first_column));
 
 	
 break;
@@ -1214,9 +1214,7 @@ break;
 case 173:
 
 		
-		this.$ = crearNodo("CICLO",_$[$0-6].first_line-1,_$[$0-6].first_column-1);
-		nodito = crearNodo("repetirMientras",_$[$0-6].first_line,_$[$0-6].first_column);
-		this.$.add(nodito);
+		this.$ = crearNodo("WHILE",_$[$0-6].first_line-1,_$[$0-6].first_column-1);
 		this.$.add($$[$0-4]);
 		this.$.add($$[$0-1]);
 	
@@ -1224,61 +1222,41 @@ case 173:
 break;
 case 174:
 
-		this.$ = crearNodo("CICLO",_$[$0-5].first_line-1,_$[$0-5].first_column-1);
-		nodito = crearNodo("repetirMientras",_$[$0-5].first_line,_$[$0-5].first_column);
-		this.$.add(nodito);
-		this.$.add($$[$0-3]);
+		this.$ = crearNodo("WHILE",_$[$0-5].first_line-1,_$[$0-5].first_column-1);
+		this.$.add($$[$0-3]);		
 	
 	
 break;
 case 175:
 
-		this.$ = crearNodo("CICLO",_$[$0-8].first_line-1,_$[$0-8].first_column-1);
-		nodito = crearNodo("Hacer",_$[$0-8].first_line,_$[$0-8].first_column);
-		this.$.add(nodito);
-		nodito2 = crearNodo("Mientras",_$[$0-4].first_line,_$[$0-4].first_column);
-		this.$.add(nodito2);
+		this.$ = crearNodo("DOWHILE",_$[$0-8].first_line-1,_$[$0-8].first_column-1);
+		this.$.add($$[$0-6]);
 		this.$.add($$[$0-2]);
-	
 	
 break;
 case 176:
 
-		this.$ = crearNodo("CICLO",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
-		nodito = crearNodo("Hacer",_$[$0-7].first_line,_$[$0-7].first_column);
-		this.$.add(nodito);
-		nodito2 = crearNodo("Mientras",_$[$0-4].first_line,_$[$0-4].first_column);
-		this.$.add(nodito2)
+		this.$ = crearNodo("DOWHILE",_$[$0-7].first_line-1,_$[$0-7].first_column-1);		
 		this.$.add($$[$0-2]);
 	
 	
 break;
 case 177:
 
-		this.$ = crearNodo("CICLO",_$[$0-8].first_line-1,_$[$0-8].first_column-1);
-		nodito = crearNodo("Repetir",_$[$0-8].first_line,_$[$0-8].first_column);
-		this.$.add(nodito);
+		this.$ = crearNodo("REPETIR",_$[$0-8].first_line-1,_$[$0-8].first_column-1);
 		this.$.add($$[$0-6]);
-		nodito2 = crearNodo("hastaQue",_$[$0-4].first_line,_$[$0-4].first_column);
-		this.$.add(nodito2);
-		this.$.add($$[$0-3]);
+		this.$.add($$[$0-2]);
 	
 break;
 case 178:
 
-		this.$ = crearNodo("CICLO",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
-		nodito = crearNodo("Repetir",_$[$0-7].first_line,_$[$0-7].first_column);
-		this.$.add(nodito);
-		nodito2 = crearNodo("hastaQue",_$[$0-3].first_line,_$[$0-3].first_column);
-		this.$.add(2);
+		this.$ = crearNodo("REPETIR",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
 		this.$.add($$[$0-2]);
 	
 break;
 case 179:
 
-		this.$ = crearNodo("CICLO",_$[$0-8].first_line-1,_$[$0-8].first_column-1);
-		nodito = crearNodo("cicloDoble",_$[$0-8].first_line,_$[$0-8].first_column);
-		this.$.add(nodito);
+		this.$ = crearNodo("CICLOX",_$[$0-8].first_line-1,_$[$0-8].first_column-1);
 		this.$.add($$[$0-6]);
 		this.$.add($$[$0-4]);
 		this.$.add($$[$0-1]);
@@ -1286,44 +1264,29 @@ case 179:
 break;
 case 180:
 
-		this.$ = crearNodo("CICLO",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
-		nodito = crearNodo("cicloDoble",_$[$0-7].first_line,_$[$0-7].first_column);
-		this.$.add(nodito);
+		this.$ = crearNodo("CICLOX",_$[$0-7].first_line-1,_$[$0-7].first_column-1);
 		this.$.add($$[$0-5]);
-		this.$.add($$[$0-3]);
+		this.$.add($$[$0-3]);		
 	
 break;
 case 181:
 
-		this.$ = crearNodo("CICLO",_$[$0-4].first_line-1,_$[$0-4].first_column-1);
-		nodito = crearNodo("enciclar",_$[$0-4].first_line,_$[$0-4].first_column);
-		this.$.add(nodito);
-		nodito2 = crearHoja("ID", $$[$0-3], _$[$0-3].first_linem, _$[$0-3].first_column);
-		this.$.add(nodito2);
+		this.$ = crearNodo("ENCICLAR",_$[$0-4].first_line-1,_$[$0-4].first_column-1);
+		this.$.add ( crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));		
 		this.$.add($$[$0-1]);
 	
 break;
 case 182:
 
-		this.$ = crearNodo("CICLO",_$[$0-3].first_line-1,_$[$0-3].first_column-1);
-		nodito = crearNodo("enciclar",_$[$0-3].first_line,_$[$0-3].first_column);
-		this.$.add(1);
-		nodito2 = crearHoja("ID", $$[$0-2], _$[$0-2].first_linem, _$[$0-2].first_column);
-		this.$.add(nodito2);
+		this.$ = crearNodo("ENCICLAR",_$[$0-3].first_line-1,_$[$0-3].first_column-1);
+		this.$.add ( crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));				
 	
 break;
 case 183:
 
 		this.$ = crearNodo("FOR",_$[$0-16].first_line-1,_$[$0-16].first_column-1);
-		nodito = crearNodo("repetircontando",_$[$0-16].first_line,_$[$0-16].first_column);
-		this.$.add(1);
-		nodito2 = crearHoja("ID", $$[$0-12], _$[$0-12].first_linem, _$[$0-12].first_column);
-		this.$.add(nodito2);
-		nodito3 = crearNodo("desde",_$[$0-10].first_line,_$[$0-10].first_column);
-		this.$.add(nodito3);
+		this.$.add(crearHoja("ID",$$[$0-12],_$[$0-12].first_line,_$[$0-12].first_column));
 		this.$.add($$[$0-8]);
-		nodito4 = crearNodo("hasta",_$[$0-6].first_line,_$[$0-6].first_column);
-		this.$.add(nodito4);
 		this.$.add($$[$0-4]);
 		this.$.add($$[$0-1]);
 	
@@ -1331,35 +1294,23 @@ break;
 case 184:
 
 		this.$ = crearNodo("FOR",_$[$0-15].first_line-1,_$[$0-15].first_column-1);
-		nodito1 = crearNodo("repetircontando",_$[$0-15].first_line,_$[$0-15].first_column);
-		this.$.add(nodito1);
-		nodito2 = crearHoja("ID", $$[$0-11], _$[$0-11].first_linem, _$[$0-11].first_column);
-		this.$.add(nodito2);
-		nodito3 = crearNodo("desde",_$[$0-9].first_line,_$[$0-9].first_column);
-		this.$.add(nodito3);
+		this.$.add(crearHoja("ID",$$[$0-11],_$[$0-11].first_line,_$[$0-11].first_column));
 		this.$.add($$[$0-7]);
-		nodito4 = crearNodo("hasta",_$[$0-5].first_line,_$[$0-5].first_column);
-		this.$.add(nodito4);
-		this.$.add($$[$0-3]);
+		this.$.add($$[$0-3]);		
 	
 break;
 case 185:
 
 		
-		this.$ = crearNodo("FOR",_$[$0-6].first_line-1,_$[$0-6].first_column-1);
-		nodito1 = crearNodo("contador",_$[$0-6].first_line,_$[$0-6].first_column);
-		this.$.add(nodito1);
+		this.$ = crearNodo("CONTADOR",_$[$0-6].first_line-1,_$[$0-6].first_column-1);		
 		this.$.add($$[$0-4]);
 		this.$.add($$[$0-1]);
 	
 break;
 case 186:
 
-		this.$ = crearNodo("FOR",_$[$0-5].first_line-1,_$[$0-5].first_column-1);
-		nodito1 = crearNodo("contador",_$[$0-5].first_line,_$[$0-5].first_column);
-		this.$.add(nodito1);
-		
-		this.$.add($$[$0-3]);
+		this.$ = crearNodo("CONTADOR",_$[$0-5].first_line-1,_$[$0-5].first_column-1);		
+		this.$.add($$[$0-3]);		
 	
 break;
 case 187:
