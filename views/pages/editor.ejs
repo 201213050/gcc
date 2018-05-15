@@ -33,14 +33,6 @@
         </div>
     </body>
     <script>
-        //var path = document.getElementById('archivo'); 
-        //importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
-        
-        //nuevo();                 
-        //pedirArchivo('');
-
-        /*Lista de break points perros :vs*/
-        var breakPoints = {};
 
         /*Agregamos el evento para preparar*/
         document.getElementById('archivo')
@@ -50,6 +42,12 @@
         /*Agregar evento al input file*/
         document.getElementById('archivo')
             .addEventListener('change', abrirArchivo, false);        
+
+
+        /*Lista de editores.*/
+
+        var editores = {};
+
 
 
         function abrir()
@@ -78,22 +76,7 @@
             titulo.setAttribute("aria-controls","nav-"+id);
             titulo.setAttribute("aria-selected","true"); 
             var textnode = document.createTextNode(sub);
-            titulo.appendChild(textnode);
-            //document.getElementById("titulo").appendChild(titulo);
-            /*         
-            */
-            /* 
-            titulo.onclick = function()
-                {                    
-                    var lista = document.getElementById("archivos").getElementsByTagName("li");                    
-                    var i;
-                    for (i = 0; i < lista.length; i++) 
-                    { 
-                        //lista[i].className = "nav-item nav-link ";
-                        //lista[i].setAttribute("aria-selected","false");
-                    }                    
-                }            
-            */            
+            titulo.appendChild(textnode);          
             nav.appendChild(titulo);                               
             // Ahora agregamos area de disposición                         
             var contenedorPaginas = document.getElementById('tab-content');  // Tabla contenedora de archivos.
@@ -433,7 +416,7 @@
         }        
 
         
-        function prepararArea(area, tipo)
+        function prepararArea(area)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
             {                 
@@ -456,10 +439,12 @@
                     quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4), n);
                 }                       
                 //clearActiveLines(cm);
-            });                
+            }); 
+            
+            editores[area] = cEditor;
         } 
         
-        function prepararAreaDebuger(area, tipo)
+        function prepararAreaDebuger(area)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
             {
@@ -485,7 +470,9 @@
                 {
                     quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
                 }       
-            });                
+            });  
+            
+            editores[area] = cEditor;
         }          
 
 
@@ -906,10 +893,10 @@
 
             //alert(obtenerActivo());
             var vector = obtenerActivo().split("-");
-            var contenedor =  document.getElementById(vector[1]);
+            //var contenedor =  document.getElementById(vector[1]);            
             //alert(contenedor.value);
-            //Enviamos el contenido para ser parseado.
-            Iniciar(contenedor.value);            
+            var cadena = editores[vector[1]].getValue();
+            Iniciar(cadena);            
         }
 
 

@@ -18,8 +18,8 @@ class TablaSimbolos
     }
     imprimir()
     {
-        /*
-        QString HTML = "<html>";
+        
+        var HTML = "<html>";
         HTML += "<h1>TABLA DE SIMBOLOS</h1>";
         HTML += "<table border = \"1\">";
         HTML += "<tr>";
@@ -33,29 +33,27 @@ class TablaSimbolos
         HTML += "<th scope=\"col\">Visibilidad</th>";
         HTML += "<th scope=\"col\">Tamano</th>";
         HTML += "</tr>";
-
-        QHash<QString, Simbolo>::iterator i;
-        for (i=tabla->begin(); i!=tabla->end(); ++i){
+        
+        var size = tabla.length;        
+        this.tabla.forEach(element => 
+        {
             HTML += "<tr>";
-            HTML += "<td>" + i.key() +"</td>";
-            HTML += "<td>" +i.value().id +"</td>";
-            HTML += "<td>" + i.value().ambito +"</td>";
-            HTML += "<td>" + QString::number(i.value().nivel) +"</td>";
-            HTML += "<td>" + QString::number(i.value().posicion) +"</td>";
-            HTML += "<td>" + i.value().rol +"</td>";
-            HTML += "<td>" + i.value().tipo +"</td>";
-            HTML += "<td>" + i.value().visibilidad +"</td>";
-            HTML += "<td>" + QString::number(i.value().tamano) +"</td>";
-            HTML += "</tr>";
-        }
+            HTML += "<td>" + element.nombre +"</td>";
+            HTML += "<td>" + element.id +"</td>";
+            HTML += "<td>" + element.ambito +"</td>";
+            HTML += "<td>" + element.nivel +"</td>";
+            HTML += "<td>" + element.posicion +"</td>";
+            HTML += "<td>" + element.rol +"</td>";
+            HTML += "<td>" + element.tipo +"</td>";
+            HTML += "<td>" + element.visibilidad +"</td>";
+            HTML += "<td>" + element.tamano +"</td>";
+            HTML += "</tr>";            
+        });
 
         HTML += "</table>";
         HTML += "</html>";
 
-        myfile.open ("tabla.html");
-        myfile.flush();
-        myfile << HTML.toStdString() << endl;
-        myfile.close();*/        
+        
 
     }
     limpiar()
@@ -63,4 +61,3 @@ class TablaSimbolos
         this.tabla = {};
     }
 }
-
