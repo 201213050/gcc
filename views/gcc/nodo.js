@@ -1,4 +1,4 @@
-/*var codigoHash=0;
+var codigoHash=0;
 
 function getCodigo(){
     return "nodo"+(codigoHash++);
@@ -33,11 +33,11 @@ class Nodo
         this.hijos=new Array();        
         this.add=function(nodo)
         {
-            if(nodo!=null){
+            if(nodo!=null)
+            {
                 this.hijos.push(nodo);
             }
         }
     }
 }
 
-*/

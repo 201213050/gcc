@@ -8,6 +8,7 @@ function grafica( opRaiz  )
         enviarGrafo(cadenaDot);
         console.log(cadenaDot);
 
+
 }
 
 function recorrerArbol(raiz){
