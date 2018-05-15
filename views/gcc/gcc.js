@@ -238,12 +238,12 @@ case 21:
 		this.$.add($$[$0]);						
 	
 break;
-case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 35: case 36:
+case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 35: case 36: case 100:
 
 		this.$ = $$[$0];
 	
 break;
-case 34: case 37:
+case 34: case 37: case 71:
 
 		this.$ = $$[$0-1];
 	
@@ -424,12 +424,6 @@ case 70:
 		this.$.add(ident);
 		this.$.add(ident2);
 		this.$.add($$[$0-1]);
-	
-break;
-case 71:
-
-		this.$ = crearNodo("EXPRESION",_$[$0-1].first_line,_$[$0-1].first_column);
-		this.$.add($$[$0]);
 	
 break;
 case 72:
@@ -625,12 +619,6 @@ case 99:
 	
 		nodoSobreEs = crearNodo("SobreEscribir",_$[$0-1].first_line,_$[$0-1].first_column);
 		this.$.add(nodoSobreEs);
-		this.$.add($$[$0]);
-	
-break;
-case 100:
-
-		this.$ = crearNodo("PROCEDIMIENTO",_$[$0].first_line,_$[$0].first_column);
 		this.$.add($$[$0]);
 	
 break;
@@ -1336,8 +1324,7 @@ case 187:
 break;
 case 188:
 
-		this.$ = crearNodo("Expresion",_$[$0-2].first_line-1,_$[$0-2].first_column-1);
-		this.$.add($$[$0-1]);
+		this.$ = $$[$0-2];
 	
 break;
 case 189:

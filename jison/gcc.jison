@@ -639,8 +639,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	
 ASIGNAR	: '=' E 
 	{
-		$$ = crearNodo("EXPRESION",@1.first_line,@1.first_column);
-		$$.add($2);
+		$$ = $1;
 	}
 	|'=' '{' ARRAY '}' 
 	{
@@ -842,8 +841,7 @@ PROCEDIMIENTO : sobrescribir METODO
 	}
 	|METODO 
 	{
-		$$ = crearNodo("PROCEDIMIENTO",@1.first_line,@1.first_column);
-		$$.add($1);
+		$$ = $1;
 	}
 	;
 
@@ -1533,8 +1531,7 @@ TECLADO : leerteclado '(' E "," id ')' ';'
 
 E   : '(' E ')'
 	{
-		$$ = crearNodo("Expresion",@1.first_line-1,@1.first_column-1);
-		$$.add($2);
+		$$ = $1;
 	}
     | E '+' E
 	{
