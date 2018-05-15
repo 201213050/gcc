@@ -255,7 +255,8 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	|
 	IMPORTAR importar '(' path ')' ';'
 	{				
-		$$.add($4);
+		$$ = $1;
+		$$.add(crearHoja("PATH",$4,@4.first_line,@4.first_column));
 	}
 	|	importar '(' E ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
@@ -264,7 +265,7 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	
 	|	importar '(' path ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
-		$$.add($3);
+		$$.add(crearHoja("PATH",$3,@3.first_line,@3.first_column));
 	}	
 	;
 
@@ -1368,40 +1369,43 @@ CUERPO_IF : esverdadero '{' LISTA_INSTRUCCIONES '}' esfalso '{' LISTA_INSTRUCCIO
 	}
 	 ;
 
-SWITCH	: evaluarsi '(' E ')' '{' CASO '}'
+SWITCH	: evaluarsi '(' E ')' '{' CASOS '}'
 	{
-		$$ = crearNodo("SUITCH",@1.first_line-1,@1.first_column-1);
+		$$ = crearNodo("SWITCH",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($6);
 	}
 	| evaluarsi '(' E ')' '{' DEFECTO '}'
 	{
-		$$ = crearNodo("SUITCH",@1.first_line-1,@1.first_column-1);
+		$$ = crearNodo("SWITCH",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($6);
 	}
-	| evaluarsi '(' E ')' '{' CASO DEFECTO '}'
+	| evaluarsi '(' E ')' '{' CASOS DEFECTO '}'
 	{
-		$$ = crearNodo("SUITCH",@1.first_line-1,@1.first_column-1);
+		$$ = crearNodo("SWITCH",@1.first_line-1,@1.first_column-1);
 		$$.add($3);
 		$$.add($6);
 		$$.add($7);
 	}
 	;
 
+CASOS : 
+	CASOS CASO
+	{
+		$$ =$1;
+		$$.add($2);
+	}
+	| CASO
+	{
+		$$ = crearNodo("CASOS",@1.first_line,@1.first_column);
+		$$.add($1);
+	};
 
-CASO 	: CASO esiguala E ':' LISTA_INSTRUCCIONES
-	{
-		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
-		$$.add($3);
-		$$.add($5);
-	}
-	| CASO esiguala E ':' 
-	{
-		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
-		$$.add($3);
-	}
-	| esiguala E ':' LISTA_INSTRUCCIONES
+
+
+CASO 	:
+	  esiguala E ':' LISTA_INSTRUCCIONES
 	{
 		$$ = crearNodo("CASO",@1.first_line-1,@1.first_column-1);
 		$$.add($2);

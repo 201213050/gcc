@@ -1,4 +1,5 @@
 importar ("/ruta/archivo_importado.gcc"); 
+importar('C:\ gcc \estructura_s\estructuras\nodo.gcc');
 
 clase miClase{
 
