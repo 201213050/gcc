@@ -234,31 +234,15 @@ CUERPO : CUERPOINICIO{
 	;
 
 
-CUERPOINICIO: IMPORTAR CLASES {
-		var nuevo = crearNodo("INICIO",@1.first_line,@1.first_column);
-		nuevo.add($1)
-		nuevo.add($2)
-		$$ = nuevo;
-		//$$.add($2);
-	}
-	| CLASES
+CUERPOINICIO:
+	 CLASES
 	{
-		$$=crearNodo("INICIO",@1.first_line,@1.first_column);
-		$$.add($1);
+		$$ = $1;
 	}
 	;
 
-IMPORTAR : IMPORTAR importar '(' E ')' ';'
-	{				
-		$$.add($4);
-	}
-	|
-	IMPORTAR importar '(' path ')' ';'
-	{				
-		$$ = $1;
-		$$.add(crearHoja("PATH",$4,@4.first_line,@4.first_column));
-	}
-	|	importar '(' E ')' ';'{
+IMPORTAR : 
+	importar '(' E ')' ';'{
 		$$=crearNodo("IMPORTAR",@1.first_line,@1.first_column);
 		$$.add($3);
 	}
@@ -270,18 +254,30 @@ IMPORTAR : IMPORTAR importar '(' E ')' ';'
 	;
 
 
-CLASES	: CLASES CLASE {
+CLASES	: CLASES CLASE
+	    {
 			/*$$=crearNodo("CLASES",@1.first_line,@1.first_column);*/
 			$$.add($2);
 		}
+	|
+ 	CLASES IMPORTAR
+	    {
+			/*$$=crearNodo("CLASES",@1.first_line,@1.first_column);*/
+			$$.add($2);
+		}	
 	| CLASE{
-			$$=crearNodo("CLASES",@1.first_line,@1.first_column);
+			$$=crearNodo("INICIO",@1.first_line,@1.first_column);
             $$.add($1);
+	}
+	| IMPORTAR 
+	{
+			$$=crearNodo("INICIO",@1.first_line,@1.first_column);
+            $$.add($1);		
 	}
 	;
 
 
-CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
+CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONESCUERPO '}'{
 		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
         var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
 		var id2=crearHoja("ID",$5,@5.first_line,@5.first_column);
@@ -299,7 +295,7 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
 		$$.add(id1);
 		$$.add(id2);
 		}
-	| VISIBILIDAD clase id '{' LISTA_INSTRUCCIONES '}'
+	| VISIBILIDAD clase id '{' LISTA_INSTRUCCIONESCUERPO '}'
 		{
 		$$=crearNodo("CLASE",@2.first_line,@2.first_column);
         var id1=crearHoja("ID",$3,@3.first_line,@3.first_column);
@@ -314,7 +310,7 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
         $$.add($1);
 		$$.add(id1);
 		} 
-	| clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'
+	| clase id hereda_de id '{' LISTA_INSTRUCCIONESCUERPO '}'
 		{
 		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
         var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
@@ -331,7 +327,7 @@ CLASE : VISIBILIDAD clase id hereda_de id '{' LISTA_INSTRUCCIONES '}'{
 		$$.add(id1);
 		$$.add(id2);
 		}
-	| clase id '{' LISTA_INSTRUCCIONES '}' 
+	| clase id '{' LISTA_INSTRUCCIONESCUERPO '}' 
 		{
 		$$=crearNodo("CLASE",@1.first_line,@1.first_column);
         var id1=crearHoja("ID",$2,@2.first_line,@2.first_column);
@@ -358,11 +354,47 @@ LISTA_INSTRUCCIONES	: LISTA_INSTRUCCIONES INSTRUCCION
 	}
 	;
 
-INSTRUCCION : PRINCIPAL
+LISTA_INSTRUCCIONESCUERPO	: LISTA_INSTRUCCIONESCUERPO INSTRUCCIONC
+	{		
+		$1.add($2);
+		$$ = $1;		
+	}
+	| INSTRUCCIONC{	
+		$$ = crearNodo("INSTRUCCIONESCUERPO",@1.first_line,@1.first_column);
+		$$.add($1);						
+	}
+	;	
+
+
+INSTRUCCIONC : PRINCIPAL
 	{
 		$$ = $1;
 	}
 	| ESTRUCTURA
+	{
+		$$ = $1;
+	}
+	| DECLARACION
+	{
+		$$ = $1;
+	}
+	| ASIGNACION
+	{
+		$$ = $1;
+	}
+	| CONSTRUCTOR
+	{
+		$$ = $1;
+	}
+	| PROCEDIMIENTO 
+	{
+		$$ = $1;
+	}
+	;
+
+
+INSTRUCCION : 
+	ESTRUCTURA
 	{
 		$$ = $1;
 	}
@@ -402,19 +434,11 @@ INSTRUCCION : PRINCIPAL
 	{
 		$$ = $1;
 	}
-	| CONSTRUCTOR
-	{
-		$$ = $1;
-	}
 	| CONCATENAR ';'
 	{
 		$$ = $1;
 	}
 	| IMPRIMIR 
-	{
-		$$ = $1;
-	}
-	| PROCEDIMIENTO 
 	{
 		$$ = $1;
 	}
@@ -639,7 +663,7 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 	
 ASIGNAR	: '=' E 
 	{
-		$$ = $1;
+		$$ = $2;
 	}
 	|'=' '{' ARRAY '}' 
 	{
@@ -1531,7 +1555,7 @@ TECLADO : leerteclado '(' E "," id ')' ';'
 
 E   : '(' E ')'
 	{
-		$$ = $1;
+		$$ = $2;
 	}
     | E '+' E
 	{

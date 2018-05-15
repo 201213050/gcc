@@ -7,6 +7,8 @@ let lector = require('fs'); // Modulo para abrir archivos
 
 
 
+
+
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // Conexion con base de datos
@@ -16,7 +18,14 @@ app.use(express.static('views'));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
-app.use(bodyParser.json());
+
+app.use( bodyParser.json({limit: '50mb'}) );
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: true,
+  parameterLimit:50000
+}));
+
 // use res.render to load up an ejs view file
 
 // index page 

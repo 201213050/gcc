@@ -1,4 +1,6 @@
 importar ("/ruta/archivo_importado.gcc"); 
+importar('C:\gcc\estructuras\estructuras\usuario.gcc');
+
 
 clase miClase{
     Entero Identificador; 
@@ -11,10 +13,7 @@ clase miClase{
     que lleva mas de una linea*/
     
     resultado_op = 5 - (9 + cualquiervariable)*14;
-    miClase(entero param1, cadena param2){         
-        este.atributo1 = param1;         
-        este.atributo_cadena = param2;     
-    } 
+
 
     //ACEESO A POSICIONES DENTRO DEL ARREGLO
     arreglo[4][3] = 1; 
@@ -27,7 +26,7 @@ clase miClase{
     caracter cadena[10]; 
     cadena = "mi cadena"; 
  
-    imprimir(concatenar("salida ", putas.tamanio)); 
+    
     //salida: 10 
     //asignación de un nulo con la palabra reservada Nada. 
     Caracter persona[20] = Nada; 
@@ -61,16 +60,12 @@ clase miClase{
  
     cadena = "convertir a cadena";   
  
-    Concatena(cadena, convertirAcadena(miNumero) ); 
+    
     //cadena = "convertir a cadena 10".
 
     Decimal miDecimal = 0.1; 
  
-    Concatena(cadena,"Mi número es #E",miNumero); 
-    //cadena = “Mi número es 1”. 
-    Concatena(cadena,"Mi bandera es #B",miBandera); 
-    //cadena = “Mi bandera es true”. 
-    Concatena(cadena,"Mi número es #D",miDecimal); 
+
     //cadena = “Mi número es 0.1”. 
     caracter cadena[20]; 
     Entero miNumero = 1; 
@@ -88,8 +83,23 @@ clase miClase{
 
     caracter cadena[10]; 
     cadena = "mi cadena"; 
-    imprimir(concatenar("salida", cadena.tamanio)); 
+    
     //salida: 10 
+
+    miClase(entero param1, cadena param2)
+    {         
+        este.atributo1 = param1;         
+        este.atributo_cadena = param2; 
+        imprimir(concatenar("salida ", putas.tamanio));  
+        Concatena(cadena, convertirAcadena(miNumero));    
+        Concatena(cadena,"Mi número es #E",miNumero); 
+        //cadena = “Mi número es 1”. 
+        Concatena(cadena,"Mi bandera es #B",miBandera); 
+        //cadena = “Mi bandera es true”. 
+        Concatena(cadena,"Mi número es #D",miDecimal); 
+        imprimir(concatenar("salida", cadena.tamanio)); 
+    } 
+
 
     Entero FuncionLlamada2(funcion param) 
     {      
@@ -148,92 +158,201 @@ clase miClase{
     Entero ubicacion = 0;//ubicación guarda el valor de 0.   
     Caracter cad = "hola mundo"; 
     //PUNTEROSS
-    crearPuntero(Entero, direccion) = obtenerDireccion(ubicacion); 
-    //dirección almacenará la posición de memoria de ubicación. 
- 
-    crearPuntero(Caracter, c) = obtenerDireccion(cad);  
-    //cadena apuntará a la dirección de memoria del caracter 'h'
-    crearPuntero(persona, a) = Nada; 
-    //puntero de tipo persona que apunta a nulo. 
- 
-    crearPuntero(persona, a) = reservarMemoria(conserguirTamanio(persona)); 
 
-    //ASIGNACION DE UN VALOR A UN ELEMENTO DE UNA ESTRUCTURA TIPO PUNTERO
-    //cambio de valor de una variable dentro de la estructura 
-    crearPuntero(persona, usuario) = reservarMemoria (conserguirTamanio (persona)); 
-    
-    Usuario->nombre = nuevo d(); 
-    destruirPuntero(Id1);
-    //cadena de caracteres  
-    crearPuntero(caracter, cad) =  "HOLA MUNDO"; 
-    //se ejecuta mientras no sea fin de cadena 
-    repetir_Mientras (cad > '0' )
-    {   
-        imprimir (cad); 
-        //imprime el caracter actual   
-        cad++; 
-        //pasa a la siguiente direccion de memoria. 
-    } 
-    destruirPuntero(cad); 
-
-    Repetir_Mientras( Persona.estado != 2){     
-        imprimir (concatenar("Estado :", convertirAcadena(Persona.estado)));     
-        imprimir(concatenar("Queputas", funcionvergas(persona.a,persona.b)));
-        actualizar_estado(Persona); 
-    }
-
-    hacer{     
-        b++;     
-        a = b + c; 
-    }mientras( a < 100);
-
-    //CICLO DOBLE CONDICION
-    Ciclo_doble_condicion ( bandera == true , cont < 10 ) 
+    vacio funcion1()
     {    
-        imprimir("estoy dentro del ciclo-x");    
-        cont++;
-    }
-             
-    //REPETIR HASTA que
-    Repetir{      
-        imprimir (concatenar("Posición :", convertirAcadena(Persona.posicionX)));     
-        Persona.mover(); 
-    }hasta_que( Persona.posicionX > 100); 
+        crearPuntero(Entero, direccion) = obtenerDireccion(ubicacion); 
+        //dirección almacenará la posición de memoria de ubicación. 
+    
+        crearPuntero(Caracter, c) = obtenerDireccion(cad);  
+        //cadena apuntará a la dirección de memoria del caracter 'h'
+        crearPuntero(persona, a) = Nada; 
+        //puntero de tipo persona que apunta a nulo. 
+    
+        crearPuntero(persona, a) = reservarMemoria(conserguirTamanio(persona)); 
 
-    //REPETIR_CONTACTO
-    Repetir_contando (variable: cont; desde: 0; hasta: 10)
-    {
-        imprimir (convertirAcadena(cont));     
-        // salida: 0,1,2,3,4,5,6,7,8,9
-    }       
+        //ASIGNACION DE UN VALOR A UN ELEMENTO DE UNA ESTRUCTURA TIPO PUNTERO
+        //cambio de valor de una variable dentro de la estructura 
+        crearPuntero(persona, usuario) = reservarMemoria (conserguirTamanio (persona)); 
+        
+        Usuario->nombre = nuevo d(); 
+        destruirPuntero(Id1);
+        //cadena de caracteres  
+        crearPuntero(caracter, cad) =  "HOLA MUNDO"; 
+        //se ejecuta mientras no sea fin de cadena 
+        repetir_Mientras (cad > '0' )
+        {   
+            imprimir (cad); 
+            //imprime el caracter actual   
+            cad++; 
+            //pasa a la siguiente direccion de memoria. 
+        } 
+        destruirPuntero(cad); 
 
-    Enciclar ciclo_1 
-    { 
-        Enciclar ciclo_2 
+        Repetir_Mientras( Persona.estado != 2){     
+            imprimir (concatenar("Estado :", convertirAcadena(Persona.estado)));     
+            imprimir(concatenar("Queputas", funcionvergas(persona.a,persona.b)));
+            actualizar_estado(Persona); 
+        }
+
+        hacer{     
+            b++;     
+            a = b + c; 
+        }mientras( a < 100);
+
+        //CICLO DOBLE CONDICION
+        Ciclo_doble_condicion ( bandera == true , cont < 10 ) 
+        {    
+            imprimir("estoy dentro del ciclo-x");    
+            cont++;
+        }
+                
+        //REPETIR HASTA que
+        Repetir{      
+            imprimir (concatenar("Posición :", convertirAcadena(Persona.posicionX)));     
+            Persona.mover(); 
+        }hasta_que( Persona.posicionX > 100); 
+
+        //REPETIR_CONTACTO
+        Repetir_contando (variable: cont; desde: 0; hasta: 10)
+        {
+            imprimir (convertirAcadena(cont));     
+            // salida: 0,1,2,3,4,5,6,7,8,9
+        }       
+
+        Enciclar ciclo_1 
         { 
+            Enciclar ciclo_2 
+            { 
+                romper; 
+            } 
             romper; 
         } 
-        romper; 
-    } 
 
-    //CICLO CONTADOR
-    Contador(5+5*5){ 
-        
+        //CICLO CONTADOR
+        Contador(5+5*5){ 
+            
+        }
+
+        //ENTRADA Y LECTURA DEL TECLADO
+        Entero  Id_1;  
+        Caracter Id_2[20]; 
+        Caracter Id_3; 
+        Booleano Id_4; 
+        Decimal Id_5; 
+    
+        Leer_Teclado ( "Ingrese un número", Id_1); 
+        Leer_Teclado ( "Ingrese una Cadena", Id_2); 
+        Leer_Teclado ( "Ingrese un carácter", Id_3); 
+        Leer_Teclado ( "Ingrese un True o false", Id_4); 
+        Leer_Teclado ( "Ingrese un número decimal", Id_5); 
     }
-
-    //ENTRADA Y LECTURA DEL TECLADO
-    Entero  Id_1;  
-    Caracter Id_2[20]; 
-    Caracter Id_3; 
-    Booleano Id_4; 
-    Decimal Id_5; 
- 
-    Leer_Teclado ( "Ingrese un número", Id_1); 
-    Leer_Teclado ( "Ingrese una Cadena", Id_2); 
-    Leer_Teclado ( "Ingrese un carácter", Id_3); 
-    Leer_Teclado ( "Ingrese un True o false", Id_4); 
-    Leer_Teclado ( "Ingrese un número decimal", Id_5); 
- 
  
 
 } 
+
+
+
+/*
+    Archivo de estructuras de list 
+*/
+
+importar('C:\gcc\estructuras\estructuras\usuario.gcc');
+
+clase nodo{
+
+
+    estructura nodo
+    [
+        usuario user;
+        nodo ptr_siguiente;
+    ];
+
+    vacio insertaSiguiente(nodo actual, Caracter nombre[25], Caracter apellido[25], Caracter email[25], Caracter genero[25], Entero edad, Booleano estado )
+    {
+        nodo new; //Iniciar new nodo
+        new.nombre = nombre;
+        new.apellido = apellido;
+        new.email  = email;
+        new.genero = genero;
+        new.edad = edad;
+        new.estado = estado;
+
+        actual.ptr_siguiente = new;
+    }
+
+
+    vacio iniciarNodo(nodo new, Caracter nombre[25], Caracter apellido[25], Caracter email[25], Caracter genero[25], Entero edad, Booleano estado )
+    {    
+        new.nombre = nombre;
+        new.apellido = apellido;
+        new.email  = email;
+        new.genero = genero;
+        new.edad = edad;
+        new.estado = estado;    
+    }
+
+    vacio actualizarSaldo(nodo list, Caracter nombre, decimal saldo)
+    {
+        nodo aux = list;
+        Repetir_Mientras(aux!=nada)
+        {
+            si(aux.nombre == nombre)
+            es_verdadero
+            {
+                aux.saldo = saldo;
+            }
+            fin-si
+        }
+    }
+
+    vacio recorrerLista(nodo inicio)
+    {
+        nodo aux = inicio;
+        Repetir_Mientras(aux!=nada)
+        {
+            imprimir (concatenar("\n",aux.nombre));
+            aux = aux.ptr_siguiente;
+        }
+    }
+
+    vacio ordenarLista(nodo inicio)
+    {
+        //nodo actual, siguiente;
+        nodo actual;
+        nodo siguiente;
+        int saldo;
+        
+        actual = inicio;
+        Repetir_Mientras(actual.ptr_siguiente !=Nada)
+        {
+            siguiente = actual.ptr_siguiente;
+
+            Repetir_Mientras(siguiente != nada)
+            {
+                si(actual.saldo > siguiente.saldo)
+                es_verdadero
+                {
+                    saldo = siguiente.saldo;
+                    siguiente.saldo = actual.saldo;
+                    actual.saldo = saldo;                                             
+                }
+                fin-si
+                siguiente = siguiente.ptr_siguiente;            
+            }
+            actual = acutal.ptr_siguiente;
+            siguiente = actual.ptr_siguiente;
+        }
+        imprimir("Lista ordenado por saldo.");
+        imprimir('Lista ordenado por saldo ');
+        suma(obtenerDireccion(numero1));
+    }
+
+
+    entero suma(Persona per, entero parametro2)
+    {
+      retornar per.operador1 + operador2;   
+    }
+
+}
+importar('C:\gcc\estructuras\estructuras\usuario.gcc');
