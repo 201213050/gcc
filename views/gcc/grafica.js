@@ -9,6 +9,18 @@ function grafica( opRaiz  )
         console.log(cadenaDot);
 
 
+        addHeap("5");
+        addHeap("1");
+        addHeap("49");
+        addHeap("0");
+        addStack(1, "4");
+        addSalida("El valor es 4");
+        addSimbolo("VARIABLE", "contador1", "main_", "1", "4", "rol", "1", "publico", "1");
+        addSimbolo("VARIABLE", "contador2", "main_", "1", "4", "rol", "1", "publico", "1");
+        addSimbolo("VARIABLE", "contador3", "main_", "1", "4", "rol", "1", "publico", "1");
+        addError("11", "13", "lexico", "' caracter inválido");
+        add3D("=> , t1, t100, H[t5]");
+
 }
 
 function recorrerArbol(raiz){

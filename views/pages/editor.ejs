@@ -140,7 +140,7 @@
             var editorD = document.createElement('TEXTAREA');
             editorD.id = sub+"D" ;
             editorD.setAttribute("rows","8");
-            editorD.value =sub+"Debugger";            
+            //editorD.value =sub+"Debugger";            
            
             /*Titulo área de edicion*/
             var tituloE = document.createElement('h2');
@@ -209,7 +209,7 @@
             var areaSalida = document.createElement('TEXTAREA');
             areaSalida.id = sub + "Salida" ;
             areaSalida.setAttribute("rows","8");
-            areaSalida.value = "Consola de salida";    
+            //areaSalida.value = "Consola de salida";    
             contSalida.appendChild(areaSalida);
             
             navTab.append(consolaTab);//Titulo Consola de salida
@@ -270,7 +270,7 @@
             var tablaError = tablaErrores(sub + "Errores");
             areaErrores.id = sub + "Errores";
             areaErrores.setAttribute("rows","8");
-            areaErrores.value = "Errores "+ sub;    
+            //areaErrores.value = "Errores "+ sub;    
             //contErrores.appendChild(areaErrores);
             contErrores.appendChild(tablaError);
             
@@ -300,7 +300,7 @@
             var areaStack = document.createElement('TEXTAREA');
             areaStack.id = sub + "Stack";
             areaStack.setAttribute("rows","8");
-            areaStack.value = "Stack "+ sub; 
+            //areaStack.value = "Stack "+ sub; 
             
             
             
@@ -337,7 +337,7 @@
             var areaHeap = document.createElement('TEXTAREA');
             areaHeap.id = sub + "Heap";
             areaHeap.setAttribute("rows","8");
-            areaHeap.value = "Heap"+ sub;    
+            //areaHeap.value = "Heap"+ sub;    
             contHeap.appendChild(areaHeap);
             
             navTab.append(heapTab);//Titulo Stack
@@ -436,11 +436,11 @@
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
                 if(info.gutterMarkers == null)
                 {
-                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4), n);
+                    agregarBreakPoint( obtenerActivo(), n);
                 }
                 else
                 {
-                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4), n);
+                    quitarBreakPoint(obtenerActivo(), n);
                 }                       
                 //clearActiveLines(cm);
             }); 
@@ -467,12 +467,12 @@
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());                
                 if(info.gutterMarkers == null)
                 {
-                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
+                    agregarBreakPoint( obtenerActivo() + "*D", n);
                     
                 }
                 else
                 {
-                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
+                    quitarBreakPoint(obtenerActivo() + "*D", n);
                 }       
             });  
             
@@ -563,17 +563,17 @@
                      
         }
 
-        function agregarSimbolo(tabla,nombre, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
+        function agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
         {
             
             var theadT = document.createElement('thead');
             var fila = document.createElement('tr');
 
             var nombreC = document.createElement('th');
-            nombreC.appendChild(document.createTextNode(nombre));
+            nombreC.appendChild(document.createTextNode(nombreS));
 
             var idC = document.createElement('th');
-            idC.appendChild(document.createTextNode(nombre));
+            idC.appendChild(document.createTextNode(id));
 
             var ambitoC = document.createElement('th');
             ambitoC.appendChild(document.createTextNode(ambito));
@@ -653,9 +653,10 @@
                 //alert('Archivo '+ archivos[i].className);
                 if(archivos[i].className == "nav-item nav-link active show")
                 {
-                    return archivos[i].id;
+                    var partes = archivos[i].id.split("-");
+                    return partes[1];
                 }
-            }
+            }            
             return activo;
         }
         function agregarBreakPoint(id, numero)
@@ -927,10 +928,10 @@
         {
 
             //alert(obtenerActivo());
-            var vector = obtenerActivo().split("-");
+            var vector = obtenerActivo();
             //var contenedor =  document.getElementById(vector[1]);            
             //alert(contenedor.value);
-            var cadena = editores[vector[1]].getValue();
+            var cadena = editores[vector].getValue();
             Iniciar(cadena);            
         }
         /*
@@ -952,14 +953,14 @@
             agregarError(tabla,linea, columna, tipo, descripcion);
         }
 
-        function addSimbolo(nombre, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
+        function addSimbolo(nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
         {            
             /*Primero obtenemos el nombre del archivo actual*/
             var nombre = obtenerActivo();
             /*Ahora obtenemos el elemento tabla*/
             var tabla  = document.getElementById("tabla-"+nombre+ "simbolos");
             /*Agregamos a la tabla el nuevo símbolo*/
-            agregarSimbolo(tabla,nombre, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension);            
+            agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension);            
         }       
         
         function addSalida(mensaje)
@@ -972,16 +973,33 @@
 
         function addStack(posicion, valor)
         {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var contenido = editores[nombre+"Stack"].getValue();
             
+            var index = contenido.split("\n");
+            index[posicion] = valor; // Actualizamos el valor
+            var nuevoContenido = "";
+            var i;
+            for(i = 0 ; i< index.length; i ++)
+            {
+                nuevoContenido = nuevoContenido + index[i];
+            }
+            editores[nombre+"Stack"].setValue(nuevoContenido);// Actualizamos el heap.        
         }
 
         function addHeap(valor)
         {
-
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var  contActual = editores[nombre+"Heap"].getValue();
+            contActual = contActual+"\n"+valor;
+            editores[nombre+"Heap"].setValue(contActual);
         }
 
-
-
+        function add3D(cadena)
+        {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.            
+            editores[nombre+"D"].setValue(cadena);
+        }
 
     </script>  
 
