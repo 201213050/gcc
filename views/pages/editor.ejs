@@ -47,6 +47,11 @@
         /*Lista de editores.*/
 
         var editores = {};
+        var debugers = {};
+        var consolas = {};
+        var tablas = {};
+        var stacks = {};
+        var heaps = {};
 
 
 
@@ -235,7 +240,7 @@
             areaSimbolos.setAttribute("rows","8");
             areaSimbolos.value = "Tabla simbolos "+ sub;    
 
-            var tablaStack = tablaSimbolos(sub + "Simbolos");
+            var tablaStack = tablaSimbolos(sub + "simbolos");
             contSimbolos.appendChild(tablaStack);
             
             navTab.append(salidaTab);//Titulo Consola de salida
@@ -300,8 +305,7 @@
             
             
             
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var2","numero","metodo_1","1","1");
+
 
 
             contStack.appendChild(areaStack);
@@ -479,33 +483,47 @@
         function tablaSimbolos(nombre)
         {
             var tabla = document.createElement('tab');
-            tabla.id = "tabla-"+nombre;
-            tabla.style = "width:100%";
-            tabla.className = "table table-striped table-bordered";
-            //var theadT = document.createElement('thead');
-            //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
+            tabla.id = "tabla-"+nombre;            
+            tabla.className = "table";
             var encabezadoH  = document.createElement('thead');
+            encabezadoH.className = "thead-dark";
             var fila = document.createElement('tr');
-            var idL = document.createElement('th');
-            idL.appendChild(document.createTextNode('ID'));
-            var tipoL = document.createElement('th');
-            tipoL.appendChild(document.createTextNode('TIPO'));
-            var ambitoL = document.createElement('th');
-            ambitoL.appendChild(document.createTextNode('AMBITO'));
-            var posicionL = document.createElement('th');
-            posicionL.appendChild(document.createTextNode('POSICION'));                                    
-            var pesoL = document.createElement('th');
-            pesoL.appendChild(document.createTextNode('PESO'));    
+            var nombre = document.createElement('th');
+            nombre.appendChild(document.createTextNode('NOMBRE'));
+            var id = document.createElement('th');
+            id.appendChild(document.createTextNode('ID'));
+            var ambito = document.createElement('th');
+            ambito.appendChild(document.createTextNode('AMBITO'));
+            var nivel = document.createElement('th');
+            nivel.appendChild(document.createTextNode('NIVEL'));                                    
+            var posicion = document.createElement('th');
+            posicion.appendChild(document.createTextNode('POSICION'));    
+            var rol = document.createElement('th');
+            rol.appendChild(document.createTextNode('ROL'));
+            var tamanio = document.createElement('th');
+            tamanio.appendChild(document.createTextNode('TAMAÑO'));
+            var visibilidad = document.createElement('th');
+            visibilidad.appendChild(document.createTextNode('VISIBILIDAD'));
+            var dimension = document.createElement('th');
+            dimension.appendChild(document.createTextNode('DIMENSION'));
+                        
             
+
             var cuerpoTabla = document.createElement('tbody');
             cuerpoTabla.id = "tabla"+nombre;
 
 
-            encabezadoH.append(idL);
-            encabezadoH.append(tipoL);
-            encabezadoH.append(ambitoL);
-            encabezadoH.append(posicionL);
-            encabezadoH.append(pesoL);
+            encabezadoH.append(nombre);
+            encabezadoH.append(id);
+            encabezadoH.append(ambito);
+            encabezadoH.append(nivel);
+            encabezadoH.append(posicion);
+            encabezadoH.append(rol);
+            encabezadoH.append(tamanio);
+            encabezadoH.append(visibilidad);
+            encabezadoH.append(dimension);
+            
+
             tabla.appendChild(encabezadoH);
             tabla.appendChild(cuerpoTabla);
             return tabla;
@@ -517,12 +535,11 @@
         function tablaErrores(nombre)
         {
             var tabla = document.createElement('tab');
-            tabla.id = "tabla-"+nombre;
-            tabla.style = "width:100%";
-            tabla.className = "table table-striped table-bordered";
-            //var theadT = document.createElement('thead');
-            //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
+            tabla.id = "tabla-"+nombre;            
+            tabla.className = "table";
             var encabezadoH  = document.createElement('thead');
+            encabezadoH.className = "thead-dark";
+
             var fila = document.createElement('tr');
             var idL = document.createElement('th');
             idL.appendChild(document.createTextNode('LINEA'));
@@ -546,30 +563,48 @@
                      
         }
 
-        function agregarSimbolo(tabla, id, tipo, ambito, posicion, peso)
+        function agregarSimbolo(tabla,nombre, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
         {
+            
             var theadT = document.createElement('thead');
             var fila = document.createElement('tr');
-            var idT = document.createElement('th');
-            idT.appendChild(document.createTextNode(id));
 
-            var tipoT = document.createElement('th');
-            tipoT.appendChild(document.createTextNode(tipo));     
+            var nombreC = document.createElement('th');
+            nombreC.appendChild(document.createTextNode(nombre));
 
-            var ambitoT = document.createElement('th');
-            ambitoT.appendChild(document.createTextNode(ambito)); 
+            var idC = document.createElement('th');
+            idC.appendChild(document.createTextNode(nombre));
 
-            var posicionT = document.createElement('th');
-            posicionT.appendChild(document.createTextNode(posicion)); 
+            var ambitoC = document.createElement('th');
+            ambitoC.appendChild(document.createTextNode(ambito));
 
-            var pesoT = document.createElement('th');
-            pesoT.appendChild(document.createTextNode(peso)); 
+            var nivelC = document.createElement('th');
+            nivelC.appendChild(document.createTextNode(nivel));            
+
+            var posicionC = document.createElement('th');
+            posicionC.appendChild(document.createTextNode(posicion));
+
+            var rolC = document.createElement('th');
+            rolC.appendChild(document.createTextNode(rol));
+
+            var tamanoC = document.createElement('th');
+            tamanoC.appendChild(document.createTextNode(tamano));            
+
+            var visibilidadC = document.createElement('th');
+            visibilidadC.appendChild(document.createTextNode(visibilidad));  
+
+            var dimensionC = document.createElement('th');
+            dimensionC.appendChild(document.createTextNode(dimension));              
             
-            fila.appendChild(idT);
-            fila.appendChild(tipoT);
-            fila.appendChild(ambitoT);
-            fila.appendChild(posicionT);
-            fila.appendChild(pesoT);
+            fila.appendChild(nombreC);
+            fila.appendChild(idC);
+            fila.appendChild(ambitoC);
+            fila.appendChild(nivelC);                        
+            fila.appendChild(posicionC);
+            fila.appendChild(rolC);
+            fila.appendChild(tamanoC);
+            fila.appendChild(visibilidadC);
+            fila.appendChild(dimensionC);
             theadT.appendChild(fila);
             tabla.append(theadT);                    
         }
@@ -898,6 +933,54 @@
             var cadena = editores[vector[1]].getValue();
             Iniciar(cadena);            
         }
+        /*
+            editor  = nombre
+            debuger = nombre + "d"
+            salida  = nombre + "salida"
+            stack   = nombre + "stack"
+            heap    = nombre + "heap"  
+            tabladeSimbolos = "tabla-"+nombre       
+        
+        */
+
+        function addError(linea, columna, tipo, descripcion)
+        {
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();
+            /*Ahora obtenemos el elemento tabla*/
+            var tabla  = document.getElementById("tabla-"+nombre+ "Errores");
+            agregarError(tabla,linea, columna, tipo, descripcion);
+        }
+
+        function addSimbolo(nombre, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
+        {            
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();
+            /*Ahora obtenemos el elemento tabla*/
+            var tabla  = document.getElementById("tabla-"+nombre+ "simbolos");
+            /*Agregamos a la tabla el nuevo símbolo*/
+            agregarSimbolo(tabla,nombre, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension);            
+        }       
+        
+        function addSalida(mensaje)
+        {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var textoActual = editores[nombre+"Salida"].getValue();
+            textoActual = textoActual + "\n" + mensaje;
+            editores[nombre+"Salida"].setValue(textoActual);
+        }
+
+        function addStack(posicion, valor)
+        {
+            
+        }
+
+        function addHeap(valor)
+        {
+
+        }
+
+
 
 
     </script>  

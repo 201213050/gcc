@@ -52,9 +52,6 @@ class TablaSimbolos
 
         HTML += "</table>";
         HTML += "</html>";
-
-        
-
     }
     limpiar()
     {

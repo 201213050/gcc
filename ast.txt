@@ -1,234 +1,230 @@
 digraph lista{ rankdir=TB;node [shape = box, style=rounded]; nodo2[label="INICIO  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
 "nodo2"-> "nodo0"
-"nodo2"-> "nodo3"
-"nodo2"-> "nodo115"
+"nodo2"-> "nodo113"
 nodo0[label="IMPORTAR  {1,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
 "nodo0"-> "nodo1"
 nodo1[label="'C:\ gcc \estructura_s\estructuras\nodo.gcc'  [PATH]{1,10} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo3[label="IMPORTAR  {2,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo3"-> "nodo4"
-nodo4[label="'C:\ gcc \estructura_s\estructuras\nodo.gcc'  [PATH]{2,10} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo115[label="CLASE  {4,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo115"-> "nodo116"
-"nodo115"-> "nodo114"
-nodo116[label="estructuras  [ID]{4,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo114[label="INSTRUCCIONESCUERPO  {7,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo114"-> "nodo113"
-nodo113[label="principal  [MET_PRINCIPAL]{7,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo113"-> "nodo7"
-nodo7[label="INSTRUCCIONES  {9,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo7"-> "nodo6"
-"nodo7"-> "nodo9"
-"nodo7"-> "nodo20"
-"nodo7"-> "nodo29"
-"nodo7"-> "nodo38"
-"nodo7"-> "nodo47"
-"nodo7"-> "nodo56"
-"nodo7"-> "nodo65"
-"nodo7"-> "nodo71"
-"nodo7"-> "nodo77"
-"nodo7"-> "nodo83"
-"nodo7"-> "nodo89"
-"nodo7"-> "nodo95"
-"nodo7"-> "nodo101"
-"nodo7"-> "nodo105"
-"nodo7"-> "nodo109"
-"nodo7"-> "nodo112"
-nodo6[label="IMPRIMIR  {8,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo6"-> "nodo5"
-nodo5[label="\"Lista enlazada de usuarios\"  [CADENA]{9,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo9[label="DECLARACION_OBJETO  {11,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo9"-> "nodo10"
-"nodo9"-> "nodo11"
-"nodo9"-> "nodo8"
-nodo10[label="nodo  [TIPO]{11,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo11[label="listaUsuarios  [ID]{11,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo8[label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo20[label="LLAMADA  {11,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo20"-> "nodo21"
-"nodo20"-> "nodo13"
-nodo21[label="iniciarNodo  [ID]{12,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo13[label="VALOR  {11,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo13"-> "nodo12"
-"nodo13"-> "nodo14"
-"nodo13"-> "nodo15"
-"nodo13"-> "nodo16"
-"nodo13"-> "nodo17"
-"nodo13"-> "nodo18"
-"nodo13"-> "nodo19"
-nodo12[label="listaUsuarios  [ID]{12,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo14[label="\"Erick\"  [CADENA]{12,36} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo15[label="\"Tejaxun\"  [CADENA]{12,45} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo16[label="\"erickteja@gmail.com\"  [CADENA]{12,56} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo17[label="\"M\"  [CADENA]{12,79} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo18[label="24  [ENTERO]{12,84} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo19[label="verdadero  [ID]{12,88} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo29[label="LLAMADA  {13,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo29"-> "nodo30"
-"nodo29"-> "nodo23"
-nodo30[label="insertaSiguiente  [ID]{14,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo23[label="VALOR  {13,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo23"-> "nodo22"
-"nodo23"-> "nodo24"
-"nodo23"-> "nodo25"
-"nodo23"-> "nodo26"
-"nodo23"-> "nodo27"
-"nodo23"-> "nodo28"
-nodo22[label="\"Juan\"  [CADENA]{14,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo24[label="\"Lopez\"  [CADENA]{14,34} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo25[label="\"jl@hotmail.com\"  [CADENA]{14,43} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo26[label="\"M\"  [CADENA]{14,61} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo27[label="30  [ENTERO]{14,66} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo28[label="verdadero  [ID]{14,70} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo38[label="LLAMADA  {14,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo38"-> "nodo39"
-"nodo38"-> "nodo32"
-nodo39[label="insertaSiguiente  [ID]{15,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo32[label="VALOR  {14,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo32"-> "nodo31"
-"nodo32"-> "nodo33"
-"nodo32"-> "nodo34"
-"nodo32"-> "nodo35"
-"nodo32"-> "nodo36"
-"nodo32"-> "nodo37"
-nodo31[label="\"Edgar\"  [CADENA]{15,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo33[label="\"Estrada\"  [CADENA]{15,34} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo34[label="\"ee@hotmail.com\"  [CADENA]{15,44} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo35[label="\"M\"  [CADENA]{15,61} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo36[label="25  [ENTERO]{15,65} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo37[label="VERDADERO  [ID]{15,68} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo47[label="LLAMADA  {15,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo47"-> "nodo48"
-"nodo47"-> "nodo41"
-nodo48[label="insertaSiguiente  [ID]{16,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo41[label="VALOR  {15,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo41"-> "nodo40"
-"nodo41"-> "nodo42"
-"nodo41"-> "nodo43"
-"nodo41"-> "nodo44"
-"nodo41"-> "nodo45"
-"nodo41"-> "nodo46"
-nodo40[label="\"Kimberly\"  [CADENA]{16,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo42[label="\"Barrios\"  [CADENA]{16,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo43[label="\"kmb@gmail.com\"  [CADENA]{16,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo44[label="\"F\"  [CADENA]{16,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo45[label="25  [ENTERO]{16,67} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo46[label="VERDADERO  [ID]{16,70} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo56[label="LLAMADA  {16,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo56"-> "nodo57"
-"nodo56"-> "nodo50"
-nodo57[label="insertaSiguiente  [ID]{17,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo50[label="VALOR  {16,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo50"-> "nodo49"
-"nodo50"-> "nodo51"
-"nodo50"-> "nodo52"
-"nodo50"-> "nodo53"
-"nodo50"-> "nodo54"
-"nodo50"-> "nodo55"
-nodo49[label="\"Cristina\"  [CADENA]{17,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo51[label="\"Ramirez\"  [CADENA]{17,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo52[label="\"cr@gt.com\"  [CADENA]{17,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo53[label="\"F\"  [CADENA]{17,59} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo54[label="25  [ENTERO]{17,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo55[label="VERDADERO  [ID]{17,66} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo65[label="LLAMADA  {17,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo65"-> "nodo66"
-"nodo65"-> "nodo59"
-nodo66[label="insertaSiguiente  [ID]{18,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo59[label="VALOR  {17,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo59"-> "nodo58"
-"nodo59"-> "nodo60"
-"nodo59"-> "nodo61"
-"nodo59"-> "nodo62"
-"nodo59"-> "nodo63"
-"nodo59"-> "nodo64"
-nodo58[label="\"Gabriela\"  [CADENA]{18,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo60[label="\"Alvarez\"  [CADENA]{18,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo61[label="\"gba@gmail.com\"  [CADENA]{18,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo62[label="\"F\"  [CADENA]{18,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo63[label="22  [ENTERO]{18,67} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo64[label="VERDADERO  [ID]{18,70} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo71[label="LLAMADA  {20,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo71"-> "nodo72"
-"nodo71"-> "nodo68"
-nodo72[label="actualizarSaldo  [ID]{21,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo68[label="VALOR  {20,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo68"-> "nodo67"
-"nodo68"-> "nodo69"
-"nodo68"-> "nodo70"
-nodo67[label="listaUsuarios  [ID]{21,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo69[label="\"Erick\"  [CADENA]{21,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo70[label="53000.00  [DOUBLE]{21,50} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo77[label="LLAMADA  {21,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo77"-> "nodo78"
-"nodo77"-> "nodo74"
-nodo78[label="actualizarSaldo  [ID]{22,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo74[label="VALOR  {21,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo74"-> "nodo73"
-"nodo74"-> "nodo75"
-"nodo74"-> "nodo76"
-nodo73[label="listaUsuarios  [ID]{22,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo75[label="\"Juan\"  [CADENA]{22,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo76[label="253000.00  [DOUBLE]{22,49} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo83[label="LLAMADA  {22,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo83"-> "nodo84"
-"nodo83"-> "nodo80"
-nodo84[label="actualizarSaldo  [ID]{23,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo80[label="VALOR  {22,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo80"-> "nodo79"
-"nodo80"-> "nodo81"
-"nodo80"-> "nodo82"
-nodo79[label="listaUsuarios  [ID]{23,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo81[label="\"Edgar\"  [CADENA]{23,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo82[label="75000.00  [DOUBLE]{23,50} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo89[label="LLAMADA  {23,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo89"-> "nodo90"
-"nodo89"-> "nodo86"
-nodo90[label="actualizarSaldo  [ID]{24,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo86[label="VALOR  {23,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo86"-> "nodo85"
-"nodo86"-> "nodo87"
-"nodo86"-> "nodo88"
-nodo85[label="listaUsuarios  [ID]{24,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo87[label="\"Kimberly\"  [CADENA]{24,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo88[label="20000.00  [DOUBLE]{24,53} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo95[label="LLAMADA  {24,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo95"-> "nodo96"
-"nodo95"-> "nodo92"
-nodo96[label="actualizarSaldo  [ID]{25,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo92[label="VALOR  {24,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo92"-> "nodo91"
-"nodo92"-> "nodo93"
-"nodo92"-> "nodo94"
-nodo91[label="listaUsuarios  [ID]{25,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo93[label="\"Cristina\"  [CADENA]{25,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo94[label="30000.00  [DOUBLE]{25,53} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo101[label="LLAMADA  {25,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo101"-> "nodo102"
-"nodo101"-> "nodo98"
-nodo102[label="actualizarSaldo  [ID]{26,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo98[label="VALOR  {25,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo98"-> "nodo97"
-"nodo98"-> "nodo99"
-"nodo98"-> "nodo100"
-nodo97[label="listaUsuarios  [ID]{26,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo99[label="\"Gabriela\"  [CADENA]{26,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo100[label="22000.00  [DOUBLE]{26,53} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo105[label="LLAMADA  {28,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo105"-> "nodo106"
-"nodo105"-> "nodo104"
-nodo106[label="ordenarLista  [ID]{29,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo104[label="VALOR  {28,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo104"-> "nodo103"
-nodo103[label="listaUsuarios  [ID]{29,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo109[label="LLAMADA  {31,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo109"-> "nodo110"
-"nodo109"-> "nodo108"
-nodo110[label="recorrerLista  [ID]{32,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo108[label="VALOR  {31,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
-"nodo108"-> "nodo107"
-nodo107[label="inicio  [ID]{32,23} ", color="cyan", style ="filled", shape="doublecircle"]; 
-nodo112[label="IMPRIMIR  {33,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo113[label="CLASE  {3,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo113"-> "nodo114"
+"nodo113"-> "nodo112"
+nodo114[label="estructuras  [ID]{3,7} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo112[label="INSTRUCCIONESCUERPO  {6,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
 "nodo112"-> "nodo111"
-nodo111[label="\"Fin Ejecución\"  [CADENA]{34,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo111[label="principal  [MET_PRINCIPAL]{6,5} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo111"-> "nodo5"
+nodo5[label="INSTRUCCIONES  {8,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo5"-> "nodo4"
+"nodo5"-> "nodo7"
+"nodo5"-> "nodo18"
+"nodo5"-> "nodo27"
+"nodo5"-> "nodo36"
+"nodo5"-> "nodo45"
+"nodo5"-> "nodo54"
+"nodo5"-> "nodo63"
+"nodo5"-> "nodo69"
+"nodo5"-> "nodo75"
+"nodo5"-> "nodo81"
+"nodo5"-> "nodo87"
+"nodo5"-> "nodo93"
+"nodo5"-> "nodo99"
+"nodo5"-> "nodo103"
+"nodo5"-> "nodo107"
+"nodo5"-> "nodo110"
+nodo4[label="IMPRIMIR  {7,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo4"-> "nodo3"
+nodo3[label="\"Lista enlazada de usuarios\"  [CADENA]{8,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo7[label="DECLARACION_OBJETO  {10,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo7"-> "nodo8"
+"nodo7"-> "nodo9"
+"nodo7"-> "nodo6"
+nodo8[label="nodo  [TIPO]{10,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo9[label="listaUsuarios  [ID]{10,14} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo6[label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo18[label="LLAMADA  {10,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo18"-> "nodo19"
+"nodo18"-> "nodo11"
+nodo19[label="iniciarNodo  [ID]{11,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo11[label="VALOR  {10,20} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo11"-> "nodo10"
+"nodo11"-> "nodo12"
+"nodo11"-> "nodo13"
+"nodo11"-> "nodo14"
+"nodo11"-> "nodo15"
+"nodo11"-> "nodo16"
+"nodo11"-> "nodo17"
+nodo10[label="listaUsuarios  [ID]{11,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo12[label="\"Erick\"  [CADENA]{11,36} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo13[label="\"Tejaxun\"  [CADENA]{11,45} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo14[label="\"erickteja@gmail.com\"  [CADENA]{11,56} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo15[label="\"M\"  [CADENA]{11,79} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo16[label="24  [ENTERO]{11,84} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo17[label="verdadero  [ID]{11,88} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo27[label="LLAMADA  {12,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo27"-> "nodo28"
+"nodo27"-> "nodo21"
+nodo28[label="insertaSiguiente  [ID]{13,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo21[label="VALOR  {12,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo21"-> "nodo20"
+"nodo21"-> "nodo22"
+"nodo21"-> "nodo23"
+"nodo21"-> "nodo24"
+"nodo21"-> "nodo25"
+"nodo21"-> "nodo26"
+nodo20[label="\"Juan\"  [CADENA]{13,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo22[label="\"Lopez\"  [CADENA]{13,34} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo23[label="\"jl@hotmail.com\"  [CADENA]{13,43} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo24[label="\"M\"  [CADENA]{13,61} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo25[label="30  [ENTERO]{13,66} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo26[label="verdadero  [ID]{13,70} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo36[label="LLAMADA  {13,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo36"-> "nodo37"
+"nodo36"-> "nodo30"
+nodo37[label="insertaSiguiente  [ID]{14,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo30[label="VALOR  {13,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo30"-> "nodo29"
+"nodo30"-> "nodo31"
+"nodo30"-> "nodo32"
+"nodo30"-> "nodo33"
+"nodo30"-> "nodo34"
+"nodo30"-> "nodo35"
+nodo29[label="\"Edgar\"  [CADENA]{14,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo31[label="\"Estrada\"  [CADENA]{14,34} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo32[label="\"ee@hotmail.com\"  [CADENA]{14,44} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo33[label="\"M\"  [CADENA]{14,61} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo34[label="25  [ENTERO]{14,65} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo35[label="VERDADERO  [ID]{14,68} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo45[label="LLAMADA  {14,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo45"-> "nodo46"
+"nodo45"-> "nodo39"
+nodo46[label="insertaSiguiente  [ID]{15,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo39[label="VALOR  {14,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo39"-> "nodo38"
+"nodo39"-> "nodo40"
+"nodo39"-> "nodo41"
+"nodo39"-> "nodo42"
+"nodo39"-> "nodo43"
+"nodo39"-> "nodo44"
+nodo38[label="\"Kimberly\"  [CADENA]{15,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo40[label="\"Barrios\"  [CADENA]{15,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo41[label="\"kmb@gmail.com\"  [CADENA]{15,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo42[label="\"F\"  [CADENA]{15,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo43[label="25  [ENTERO]{15,67} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo44[label="VERDADERO  [ID]{15,70} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo54[label="LLAMADA  {15,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo54"-> "nodo55"
+"nodo54"-> "nodo48"
+nodo55[label="insertaSiguiente  [ID]{16,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo48[label="VALOR  {15,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo48"-> "nodo47"
+"nodo48"-> "nodo49"
+"nodo48"-> "nodo50"
+"nodo48"-> "nodo51"
+"nodo48"-> "nodo52"
+"nodo48"-> "nodo53"
+nodo47[label="\"Cristina\"  [CADENA]{16,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo49[label="\"Ramirez\"  [CADENA]{16,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo50[label="\"cr@gt.com\"  [CADENA]{16,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo51[label="\"F\"  [CADENA]{16,59} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo52[label="25  [ENTERO]{16,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo53[label="VERDADERO  [ID]{16,66} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo63[label="LLAMADA  {16,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo63"-> "nodo64"
+"nodo63"-> "nodo57"
+nodo64[label="insertaSiguiente  [ID]{17,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo57[label="VALOR  {16,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo57"-> "nodo56"
+"nodo57"-> "nodo58"
+"nodo57"-> "nodo59"
+"nodo57"-> "nodo60"
+"nodo57"-> "nodo61"
+"nodo57"-> "nodo62"
+nodo56[label="\"Gabriela\"  [CADENA]{17,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo58[label="\"Alvarez\"  [CADENA]{17,37} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo59[label="\"gba@gmail.com\"  [CADENA]{17,47} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo60[label="\"F\"  [CADENA]{17,63} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo61[label="22  [ENTERO]{17,67} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo62[label="VERDADERO  [ID]{17,70} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo69[label="LLAMADA  {19,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo69"-> "nodo70"
+"nodo69"-> "nodo66"
+nodo70[label="actualizarSaldo  [ID]{20,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo66[label="VALOR  {19,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo66"-> "nodo65"
+"nodo66"-> "nodo67"
+"nodo66"-> "nodo68"
+nodo65[label="listaUsuarios  [ID]{20,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo67[label="\"Erick\"  [CADENA]{20,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo68[label="53000.00  [DOUBLE]{20,50} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo75[label="LLAMADA  {20,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo75"-> "nodo76"
+"nodo75"-> "nodo72"
+nodo76[label="actualizarSaldo  [ID]{21,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo72[label="VALOR  {20,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo72"-> "nodo71"
+"nodo72"-> "nodo73"
+"nodo72"-> "nodo74"
+nodo71[label="listaUsuarios  [ID]{21,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo73[label="\"Juan\"  [CADENA]{21,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo74[label="253000.00  [DOUBLE]{21,49} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo81[label="LLAMADA  {21,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo81"-> "nodo82"
+"nodo81"-> "nodo78"
+nodo82[label="actualizarSaldo  [ID]{22,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo78[label="VALOR  {21,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo78"-> "nodo77"
+"nodo78"-> "nodo79"
+"nodo78"-> "nodo80"
+nodo77[label="listaUsuarios  [ID]{22,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo79[label="\"Edgar\"  [CADENA]{22,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo80[label="75000.00  [DOUBLE]{22,50} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo87[label="LLAMADA  {22,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo87"-> "nodo88"
+"nodo87"-> "nodo84"
+nodo88[label="actualizarSaldo  [ID]{23,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo84[label="VALOR  {22,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo84"-> "nodo83"
+"nodo84"-> "nodo85"
+"nodo84"-> "nodo86"
+nodo83[label="listaUsuarios  [ID]{23,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo85[label="\"Kimberly\"  [CADENA]{23,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo86[label="20000.00  [DOUBLE]{23,53} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo93[label="LLAMADA  {23,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo93"-> "nodo94"
+"nodo93"-> "nodo90"
+nodo94[label="actualizarSaldo  [ID]{24,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo90[label="VALOR  {23,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo90"-> "nodo89"
+"nodo90"-> "nodo91"
+"nodo90"-> "nodo92"
+nodo89[label="listaUsuarios  [ID]{24,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo91[label="\"Cristina\"  [CADENA]{24,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo92[label="30000.00  [DOUBLE]{24,53} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo99[label="LLAMADA  {24,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo99"-> "nodo100"
+"nodo99"-> "nodo96"
+nodo100[label="actualizarSaldo  [ID]{25,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo96[label="VALOR  {24,25} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo96"-> "nodo95"
+"nodo96"-> "nodo97"
+"nodo96"-> "nodo98"
+nodo95[label="listaUsuarios  [ID]{25,26} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo97[label="\"Gabriela\"  [CADENA]{25,41} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo98[label="22000.00  [DOUBLE]{25,53} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo103[label="LLAMADA  {27,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo103"-> "nodo104"
+"nodo103"-> "nodo102"
+nodo104[label="ordenarLista  [ID]{28,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo102[label="VALOR  {27,21} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo102"-> "nodo101"
+nodo101[label="listaUsuarios  [ID]{28,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo107[label="LLAMADA  {30,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo107"-> "nodo108"
+"nodo107"-> "nodo106"
+nodo108[label="recorrerLista  [ID]{31,9} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo106[label="VALOR  {30,22} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo106"-> "nodo105"
+nodo105[label="inicio  [ID]{31,23} ", color="cyan", style ="filled", shape="doublecircle"]; 
+nodo110[label="IMPRIMIR  {32,8} ", color="cyan", style ="filled", shape="doublecircle"]; 
+"nodo110"-> "nodo109"
+nodo109[label="\"Fin Ejecución\"  [CADENA]{33,18} ", color="cyan", style ="filled", shape="doublecircle"]; 
 }
