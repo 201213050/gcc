@@ -262,6 +262,68 @@ class GeneradorDeCodigo
         
         
         
+                }else if (etiqueta == "PARAMETROS"){
+                    for (i = 0; i<arbol.hijos.length; i++){
+                        llenarTabla(arbolhijos[i]);
+                    }
+                }else if (etiqueta == "PARAMETRO"){
+                    params += "_"+arbol.hijos[1].hijos[0].etiqueta;
+                } else if (etiqueta == "INSTRUCCIONES"){
+                    var i = 0;
+                    while(arbol.hijos[i]!=NULL){
+                        llenarTabla(arbol.hijos[i]);
+                        i++;
+                    }
+                }
+                else if(etiqueta == "INSTRUCCION"){
+                    llenarTabla(arbol.hijos[0]);
+                }
+                else if(etiqueta == "DECLARACIONVAR"){
+                    var id = arbol.hijos[0].hijos[0].etiqueta;
+                    var tipo = arbol.hijos[1].hijos[0].etiqueta;
+                    var nombre = ambito+"_"+id;
+                     s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,"variable",TAMANO,"N/A");
+                    if(tipo == "cadena" && arbol.hijos[2]!=NULL){
+                        var valor = arbol.hijos[2].hijos[0].hijos[0].hijos[0].etiqueta;
+                        s.valor = valor;
+                    }
+                    if(!tabla.existeSimbolo(nombre)){
+                        tabla.agregarSimbolo(nombre,s);
+                        posicion++;
+                        tamanoMetodo++;
+                    } else {
+                        ExisteSimbolo(id,ambito);
+                    }
+                }
+                else if (etiqueta == "SI"){
+                    ambitotmp = ambito;
+                    ambito+="_if"+number(ambitoid);
+                    ambitoid++;
+                    var ambitoidtmp = ambitoid;
+                    for(var i = 0; i<arbol.hijos.length; i++){
+                        ambitoid = 0;
+                        nivel++;
+                        llenarTabla(arbol.hijos[i]);
+                        nivel--;
+                    }
+                    ambitoid = ambitoidtmp;
+                    ambito = ambitotmp;
+                }
+                else if(etiqueta == "DECLARACIONVEC"){
+                    var acceso = arbol.hijos[0].hijos[0].etiqueta;
+                    var id = arbol.hijos[1].hijos[0].etiqueta;
+                    var tipo = arbol.hijos[2].hijos[0].etiqueta;
+                    var rol = "vector";
+                    var nombre = ambito+"_"+id;
+        
+        
+                    if(!tabla.existeSimbolo(nombre)){
+                        var dimensiones = [];
+                        dimensiones = getDimensiones(dimensiones,arbol.hijos[3]);
+                        s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,rol,TAMANO,acceso,dimensiones);
+                        tabla.agregarSimbolo(nombre,s);
+                        posicion++;
+                    } else {ExisteSimbolo(id,ambito);}
                 }
     
             }
