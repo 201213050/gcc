@@ -972,12 +972,26 @@
 
         function addStack(posicion, valor)
         {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var contenido = editores[nombre+"Stack"].getValue();
             
+            var index = contenido.split("\n");
+            index[posicion] = valor; // Actualizamos el valor
+            var nuevoContenido = "";
+            var i;
+            for(i = 0 ; i< index.length; i ++)
+            {
+                nuevoContenido = nuevoContenido + index[i];
+            }
+            editores[nombre+"Stack"].setValue(nuevoContenido);// Actualizamos el heap.        
         }
 
         function addHeap(valor)
         {
-
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var  contActual = editores[nombre+"Heap"].getValue();
+            contActual = contActual+"\n"+valor;
+            editores[nombre+"Heap"].setValue(contActual);
         }
 
 
