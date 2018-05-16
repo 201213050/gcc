@@ -1525,6 +1525,7 @@ pre code {
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
+  height: 50% ;
 }
 
 .table th,
@@ -1537,6 +1538,7 @@ pre code {
 .table thead th {
   vertical-align: bottom;
   border-bottom: 2px solid #dee2e6;
+  height: 50%;
 }
 
 .table tbody + tbody {
