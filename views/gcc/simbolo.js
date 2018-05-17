@@ -15,6 +15,8 @@ class simbolo
        this.valor;
        this.heredado;
        this.sobreescribir;
+       this.puntero;
+       this.arreglo;
        this.dimensiones = [];
        this.parametros=[];
     }
