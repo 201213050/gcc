@@ -13,9 +13,10 @@ class simbolo
        this.tamano;
        this.visibilidad; 
        this.valor;
+       this.heredado;
        this.dimensiones = [];
     }
-    setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad)
+    setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,heredado)
     {
         this.nombre = nombre;
         this.id = id;
@@ -25,7 +26,8 @@ class simbolo
         this.tipo = tipo;
         this.rol = rol;
         this.tamano = tamano;
-        this.visibilidad = visibilidad;     
+        this.visibilidad = visibilidad;
+        this.heredado=heredado;     
     }
     setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,dimensiones)
     {
