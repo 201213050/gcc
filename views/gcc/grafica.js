@@ -2,7 +2,7 @@ var cadenaDot="";
 function grafica( opRaiz  ) 
 {
 		cadenaDot="";
-        cadenaDot = cadenaDot + "digraph lista{ rankdir=TB;node [shape = box, style=rounded]; ";
+        cadenaDot = cadenaDot + "digraph lista{  rankdir=TB;node [shape = box, style=rounded]; ";
         recorrerArbol(opRaiz);
         cadenaDot = cadenaDot + "}";
         enviarGrafo(cadenaDot);
@@ -29,11 +29,11 @@ function recorrerArbol(raiz){
 
         var valor = raiz.valor+"";
         valor = valor.replace(/\"/g, "\\\"");
-        cadenaDot = cadenaDot  + raiz.codigo + "[label=\"" + valor + "  [" + raiz.etiqueta + "]{" + raiz.linea +","+raiz.columna+ "} \", color=\"cyan\", style =\"filled\", shape=\"doublecircle\"]; \n";
+        cadenaDot = cadenaDot  + raiz.codigo + "[fontsize=50 label=\"" + valor + "  [" + raiz.etiqueta + "]{" + raiz.linea +","+raiz.columna+ "} \", color=\"cyan\", style =\"filled\", shape=\"circle\"]; \n";
         } 
         else 
         {
-            cadenaDot = cadenaDot  + raiz.codigo + "[label=\"" + raiz.etiqueta +"  {"+raiz.linea+"," +raiz.columna+ "} \", color=\"cyan\", style =\"filled\", shape=\"doublecircle\"]; \n";
+            cadenaDot = cadenaDot  + raiz.codigo + "[fontsize=50 label=\"" + raiz.etiqueta +"  {"+raiz.linea+"," +raiz.columna+ "} \", color=\"cyan\", style =\"filled\", shape=\"circle\"]; \n";
         }
 
         for(var i=0;i<raiz.hijos.length;i++) 

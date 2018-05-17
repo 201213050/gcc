@@ -171,7 +171,7 @@ app.post('/grafica', urlencodedParser, function(req, res){
 	});	
 
 
-	var cadena = '\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpng ' + __dirname +'\\ast.txt >  '+ __dirname +'\\ast.png';
+	var cadena = '\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpdf  ' + __dirname +'\\ast.txt >  '+ __dirname +'\\ast.pdf';
 	console.log(cadena);
 
 	/* Ahora ejecutamos el comando para genera la imagen.*/
