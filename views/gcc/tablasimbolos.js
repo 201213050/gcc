@@ -2,7 +2,7 @@ class TablaSimbolos
 {
     constructor()
     {
-        var tabla = {}; 
+        this.tabla = {}; 
     }
     agregarSimbolo(nombre, simbolo)
     {
