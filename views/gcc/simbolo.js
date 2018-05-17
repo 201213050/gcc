@@ -14,9 +14,11 @@ class simbolo
        this.visibilidad; 
        this.valor;
        this.heredado;
+       this.sobreescribir;
        this.dimensiones = [];
+       this.parametros=[];
     }
-    setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,heredado)
+    setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,heredado,sobreescribir)
     {
         this.nombre = nombre;
         this.id = id;
@@ -27,9 +29,10 @@ class simbolo
         this.rol = rol;
         this.tamano = tamano;
         this.visibilidad = visibilidad;
-        this.heredado=heredado;     
+        this.heredado=heredado;
+        this.sobreescribir=sobreescribir;     
     }
-    setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,dimensiones)
+    setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,heredado,sobreescribir,dimensiones)
     {
         this.nombre = nombre;
         this.id = id;
@@ -39,7 +42,9 @@ class simbolo
         this.tipo = tipo;
         this.rol = rol;
         this.tamano = tamano;
-        this.visibilidad = visibilidad;     
+        this.visibilidad = visibilidad;
+        this.heredado=heredado;
+        this.sobreescribir=sobreescribir;     
         this.dimensiones = dimensiones;
     }    
 }

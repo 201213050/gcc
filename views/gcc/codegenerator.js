@@ -34,6 +34,8 @@ class GeneradorDeCodigo
         this.ambitoid;
         this.contadorImports;
         this.cicloIf;
+        this.sobreescribir;
+        this.heredado;
 
 
     }
@@ -42,7 +44,8 @@ class GeneradorDeCodigo
         this.etq = 0;
         this.tmp = 0;
         this.listaAboles = [];
-        this.contadorImports = 0;     
+        this.contadorImports = 0;
+        this.tabla=new TablaSimbolos();     
     }
     inicializar() {
         
@@ -132,36 +135,281 @@ class GeneradorDeCodigo
                 this.nivel = 0;
                 this.posicion = 0;
                 var id = "";
-                for(i = 0; i< arbol.hijos.length; i++){
-                    etiqueta = arbol.hijos[i].etiqueta;
-                    if(etiqueta=="VISIBILIDAD"){
-                        accesoClase = arbol.hijos[i].hijos[0].etiqueta;
-                    } else if (etiqueta=="ID"){
-                        id = arbol.hijos[i].hijos[0].etiqueta;
-                        idClase = id;
-                        ambito = id;
-    
-                    } else if (etiqueta == "INSTRUCCIONESCUERPO"){
-                        llenarTabla(arbol.hijos[i]);
+                this.accesoClase="publico";
+                this.heredado="N/A";
+                switch(arbol.hijos.length){
+                    case 4:{
+                        var hijo0=arbol.hijos[0].etiqueta;
+                        var hijo1=arbol.hijos[1].etiqueta;
+                        var hijo2=arbol.hijos[2].etiqueta;
+                        var hijo3=arbol.hijos[3].etiqueta;
+
+                        if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="ID" && hijo3=="INSTRUCCIONESCUERPO"){
+                            this.accesoClase=arbol.hijos[0].valor;
+                            id=arbol.hijos[1].valor.toLowerCase();
+                            this.heredado=arbol.hijos[2].valor.toLowerCase();
+                            this.llenarTabla(arbol.hijos[3]);
+
+                        }
+                        var s=new simbolo();
+                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",posicion*4,this.accesoClase,this.heredado,"N/A");
+                        if(!this.tabla.existeSimbolo(id)){
+                            this.tabla.agregarSimbolo(id,s);
+                        } else {
+                            error ExisteSimbolo(id,ambito);
+                        }
+                        break;
                     }
-                }
-                s = new Simbolo(id, id, "N/A", -1, -1, "N/A", "clase", posicion*4, accesoClase);
-                if(!tabla.existeSimbolo(id)){
-                    tabla.agregarSimbolo(id,s);
-                } else {
-                    ExisteSimbolo(id,ambito);
+                    case 3:{
+                        var hijo0=arbol.hijos[0].etiqueta;
+                        var hijo1=arbol.hijos[1].etiqueta;
+                        var hijo2=arbol.hijos[2].etiqueta;
+
+                        if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="ID"){
+                            this.accesoClase=arbol.hijos[0].valor;
+                            id=arbol.hijos[1].valor.toLowerCase();
+                            this.heredado=arbol.hijos[2].valor.toLowerCase();
+
+                        }
+                        else if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="INSTRUCCIONESCUERPO"){
+                            this.accesoClase=arbol.hijos[0].valor;
+                            id=arbol.hijos[1].valor.toLowerCase();
+                            this.llenarTabla(arbol.hijos[2]);
+                        }
+                        else if(hijo0=="ID" && hijo1=="ID" && hijo2=="INSTRUCCIONESCUERPO"){
+                            id=arbol.hijos[0].valor.toLowerCase();
+                            this.heredado=arbol.hijos[1].valor.toLowerCase();
+                            this.llenarTabla(arbol.hijos[2]);
+                        }
+                        var s=new simbolo();
+                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",posicion*4,this.accesoClase,this.heredado,"N/A");
+                        if(!this.tabla.existeSimbolo(id)){
+                            this.tabla.agregarSimbolo(id,s);
+                        } else {
+                            error ExisteSimbolo(id,ambito);
+                        }
+                        break;
+                    }
+                    case 2:{
+                        var hijo0=arbol.hijos[0].etiqueta;
+                        var hijo1=arbol.hijos[1].etiqueta;
+
+                        if(hijo0=="VISIBILIDAD" && hijo1=="ID"){
+                            this.accesoClase=arbol.hijos[0].valor;
+                            id=arbol.hijos[1].valor;
+                        }
+                        else if(hijo0=="ID" && hijo1=="ID"){
+                            id=arbol.hijos[0].valor;
+                            this.heredado=arbol.hijos[2].valor;
+                        }
+                        else if(hijo0=="ID" && hijo1=="INSTRUCCIONESCUERPO"){
+                            id=arbol.hijos[0].valor;
+                            this.llenarTabla(arbol.hijos[1]);
+                        }
+                        var s=new simbolo();
+                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",posicion*4,this.accesoClase,this.heredado,"N/A");
+                        if(!this.tabla.existeSimbolo(id)){
+                            this.tabla.agregarSimbolo(id,s);
+                        } else {
+                            error ExisteSimbolo(id,ambito);
+                        }
+                        break;
+                    }
+                    case 1:{
+                        var hijo0=arbol.hijos[0].etiqueta;
+
+                        if(hijo0=="ID"){
+                            id=arbol.hijos[0].valor;
+                        }
+                        break;
+                    }
+
                 }
             }
                 else if (etiqueta == "INSTRUCCIONESCUERPO"){
-                    i = 0;
-                    while(arbolhijos[i]!=NULL){
+                    for(var i=0; i<arbol.hijos.length;i++){
                         llenarTabla(arbol.hijos[i]);
-                        i++;
+                    }                       
+                }
+                else if (etiqueta == "MET_PRINCIPAL"){
+                    var identificadores=[];
+                    this.tamanoMetodo = 0;
+                    this.ambitoid = 0;
+                    this.params = "";
+                    var acceso = "";
+                    var id = "";
+                    var tipo = "vacio";
+                    var ambitotemp = this.ambito;
+                    var posiciontemp = this.posicion;
+                    this.posicion = 1;
+                    
+                    id = arbol.valor;
+
+
+                    var nombre = ambito+"_"+id+params;
+                    if (acceso == ""){acceso = accesoClase;}
+                    var cantHijos = arbol.hijos.length;
+
+                    // Cambio de ambito
+                    this.ambito = nombre;
+                    this.nivel++;
+
+                                //Agregamos el "this" en la posicion 0 del metodo
+                    tthis = new Simbolo();
+                    tthis.setValores(ambito+"_this",id,ambito,nivel,0,"entero","variable",4,"N/A");
+                    this.tabla.agregarSimbolo(ambito+"_this",tthis);
+                    this.tamanoMetodo++;
+
+                    // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
+                    if(arbol.hijos.length>0){
+                        llenarTabla(arbol.hijos[0]);
                     }
+
+                    //Agregamos el "return" en la posicion 1 del metodo
+                    /*
+                    if (!(tipo.toLocaleLowerCase()=="vacio")){
+                        ss = new Simbolo(ambito+"_return", id, ambito, nivel, posicion*4, tipo, "retorno", TAMANO, "N/A");
+                        if(!tabla.existeSimbolo(ambito+"_return")) {
+                            tabla.agregarSimbolo(ambito+"_return", ss);
+                        }
+                        posicion++;
+                        tamanoMetodo++;
+                    }
+                    */
+
+                    // Vuelvo al ámbito anterior
+                    this.nivel--;
+                    this.ambito = ambitotemp;
+                    this.posicion = posiciontemp;
+
+                    // Agregamos metodo a la tabla de simbolos
+                    nombre+="()";
+                    ss = NULL;
+                    if(id.toLocaleLowerCase() == idClase.toLocaleLowerCase() && tipo.toLowerCase()=="vacio"){
+                        ss = new Simbolo();
+                        ss.setValores(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso);
+                    } else {
+                        ss = new Simbolo();
+                        ss.setValores(nombre,id,ambitotemp,nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso);
+                    }
+
+                    //Agregamos los identificadores de los parametros al simbolo
+                    ss.parametros = identificadores;
+
+                    //Verificamos que el simbolo no exista en la tabla de simbolos
+                    if(!this.tabla.existeSimbolo(nombre)){
+                        this.tabla.agregarSimbolo(nombre,ss);
+                    } else {
+                        error ExisteSimbolo(id,ambito);
+                    }
+
                 }
-                else if (etiqueta == "INSTRUCCIONCUERPO"){
-                    llenarTabla(arbol.hijos[0]);
+
+                else if (etiqueta == "CONSTRUCTOR"){
+                    var identificadores=[];
+                    this.tamanoMetodo = 0;
+                    this.ambitoid = 0;
+                    this.params = "";
+                    var acceso = "";
+                    var id = "";
+                    var tipo = "vacio";
+                    var ambitotemp = this.ambito;
+                    var posiciontemp = this.posicion;
+                    this.posicion = 1;
+                    
+                    switch(arbol.hijos.length){
+                        case 4:{
+                            var hijo0=arbol.hijos[0].etiqueta;
+                            var hijo1=arbol.hijos[1].etiqueta;
+                            var hijo2=arbol.hijos[2].etiqueta;
+                            var hijo3=arbol.hijos[3].etiqueta;
+                            if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="PARAMETROS" && hijo3=="INSTRUCCIONES"){
+                                acceso=arbol.hijos[0].valor;
+                                id=arbol.hijos[1].valor;
+
+                                this.llenarTabla(arbol.hijos[2]);
+                                this.ambito = this.ambito+"_"+id+this.params;
+                                this.nivel++;
+                                identificadores = llenarConParametros(identificadores, arbol.hijos[2]);
+                                ambito = ambitotemp;
+                                nivel--;
+
+                            }
+                            break;
+                        }
+
+                    }
+
+
+
+                    var nombre = ambito+"_"+id+this.params;
+                    if (acceso == ""){acceso = accesoClase;}
+                    var cantHijos = arbol.hijos.length;
+
+                    // Cambio de ambito
+                    this.ambito = nombre;
+                    this.nivel++;
+
+                                //Agregamos el "this" en la posicion 0 del metodo
+                    tthis = new Simbolo(ambito+"_this",id,ambito,nivel,0,"entero","variable",4,"N/A");
+                    this.tabla.agregarSimbolo(ambito+"_this",tthis);
+                    this.tamanoMetodo++;
+
+                    // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
+                    if(arbol.hijos.length>0){
+                        llenarTabla(arbol.hijos[0]);
+                    }
+
+                    //Agregamos el "return" en la posicion 1 del metodo
+                    /*
+                    if (!(tipo.toLocaleLowerCase()=="vacio")){
+                        ss = new Simbolo(ambito+"_return", id, ambito, nivel, posicion*4, tipo, "retorno", TAMANO, "N/A");
+                        if(!tabla.existeSimbolo(ambito+"_return")) {
+                            tabla.agregarSimbolo(ambito+"_return", ss);
+                        }
+                        posicion++;
+                        tamanoMetodo++;
+                    }
+                    */
+
+                    // Vuelvo al ámbito anterior
+                    this.nivel--;
+                    this.ambito = ambitotemp;
+                    this.posicion = posiciontemp;
+
+                    // Agregamos metodo a la tabla de simbolos
+                    nombre+="()";
+                    ss = NULL;
+                    if(id.toLocaleLowerCase() == idClase.toLocaleLowerCase() && tipo=="vacio"){
+                        ss = new Simbolo(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso);
+                    } else {
+                        ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso);
+                    }
+
+                    //Agregamos los identificadores de los parametros al simbolo
+                    ss.parametros = identificadores;
+
+                    //Verificamos que el simbolo no exista en la tabla de simbolos
+                    if(!this.tabla.existeSimbolo(nombre)){
+                        this.tabla.agregarSimbolo(nombre,ss);
+                    } else {
+                        error ExisteSimbolo(id,ambito);
+                    }
+
                 }
+                else if(etiqueta=="PARAMETROS")
+                {
+                    for (i = 0; i<arbol.hijos.length; i++){
+                        llenarTabla(arbol.hijos[i]);
+                    }
+
+                }
+                else if(etiqueta=="PARAMETRO")
+                {
+                    this.params += "_"+arbol.hijos[1].hijos[0].etiqueta;
+
+                }
+
                 else if (etiqueta == "DECATR"){
                     i = 0;
                     hijo = arbol.hijos[i];
@@ -329,6 +577,148 @@ class GeneradorDeCodigo
             }
         }
     }
+
+    llenarConParametros(identifica, arbol)
+    {
+        if(arbol!=NULL){
+            var etiqueta = arbol.etiqueta;
+        if(etiqueta == "PARAMETROS"){
+            for (i = 0; i<arbol.hijos.length; i++){
+                var paramet=arbol.hijos[i];
+
+                switch(arbol.hijos.length){
+                    case 2:{
+                        var hijo0=paramet.hijos[0];
+                        var hijo1=paramet.hijos[1];
+                        if(hijo0.etiqueta=="TIPO" && hijo1.etiqueta=="ID"){
+                            var id=hijo1.valor;
+                            identifica.add(id);
+                            var tipo=hijo0.valor;
+                            var nombre=this.ambito+"_"+id;
+                            s = new Simbolo();
+                            s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
+                            
+                            if(!this.tabla.existeSimbolo(nombre)){
+                                this.tabla.agregarSimbolo(nombre,s);
+                                this.posicion++;
+                                this.tamanoMetodo++;
+                            } else {
+                                error ExisteSimbolo(id,ambito);
+                            }
+
+                        }
+                        else if(hijo0.etiqueta=="ID" && hijo1.etiqueta=="ID"){
+                            var id=hijo1.valor;
+                            identifica.add(id);
+                            var tipo=hijo0.valor;
+                            var nombre=this.ambito+"_"+id;
+                            s = new Simbolo();
+                            s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
+                            
+                            if(!this.tabla.existeSimbolo(nombre)){
+                                this.tabla.agregarSimbolo(nombre,s);
+                                this.posicion++;
+                                this.tamanoMetodo++;
+                            } else {
+                                error ExisteSimbolo(id,ambito);
+                            }
+
+                        }
+                        break;
+                    }
+                    case 3:{
+                        var hijo0=paramet.hijos[0];
+                        var hijo1=paramet.hijos[1];
+                        var hijo2=paramet.hijos[2];
+                        if(hijo0.etiqueta=="TIPO" && hijo1.etiqueta=="ID" && hijo2.etiqueta=="Dimension"){
+                            var id=hijo1.valor;
+                            identifica.add(id);
+                            var tipo=hijo0.valor;
+                            var nombre=this.ambito+"_"+id;
+                            s = new Simbolo();
+                            var dimensiones=[];
+                            dimensiones=getDimensiones(dimensiones,hijo2);
+
+                            s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
+                            
+                            if(!this.tabla.existeSimbolo(nombre)){
+                                this.tabla.agregarSimbolo(nombre,s);
+                                this.posicion++;
+                                this.tamanoMetodo++;
+                            } else {
+                                error ExisteSimbolo(id,ambito);
+                            }
+
+                        }
+                        else if(hijo0.etiqueta=="ID" && hijo1.etiqueta=="ID"){
+                            var id=hijo1.valor;
+                            identifica.add(id);
+                            var tipo=hijo0.valor;
+                            var nombre=this.ambito+"_"+id;
+                            s = new Simbolo();
+                            s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
+                            
+                            if(!this.tabla.existeSimbolo(nombre)){
+                                this.tabla.agregarSimbolo(nombre,s);
+                                this.posicion++;
+                                this.tamanoMetodo++;
+                            } else {
+                                error ExisteSimbolo(id,ambito);
+                            }
+
+                        }
+                        break;
+                    }
+
+
+                }
+
+            }
+        } else if (etiqueta=="PARAM"){
+            QString id = arbol->hijos[0]->hijos[0]->Etiqueta();
+            identificadores.push_back(id);
+            QString tipo = arbol->hijos[1]->hijos[0]->Etiqueta();
+            QString nombre = ambito +"_"+id;
+            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion*4,tipo,"parametro_val",TAMANO,"N/A");
+            if(!tabla.existeSimbolo(nombre)){
+                tabla.agregarSimbolo(nombre,s);
+                posicion++;
+                tamanoMetodo++;
+            } else {
+                ExisteSimbolo(id,ambito);
+            }
+
+        } else if (etiqueta == "REFPARAM"){
+            QString id = arbol->hijos[1]->hijos[0]->Etiqueta();
+            identificadores.push_back(id);
+            QString tipo = arbol->hijos[2]->hijos[0]->Etiqueta();
+            QString nombre = ambito +"_"+id;
+            Simbolo* s = new Simbolo(nombre,id, ambito,nivel,posicion*4,tipo,"parametro_ref",TAMANO,"N/A");
+            if(!tabla.existeSimbolo(nombre)){
+                tabla.agregarSimbolo(nombre,s);
+                posicion++;
+                tamanoMetodo++;
+            } else {
+                ExisteSimbolo(id,ambito);
+            }
+        }
+    }
+    return identificadores;
+}
+
+getDimensiones(dim, arbol){
+    int i=0;
+    while(arbol->hijos[i]!=NULL){
+        if(arbol->hijos[i]->Etiqueta()=="DIM"){
+            Nodo &n = *arbol->hijos[i]->hijos[0];
+            dimensiones->push_back(n);
+        }
+        dimensiones = getDimensiones(dimensiones,arbol->hijos[i]);
+        i++;
+    }
+    return dimensiones;
+
+}
 
 
 }
