@@ -41,7 +41,6 @@ function recorrerArbol(raiz){
         	var hijo=raiz.hijos[i];
             cadenaDot = cadenaDot + "\"" + raiz.codigo + "\"-> \"" + hijo.codigo + "\"" + "\n";            
         }
-
         for(var i=0;i<raiz.hijos.length;i++) 
         {
         	var hijo=raiz.hijos[i];
@@ -98,4 +97,4 @@ function receptorGrafo() {
             alert('Hubo problemas al generar la gráfica');
         }
     }
-}  
+}
