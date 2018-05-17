@@ -1033,7 +1033,7 @@ PROCEDIMIENTO : sobrescribir METODO
 	;
 
 
-METODO : VISIBILIDAD TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '	}'
+METODO : VISIBILIDAD TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
 		$$.add($1);
@@ -1110,42 +1110,42 @@ METODO : VISIBILIDAD TIPO id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '	}'
 		$$.add(identificador2);
 		$$.add($6);
 	}
-	| VISIBILIDAD TIPO id DIMENSION '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	| VISIBILIDAD TIPO DIMENSION id  '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
-		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
-		$$.add(identificador);
-		$$.add($4);
+		$$.add($3);
+		identificador = crearHoja("ID",$4,@4.first_line,@4.first_column);
+		$$.add(identificador);		
 		$$.add($6);
 		$$.add($9);
 	}
-	| VISIBILIDAD TIPO id DIMENSION '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	| VISIBILIDAD TIPO DIMENSION id  '(' ')' '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
-		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);
-		$$.add(identificador);
-		$$.add($4);
+		$$.add($3);
+		identificador = crearHoja("ID",$4,@4.first_line,@4.first_column);
+		$$.add(identificador);		
 		$$.add($8);
 	}
-	| TIPO id DIMENSION '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+	| TIPO DIMENSION id  '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
 		$$.add($1);
-		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
-		$$.add($3);
+		$$.add($2);		
+		identificador = crearHoja("ID",$3,@3.first_line,@3.first_column);		
 		$$.add($5);
 		$$.add($8);
 	}
-	| TIPO id DIMENSION '(' ')' '{' LISTA_INSTRUCCIONES '}'
+	| TIPO  DIMENSION id  '(' ')' '{' LISTA_INSTRUCCIONES '}'
 	{
 		$$ = crearNodo("METODO",@1.first_line,@1.first_column);
 		$$.add($1);
-		identificador = crearHoja("ID",$2,@2.first_line,@2.first_column);
-		$$.add($3);
+		$$.add($2);
+		$$.ad(crearHoja("ID",$3,@3.first_line,@3.first_column));
 		$$.add($7);
 	}
 	;
@@ -1783,15 +1783,15 @@ E   : '(' E ')'
 		$$.add($1);
 		$$.add($3);
 	}
-    | E '!'
+    | '!' E 
 	{
-		$$ = crearNodo("!",@2.first_line-1,@2.first_column-1);
-		$$.add($1);
+		$$ = crearNodo("NOT",@1.first_line,@1.first_column);
+		$$.add($2);
 	}
     | '-' E %prec UMINUS
 	{
 		$$ = crearNodo("-",@1.first_line-1,@1.first_column-1);
-		$$.add($1);
+		$$.add($2);
 	}
     | E '>=' E
 	{

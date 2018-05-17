@@ -236,6 +236,7 @@ app.post('/compilarEjemplo', urlencodedParser, function(req, res)
 	//Sólo reenviamos la data.
 	var path = req.body.path;
 	var codigo = req.body.codigoEjemplo;
+	codigo = "clase leccion{ \n\tprincipal(){" + codigo + "\t}\n}"; 
 	var data = {'codigo':codigo, 'path':path};
 	res.render('pages/editorL', 
 	{
