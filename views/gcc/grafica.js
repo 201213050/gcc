@@ -8,7 +8,7 @@ function grafica( opRaiz  )
         enviarGrafo(cadenaDot);
         console.log(cadenaDot);
 
-
+        /*
         addHeap("5");
         addHeap("1");
         addHeap("49");
@@ -20,6 +20,7 @@ function grafica( opRaiz  )
         addSimbolo("VARIABLE", "contador3", "main_", "1", "4", "rol", "1", "publico", "1");
         addError("11", "13", "lexico", "' caracter inválido");
         add3D("=> , t1, t100, H[t5]");
+        */
 
 }
 

@@ -618,12 +618,12 @@ DECLARACION :
 	| TIPO id  DIMENSION ASIGNAR ';' 
 	{
 		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
-		$$.add($1);		
-		var ident = crearHoja("ID",$2,@2.first_line,@2.first_column);
-		$3.add(ident);
-		$$.add($3);
-		$$.add($4);
-		$$.add($5);
+		$$.add($1);
+		var nodo =  crearNodo("LISTAID",@2.first_line,@2.first_column);
+		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));		
+		nodo.add($3);
+		$$.add(nodo);
+		$$.add($4);		
 	}
 	| VISIBILIDAD TIPO id  ASIGNAR ';'
 	{
@@ -645,6 +645,20 @@ DECLARACION :
 		$$.add(nodo);
 		$$.add($4);
 	}
+	| VISIBILIDAD id id DIMENSION ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
+		$$.add($1);	
+		$$.add(crearNodo("TIPO",$2,@2.first_line,@2.first_column));	
+		var nodo =  crearNodo("LISTAID",@3.first_line,@3.first_column);
+		var id = crearNodo("ID",@3.first_line,@3.first_column);	
+		id.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+		id.add($4);
+		nodo.add(id);
+		$$.add(nodo);
+		$$.add($4);
+	}	
+	
 	| TIPO id  ASIGNAR ';'
 	{
 		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
@@ -657,80 +671,155 @@ DECLARACION :
 	| id id  ASIGNAR ';'
 	{
 		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
-		var ident = crearHoja("TIPO",$1,@1.first_line,@1.first_column);
+		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));
 		var nodo =  crearNodo("LISTAID",@2.first_line,@2.first_column);
 		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));		
 		$$.add(nodo);
 		$$.add($3);
 	}
-	/*LISTA TAMPOCO :V */
+	| id id DIMENSION ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
+		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));
+		var nodo =  crearNodo("LISTAID",@2.first_line,@2.first_column);
+		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));		
+		nodo.add($4);
+		$$.add(nodo);
+		$$.add($3);
+	}	
+	/*LISTA SIN DIMENSION EL PRIMERO*/
 	|	
-	VISIBILIDAD TIPO id LISTAID DIMENSION ASIGNAR ';' 
+	VISIBILIDAD TIPO id LISTAID  ASIGNAR ';' 
 	{
 		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
 		$$.add($1);
 		$$.add($2);
-		$4.add(crearHoja("ID",$3,@3.first_line,@3.first_column));		
+		nodo = crearNodo("VAR",@3.first_line,@3.first_column);
+		nodo.add(crearHoja("ID",$3,@3.first_line,@3.first_column));			
+		$4.add(nodo);
 		$$.add($4);
 		$$.add($5);
-		$$.add($6);
+	}	 
+	| 
+	VISIBILIDAD id id LISTAID ASIGNAR ';'
+	{
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add(crearHoja("TIPO",$2,@2.first_line,@2.first_column));
+		nodo = crearNodo("VAR",@3.first_line,@3.first_column);
+		nodo.add(crearHoja("ID",$3,@3.first_line,@3.first_column));		
+		$4.add(nodo);
+		$$.add($4);
+		$$.add($5);
 	}
-	| TIPO id LISTAID DIMENSION ASIGNAR ';' 
+	|	
+	TIPO id LISTAID  ASIGNAR ';' 
 	{
 		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
 		$$.add($1);		
-		$3.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+		nodo = crearNodo("VAR",@2.first_line,@2.first_column);
+		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));		
+		$3.add(nodo);
 		$$.add($3);
 		$$.add($4);
-		$$.add($5);
 	}
-	}
-	| VISIBILIDAD TIPO id LISTAID ASIGNAR ';'
+	| 
+	id id LISTAID ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
-		$$.add($1);
-		$$.add($2);				
-		$4.add(crearHoja("ID",$3,@3.first_line,@3.first_column));		
+		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
+		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));	
+		nodo = crearNodo("VAR",@2.first_line,@2.first_column);
+		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
+		$3.add(nodo);
+		$$.add($3);
 		$$.add($4);
-		$$.add($5);
-	}
-	| VISIBILIDAD id id LISTAID ASIGNAR ';'
+	}		
+	/*DIMENSION EN EL PRIMER ELEMENTO*/
+	|	
+	VISIBILIDAD TIPO id DIMENSION LISTAID  ASIGNAR ';' 
+	{
+		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add($2);
+		nodo = crearNodo("VAR",@3.first_line,@3.first_column);
+		nodo.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+		nodo.add($4);//dimension
+		$5.add(nodo);
+		$$.add($5);		
+		$$.add($6);
+	}	 
+	| 
+	VISIBILIDAD id id DIMENSION LISTAID ASIGNAR ';'
 	{
 		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
 		$$.add($1);
-		$$.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
-		$4.add(crearHoja("ID",$3,@3.first_line,@3.first_column));		
-		$$.add($4);
+		$$.add(crearHoja("TIPO",$2,@2.first_line,@2.first_column));	
+		nodo = crearNodo("VAR",@3.first_line,@3.first_column);
+		nodo.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+		nodo.add($4);
+		$5.add(nodo);
 		$$.add($5);
+		$$.add($6);
 	}
-	| TIPO id LISTAID ASIGNAR ';'
+	|	
+	TIPO id DIMENSION LISTAID  ASIGNAR ';' 
 	{
-		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
-		$$.add($1);
-		$3.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
-		$$.add($3);
+		$$= crearNodo("DECLARACION_VECTOR",@1.first_line,@1.first_column);
+		$$.add($1);		
+		nodo = crearNodo("VAR",@2.first_line,@2.first_column);
+		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
+		nodo.add($3);
+		$4.add(nodo);
 		$$.add($4);
+		$$.add($5);		
 	}
-	| id id LISTAID ASIGNAR ';'
+	| 
+	id id DIMENSION LISTAID ASIGNAR ';'
 	{
 		$$= crearNodo("DECLARACION_OBJETO",@1.first_line,@1.first_column);
-		var ident = crearHoja("ID",$1,@1.first_line,@1.first_column);
-		$3.add(crearHoja("ID",$2,@2.first_line,@2.first_column));		
-		$$.add($3);
+		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));		
+		nodo = crearNodo("VAR",@2.first_line,@2.first_column);
+		nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
+		nodo.add($3);
+		$4.add(nodo);
 		$$.add($4);
-	};
+		$$.add($5);
+	}		
+	;
 
-
-LISTAID : LISTAID ',' id
+LISTAID : 
+ 		LISTAID ',' id DIMENSION
 		{
 			$$ = $1;
-			$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+			var nodo = crearNodo("VAR",@3.first_line,@3.first_column);
+			nodo.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+			nodo.add($4);			
+			$$.add(nodo);
 		}
+		|
+ 		LISTAID ',' id 
+		{
+			$$ = $1;
+			nodo = crearNodo("VAR",@3.first_line,@3.first_column);
+			nodo.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+			$$.add(nodo);
+		}
+		|
+		',' id DIMENSION
+		{	
+			$$ = crearNodo("LISTAID",@1.first_line,@1.first_column);
+			var nodo = crearNodo("VAR",@2.first_line,@2.first_column);
+			nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
+			nodo.add($3);
+			$$.add(nodo);
+		}		
 		|
 		',' id
 		{	
 			$$ = crearNodo("LISTAID",@1.first_line,@1.first_column);
-			$$.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
+			nodo = crearNodo("VAR",@2.first_line,@2.first_column);
+			nodo.add(crearHoja("ID",$2,@2.first_line,@2.first_column));
+			$$.add(nodo);
 		};
 
 	
