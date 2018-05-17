@@ -111,6 +111,7 @@ class Nodo{
 "convertiracadena"    %{ console.log(yytext);return 'convertiracadena'; %}
 "convertiraentero"    %{ console.log(yytext);return 'convertiraentero'; %}
 "imprimir"		      %{ console.log(yytext);return 'imprimir'; %}
+"puntero"		      %{ console.log(yytext);return 'puntero'; %}
 //CLASE
 "clase"     		  %{ console.log(yytext);return 'clase'; %}
 "este"			      %{ console.log(yytext);return 'este'; %}
@@ -1162,7 +1163,8 @@ PARAMETROS 	: PARAMETROS ',' PARAMETRO
 	;
 
 
-PARAMETRO 	: TIPO id
+PARAMETRO 	: 
+	TIPO id
 	{
 		$$ = crearNodo("PARAMETRO",@1.first_line-1,@1.first_column-1);
 		$$.add($1);
@@ -1194,7 +1196,39 @@ PARAMETRO 	: TIPO id
 		$$.add(identificador);
 		$$.add($3);
 	}
-	
+	/*Parametro tipo puntero :V*/
+	|
+	TIPO puntero id
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add(crearHoja("PUNTERO",$2,@2.first_line,@2.first_column));
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));		
+	}
+	| id puntero id
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line,@1.first_column);
+		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));
+		$$.add(crearHoja("PUNTERO",$2,@2.first_line,@2.first_column));
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+	}
+	| id puntero id DIMENSION
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line,@1.first_column);
+		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));
+		$$.add(crearHoja("PUNTERO",$2,@2.first_line,@2.first_column));
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));
+		$$.add($4);
+
+	}
+	| TIPO  puntero id DIMENSION
+	{
+		$$ = crearNodo("PARAMETRO",@1.first_line,@1.first_column);
+		$$.add($1);
+		$$.add(crearNodo("PUNTERO",$2,@2.first_line,@2.first_column));
+		$$.add(crearHoja("ID",$3,@3.first_line,@3.first_column));		
+		$$.add($4);
+	}	
 	;
 
 CONSTRUCTOR : VISIBILIDAD id '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
