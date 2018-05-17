@@ -996,6 +996,16 @@
         
         */
 
+        function limpiarErrores()
+        {
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();               
+            var tabla  = document.getElementById("tabla-"+nombre+ "Errores"); 
+            var padre = tabla.parentNode;
+            padre.replaceChild(tablaErrores(nombre + "Errores"),tabla);        
+            
+        }
+
         function addError(linea, columna, tipo, descripcion)
         {
             /*Primero obtenemos el nombre del archivo actual*/
