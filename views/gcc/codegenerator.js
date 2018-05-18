@@ -14,7 +14,7 @@ class GeneradorDeCodigo
         this.tmp;
         this.etq;
 
-        this.listaArboles;
+        this.listaAboles;
 
         this.tabla=new TablaSimbolos();
 
@@ -45,7 +45,16 @@ class GeneradorDeCodigo
         this.tmp = 0;
         this.listaAboles = [];
         this.contadorImports = 0;
-        this.tabla=new TablaSimbolos();     
+        this.ambito="";
+        this.tabla=new TablaSimbolos();
+        this.ambitoid = 0;
+        this.nivel = 0;
+        this.posicion = 0;
+        this.tamanoMetodo=0;
+        this.accesoClase="";
+        this.heredado="";
+        this.idClase="";
+        this.params="";     
     }
     inicializar() {
         
@@ -246,6 +255,7 @@ class GeneradorDeCodigo
                             this.accesoClase=arbol.hijos[0].valor;
                             id=arbol.hijos[1].valor.toLowerCase();
                             this.idClase=id;
+                            this.ambito=id;
                             this.heredado=arbol.hijos[2].valor.toLowerCase();
 
                         }
@@ -253,11 +263,13 @@ class GeneradorDeCodigo
                             this.accesoClase=arbol.hijos[0].valor;
                             id=arbol.hijos[1].valor.toLowerCase();
                             this.idClase=id;
+                            this.ambito=id;
                             this.llenarTabla(arbol.hijos[2]);
                         }
                         else if(hijo0=="ID" && hijo1=="ID" && hijo2=="INSTRUCCIONESCUERPO"){
                             id=arbol.hijos[0].valor.toLowerCase();
                             this.idClase=id;
+                            this.ambito=id;
                             this.heredado=arbol.hijos[1].valor.toLowerCase();
                             this.llenarTabla(arbol.hijos[2]);
                         }
@@ -278,15 +290,18 @@ class GeneradorDeCodigo
                             this.accesoClase=arbol.hijos[0].valor;
                             id=arbol.hijos[1].valor;
                             this.idClase=id;
+                            this.ambito=id;
                         }
                         else if(hijo0=="ID" && hijo1=="ID"){
                             id=arbol.hijos[0].valor;
                             this.idClase=id;
+                            this.ambito=id;
                             this.heredado=arbol.hijos[2].valor;
                         }
                         else if(hijo0=="ID" && hijo1=="INSTRUCCIONESCUERPO"){
                             id=arbol.hijos[0].valor;
                             this.idClase=id;
+                            this.ambito=id;
                             this.llenarTabla(arbol.hijos[1]);
                         }
                         var s=new simbolo();
@@ -304,6 +319,7 @@ class GeneradorDeCodigo
                         if(hijo0=="ID"){
                             id=arbol.hijos[0].valor;
                             this.idClase=id;
+                            this.ambito=id;
                         }
                         break;
                     }
@@ -371,10 +387,10 @@ class GeneradorDeCodigo
                     var ss = null;
                     if(id.toLocaleLowerCase() == this.idClase.toLocaleLowerCase() && tipo.toLowerCase()=="vacio"){
                         ss = new simbolo();
-                        ss.setValores(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso);
+                        ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso);
                     } else {
                         ss = new simbolo();
-                        ss.setValores(nombre,id,ambitotemp,nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso);
+                        ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso);
                     }
 
                     //Agregamos los identificadores de los parametros al simbolo
@@ -442,7 +458,7 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    var ss = new Simbolo();
+                                    var ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
@@ -613,7 +629,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -684,7 +700,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -761,7 +777,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -832,7 +848,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -902,7 +918,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -976,7 +992,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1691,7 +1707,7 @@ class GeneradorDeCodigo
                                 var ss = null;
             
                                 ss = new simbolo();
-                                ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 ss.dimensiones=[];
                                 ss.sobreescribir=this.sobreescribir;
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1997,7 +2013,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
