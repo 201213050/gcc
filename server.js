@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var parser = require('json-parser');
 let lector = require('fs'); // Modulo para abrir archivos 
 
+var contador = 0;
 
 
 
@@ -162,14 +163,14 @@ app.post('/grafica', urlencodedParser, function(req, res){
 
 	/*Primero creamos el archivo para la grafica.*/	
 	var fs = require('fs');
-	var stream = fs.createWriteStream("ast.txt");
+	var stream = fs.createWriteStream("ast"+contador+".txt");
 	stream.once('open', function(fd) {
 	  stream.write(req.body.data);	  
 	  stream.end();
 	});	
 
 
-	var cadena = '\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpdf  ' + __dirname +'\\ast.txt >  '+ __dirname +'\\ast.pdf';
+	var cadena = '\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\" -Tpdf  ' + __dirname +'\\ast'+contador+'.txt >  '+ __dirname +'\\ast'+contador+'.pdf';
 	console.log(cadena);
 
 	/* Ahora ejecutamos el comando para genera la imagen.*/
@@ -204,7 +205,8 @@ app.post('/abrirArchivo', urlencodedParser, function(req, res){
 	console.log(req.body.path);
 	
 	var path = req.body.path;
-
+	var size = path.length -1 ;
+    path = path.substring(1, size);
 	lector.readFile(path,'utf-8', (err,data)=>
 	{
 		if(err)

@@ -97,6 +97,66 @@ class GeneradorDeCodigo
     texto = "ERROR SEMANTICO: No existe el identificador "+idd+" en el ámbito "+ambit;
     }
 
+
+    
+    CompilarImport(data, generador) {
+        var requestHttp = false;  
+        var url = '/abrirArchivo'; // Este metodo devuelve 0 si no existe y un 1 si sí :v y la data ahuevos.
+        requestHttp = false;
+        if (window.XMLHttpRequest) 
+        { 
+            requestHttp = new XMLHttpRequest();
+            if (requestHttp.overrideMimeType) 
+            {
+                requestHttp.overrideMimeType('text/xml');                  
+            }
+        } 
+        else if (window.ActiveXObject) 
+        { 
+            try {
+                requestHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) 
+            {
+                try {
+                    requestHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
+        }
+
+        if (!requestHttp) {
+            alert('Falla :( No es posible crear una instancia XMLHTTP');
+            return false;
+        }
+
+      
+        requestHttp.onreadystatechange = function()
+          {
+              if (this.readyState == 4 && this.status == 200) 
+              {       
+                 
+                  var datos = JSON.parse(this.responseText);
+                  alert(datos.contenido);
+                  var raiz = gcc.parse(datos.contenido);
+
+                  if(raiz==null)
+                  {
+                      addError(nodo.hash.loc.first_line, nodo.hash.loc.first_column, "Vergas", "El archivo "+ nodo.value+" No existe");                      
+                  }
+                  else
+                  {            
+                      grafica(raiz);          
+                      generador.listaAboles.push(raiz);
+                  }                                    
+              }                
+          };
+        requestHttp.open('POST', url, true);
+        requestHttp.setRequestHeader("Content-type", "application/json");
+        requestHttp.setRequestHeader("dataType", "json");
+        var path = {'path':data.valor};
+        requestHttp.send(JSON.stringify(path)); 
+    }       
+
+
     analizarImports(arbol){
         if(arbol!=null){
             var etiqueta = arbol.etiqueta;
@@ -107,8 +167,8 @@ class GeneradorDeCodigo
                     this.analizarImports(arbol.hijos[i]);
                 }
             } else if (etiqueta == "IMPORTAR"){ //incompleto
-                var importar= arbol.hijos[0].valor;
-                //CompilarImport(importar);
+                var importar= arbol.hijos[0];
+                this.CompilarImport(importar,this);
                 
             }
             /* else if (etiqueta == "IMPORT"){
