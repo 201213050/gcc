@@ -356,7 +356,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -366,7 +367,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -384,9 +386,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -430,7 +434,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -440,10 +445,11 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
-                                        this.tabla.agregarSimbolo(this.ambito+"_return", s);
+                                        this.tabla.agregarSimbolo(this.ambito+"_return", ss);
                                     }
                                     this.posicion++;
                                     this.tamanoMetodo++;
@@ -458,9 +464,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -496,7 +504,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -506,7 +515,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -524,9 +534,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -563,7 +575,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -573,7 +586,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -591,9 +605,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -636,7 +652,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -646,7 +663,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -664,9 +682,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -703,7 +723,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -713,7 +734,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -731,9 +753,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -769,7 +793,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -779,7 +804,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -797,9 +823,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -839,7 +867,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -849,7 +878,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -867,9 +897,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -888,61 +920,6 @@ class GeneradorDeCodigo
 
                     }
 
-
-
-                    var nombre = ambito+"_"+id+this.params;
-                    if (acceso == ""){acceso = accesoClase;}
-                    var cantHijos = arbol.hijos.length;
-
-                    // Cambio de ambito
-                    this.ambito = nombre;
-                    this.nivel++;
-
-                                //Agregamos el "this" en la posicion 0 del metodo
-                    tthis = new Simbolo(ambito+"_this",id,ambito,nivel,0,"entero","variable",4,"N/A");
-                    this.tabla.agregarSimbolo(ambito+"_this",tthis);
-                    this.tamanoMetodo++;
-
-                    // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
-                    if(arbol.hijos.length>0){
-                        llenarTabla(arbol.hijos[0]);
-                    }
-
-                    //Agregamos el "return" en la posicion 1 del metodo
-                    /*
-                    if (!(tipo.toLocaleLowerCase()=="vacio")){
-                        ss = new Simbolo(ambito+"_return", id, ambito, nivel, posicion*4, tipo, "retorno", TAMANO, "N/A");
-                        if(!tabla.existeSimbolo(ambito+"_return")) {
-                            tabla.agregarSimbolo(ambito+"_return", ss);
-                        }
-                        posicion++;
-                        tamanoMetodo++;
-                    }
-                    */
-
-                    // Vuelvo al ámbito anterior
-                    this.nivel--;
-                    this.ambito = ambitotemp;
-                    this.posicion = posiciontemp;
-
-                    // Agregamos metodo a la tabla de simbolos
-                    nombre+="()";
-                    ss = NULL;
-                    if(id.toLocaleLowerCase() == idClase.toLocaleLowerCase() && tipo=="vacio"){
-                        ss = new Simbolo(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso);
-                    } else {
-                        ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso);
-                    }
-
-                    //Agregamos los identificadores de los parametros al simbolo
-                    ss.parametros = identificadores;
-
-                    //Verificamos que el simbolo no exista en la tabla de simbolos
-                    if(!this.tabla.existeSimbolo(nombre)){
-                        this.tabla.agregarSimbolo(nombre,ss);
-                    } else {
-                        error ExisteSimbolo(id,ambito);
-                    }
 
                 }
                 else if(etiqueta=="PARAMETROS")
@@ -978,22 +955,25 @@ class GeneradorDeCodigo
                     var posiciontemp = this.posicion;
                     this.posicion = 1;
                     
+                    
                     switch(arbol.hijos.length){
-                        case 4:{
+                        case 5:{
                             var hijo0=arbol.hijos[0].etiqueta;
                             var hijo1=arbol.hijos[1].etiqueta;
                             var hijo2=arbol.hijos[2].etiqueta;
                             var hijo3=arbol.hijos[3].etiqueta;
-                            if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="PARAMETROS" && hijo3=="INSTRUCCIONES"){
+                            var hijo4=arbol.hijos[4].etiqueta;
+                            if(hijo0=="VISIBILIDAD" && hijo1=="TIPO" && hijo2=="ID" && hijo3=="PARAMETROS" && hijo4=="INSTRUCCIONES"){
                                 acceso=arbol.hijos[0].valor;
-                                id=arbol.hijos[1].valor;
+                                tipo=arbol.hijos[1].valor;
+                                id=arbol.hijos[2].valor;
                                 //recorremos los parametros
-                                this.llenarTabla(arbol.hijos[2]);
+                                this.llenarTabla(arbol.hijos[3]);
 
                                 this.ambito = this.ambito+"_"+id+this.params;
                                 this.nivel++;
                                 //creamos los simbolos de parametros
-                                identificadores = llenarConParametros(identificadores, arbol.hijos[2]);
+                                identificadores = llenarConParametros(identificadores, arbol.hijos[3]);
                                 this.ambito = ambitotemp;
                                 this.nivel--;
 
@@ -1008,17 +988,19 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
                                 // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
-                                llenarTabla(arbol.hijos[3]);
+                                llenarTabla(arbol.hijos[4]);
 
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1026,7 +1008,7 @@ class GeneradorDeCodigo
                                     this.posicion++;
                                     this.tamanoMetodo++;
                                 }
-
+                                
                                 // Vuelvo al ámbito anterior
                                 this.nivel--;
                                 this.ambito = ambitotemp;
@@ -1035,12 +1017,11 @@ class GeneradorDeCodigo
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
                                 ss = NULL;
-                                if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
-                                } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
-                                }
-
+            
+                                ss = new Simbolo();
+                                ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                ss.dimensiones=[];
+                                ss.sobreescribir=this.sobreescribir;
                                 //Agregamos los identificadores de los parametros al simbolo
                                 ss.parametros = identificadores;
 
@@ -1052,6 +1033,226 @@ class GeneradorDeCodigo
                                 }
                             }
 
+                            else if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="ID" && hijo3=="PARAMETROS" && hijo4=="INSTRUCCIONES"){
+                                acceso=arbol.hijos[0].valor;
+                                tipo=arbol.hijos[1].valor;
+                                id=arbol.hijos[2].valor;
+                                //recorremos los parametros
+                                this.llenarTabla(arbol.hijos[3]);
+
+                                this.ambito = this.ambito+"_"+id+this.params;
+                                this.nivel++;
+                                //creamos los simbolos de parametros
+                                identificadores = llenarConParametros(identificadores, arbol.hijos[3]);
+                                this.ambito = ambitotemp;
+                                this.nivel--;
+
+                                var nombre = this.ambito+"_"+id+this.params;
+                                if (acceso == ""){
+                                    acceso = this.accesoClase;
+                                }
+                                var cantHijos = arbol.hijos.length;
+
+                                // Cambio de ambito
+                                this.ambito = nombre;
+                                this.nivel++;
+
+                                //Agregamos el "this" en la posicion 0 del metodo
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
+                                this.tamanoMetodo++;
+
+                                // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
+                                llenarTabla(arbol.hijos[4]);
+
+                                //Agregamos el "return" en la posicion 1 del metodo
+                                if (!(tipo=="vacio"))
+                                {
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
+                                    {
+                                        this.tabla.agregarSimbolo(this.ambito+"_return", s);
+                                    }
+                                    this.posicion++;
+                                    this.tamanoMetodo++;
+                                }
+                                
+                                // Vuelvo al ámbito anterior
+                                this.nivel--;
+                                this.ambito = ambitotemp;
+                                this.posicion = posiciontemp;
+
+                                // Agregamos metodo a la tabla de simbolos
+                                nombre+="()";
+                                ss = NULL;
+            
+                                ss = new Simbolo();
+                                ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                ss.dimensiones=[];
+                                ss.sobreescribir=this.sobreescribir;
+                                //Agregamos los identificadores de los parametros al simbolo
+                                ss.parametros = identificadores;
+
+                                //Verificamos que el simbolo no exista en la tabla de simbolos
+                                if(!this.tabla.existeSimbolo(nombre)){
+                                    this.tabla.agregarSimbolo(nombre,ss);
+                                } else {
+                                    error ExisteSimbolo(id,ambito);
+                                }
+                            }
+                            //VISIBILIDAD TIPO id DIMENSION '(' ')' '{' LISTA_INSTRUCCIONES '}'
+                            else if(hijo0=="VISIBILIDAD" && hijo1=="TIPO" && hijo2=="Dimension" && hijo3=="ID" && hijo4=="INSTRUCCIONES"){
+                                acceso=arbol.hijos[0].valor;
+                                tipo=arbol.hijos[1].valor;
+                                id=arbol.hijos[3].valor;
+                                //recorremos los parametros
+                                //this.llenarTabla(arbol.hijos[3]);
+
+                                var dimensione=[];
+                                dimensione=getDimensiones(dimensione,arbol.hijos[2]);
+
+                                this.ambito = this.ambito+"_"+id+this.params;
+                                this.nivel++;
+                                //creamos los simbolos de parametros
+                                //identificadores = llenarConParametros(identificadores, arbol.hijos[3]);
+                                this.ambito = ambitotemp;
+                                this.nivel--;
+
+                                var nombre = this.ambito+"_"+id+this.params;
+                                if (acceso == ""){
+                                    acceso = this.accesoClase;
+                                }
+                                var cantHijos = arbol.hijos.length;
+
+                                // Cambio de ambito
+                                this.ambito = nombre;
+                                this.nivel++;
+
+                                //Agregamos el "this" en la posicion 0 del metodo
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
+                                this.tamanoMetodo++;
+
+                                // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
+                                llenarTabla(arbol.hijos[4]);
+
+                                //Agregamos el "return" en la posicion 1 del metodo
+                                if (!(tipo=="vacio"))
+                                {
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
+                                    {
+                                        this.tabla.agregarSimbolo(this.ambito+"_return", s);
+                                    }
+                                    this.posicion++;
+                                    this.tamanoMetodo++;
+                                }
+                                
+                                // Vuelvo al ámbito anterior
+                                this.nivel--;
+                                this.ambito = ambitotemp;
+                                this.posicion = posiciontemp;
+
+                                // Agregamos metodo a la tabla de simbolos
+                                nombre+="()";
+                                ss = NULL;
+            
+                                ss = new Simbolo();
+                                ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                ss.dimensiones=dimensione;
+                                ss.arreglo=true;
+                                ss.sobreescribir=this.sobreescribir;
+                                //Agregamos los identificadores de los parametros al simbolo
+                                ss.parametros = identificadores;
+
+                                //Verificamos que el simbolo no exista en la tabla de simbolos
+                                if(!this.tabla.existeSimbolo(nombre)){
+                                    this.tabla.agregarSimbolo(nombre,ss);
+                                } else {
+                                    error ExisteSimbolo(id,ambito);
+                                }
+                            }
+
+                            //TIPO id DIMENSION '(' PARAMETROS ')' '{' LISTA_INSTRUCCIONES '}'
+                            else if(hijo0=="TIPO" && hijo1=="Dimension" && hijo2=="ID" && hijo3=="PARAMETROS" && hijo4=="INSTRUCCIONES"){
+                                
+                                tipo=arbol.hijos[0].valor;
+                                id=arbol.hijos[2].valor;
+                                //recorremos los parametros
+                                this.llenarTabla(arbol.hijos[3]);
+
+                                var dimensione=[];
+                                dimensione=getDimensiones(dimensione,arbol.hijos[1]);
+
+                                this.ambito = this.ambito+"_"+id+this.params;
+                                this.nivel++;
+                                //creamos los simbolos de parametros
+                                identificadores = llenarConParametros(identificadores, arbol.hijos[3]);
+                                this.ambito = ambitotemp;
+                                this.nivel--;
+
+                                var nombre = this.ambito+"_"+id+this.params;
+                                if (acceso == ""){
+                                    acceso = this.accesoClase;
+                                }
+                                var cantHijos = arbol.hijos.length;
+
+                                // Cambio de ambito
+                                this.ambito = nombre;
+                                this.nivel++;
+
+                                //Agregamos el "this" en la posicion 0 del metodo
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
+                                this.tamanoMetodo++;
+
+                                // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
+                                llenarTabla(arbol.hijos[4]);
+
+                                //Agregamos el "return" en la posicion 1 del metodo
+                                if (!(tipo=="vacio"))
+                                {
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
+                                    {
+                                        this.tabla.agregarSimbolo(this.ambito+"_return", s);
+                                    }
+                                    this.posicion++;
+                                    this.tamanoMetodo++;
+                                }
+                                
+                                // Vuelvo al ámbito anterior
+                                this.nivel--;
+                                this.ambito = ambitotemp;
+                                this.posicion = posiciontemp;
+
+                                // Agregamos metodo a la tabla de simbolos
+                                nombre+="()";
+                                ss = NULL;
+            
+                                ss = new Simbolo();
+                                ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                ss.dimensiones=dimensione;
+                                ss.arreglo=true;
+                                ss.sobreescribir=this.sobreescribir;
+                                //Agregamos los identificadores de los parametros al simbolo
+                                ss.parametros = identificadores;
+
+                                //Verificamos que el simbolo no exista en la tabla de simbolos
+                                if(!this.tabla.existeSimbolo(nombre)){
+                                    this.tabla.agregarSimbolo(nombre,ss);
+                                } else {
+                                    error ExisteSimbolo(id,ambito);
+                                }
+                            }
+
+                            
                             break;
                         }
                         case 3:{
@@ -1082,7 +1283,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1092,10 +1294,11 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
-                                        this.tabla.agregarSimbolo(this.ambito+"_return", s);
+                                        this.tabla.agregarSimbolo(this.ambito+"_return", ss);
                                     }
                                     this.posicion++;
                                     this.tamanoMetodo++;
@@ -1110,9 +1313,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1148,7 +1353,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1158,7 +1364,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1176,9 +1383,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1215,7 +1424,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1225,7 +1435,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1243,9 +1454,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1288,7 +1501,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1298,7 +1512,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1316,9 +1531,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1355,7 +1572,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1365,7 +1583,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1383,9 +1602,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1421,7 +1642,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1431,7 +1653,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1449,9 +1672,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1491,7 +1716,8 @@ class GeneradorDeCodigo
                                 this.nivel++;
 
                                 //Agregamos el "this" en la posicion 0 del metodo
-                                TThis = new Simbolo(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
+                                TThis = new Simbolo();
+                                TThis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A","N/A","N/A");
                                 this.tabla.agregarSimbolo(this.ambito+"_this",TThis);
                                 this.tamanoMetodo++;
 
@@ -1501,7 +1727,8 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", s);
@@ -1519,9 +1746,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 ss = NULL;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new Simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1539,7 +1768,6 @@ class GeneradorDeCodigo
                         }
 
                     }
-
 
 
                     var nombre = ambito+"_"+id+this.params;
@@ -1827,8 +2055,12 @@ class GeneradorDeCodigo
                             var nombre=this.ambito+"_"+id;
                             s = new Simbolo();
 
+                            var dimensione=[];
+                            dimensione=getDimensiones(dimensione,paramet.hijos[2]);
+
                             s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
                             s.arreglo=true;
+                            s.dimensiones=dimensione;
                             if(!this.tabla.existeSimbolo(nombre)){
                                 this.tabla.agregarSimbolo(nombre,s);
                                 this.posicion++;
@@ -1845,8 +2077,12 @@ class GeneradorDeCodigo
                             var nombre=this.ambito+"_"+id;
                             s = new Simbolo();
 
+                            var dimensione=[];
+                            dimensione=getDimensiones(dimensione,paramet.hijos[2]);
+
                             s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
                             s.arreglo=true;
+                            s.dimensiones=dimensione;
                             if(!this.tabla.existeSimbolo(nombre)){
                                 this.tabla.agregarSimbolo(nombre,s);
                                 this.posicion++;
@@ -1906,9 +2142,13 @@ class GeneradorDeCodigo
                             var nombre=this.ambito+"_"+id;
                             s = new Simbolo();
 
+                            var dimensione=[];
+                            dimensione=getDimensiones(dimensione,paramet.hijos[3]);
+
                             s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
                             s.arreglo=true;
                             s.puntero=true;
+                            s.dimensiones=dimensione;
                             if(!this.tabla.existeSimbolo(nombre)){
                                 this.tabla.agregarSimbolo(nombre,s);
                                 this.posicion++;
@@ -1925,9 +2165,13 @@ class GeneradorDeCodigo
                             var nombre=this.ambito+"_"+id;
                             s = new Simbolo();
 
+                            var dimensione=[];
+                            dimensione=getDimensiones(dimensione,paramet.hijos[3]);
+
                             s.setValores(nombre,id, this.ambito,this.nivel,this.posicion*4,tipo,"parametro_val",4,"N/A","N/A","N/A");
                             s.arreglo=true;
                             s.puntero=true;
+                            s.dimensiones=dimensione;
                             if(!this.tabla.existeSimbolo(nombre)){
                                 this.tabla.agregarSimbolo(nombre,s);
                                 this.posicion++;
@@ -1947,13 +2191,26 @@ class GeneradorDeCodigo
             }
         } 
     }
+
     return identifica;
+}
+
+getDimensiones(dimension, arbol){
+    
+    for(var i=0;i<arbol.hijos.length;i++){
+        if(arbol.hijos[i].etiqueta=="ENTERO"){
+            dimension.add(arbol.hijos[i].valor);
+        }
+
+    }
+    return dimension;
 }
 
 
 }
 //falta arreglar metodos del inicio
 //continuar recorrido
+/*
 class GeneradorDeCodigo : public Errores
 {
 public:
@@ -1984,4 +2241,4 @@ private:
     void CompilarImport(QString path);
 
 
-};
+};*/
