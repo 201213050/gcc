@@ -31,18 +31,57 @@
         <div class="tab-content" id="tab-content"  >                                
         </div>
     </body>
-    <script>  
     
+<script id="modecode">
 
-        
-        //var path = document.getElementById('archivo'); 
-        //importar("C:\\gcc\\estructuras\\estructuras\\nodo.gcc");
-        
-        //nuevo();                 
-        //pedirArchivo('');
-
-        /*Lista de break points perros :vs*/
-        var breakPoints = {};
+    CodeMirror.defineSimpleMode("gccStyle", {
+        // The start state contains the rules that are intially used
+        start: [
+        // The regex matches the token, the token property contains the type
+        {regex: /"(?:[^\\]|\\.)*?(?:"|$)/, token: "string"},
+        {regex: /'(?:[^\\]|\\.)*?(?:'|$)/, token: "string"},        
+        // You can match multiple tokens at once. Note that the captured
+        // groups must span the whole string in this case
+        {regex: /(function)(\s+)([a-z$][\w$]*)/,
+        token: ["keyword", null, "variable-2"]},
+        // Rules are matched in the order in which they appear, so there is
+        // no ambiguity between this one and the one above
+        {regex: /(?:funcion|verdadero|falso|decimal|entero|cadena|caracter|booleano|vacio|si|si_verdadero|si_falso|imprimir|concatenar|convertiracadena|convertiraentero|clase|este|publico|privado|protegido|hereda_de|importar|puntero|@sobreescribir|retorno|principal|nuevo|romper|continuar|estructura|crearPuntero|obtenerdireccion|reservarmemoria|consultartamanio|nada|destruirpuntero|lista|insertar|obtener|buscar|pila|apilar|desapilar|cola|encolar|desencolar|fin-si|evaluar_si|es_igual_a|repetir_mientras|hacer|mientras|ciclo_doble_condicion|repetir|hasta_que|defecto|repetir_contando|desde|hasta|enciclar|contador|leer_teclado)\b/i,
+        token: "reservadas"},
+        {regex: /true|false|null|undefined/, token: "atom"},
+        {regex: /0x[a-f\d]+|[-+]?(?:\.\d+|\d+\.?\d*)(?:e[-+]?\d+)?/i,
+        token: "number"},
+        {regex: /\/\/.*/, token: "comment"},
+        {regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3"},
+        // A next property will cause the mode to move to a different state
+        {regex: /\/\*/, token: "comment", next: "comment"},
+        {regex: /[-+\/*=<>!]+/, token: "operator"},
+        // indent and dedent properties guide autoindentation
+        {regex: /[\{\[\(]/, indent: true},
+        {regex: /[\}\]\)]/, dedent: true},
+        {regex: /[a-z$][\w$]*/, token: "variable"},
+        // You can embed other modes with the mode property. This rule
+        // causes all code between << and >> to be highlighted with the XML
+        // mode.
+        {regex: /<</, token: "meta", mode: {spec: "xml", end: />>/}}
+        ],
+        // The multi-line comment state.
+        comment: [
+        {regex: /.*?\*\//, token: "comment", next: "start"},
+        {regex: /.*/, token: "comment"}
+        ],
+        // The meta property contains global information about the mode. It
+        // can contain properties like lineComment, which are supported by
+        // all modes, and also directives like dontIndentStates, which are
+        // specific to simple modes.
+        meta: {
+        dontIndentStates: ["comment"],
+        lineComment: "//"
+        }
+    });
+    
+</script>    
+    <script>
 
         /*Agregamos el evento para preparar*/
         document.getElementById('archivo')
@@ -53,6 +92,17 @@
         document.getElementById('archivo')
             .addEventListener('change', abrirArchivo, false);        
 
+
+        /*Lista de editores.*/
+
+        var editores = {};
+        var debugers = {};
+        var consolas = {};
+        var tablas = {};
+        var stacks = {};
+        var heaps = {};
+
+        nuevo("Nuevo\\Nuevo.gcc") //Inicial;
 
         function abrir()
         {
@@ -80,22 +130,7 @@
             titulo.setAttribute("aria-controls","nav-"+id);
             titulo.setAttribute("aria-selected","true"); 
             var textnode = document.createTextNode(sub);
-            titulo.appendChild(textnode);
-            //document.getElementById("titulo").appendChild(titulo);
-            /*         
-            */
-            /* 
-            titulo.onclick = function()
-                {                    
-                    var lista = document.getElementById("archivos").getElementsByTagName("li");                    
-                    var i;
-                    for (i = 0; i < lista.length; i++) 
-                    { 
-                        //lista[i].className = "nav-item nav-link ";
-                        //lista[i].setAttribute("aria-selected","false");
-                    }                    
-                }            
-            */            
+            titulo.appendChild(textnode);          
             nav.appendChild(titulo);                               
             // Ahora agregamos area de disposición                         
             var contenedorPaginas = document.getElementById('tab-content');  // Tabla contenedora de archivos.
@@ -154,7 +189,7 @@
             var editorD = document.createElement('TEXTAREA');
             editorD.id = sub+"D" ;
             editorD.setAttribute("rows","8");
-            editorD.value =sub+"Debugger";            
+            //editorD.value =sub+"Debugger";            
            
             /*Titulo área de edicion*/
             var tituloE = document.createElement('h2');
@@ -223,7 +258,7 @@
             var areaSalida = document.createElement('TEXTAREA');
             areaSalida.id = sub + "Salida" ;
             areaSalida.setAttribute("rows","8");
-            areaSalida.value = "Consola de salida";    
+            //areaSalida.value = "Consola de salida";    
             contSalida.appendChild(areaSalida);
             
             navTab.append(consolaTab);//Titulo Consola de salida
@@ -254,7 +289,7 @@
             areaSimbolos.setAttribute("rows","8");
             areaSimbolos.value = "Tabla simbolos "+ sub;    
 
-            var tablaStack = tablaSimbolos(sub + "Simbolos");
+            var tablaStack = tablaSimbolos(sub + "simbolos");
             contSimbolos.appendChild(tablaStack);
             
             navTab.append(salidaTab);//Titulo Consola de salida
@@ -284,7 +319,7 @@
             var tablaError = tablaErrores(sub + "Errores");
             areaErrores.id = sub + "Errores";
             areaErrores.setAttribute("rows","8");
-            areaErrores.value = "Errores "+ sub;    
+            //areaErrores.value = "Errores "+ sub;    
             //contErrores.appendChild(areaErrores);
             contErrores.appendChild(tablaError);
             
@@ -314,13 +349,12 @@
             var areaStack = document.createElement('TEXTAREA');
             areaStack.id = sub + "Stack";
             areaStack.setAttribute("rows","8");
-            areaStack.value = "Stack "+ sub; 
+            //areaStack.value = "Stack "+ sub; 
             
             
             
             
-            agregarSimbolo(tablaStack,"var1","caracter[]","main_","1","1");
-            agregarSimbolo(tablaStack,"var2","numero","metodo_1","1","1");
+
 
 
             contStack.appendChild(areaStack);
@@ -352,7 +386,7 @@
             var areaHeap = document.createElement('TEXTAREA');
             areaHeap.id = sub + "Heap";
             areaHeap.setAttribute("rows","8");
-            areaHeap.value = "Heap"+ sub;    
+            //areaHeap.value = "Heap"+ sub;    
             contHeap.appendChild(areaHeap);
             
             navTab.append(heapTab);//Titulo Stack
@@ -435,13 +469,13 @@
         }        
 
         
-        function prepararArea(area, tipo)
+        function prepararArea(area)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
             {                 
                 lineNumbers: true,
                 matchBrackets: true,
-                mode: "text/x-csrc",                
+                mode: "gccStyle",                
                 styleActiveLine: true,            
                 gutters: ["CodeMirror-linenumbers", "breakpoints"]
             });
@@ -451,17 +485,19 @@
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
                 if(info.gutterMarkers == null)
                 {
-                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4), n);
+                    agregarBreakPoint( obtenerActivo(), n);
                 }
                 else
                 {
-                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4), n);
+                    quitarBreakPoint(obtenerActivo(), n);
                 }                       
                 //clearActiveLines(cm);
-            });                
+            }); 
+            
+            editores[area] = cEditor;
         } 
         
-        function prepararAreaDebuger(area, tipo)
+        function prepararAreaDebuger(area)
         {
             var cEditor = CodeMirror.fromTextArea(document.getElementById(area),
             {
@@ -480,47 +516,64 @@
                 cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());                
                 if(info.gutterMarkers == null)
                 {
-                    agregarBreakPoint( obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
+                    agregarBreakPoint( obtenerActivo() + "*D", n);
                     
                 }
                 else
                 {
-                    quitarBreakPoint(obtenerActivo().substring(4, obtenerActivo().length-4) + "*D", n);
+                    quitarBreakPoint(obtenerActivo() + "*D", n);
                 }       
-            });                
+            });  
+            
+            editores[area] = cEditor;
         }          
 
 
         function tablaSimbolos(nombre)
         {
             var tabla = document.createElement('tab');
-            tabla.id = "tabla-"+nombre;
-            tabla.style = "width:100%";
-            tabla.className = "table table-striped table-bordered";
-            //var theadT = document.createElement('thead');
-            //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
+            tabla.id = "tabla-"+nombre;            
+            tabla.className = "table";
             var encabezadoH  = document.createElement('thead');
+            encabezadoH.className = "thead-dark";
             var fila = document.createElement('tr');
-            var idL = document.createElement('th');
-            idL.appendChild(document.createTextNode('ID'));
-            var tipoL = document.createElement('th');
-            tipoL.appendChild(document.createTextNode('TIPO'));
-            var ambitoL = document.createElement('th');
-            ambitoL.appendChild(document.createTextNode('AMBITO'));
-            var posicionL = document.createElement('th');
-            posicionL.appendChild(document.createTextNode('POSICION'));                                    
-            var pesoL = document.createElement('th');
-            pesoL.appendChild(document.createTextNode('PESO'));    
+            fila.className = "width:25%";
+            var nombre = document.createElement('th');
+            nombre.appendChild(document.createTextNode('NOMBRE'));
+            var id = document.createElement('th');
+            id.appendChild(document.createTextNode('ID'));
+            var ambito = document.createElement('th');
+            ambito.appendChild(document.createTextNode('AMBITO'));
+            var nivel = document.createElement('th');
+            nivel.appendChild(document.createTextNode('NIVEL'));                                    
+            var posicion = document.createElement('th');
+            posicion.appendChild(document.createTextNode('POSICION'));    
+            var rol = document.createElement('th');
+            rol.appendChild(document.createTextNode('ROL'));
+            var tamanio = document.createElement('th');
+            tamanio.appendChild(document.createTextNode('TAMAÑO'));
+            var visibilidad = document.createElement('th');
+            visibilidad.appendChild(document.createTextNode('VISIBILIDAD'));
+            var dimension = document.createElement('th');
+            dimension.appendChild(document.createTextNode('DIMENSION'));
+                        
             
+
             var cuerpoTabla = document.createElement('tbody');
             cuerpoTabla.id = "tabla"+nombre;
 
 
-            encabezadoH.append(idL);
-            encabezadoH.append(tipoL);
-            encabezadoH.append(ambitoL);
-            encabezadoH.append(posicionL);
-            encabezadoH.append(pesoL);
+            encabezadoH.append(nombre);
+            encabezadoH.append(id);
+            encabezadoH.append(ambito);
+            encabezadoH.append(nivel);
+            encabezadoH.append(posicion);
+            encabezadoH.append(rol);
+            encabezadoH.append(tamanio);
+            encabezadoH.append(visibilidad);
+            encabezadoH.append(dimension);
+            
+
             tabla.appendChild(encabezadoH);
             tabla.appendChild(cuerpoTabla);
             return tabla;
@@ -532,12 +585,11 @@
         function tablaErrores(nombre)
         {
             var tabla = document.createElement('tab');
-            tabla.id = "tabla-"+nombre;
-            tabla.style = "width:100%";
-            tabla.className = "table table-striped table-bordered";
-            //var theadT = document.createElement('thead');
-            //agregarSimbolo(tabla, "ID","TIPO","AMBITO","POSICION","PESO");
+            tabla.id = "tabla-"+nombre;            
+            tabla.className = "table";
             var encabezadoH  = document.createElement('thead');
+            encabezadoH.className = "thead-dark";
+
             var fila = document.createElement('tr');
             var idL = document.createElement('th');
             idL.appendChild(document.createTextNode('LINEA'));
@@ -561,30 +613,48 @@
                      
         }
 
-        function agregarSimbolo(tabla, id, tipo, ambito, posicion, peso)
+        function agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
         {
+            
             var theadT = document.createElement('thead');
             var fila = document.createElement('tr');
-            var idT = document.createElement('th');
-            idT.appendChild(document.createTextNode(id));
 
-            var tipoT = document.createElement('th');
-            tipoT.appendChild(document.createTextNode(tipo));     
+            var nombreC = document.createElement('th');
+            nombreC.appendChild(document.createTextNode(nombreS));
 
-            var ambitoT = document.createElement('th');
-            ambitoT.appendChild(document.createTextNode(ambito)); 
+            var idC = document.createElement('th');
+            idC.appendChild(document.createTextNode(id));
 
-            var posicionT = document.createElement('th');
-            posicionT.appendChild(document.createTextNode(posicion)); 
+            var ambitoC = document.createElement('th');
+            ambitoC.appendChild(document.createTextNode(ambito));
 
-            var pesoT = document.createElement('th');
-            pesoT.appendChild(document.createTextNode(peso)); 
+            var nivelC = document.createElement('th');
+            nivelC.appendChild(document.createTextNode(nivel));            
+
+            var posicionC = document.createElement('th');
+            posicionC.appendChild(document.createTextNode(posicion));
+
+            var rolC = document.createElement('th');
+            rolC.appendChild(document.createTextNode(rol));
+
+            var tamanoC = document.createElement('th');
+            tamanoC.appendChild(document.createTextNode(tamano));            
+
+            var visibilidadC = document.createElement('th');
+            visibilidadC.appendChild(document.createTextNode(visibilidad));  
+
+            var dimensionC = document.createElement('th');
+            dimensionC.appendChild(document.createTextNode(dimension));              
             
-            fila.appendChild(idT);
-            fila.appendChild(tipoT);
-            fila.appendChild(ambitoT);
-            fila.appendChild(posicionT);
-            fila.appendChild(pesoT);
+            fila.appendChild(nombreC);
+            fila.appendChild(idC);
+            fila.appendChild(ambitoC);
+            fila.appendChild(nivelC);                        
+            fila.appendChild(posicionC);
+            fila.appendChild(rolC);
+            fila.appendChild(tamanoC);
+            fila.appendChild(visibilidadC);
+            fila.appendChild(dimensionC);
             theadT.appendChild(fila);
             tabla.append(theadT);                    
         }
@@ -633,9 +703,14 @@
                 //alert('Archivo '+ archivos[i].className);
                 if(archivos[i].className == "nav-item nav-link active show")
                 {
-                    return archivos[i].id;
+                    var partes = archivos[i].id.split("-");
+                    if(partes.length>3)
+                    {
+                        return partes[1]+"-"+partes[2];
+                    }
+                    return partes[1];
                 }
-            }
+            }            
             return activo;
         }
         function agregarBreakPoint(id, numero)
@@ -690,7 +765,8 @@
           { 
               try {
                   http_request = new ActiveXObject("Msxml2.XMLHTTP");
-              } catch (e) {
+              } catch (e) 
+              {
                   try {
                       http_request = new ActiveXObject("Microsoft.XMLHTTP");
                   } catch (e) {}
@@ -796,14 +872,6 @@
         var array = ul.getElementsByTagName("option"); 
         var li = quicksort(array);    
         puntos = li;
-        /*
-                for (i = 0; i < li.length; i++) 
-                {
-                    var numero  = li[i].value;
-                    var archivo = li[i].id.split("-");
-                    debug(numero,archivo);                    
-                }
-        */
     }
 
     function siguientePunto()
@@ -900,40 +968,102 @@
            var i = 0;        
            for (i = 0; i < lineas.childElementCount; i++) 
            {
-               /*if(lineas.childNodes[i].childElementCount == 4)
-               {
-                    lineas.childNodes[i].className="";
-                    lineas.childNodes[i](lineas.childNodes[i].childNodes[0]);
-                    lineas.childNodes[i](lineas.childNodes[i].childNodes[1]);
-                    lineas.childNodes[i].childNodes[2].className= "CodeMirror-gutter-wrapper";
-                    lineas.childNodes[i].childNodes[3].className= " CodeMirror-line " ;
-               }
-               else
-               {
-                */
-                    lineas.childNodes[i].childNodes[0].className= "CodeMirror-gutter-wrapper";
-                    lineas.childNodes[i].childNodes[1].className= " CodeMirror-line " ;                   
-               /*}*/
-
+                lineas.childNodes[i].childNodes[0].className= "CodeMirror-gutter-wrapper";
+                lineas.childNodes[i].childNodes[1].className= " CodeMirror-line " ;                               
            }           
            lineas.childNodes[numero].className = "CodeMirror-activeline" ;
            lineas.childNodes[numero].childNodes[0].className="CodeMirror-activeline-backgroundD CodeMirror-linebackground";
            alert('Siguiente');
         }
 
+
+
         function compilar()
         {
 
             //alert(obtenerActivo());
-            var vector = obtenerActivo().split("-");
-            var contenedor =  document.getElementById(vector[1]);
+            var vector = obtenerActivo();
+            //var contenedor =  document.getElementById(vector[1]);            
             //alert(contenedor.value);
+            var cadena = editores[vector].getValue();
+            Iniciar(cadena);            
+        }
+        /*
+            editor  = nombre
+            debuger = nombre + "d"
+            salida  = nombre + "salida"
+            stack   = nombre + "stack"
+            heap    = nombre + "heap"  
+            tabladeSimbolos = "tabla-"+nombre       
+        
+        */
 
-            //Enviamos el contenido para ser parseado.
-            Iniciar(contenedor.value);            
-        }        
+        function limpiarErrores()
+        {
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();               
+            var tabla  = document.getElementById("tabla-"+nombre+ "Errores"); 
+            var padre = tabla.parentNode;
+            padre.replaceChild(tablaErrores(nombre + "Errores"),tabla);        
+            
+        }
 
+        function addError(linea, columna, tipo, descripcion)
+        {
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();
+            /*Ahora obtenemos el elemento tabla*/
+            var tabla  = document.getElementById("tabla-"+nombre+ "Errores");
+            agregarError(tabla,linea, columna, tipo, descripcion);
+        }
 
+        function addSimbolo(nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
+        {            
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();
+            /*Ahora obtenemos el elemento tabla*/
+            var tabla  = document.getElementById("tabla-"+nombre+ "simbolos");
+            /*Agregamos a la tabla el nuevo símbolo*/
+            agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension);            
+        }       
+        
+        function addSalida(mensaje)
+        {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var textoActual = editores[nombre+"Salida"].getValue();
+            textoActual = textoActual + "\n" + mensaje;
+            editores[nombre+"Salida"].setValue(textoActual);
+        }
+
+        function addStack(posicion, valor)
+        {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var contenido = editores[nombre+"Stack"].getValue();
+            
+            var index = contenido.split("\n");
+            index[posicion] = valor; // Actualizamos el valor
+            var nuevoContenido = "";
+            var i;
+            for(i = 0 ; i< index.length; i ++)
+            {
+                nuevoContenido = nuevoContenido + index[i];
+            }
+            editores[nombre+"Stack"].setValue(nuevoContenido);// Actualizamos el heap.        
+        }
+
+        function addHeap(valor)
+        {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.
+            var  contActual = editores[nombre+"Heap"].getValue();
+            contActual = contActual+"\n"+valor;
+            editores[nombre+"Heap"].setValue(contActual);
+        }
+
+        function add3D(cadena)
+        {
+            var nombre = obtenerActivo(); // Nombre del archivo actual.            
+            editores[nombre+"D"].setValue(cadena);
+        }
 
     </script>  
 

@@ -6,7 +6,12 @@ function Iniciar(texto) {
         try 
         {         
             raiz = gcc.parse(texto);	  	
-	  		grafica(raiz);	  		  			
+              grafica(raiz);
+              if(raiz!=null){
+                  recorrer1=new GeneradorDeCodigo();
+                  recorrer1.setInicial();
+                  recorrer1.AgregarArbol(raiz);
+              }	  		  			
 		}
 		catch (e) {
 			

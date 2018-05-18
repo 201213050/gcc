@@ -1,7 +1,5 @@
 class GeneradorDeCodigo
 {
-    
-
     constructor()
     {
         this.codigo3D;
@@ -40,6 +38,7 @@ class GeneradorDeCodigo
 
 
     }
+
     setInicial()
     {
         this.etq = 0;
@@ -77,15 +76,16 @@ class GeneradorDeCodigo
 
     }
 
-    AgregarAbol(arbol)
+    AgregarArbol(arbol)
     {
         this.listaAboles.push(arbol);
-        analizarImports(arbol);
+        this.analizarImports(arbol);
         this.contadorImports++;
         
         //imprimir tabla de simbolos pendiente
         //tabla.imprimir();
     }
+
     ExisteSimbolo(idd, ambit)
     {
         texto = "ERROR SEMANTICO: La variable "+idd+" ya fue declara en el ambito "+ambit;
@@ -98,16 +98,17 @@ class GeneradorDeCodigo
     }
 
     analizarImports(arbol){
-        if(arbol!=NULL){
+        if(arbol!=null){
             var etiqueta = arbol.etiqueta;
-    
+            var i;
             if(etiqueta == "INICIO"){
-                for(i = 0; i < arbol.hijos.length; i++){
-                    analizarImports(arbol.hijos[i]);
+                for(i = 0; i < arbol.hijos.length; i++)
+                {
+                    this.analizarImports(arbol.hijos[i]);
                 }
             } else if (etiqueta == "IMPORTAR"){ //incompleto
                 var importar= arbol.hijos[0].valor;
-                CompilarImport(path);
+                //CompilarImport(importar);
                 
             }
             /* else if (etiqueta == "IMPORT"){
@@ -117,7 +118,7 @@ class GeneradorDeCodigo
             } 
             */else if (etiqueta == "CLASE"){
                 //errores.open("errores.txt");
-                llenarTabla(arbol);
+                this.llenarTabla(arbol);
                 //generarCodigo3D(tmp,etq,arbol);
                 //Iniciar();
             }
@@ -125,20 +126,22 @@ class GeneradorDeCodigo
     }
 
     llenarTabla(arbol){
-        if(arbol!=NULL){
+        if(arbol!=null){
             var etiqueta = arbol.etiqueta;
             console.log(etiqueta);
             //cout<<etiqueta.toStdString()<<endl;
     
             if(etiqueta == "INICIO"){
+                var i;
                 for (i = 0; i< arbol.hijos.length; i++){
-                    llenarTabla(arbol.hijos[i]);
+                    this.llenarTabla(arbol.hijos[i]);
                 }
             }
     
             else if(etiqueta == "CLASE_LIST"){
+                var i;
                 for (i = 0; i< arbol.hijos.length; i++){
-                    llenarTabla(arbol.hijos[i]);
+                    this.llenarTabla(arbol.hijos[i]);
                 }
             }
     
@@ -169,7 +172,7 @@ class GeneradorDeCodigo
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
-                            ExisteSimbolo(id,ambito);
+                            this.ExisteSimbolo(id,ambito);
                         }
                         break;
                     }
@@ -202,7 +205,7 @@ class GeneradorDeCodigo
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
-                            ExisteSimbolo(id,ambito);
+                            this.ExisteSimbolo(id,ambito);
                         }
                         break;
                     }
@@ -304,7 +307,7 @@ class GeneradorDeCodigo
 
                     // Agregamos metodo a la tabla de simbolos
                     nombre+="()";
-                    ss = NULL;
+                    ss = null;
                     if(id.toLocaleLowerCase() == this.idClase.toLocaleLowerCase() && tipo.toLowerCase()=="vacio"){
                         ss = new Simbolo();
                         ss.setValores(nombre,id,ambitotemp,nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso);
@@ -395,7 +398,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -473,7 +476,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -543,7 +546,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -614,7 +617,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -691,7 +694,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -762,7 +765,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -832,7 +835,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -906,7 +909,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1031,7 +1034,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1112,7 +1115,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1182,7 +1185,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1255,7 +1258,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1330,7 +1333,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1411,7 +1414,7 @@ class GeneradorDeCodigo
     
                                     // Agregamos metodo a la tabla de simbolos
                                     nombre+="()";
-                                    ss = NULL;
+                                    ss = null;
                 
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1481,7 +1484,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1553,7 +1556,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1624,7 +1627,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1696,7 +1699,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
             
                                 ss = new Simbolo();
                                 ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1773,7 +1776,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1844,7 +1847,7 @@ class GeneradorDeCodigo
 
                                 // Agregamos metodo a la tabla de simbolos
                                 nombre+="()";
-                                ss = NULL;
+                                ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
                                     ss = new Simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
@@ -1879,7 +1882,7 @@ class GeneradorDeCodigo
                     params += "_"+arbol.hijos[1].hijos[0].etiqueta;
                 } else if (etiqueta == "INSTRUCCIONES"){
                     var i = 0;
-                    while(arbol.hijos[i]!=NULL){
+                    while(arbol.hijos[i]!=null){
                         llenarTabla(arbol.hijos[i]);
                         i++;
                     }
@@ -1894,7 +1897,7 @@ class GeneradorDeCodigo
 
     llenarConParametros(identifica, arbol)
     {
-        if(arbol!=NULL){
+        if(arbol!=null){
             var etiqueta = arbol.etiqueta;
         if(etiqueta == "PARAMETROS"){
             for (i = 0; i<arbol.hijos.length; i++){
@@ -2104,37 +2107,3 @@ getDimensiones(dimension, arbol){
 
 
 }
-//falta arreglar metodos del inicio
-//continuar recorrido
-/*
-class GeneradorDeCodigo : public Errores
-{
-public:
-    
-
-    void llenarTabla(Nodo* arbol);
-    void analizarImports(Nodo* arbol);
-    void AgregarAbol(Nodo* arbol);
-    QList<QString> llenarConParametros(QList<QString> &identificadores, Nodo* arbol);
-    QString generarCodigo3D(int &tmp, int &etq, Nodo* arbol);
-    QString getParamsTipo(QString params, Nodo* arbol);
-    QString generarAsignacion(int &tmp, int &etq, Nodo* arbol);
-    QString generarDecVar(int &tmp, int &etq, Nodo* arbol);
-    void escribir(QString codigo);
-    void emitirCodigo3D();
-    QString generaTmp();
-    QString generaETQ();
-    
-    QList<Nodo> *getDimensiones(QList<Nodo> *dimensiones, Nodo *arbol);
-    
-    void generarImprimir();
-
-
-private:
-
-
-    void generarParametros(QString temporal, QString nombre, Nodo* arbol, int &cont);
-    void CompilarImport(QString path);
-
-
-};*/
