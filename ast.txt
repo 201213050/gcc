@@ -2,7 +2,7 @@ digraph lista{  rankdir=TB;node [shape = box, style=rounded]; nodo2[fontsize=50 
 "nodo2"-> "nodo1"
 "nodo2"-> "nodo4"
 "nodo2"-> "nodo93"
-"nodo2"-> "nodo338"
+"nodo2"-> "nodo341"
 nodo1[fontsize=50 label="IMPORTAR  {1,1} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo1"-> "nodo0"
 nodo0[fontsize=50 label="\"Operaciones.gcc\"  [CADENA]{1,10} ", color="cyan", style ="filled", shape="circle"]; 
@@ -188,17 +188,17 @@ nodo84[fontsize=50 label="LLAMADA  {27,12} ", color="cyan", style ="filled", sha
 "nodo84"-> "nodo85"
 nodo85[fontsize=50 label="pedir_num  [ID]{28,13} ", color="cyan", style ="filled", shape="circle"]; 
 nodo87[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo338[fontsize=50 label="CLASE  {38,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo338"-> "nodo95"
-"nodo338"-> "nodo339"
-"nodo338"-> "nodo146"
+nodo341[fontsize=50 label="CLASE  {38,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo341"-> "nodo95"
+"nodo341"-> "nodo342"
+"nodo341"-> "nodo146"
 nodo95[fontsize=50 label="publico  [VISIBILIDAD]{38,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo339[fontsize=50 label="Funciones  [ID]{38,15} ", color="cyan", style ="filled", shape="circle"]; 
+nodo342[fontsize=50 label="Funciones  [ID]{38,15} ", color="cyan", style ="filled", shape="circle"]; 
 nodo146[fontsize=50 label="INSTRUCCIONESCUERPO  {40,5} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo146"-> "nodo144"
 "nodo146"-> "nodo262"
-"nodo146"-> "nodo315"
-"nodo146"-> "nodo336"
+"nodo146"-> "nodo318"
+"nodo146"-> "nodo339"
 nodo144[fontsize=50 label="METODO  {40,5} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo144"-> "nodo96"
 "nodo144"-> "nodo97"
@@ -531,150 +531,154 @@ nodo253[fontsize=50 label="apellido  [ID]{82,47} ", color="cyan", style ="filled
 nodo258[fontsize=50 label="IMPRIMIR  {82,20} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo258"-> "nodo257"
 nodo257[fontsize=50 label="text  [ID]{83,30} ", color="cyan", style ="filled", shape="circle"]; 
-nodo315[fontsize=50 label="METODO  {90,5} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo315"-> "nodo264"
-"nodo315"-> "nodo316"
-"nodo315"-> "nodo268"
-"nodo315"-> "nodo311"
+nodo318[fontsize=50 label="METODO  {90,5} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo318"-> "nodo264"
+"nodo318"-> "nodo266"
+"nodo318"-> "nodo271"
+"nodo318"-> "nodo314"
 nodo264[fontsize=50 label="Entero  [TIPO]{90,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo316[fontsize=50 label="fibonacci_recursivo  [ID]{90,12} ", color="cyan", style ="filled", shape="circle"]; 
-nodo268[fontsize=50 label="PARAMETROS  {89,31} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo268"-> "nodo266"
-nodo266[fontsize=50 label="PARAMETRO  {89,31} ", color="cyan", style ="filled", shape="circle"]; 
+nodo266[fontsize=50 label="Dimension  {90,11} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo266"-> "nodo265"
 "nodo266"-> "nodo267"
-nodo265[fontsize=50 label="Entero  [TIPO]{90,32} ", color="cyan", style ="filled", shape="circle"]; 
-nodo267[fontsize=50 label="n  [ID]{90,39} ", color="cyan", style ="filled", shape="circle"]; 
-nodo311[fontsize=50 label="INSTRUCCIONES  {91,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo311"-> "nodo310"
-"nodo311"-> "nodo314"
-nodo310[fontsize=50 label="SI  {90,8} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo310"-> "nodo271"
-"nodo310"-> "nodo307"
-nodo271[fontsize=50 label="==  {90,12} ", color="cyan", style ="filled", shape="circle"]; 
+nodo265[fontsize=50 label="3  [ENTERO]{90,12} ", color="cyan", style ="filled", shape="circle"]; 
+nodo267[fontsize=50 label="3  [ENTERO]{90,15} ", color="cyan", style ="filled", shape="circle"]; 
+nodo271[fontsize=50 label="PARAMETROS  {89,37} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo271"-> "nodo269"
-"nodo271"-> "nodo270"
-nodo269[fontsize=50 label="n  [ID]{91,13} ", color="cyan", style ="filled", shape="circle"]; 
-nodo270[fontsize=50 label="0  [ENTERO]{91,16} ", color="cyan", style ="filled", shape="circle"]; 
-nodo307[fontsize=50 label="CUERPO_IF  {91,12} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo307"-> "nodo308"
-"nodo307"-> "nodo309"
-nodo308[fontsize=50 label="VERDADERO  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo308"-> "nodo274"
-nodo274[fontsize=50 label="INSTRUCCIONES  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
+nodo269[fontsize=50 label="PARAMETRO  {89,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo269"-> "nodo268"
+"nodo269"-> "nodo270"
+nodo268[fontsize=50 label="Entero  [TIPO]{90,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo270[fontsize=50 label="n  [ID]{90,45} ", color="cyan", style ="filled", shape="circle"]; 
+nodo314[fontsize=50 label="INSTRUCCIONES  {91,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo314"-> "nodo313"
+"nodo314"-> "nodo317"
+nodo313[fontsize=50 label="SI  {90,8} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo313"-> "nodo274"
+"nodo313"-> "nodo310"
+nodo274[fontsize=50 label="==  {90,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo274"-> "nodo272"
 "nodo274"-> "nodo273"
-nodo273[fontsize=50 label="RETORNO  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo273"-> "nodo272"
-nodo272[fontsize=50 label="0  [ENTERO]{94,25} ", color="cyan", style ="filled", shape="circle"]; 
-nodo309[fontsize=50 label="FALSO  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo309"-> "nodo306"
-nodo306[fontsize=50 label="INSTRUCCIONES  {98,17} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo306"-> "nodo305"
-nodo305[fontsize=50 label="SI  {97,16} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo305"-> "nodo277"
-"nodo305"-> "nodo302"
-nodo277[fontsize=50 label="==  {97,20} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo277"-> "nodo275"
+nodo272[fontsize=50 label="n  [ID]{91,13} ", color="cyan", style ="filled", shape="circle"]; 
+nodo273[fontsize=50 label="0  [ENTERO]{91,16} ", color="cyan", style ="filled", shape="circle"]; 
+nodo310[fontsize=50 label="CUERPO_IF  {91,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo310"-> "nodo311"
+"nodo310"-> "nodo312"
+nodo311[fontsize=50 label="VERDADERO  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo311"-> "nodo277"
+nodo277[fontsize=50 label="INSTRUCCIONES  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo277"-> "nodo276"
-nodo275[fontsize=50 label="n  [ID]{98,21} ", color="cyan", style ="filled", shape="circle"]; 
-nodo276[fontsize=50 label="1  [ENTERO]{98,24} ", color="cyan", style ="filled", shape="circle"]; 
-nodo302[fontsize=50 label="CUERPO_IF  {98,20} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo302"-> "nodo303"
-"nodo302"-> "nodo304"
-nodo303[fontsize=50 label="VERDADERO  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo303"-> "nodo280"
-nodo280[fontsize=50 label="INSTRUCCIONES  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
+nodo276[fontsize=50 label="RETORNO  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo276"-> "nodo275"
+nodo275[fontsize=50 label="0  [ENTERO]{94,25} ", color="cyan", style ="filled", shape="circle"]; 
+nodo312[fontsize=50 label="FALSO  {94,17} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo312"-> "nodo309"
+nodo309[fontsize=50 label="INSTRUCCIONES  {98,17} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo309"-> "nodo308"
+nodo308[fontsize=50 label="SI  {97,16} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo308"-> "nodo280"
+"nodo308"-> "nodo305"
+nodo280[fontsize=50 label="==  {97,20} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo280"-> "nodo278"
 "nodo280"-> "nodo279"
-nodo279[fontsize=50 label="RETORNO  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo279"-> "nodo278"
-nodo278[fontsize=50 label="1  [ENTERO]{101,33} ", color="cyan", style ="filled", shape="circle"]; 
-nodo304[fontsize=50 label="FALSO  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo304"-> "nodo301"
-nodo301[fontsize=50 label="INSTRUCCIONES  {105,25} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo301"-> "nodo300"
-nodo300[fontsize=50 label="SI  {104,24} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo300"-> "nodo283"
-"nodo300"-> "nodo299"
-nodo283[fontsize=50 label=">  {104,27} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo283"-> "nodo281"
+nodo278[fontsize=50 label="n  [ID]{98,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo279[fontsize=50 label="1  [ENTERO]{98,24} ", color="cyan", style ="filled", shape="circle"]; 
+nodo305[fontsize=50 label="CUERPO_IF  {98,20} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo305"-> "nodo306"
+"nodo305"-> "nodo307"
+nodo306[fontsize=50 label="VERDADERO  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo306"-> "nodo283"
+nodo283[fontsize=50 label="INSTRUCCIONES  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo283"-> "nodo282"
-nodo281[fontsize=50 label="n  [ID]{105,28} ", color="cyan", style ="filled", shape="circle"]; 
-nodo282[fontsize=50 label="1  [ENTERO]{105,30} ", color="cyan", style ="filled", shape="circle"]; 
-nodo299[fontsize=50 label="VERDADERO  {105,28} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo299"-> "nodo298"
-nodo298[fontsize=50 label="INSTRUCCIONES  {108,33} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo298"-> "nodo297"
-nodo297[fontsize=50 label="RETORNO  {108,33} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo297"-> "nodo296"
-nodo296[fontsize=50 label="+  {107,40} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo296"-> "nodo288"
-"nodo296"-> "nodo294"
-nodo288[fontsize=50 label="LLAMADA  {107,40} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo288"-> "nodo289"
-"nodo288"-> "nodo287"
-nodo289[fontsize=50 label="fibonacci_recursivo  [ID]{108,41} ", color="cyan", style ="filled", shape="circle"]; 
-nodo287[fontsize=50 label="VALOR  {107,60} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo287"-> "nodo286"
-nodo286[fontsize=50 label="-  {107,60} ", color="cyan", style ="filled", shape="circle"]; 
+nodo282[fontsize=50 label="RETORNO  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo282"-> "nodo281"
+nodo281[fontsize=50 label="1  [ENTERO]{101,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo307[fontsize=50 label="FALSO  {101,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo307"-> "nodo304"
+nodo304[fontsize=50 label="INSTRUCCIONES  {105,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo304"-> "nodo303"
+nodo303[fontsize=50 label="SI  {104,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo303"-> "nodo286"
+"nodo303"-> "nodo302"
+nodo286[fontsize=50 label=">  {104,27} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo286"-> "nodo284"
 "nodo286"-> "nodo285"
-nodo284[fontsize=50 label="n  [ID]{108,61} ", color="cyan", style ="filled", shape="circle"]; 
-nodo285[fontsize=50 label="1  [ENTERO]{108,63} ", color="cyan", style ="filled", shape="circle"]; 
-nodo294[fontsize=50 label="LLAMADA  {107,67} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo294"-> "nodo295"
-"nodo294"-> "nodo293"
-nodo295[fontsize=50 label="fibonacci_recursivo  [ID]{108,68} ", color="cyan", style ="filled", shape="circle"]; 
-nodo293[fontsize=50 label="VALOR  {107,87} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo293"-> "nodo292"
-nodo292[fontsize=50 label="-  {107,87} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo292"-> "nodo290"
-"nodo292"-> "nodo291"
-nodo290[fontsize=50 label="n  [ID]{108,88} ", color="cyan", style ="filled", shape="circle"]; 
-nodo291[fontsize=50 label="2  [ENTERO]{108,90} ", color="cyan", style ="filled", shape="circle"]; 
-nodo314[fontsize=50 label="RETORNO  {115,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo314"-> "nodo313"
-nodo313[fontsize=50 label="-  {114,16} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo313"-> "nodo312"
-nodo312[fontsize=50 label="1  [ENTERO]{115,18} ", color="cyan", style ="filled", shape="circle"]; 
-nodo336[fontsize=50 label="METODO  {118,5} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo336"-> "nodo317"
-"nodo336"-> "nodo318"
-"nodo336"-> "nodo337"
-"nodo336"-> "nodo321"
-nodo317[fontsize=50 label="publico  [VISIBILIDAD]{118,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo318[fontsize=50 label="vacio  [TIPO]{118,13} ", color="cyan", style ="filled", shape="circle"]; 
-nodo337[fontsize=50 label="pedir_num  [ID]{118,19} ", color="cyan", style ="filled", shape="circle"]; 
-nodo321[fontsize=50 label="INSTRUCCIONES  {119,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo321"-> "nodo320"
-"nodo321"-> "nodo324"
-"nodo321"-> "nodo335"
-nodo320[fontsize=50 label="IMPRIMIR  {118,8} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo320"-> "nodo319"
-nodo319[fontsize=50 label="\"Pedir num\"  [CADENA]{119,18} ", color="cyan", style ="filled", shape="circle"]; 
-nodo324[fontsize=50 label="DECLARACION_VAR  {120,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo324"-> "nodo322"
-"nodo324"-> "nodo325"
+nodo284[fontsize=50 label="n  [ID]{105,28} ", color="cyan", style ="filled", shape="circle"]; 
+nodo285[fontsize=50 label="1  [ENTERO]{105,30} ", color="cyan", style ="filled", shape="circle"]; 
+nodo302[fontsize=50 label="VERDADERO  {105,28} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo302"-> "nodo301"
+nodo301[fontsize=50 label="INSTRUCCIONES  {108,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo301"-> "nodo300"
+nodo300[fontsize=50 label="RETORNO  {108,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo300"-> "nodo299"
+nodo299[fontsize=50 label="+  {107,40} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo299"-> "nodo291"
+"nodo299"-> "nodo297"
+nodo291[fontsize=50 label="LLAMADA  {107,40} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo291"-> "nodo292"
+"nodo291"-> "nodo290"
+nodo292[fontsize=50 label="fibonacci_recursivo  [ID]{108,41} ", color="cyan", style ="filled", shape="circle"]; 
+nodo290[fontsize=50 label="VALOR  {107,60} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo290"-> "nodo289"
+nodo289[fontsize=50 label="-  {107,60} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo289"-> "nodo287"
+"nodo289"-> "nodo288"
+nodo287[fontsize=50 label="n  [ID]{108,61} ", color="cyan", style ="filled", shape="circle"]; 
+nodo288[fontsize=50 label="1  [ENTERO]{108,63} ", color="cyan", style ="filled", shape="circle"]; 
+nodo297[fontsize=50 label="LLAMADA  {107,67} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo297"-> "nodo298"
+"nodo297"-> "nodo296"
+nodo298[fontsize=50 label="fibonacci_recursivo  [ID]{108,68} ", color="cyan", style ="filled", shape="circle"]; 
+nodo296[fontsize=50 label="VALOR  {107,87} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo296"-> "nodo295"
+nodo295[fontsize=50 label="-  {107,87} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo295"-> "nodo293"
+"nodo295"-> "nodo294"
+nodo293[fontsize=50 label="n  [ID]{108,88} ", color="cyan", style ="filled", shape="circle"]; 
+nodo294[fontsize=50 label="2  [ENTERO]{108,90} ", color="cyan", style ="filled", shape="circle"]; 
+nodo317[fontsize=50 label="RETORNO  {115,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo317"-> "nodo316"
+nodo316[fontsize=50 label="-  {114,16} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo316"-> "nodo315"
+nodo315[fontsize=50 label="1  [ENTERO]{115,18} ", color="cyan", style ="filled", shape="circle"]; 
+nodo339[fontsize=50 label="METODO  {118,5} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo339"-> "nodo320"
+"nodo339"-> "nodo321"
+"nodo339"-> "nodo340"
+"nodo339"-> "nodo324"
+nodo320[fontsize=50 label="publico  [VISIBILIDAD]{118,5} ", color="cyan", style ="filled", shape="circle"]; 
+nodo321[fontsize=50 label="vacio  [TIPO]{118,13} ", color="cyan", style ="filled", shape="circle"]; 
+nodo340[fontsize=50 label="pedir_num  [ID]{118,19} ", color="cyan", style ="filled", shape="circle"]; 
+nodo324[fontsize=50 label="INSTRUCCIONES  {119,9} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo324"-> "nodo323"
-nodo322[fontsize=50 label="Entero  [TIPO]{120,9} ", color="cyan", style ="filled", shape="circle"]; 
-nodo325[fontsize=50 label="LISTAID  {120,16} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo325"-> "nodo326"
-nodo326[fontsize=50 label="num  [ID]{120,16} ", color="cyan", style ="filled", shape="circle"]; 
-nodo323[fontsize=50 label="0  [ENTERO]{120,22} ", color="cyan", style ="filled", shape="circle"]; 
-nodo335[fontsize=50 label="DOWHILE  {120,8} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo335"-> "nodo330"
-"nodo335"-> "nodo334"
-nodo330[fontsize=50 label="INSTRUCCIONES  {123,13} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo330"-> "nodo328"
-nodo328[fontsize=50 label="LEER_TECLADO  {122,12} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo328"-> "nodo327"
+"nodo324"-> "nodo327"
+"nodo324"-> "nodo338"
+nodo323[fontsize=50 label="IMPRIMIR  {118,8} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo323"-> "nodo322"
+nodo322[fontsize=50 label="\"Pedir num\"  [CADENA]{119,18} ", color="cyan", style ="filled", shape="circle"]; 
+nodo327[fontsize=50 label="DECLARACION_VAR  {120,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo327"-> "nodo325"
+"nodo327"-> "nodo328"
+"nodo327"-> "nodo326"
+nodo325[fontsize=50 label="Entero  [TIPO]{120,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo328[fontsize=50 label="LISTAID  {120,16} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo328"-> "nodo329"
-nodo327[fontsize=50 label="\"Ingrese numero diferente de 7\"  [CADENA]{123,27} ", color="cyan", style ="filled", shape="circle"]; 
-nodo329[fontsize=50 label="num  [ID]{undefined,60} ", color="cyan", style ="filled", shape="circle"]; 
-nodo334[fontsize=50 label="NOT  {124,21} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo334"-> "nodo333"
-nodo333[fontsize=50 label="==  {123,22} ", color="cyan", style ="filled", shape="circle"]; 
+nodo329[fontsize=50 label="num  [ID]{120,16} ", color="cyan", style ="filled", shape="circle"]; 
+nodo326[fontsize=50 label="0  [ENTERO]{120,22} ", color="cyan", style ="filled", shape="circle"]; 
+nodo338[fontsize=50 label="DOWHILE  {120,8} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo338"-> "nodo333"
+"nodo338"-> "nodo337"
+nodo333[fontsize=50 label="INSTRUCCIONES  {123,13} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo333"-> "nodo331"
-"nodo333"-> "nodo332"
-nodo331[fontsize=50 label="num  [ID]{124,23} ", color="cyan", style ="filled", shape="circle"]; 
-nodo332[fontsize=50 label="7  [ENTERO]{124,30} ", color="cyan", style ="filled", shape="circle"]; 
+nodo331[fontsize=50 label="LEER_TECLADO  {122,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo331"-> "nodo330"
+"nodo331"-> "nodo332"
+nodo330[fontsize=50 label="\"Ingrese numero diferente de 7\"  [CADENA]{123,27} ", color="cyan", style ="filled", shape="circle"]; 
+nodo332[fontsize=50 label="num  [ID]{undefined,60} ", color="cyan", style ="filled", shape="circle"]; 
+nodo337[fontsize=50 label="NOT  {124,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo337"-> "nodo336"
+nodo336[fontsize=50 label="==  {123,22} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo336"-> "nodo334"
+"nodo336"-> "nodo335"
+nodo334[fontsize=50 label="num  [ID]{124,23} ", color="cyan", style ="filled", shape="circle"]; 
+nodo335[fontsize=50 label="7  [ENTERO]{124,30} ", color="cyan", style ="filled", shape="circle"]; 
 }

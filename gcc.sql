@@ -14,14 +14,14 @@ CREATE DATABASE gcc
 --tabla tipoLeccion
 Create table tipoLeccion(
 	codigoTipoLeccion SERIAL,
-	nombre varchar(40) not null UNIQUE,
+	nombre varchar(500) not null UNIQUE,
 	primary key (codigoTipoLeccion)
 );
 
 --tabla Leccion
 Create table leccion(
 	codigoLeccion SERIAL,	
-	titulo varchar(40) not null ,
+	titulo varchar(500) not null ,
 	explicacion varchar(2000) not null,
 	codigoEjemplo varchar(4000) not null,
 	enunciadoTarea varchar(2000) not null,
@@ -34,7 +34,7 @@ insert into tipoLeccion(codigoTipoLeccion,nombre) values (1,'G-Coach');
 insert into tipoLeccion(codigoTipoLeccion,nombre) values (2,'A-Coach');
 select * from tipoLeccion;
 select * from leccion;
-delete from leccion where codigoleccion< 55 ;
+delete from leccion;
 ALTER SEQUENCE leccion_codigoLeccion_seq RESTART WITH 1;
 
 

@@ -141,16 +141,15 @@ app.post('/cargaMasiva', urlencodedParser, function(req, res){
 		console.log(req.body);
 		var lecciones = req.body;
 		for(var i = 0 ; i< lecciones.length ; i ++)
-		{
-			console.log(
-				registrarLeccion(
-					lecciones[i].titulo, 
-					lecciones[i].descripcion,
-					lecciones[i].codigoEjemplo, 
-					lecciones[i].enunciadoTarea,
-					lecciones[i].pruebas, 
-					lecciones[i].tipoLeccion)
-				);
+		{		
+				registrarLeccion
+				(
+					lecciones[i].titulo.trim(), 
+					lecciones[i].descripcion.trim(),
+					lecciones[i].codigoEjemplo.trim(), 
+					lecciones[i].enunciadoTarea.trim(),
+					lecciones[i].pruebas.trim(), 
+					lecciones[i].tipoLeccion);				
 		}
 		res.sendStatus(200);
 });
@@ -253,7 +252,7 @@ function registrarLeccion(titulo, explicacion, ejemplo, tarea, pruebas, tipo)
 			return 1;
 	    })
 	    .catch(error => {
-	        return 0;
+	        console.log(error);
 	    });	
 }
 
