@@ -17,7 +17,7 @@ function Iniciar(texto) {
 			
               console.log("Error: "+e.message);
               addSalida(e.message);
-              
+
               if(e.hash.token=="INVALIDO")
               {
                 addError(e.hash.loc.first_line, e.hash.loc.first_column, "Lexico", e.message);
@@ -26,6 +26,7 @@ function Iniciar(texto) {
               {
                 addError(e.hash.loc.first_line, e.hash.loc.first_column, "Sintactico", e.message);
               }
+
               //
 		}
         

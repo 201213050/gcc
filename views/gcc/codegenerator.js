@@ -2,7 +2,7 @@ class GeneradorDeCodigo
 {
     constructor()
     {
-        this.codigo3D;
+        this.codigo3D ="";
         this.decMetodos;
         this.decIniciales;
         this.eV;
@@ -81,10 +81,12 @@ class GeneradorDeCodigo
         this.listaAboles.push(arbol);
         this.analizarImports(arbol);
         this.contadorImports++;
+        this.tabla.imprimir();
         
         //imprimir tabla de simbolos pendiente
-        //tabla.imprimir();
+        //
     }
+
 
     ExisteSimbolo(idd, ambit)
     {
@@ -136,17 +138,47 @@ class GeneradorDeCodigo
                  
                   var datos = JSON.parse(this.responseText);
                   alert(datos.contenido);
-                  var raiz = gcc.parse(datos.contenido);
-
-                  if(raiz==null)
-                  {
-                      addError(nodo.hash.loc.first_line, nodo.hash.loc.first_column, "Vergas", "El archivo "+ nodo.value+" No existe");                      
+                  var raiz =  null;                   
+                  try 
+                  {         
+                      raiz = gcc.parse(datos.contenido);	  	
+                        grafica(raiz);
+                        if(raiz!=null){
+                            recorrer1=new GeneradorDeCodigo();
+                            recorrer1.setInicial();
+                            recorrer1.AgregarArbol(raiz);
+                        }	
+                        if(raiz==null)
+                        {
+                            addError(nodo.hash.loc.first_line, nodo.hash.loc.first_column, "Vergas", "El archivo "+ nodo.value+" No existe");                      
+                        }
+                        else
+                        {            
+                            grafica(raiz);          
+                            generador.listaAboles.push(raiz);
+                        }                          		  			
                   }
-                  else
-                  {            
-                      grafica(raiz);          
-                      generador.listaAboles.push(raiz);
-                  }                                    
+                  catch (e) 
+                  {
+                      
+                        console.log("Error: "+e.message);
+                        addSalida(e.message);
+          
+                        if(e.hash.token=="INVALIDO")
+                        {
+                          addError(e.hash.loc.first_line, e.hash.loc.first_column, "Lexico", e.message);
+                        }
+                        else
+                        {
+                          addError(e.hash.loc.first_line, e.hash.loc.first_column, "Sintactico", e.message);
+                        }
+          
+                        //
+                  }
+
+
+                  
+                                   
               }                
           };
         requestHttp.open('POST', url, true);
@@ -232,7 +264,7 @@ class GeneradorDeCodigo
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
-                            this.ExisteSimbolo(id,ambito);
+                            this.ExisteSimbolo(id,this.ambito);
                         }
                         break;
                     }
@@ -265,7 +297,7 @@ class GeneradorDeCodigo
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
-                            this.ExisteSimbolo(id,ambito);
+                            this.ExisteSimbolo(id,this.ambito);
                         }
                         break;
                     }
@@ -293,7 +325,7 @@ class GeneradorDeCodigo
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
-                            this.ExisteSimbolo(id,ambito);
+                            this.ExisteSimbolo(id,this.ambito);
                         }
                         break;
                     }
@@ -339,8 +371,8 @@ class GeneradorDeCodigo
 
                                 //Agregamos el "this" en la posicion 0 del metodo
                     var tthis = new simbolo();
-                    tthis.setValores(ambito+"_this",id,ambito,nivel,0,"entero","variable",4,"N/A");
-                    this.tabla.agregarSimbolo(ambito+"_this",tthis);
+                    tthis.setValores(this.ambito+"_this",id,this.ambito,nivel,0,"entero","variable",4,"N/A");
+                    this.tabla.agregarSimbolo(this.ambito+"_this",tthis);
                     this.tamanoMetodo++;
 
                     // Lleno tabla con los simbolos dentro de las instrucciones del nuevo ambito
@@ -383,7 +415,7 @@ class GeneradorDeCodigo
                     if(!this.tabla.existeSimbolo(nombre)){
                         this.tabla.agregarSimbolo(nombre,ss);
                     } else {
-                        this.ExisteSimbolo(id,ambito);
+                        this.ExisteSimbolo(id,this.ambito);
                     }
 
                 }
@@ -474,7 +506,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
 
@@ -552,7 +584,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             else if(hijo0=="ID" && hijo1=="PARAMETROS" && hijo2=="INSTRUCCIONES"){
@@ -622,7 +654,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             else if(hijo0=="VISIBILIDAD" && hijo1=="ID" && hijo2=="INSTRUCCIONES"){
@@ -693,7 +725,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             
@@ -770,7 +802,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             else if(hijo0=="VISIBILIDAD" && hijo1=="ID"){
@@ -841,7 +873,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             else if(hijo0=="ID" && hijo1=="INSTRUCCIONES"){
@@ -911,7 +943,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             break;
@@ -985,7 +1017,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
 
@@ -1108,7 +1140,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
 
@@ -1188,7 +1220,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
 
@@ -1258,7 +1290,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             //VISIBILIDAD TIPO id DIMENSION '(' ')' '{' LISTA_INSTRUCCIONES '}'
@@ -1332,7 +1364,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
 
@@ -1407,7 +1439,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
 
@@ -1487,7 +1519,7 @@ class GeneradorDeCodigo
                                     if(!this.tabla.existeSimbolo(nombre)){
                                         this.tabla.agregarSimbolo(nombre,ss);
                                     } else {
-                                        this.ExisteSimbolo(id,ambito);
+                                        this.ExisteSimbolo(id,this.ambito);
                                     }
 
                             }
@@ -1557,7 +1589,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
 
                         
@@ -1629,7 +1661,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
 
                         
@@ -1700,7 +1732,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
 
                         
@@ -1773,7 +1805,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
 
                         
@@ -1852,7 +1884,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             else if(hijo0=="ID" && hijo1=="ID" && hijo2=="INSTRUCCIONES"){
@@ -1923,7 +1955,7 @@ class GeneradorDeCodigo
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     this.tabla.agregarSimbolo(nombre,ss);
                                 } else {
-                                    this.ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
                             }
                             
@@ -1979,7 +2011,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -1996,7 +2028,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -2024,7 +2056,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -2046,7 +2078,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -2064,7 +2096,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -2082,7 +2114,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -2112,7 +2144,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
@@ -2135,7 +2167,7 @@ class GeneradorDeCodigo
                                 this.posicion++;
                                 this.tamanoMetodo++;
                             } else {
-                                this.ExisteSimbolo(id,ambito);
+                                this.ExisteSimbolo(id,this.ambito);
                             }
 
                         }
