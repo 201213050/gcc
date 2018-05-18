@@ -6,36 +6,35 @@ class TablaSimbolos
     }
     agregarSimbolo(nombre, simbolo)
     {
-        tabla[nombre] = simbolo;
+       this.tabla[nombre] = simbolo;
     }
     getSimbolo(nombre)
     {
-        return tabla[nombre];
+        return this.tabla[nombre];
     }
     existeSimbolo(nombre)
     {
-        return tabla[nombre]!=null;
+        return this.tabla[nombre]!=null;
     }
     imprimir()
     {
-        var size = this.tabla.length;  
-        var i = 0;
-        for(i = 0 ; i <size ; i++)
-        {
-            var element = this.tabla[i];
-            windows.addSimbolo(
-                element.nombre,
-                element.id,
-                element.ambito,
-                element.nivel,
-                element.posicion,
-                element.rol,
-                element.tamano,
-                element.visibilidad,
-                element.tamano
-            ); 
-        }      
-
+        window.limpiarSimbolos();       
+        for (var element in this.tabla) 
+        {            
+            if (this.tabla.hasOwnProperty(element)) {
+                window.addSimbolo(
+                    this.tabla[element].nombre,
+                    this.tabla[element].id,
+                    this.tabla[element].ambito,
+                    this.tabla[element].nivel,
+                    this.tabla[element].posicion,
+                    this.tabla[element].rol,
+                    this.tabla[element].tamano,
+                    this.tabla[element].visibilidad,
+                    this.tabla[element].tamano
+                ); 
+            }
+        }
     }
     limpiar()
     {

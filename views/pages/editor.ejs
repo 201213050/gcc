@@ -535,7 +535,7 @@
         {
             var tabla = document.createElement('tab');
             tabla.id = "tabla-"+nombre;            
-            tabla.className = "table";
+            tabla.className = "table table-striped";
             var encabezadoH  = document.createElement('thead');
             encabezadoH.className = "thead-dark";
             var fila = document.createElement('tr');
@@ -1005,6 +1005,18 @@
             padre.replaceChild(tablaErrores(nombre + "Errores"),tabla);        
             
         }
+
+
+        function limpiarSimbolos()
+        {
+            /*Primero obtenemos el nombre del archivo actual*/
+           /* var nombre = obtenerActivo();               
+            var tabla  = document.getElementById("tabla-"+nombre+ "Simbolo"); 
+            var padre = tabla.parentNode;
+            padre.replaceChild(tablaErrores(nombre + "Simbolo"),tabla);        
+            */
+            
+        }        
 
         function addError(linea, columna, tipo, descripcion)
         {

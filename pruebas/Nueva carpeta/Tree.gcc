@@ -1,4 +1,4 @@
-importar("Node.gcc");
+importar("C:\Users\erick\Documents\OLC2\gccCompiler\gcc\pruebas\Nueva carpeta\Node.gcc");
 
 
 publico clase Tree {

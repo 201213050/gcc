@@ -270,7 +270,7 @@ class GeneradorDeCodigo
 
                         }
                         var s=new simbolo();
-                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",posicion*4,this.accesoClase,this.heredado,"N/A");
+                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",this.posicion*4,this.accesoClase,this.heredado,"N/A");
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
@@ -306,7 +306,7 @@ class GeneradorDeCodigo
                             this.llenarTabla(arbol.hijos[2]);
                         }
                         var s=new simbolo();
-                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",posicion*4,this.accesoClase,this.heredado,"N/A");
+                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",this.posicion*4,this.accesoClase,this.heredado,"N/A");
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
@@ -337,7 +337,7 @@ class GeneradorDeCodigo
                             this.llenarTabla(arbol.hijos[1]);
                         }
                         var s=new simbolo();
-                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",posicion*4,this.accesoClase,this.heredado,"N/A");
+                        s.setValores(id,id,"N/A",-1,-1,"N/A","clase",this.posicion*4,this.accesoClase,this.heredado,"N/A");
                         if(!this.tabla.existeSimbolo(id)){
                             this.tabla.agregarSimbolo(id,s);
                         } else {
@@ -378,8 +378,8 @@ class GeneradorDeCodigo
                     id = arbol.valor;
 
 
-                    var nombre = this.ambito+"_"+id+params;
-                    if (acceso == ""){acceso = accesoClase;}
+                    var nombre = this.ambito+"_"+id+this.params;
+                    if (acceso == ""){acceso = this.accesoClase;}
                     var cantHijos = arbol.hijos.length;
 
                     // Cambio de ambito
@@ -388,7 +388,7 @@ class GeneradorDeCodigo
 
                                 //Agregamos el "this" en la posicion 0 del metodo
                     var tthis = new simbolo();
-                    tthis.setValores(this.ambito+"_this",id,this.ambito,nivel,0,"entero","variable",4,"N/A");
+                    tthis.setValores(this.ambito+"_this",id,this.ambito,this.nivel,0,"entero","variable",4,"N/A");
                     this.tabla.agregarSimbolo(this.ambito+"_this",tthis);
                     this.tamanoMetodo++;
 
@@ -400,7 +400,7 @@ class GeneradorDeCodigo
                     //Agregamos el "return" en la posicion 1 del metodo
                     /*
                     if (!(tipo.toLocaleLowerCase()=="vacio")){
-                        ss = new Simbolo(ambito+"_return", id, ambito, nivel, posicion*4, tipo, "retorno", TAMANO, "N/A");
+                        ss = new simbolo(ambito+"_return", id, ambito, nivel, posicion*4, tipo, "retorno", TAMANO, "N/A");
                         if(!tabla.existeSimbolo(ambito+"_return")) {
                             tabla.agregarSimbolo(ambito+"_return", ss);
                         }
@@ -509,11 +509,11 @@ class GeneradorDeCodigo
                                 nombre+="()";
                                 var ss = null;
                                 if(id.toLocaleLowerCase() ==this.idClase.toLocaleLowerCase() && tipo=="vacio"){
-                                    ss = new Simbolo();
+                                    ss = new simbolo();
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
-                                    ss = new Simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss = new simbolo();
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -568,7 +568,7 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo();
+                                    ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
@@ -591,7 +591,7 @@ class GeneradorDeCodigo
                                     ss.setValores(nombre,id,ambitotemp,this.nivel,-1,tipo,"constructor",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 } else {
                                     ss = new simbolo();
-                                    ss.setValores(nombre,id, ambitotemp,nivel,-1,tipo,"metodo",tamanoMetodo*4,acceso,"N/A","N/A");
+                                    ss.setValores(nombre,id, ambitotemp,this.nivel,-1,tipo,"metodo",this.tamanoMetodo*4,acceso,"N/A","N/A");
                                 }
 
                                 //Agregamos los identificadores de los parametros al simbolo
@@ -1047,7 +1047,7 @@ class GeneradorDeCodigo
                 }
                 else if(etiqueta=="PARAMETROS")
                 {
-                    for (i = 0; i<arbol.hijos.length; i++){
+                    for(var i = 0; i<arbol.hijos.length; i++){
                         this.llenarTabla(arbol.hijos[i]);
                     }
 
@@ -1060,7 +1060,7 @@ class GeneradorDeCodigo
 
                 else if(etiqueta=="SobreEscribir"){
                     this.sobreescribir=true;
-                    for(i=0;i<arbol.hijos.length;i++){
+                    for(var i=0;i<arbol.hijos.length;i++){
                         this.llenarTabla();
                     }
                     this.sobreescribir=false;
@@ -1719,7 +1719,7 @@ class GeneradorDeCodigo
                                 //Agregamos el "return" en la posicion 1 del metodo
                                 if (!(tipo=="vacio"))
                                 {
-                                    ss = new Simbolo();
+                                    ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
@@ -1984,7 +1984,7 @@ class GeneradorDeCodigo
                 }
 
                 else if (etiqueta == "PARAMETROS"){
-                    for (i = 0; i<arbol.hijos.length; i++){
+                    for ( var i = 0; i<arbol.hijos.length; i++){
                         this.lenarTabla(arbolhijos[i]);
                     }
                 }else if (etiqueta == "PARAMETRO"){
@@ -2008,7 +2008,7 @@ class GeneradorDeCodigo
         if(arbol!=null){
             var etiqueta = arbol.etiqueta;
         if(etiqueta == "PARAMETROS"){
-            for (i = 0; i<arbol.hijos.length; i++){
+            for (var i = 0; i<arbol.hijos.length; i++){
                 var paramet=arbol.hijos[i];
 
                 switch(paramet.hijos.length){
@@ -2017,7 +2017,7 @@ class GeneradorDeCodigo
                         var hijo1=paramet.hijos[1];
                         if(hijo0.etiqueta=="TIPO" && hijo1.etiqueta=="ID"){
                             var id=hijo1.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2034,7 +2034,7 @@ class GeneradorDeCodigo
                         }
                         else if(hijo0.etiqueta=="ID" && hijo1.etiqueta=="ID"){
                             var id=hijo1.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2057,7 +2057,7 @@ class GeneradorDeCodigo
                         var hijo2=paramet.hijos[2];
                         if(hijo0.etiqueta=="ID" && hijo1.etiqueta=="ID" && hijo2.etiqueta=="Dimension"){
                             var id=hijo1.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2079,7 +2079,7 @@ class GeneradorDeCodigo
                         }
                         else if(hijo0.etiqueta=="TIPO" && hijo1.etiqueta=="ID" && hijo2.etiqueta=="Dimension"){
                             var id=hijo1.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2101,7 +2101,7 @@ class GeneradorDeCodigo
                         }
                         else if(hijo0.etiqueta=="TIPO" && hijo1.etiqueta=="PUNTERO" && hijo2.etiqueta=="ID"){
                             var id=hijo2.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2119,7 +2119,7 @@ class GeneradorDeCodigo
                         }
                         else if(hijo0.etiqueta=="ID" && hijo1.etiqueta=="PUNTERO" && hijo2.etiqueta=="ID"){
                             var id=hijo2.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2144,7 +2144,7 @@ class GeneradorDeCodigo
                         var hijo3=paramet.hijos[3];
                         if(hijo0.etiqueta=="ID" && hijo1.etiqueta=="PUNTERO" && hijo2.etiqueta=="ID" && hijo3.etiqueta=="Dimension"){
                             var id=hijo2.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();
@@ -2167,7 +2167,7 @@ class GeneradorDeCodigo
                         }
                         else if(hijo0.etiqueta=="TIPO" && hijo1.etiqueta=="PUNTERO" && hijo2.etiqueta=="ID" && hijo3.etiqueta=="Dimension"){
                             var id=hijo2.valor;
-                            identifica.add(id);
+                            identifica.push(id);
                             var tipo=hijo0.valor;
                             var nombre=this.ambito+"_"+id;
                             var s = new simbolo();

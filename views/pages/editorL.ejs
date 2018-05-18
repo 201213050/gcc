@@ -1055,6 +1055,17 @@
             
         }
 
+        function limpiarSimbolos()
+        {
+            /*Primero obtenemos el nombre del archivo actual*/
+            var nombre = obtenerActivo();               
+            var tabla  = document.getElementById("tabla-"+nombre+ "Simbolo"); 
+            var padre = tabla.parentNode;
+            padre.replaceChild(tablaErrores(nombre + "Simbolo"),tabla);        
+            
+        }
+
+
         function addError(linea, columna, tipo, descripcion)
         {
             /*Primero obtenemos el nombre del archivo actual*/
