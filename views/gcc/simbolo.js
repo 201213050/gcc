@@ -18,7 +18,7 @@ class simbolo
        this.puntero;
        this.arreglo;
        this.dimensiones = [];
-       this.parametros=[];
+       this.parametros= [];
     }
     setValores(nombre,id,ambito,nivel,posicion,tipo,rol,tamano,visibilidad,heredado,sobreescribir)
     {

@@ -90,7 +90,7 @@ class GeneradorDeCodigo
         this.listaAboles.push(arbol);
         this.analizarImports(arbol);
         this.contadorImports++;
-        this.tabla.imprimir();
+        //this.tabla.imprimir();
         
         //imprimir tabla de simbolos pendiente
         //
@@ -151,12 +151,6 @@ class GeneradorDeCodigo
                   try 
                   {         
                       raiz = gcc.parse(datos.contenido);	  	
-                        grafica(raiz);
-                        if(raiz!=null){
-                            recorrer1=new GeneradorDeCodigo();
-                            recorrer1.setInicial();
-                            recorrer1.AgregarArbol(raiz);
-                        }	
                         if(raiz==null)
                         {
                             addError(nodo.hash.loc.first_line, nodo.hash.loc.first_column, "Vergas", "El archivo "+ nodo.value+" No existe");                      
@@ -164,7 +158,8 @@ class GeneradorDeCodigo
                         else
                         {            
                             grafica(raiz);          
-                            generador.listaAboles.push(raiz);
+                            generador.listaAboles.push(raiz); 
+                            generador.AgregarArbol(raiz);                                                   
                         }                          		  			
                   }
                   catch (e) 
@@ -190,7 +185,7 @@ class GeneradorDeCodigo
                                    
               }                
           };
-        requestHttp.open('POST', url, true);
+        requestHttp.open('POST', url, false);
         requestHttp.setRequestHeader("Content-type", "application/json");
         requestHttp.setRequestHeader("dataType", "json");
         var path = {'path':data.valor};
