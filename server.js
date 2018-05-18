@@ -141,16 +141,15 @@ app.post('/cargaMasiva', urlencodedParser, function(req, res){
 		console.log(req.body);
 		var lecciones = req.body;
 		for(var i = 0 ; i< lecciones.length ; i ++)
-		{
-			console.log(
-				registrarLeccion(
-					lecciones[i].titulo, 
-					lecciones[i].descripcion,
-					lecciones[i].codigoEjemplo, 
-					lecciones[i].enunciadoTarea,
-					lecciones[i].pruebas, 
-					lecciones[i].tipoLeccion)
-				);
+		{		
+				registrarLeccion
+				(
+					lecciones[i].titulo.trim(), 
+					lecciones[i].descripcion.trim(),
+					lecciones[i].codigoEjemplo.trim(), 
+					lecciones[i].enunciadoTarea.trim(),
+					lecciones[i].pruebas.trim(), 
+					lecciones[i].tipoLeccion);				
 		}
 		res.sendStatus(200);
 });
@@ -236,6 +235,7 @@ app.post('/compilarEjemplo', urlencodedParser, function(req, res)
 	//Sólo reenviamos la data.
 	var path = req.body.path;
 	var codigo = req.body.codigoEjemplo;
+	codigo = "clase leccion{ \n\tprincipal(){" + codigo + "\t}\n}"; 
 	var data = {'codigo':codigo, 'path':path};
 	res.render('pages/editorL', 
 	{
@@ -252,7 +252,7 @@ function registrarLeccion(titulo, explicacion, ejemplo, tarea, pruebas, tipo)
 			return 1;
 	    })
 	    .catch(error => {
-	        return 0;
+	        console.log(error);
 	    });	
 }
 

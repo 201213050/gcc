@@ -296,7 +296,7 @@ parse: function parse(input) {
             this.codigoEjemplo = "";
             this.enunciadoTarea = "";
             this.pruebas = "";
-            this.tipoLeccion = "";
+            this.tipoLeccion = 1;
         }
 
         setAtributo(atributo, valor)
