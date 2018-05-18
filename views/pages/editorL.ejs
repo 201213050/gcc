@@ -793,6 +793,53 @@
           http_request.send(JSON.stringify(path)); 
       }
 
+      /* devuelve cualquier archivo*/    
+      var http_request = false;  
+      function obtenerData(data) {
+
+          var url = '/abrirArchivo'; // Este metodo devuelve 0 si no existe y un 1 si sí :v y la data ahuevos.
+          http_request = false;
+          if (window.XMLHttpRequest) 
+          { 
+              http_request = new XMLHttpRequest();
+              if (http_request.overrideMimeType) 
+              {
+                  http_request.overrideMimeType('text/xml');                  
+              }
+          } 
+          else if (window.ActiveXObject) 
+          { 
+              try {
+                  http_request = new ActiveXObject("Msxml2.XMLHTTP");
+              } catch (e) 
+              {
+                  try {
+                      http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                  } catch (e) {}
+              }
+          }
+
+          if (!http_request) {
+              alert('Falla :( No es posible crear una instancia XMLHTTP');
+              return false;
+          }
+
+        
+          http_request.onreadystatechange = function()
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {                    
+                    return this.responseText;
+                    //mostrarContenido2(this.responseText, data);
+                }                
+            };
+          http_request.open('POST', url, true);
+          http_request.setRequestHeader("Content-type", "application/json");
+          http_request.setRequestHeader("dataType", "json");
+          var path = {'path':data};
+          http_request.send(JSON.stringify(path)); 
+      }      
+
       function receptor() {
 
           

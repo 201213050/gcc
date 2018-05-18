@@ -1,0 +1,2 @@
+digraph lista{  rankdir=TB;node [shape = box, style=rounded]; nodo0[fontsize=50 label="Cuerpo  {1,2} ", color="cyan", style ="filled", shape="circle"]; 
+}
