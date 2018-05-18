@@ -14,7 +14,7 @@ class simbolo
        this.visibilidad; 
        this.valor;
        this.heredado;
-       this.sobreescribir;
+       this.sobreescribir=false;
        this.puntero;
        this.arreglo;
        this.dimensiones = [];
