@@ -18,7 +18,7 @@ class GeneradorDeCodigo
 
         this.listaArboles;
 
-        this.tabla;
+        this.tabla=new TablaSimbolos();
 
         this.ambitos;
         this.ambito;
