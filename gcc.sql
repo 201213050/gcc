@@ -11,6 +11,7 @@ CREATE DATABASE gcc
        CONNECTION LIMIT = -1;
 
 
+
 --tabla tipoLeccion
 Create table tipoLeccion(
 	codigoTipoLeccion SERIAL,
@@ -37,6 +38,7 @@ select * from leccion;
 delete from leccion;
 ALTER SEQUENCE leccion_codigoLeccion_seq RESTART WITH 1;
 
+drop table leccion;
 
 select leccion.codigoLeccion as codigo, leccion.titulo, tipoLeccion.nombre as tipo
 from leccion 

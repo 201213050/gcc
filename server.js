@@ -160,7 +160,6 @@ app.post('/cargaMasiva', urlencodedParser, function(req, res){
 app.post('/grafica', urlencodedParser, function(req, res){			
 	console.log(req.body.data);
 
-
 	/*Primero creamos el archivo para la grafica.*/	
 	var fs = require('fs');
 	var stream = fs.createWriteStream("ast.txt");
@@ -235,7 +234,7 @@ app.post('/compilarEjemplo', urlencodedParser, function(req, res)
 	//Sólo reenviamos la data.
 	var path = req.body.path;
 	var codigo = req.body.codigoEjemplo;
-	codigo = "clase leccion{ \n\tprincipal(){" + codigo + "\t}\n}"; 
+	//codigo = "clase leccion{ \n\tprincipal(){" + codigo + "\t}\n}"; 
 	var data = {'codigo':codigo, 'path':path};
 	res.render('pages/editorL', 
 	{
@@ -251,7 +250,8 @@ function registrarLeccion(titulo, explicacion, ejemplo, tarea, pruebas, tipo)
 	    .then(() => {
 			return 1;
 	    })
-	    .catch(error => {
+		.catch(error => 
+		{
 	        console.log(error);
 	    });	
 }
