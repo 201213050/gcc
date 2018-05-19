@@ -60,6 +60,7 @@ class Nodo{
 
 // nulo 
 "{'\0'}"                %{ console.log(yytext);return 'nulo'; %}
+"{\"\0\"}"                %{ console.log(yytext);return 'nulo'; %}
 
 //AUMENTO DECREMENTO
 "++"                  %{ console.log('++');return '++'; %}
