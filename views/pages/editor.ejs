@@ -558,6 +558,8 @@
             visibilidad.appendChild(document.createTextNode('VISIBILIDAD'));
             var dimension = document.createElement('th');
             dimension.appendChild(document.createTextNode('DIMENSION'));
+            var tip = document.createElement('th');
+            tip.appendChild(document.createTextNode('TIPO'));
                         
             
 
@@ -574,6 +576,7 @@
             encabezadoH.append(tamanio);
             encabezadoH.append(visibilidad);
             encabezadoH.append(dimension);
+            encabezadoH.append(tip);
             
 
             tabla.appendChild(encabezadoH);
@@ -586,7 +589,7 @@
 
         function tablaErrores(nombre)
         {
-            var tabla = document.createElement('tab');
+            var tabla = document.createElement('tab');            
             tabla.id = "tabla-"+nombre;            
             tabla.className = "table";
             var encabezadoH  = document.createElement('thead');
@@ -615,7 +618,7 @@
                      
         }
 
-        function agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
+        function agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension,tipo)
         {
             
             var theadT = document.createElement('thead');
@@ -646,7 +649,10 @@
             visibilidadC.appendChild(document.createTextNode(visibilidad));  
 
             var dimensionC = document.createElement('th');
-            dimensionC.appendChild(document.createTextNode(dimension));              
+            dimensionC.appendChild(document.createTextNode(dimension));    
+
+            var tipoC = document.createElement('th');
+            tipoC.appendChild(document.createTextNode(tipo));                       
             
             fila.appendChild(nombreC);
             fila.appendChild(idC);
@@ -657,6 +663,7 @@
             fila.appendChild(tamanoC);
             fila.appendChild(visibilidadC);
             fila.appendChild(dimensionC);
+            fila.appendChild(tipoC);
             theadT.appendChild(fila);
             tabla.append(theadT);                    
         }
@@ -1010,12 +1017,10 @@
         function limpiarSimbolos()
         {
             /*Primero obtenemos el nombre del archivo actual*/
-           /* var nombre = obtenerActivo();               
-            var tabla  = document.getElementById("tabla-"+nombre+ "Simbolo"); 
+            var nombre = obtenerActivo();               
+            var tabla  = document.getElementById("tabla-"+nombre+ "simbolos"); 
             var padre = tabla.parentNode;
-            padre.replaceChild(tablaErrores(nombre + "Simbolo"),tabla);        
-            */
-            
+            padre.replaceChild(tablaSimbolos(nombre+ "simbolos"),tabla);                                
         }        
 
         function addError(linea, columna, tipo, descripcion)
@@ -1027,14 +1032,14 @@
             agregarError(tabla,linea, columna, tipo, descripcion);
         }
 
-        function addSimbolo(nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension)
+        function addSimbolo(nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension,tipo)
         {            
             /*Primero obtenemos el nombre del archivo actual*/
             var nombre = obtenerActivo();
             /*Ahora obtenemos el elemento tabla*/
             var tabla  = document.getElementById("tabla-"+nombre+ "simbolos");
             /*Agregamos a la tabla el nuevo símbolo*/
-            agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension);            
+            agregarSimbolo(tabla,nombreS, id, ambito, nivel, posicion, rol, tamano, visibilidad, dimension,tipo);            
         }       
         
         function addSalida(mensaje)

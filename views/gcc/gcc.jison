@@ -469,59 +469,8 @@ INSTRUCCION :
 		$$ = crearNodo("RETORNO",@1.first_line,@1.first_column);			
 		$$.add($2);
 	}
-	| retorno NEW ';'
-	{
-		$$ = crearNodo("RETORNO",@1.first_line,@1.first_column);			
-		$$.add($2);
-	}	
 	;
 
-
-NEW : 
-	 nuevo id '(' ')'
-	{
-		$$ = crearNodo("NUEVO",null,null);
-		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
-		ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
-		$$.add(nuevito);
-		$$.add(ident2);
-
-	}
-	| nuevo id '(' VALOR ')'
-	{
-		$$ = crearNodo("NUEVO",null,null);
-		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
-		ident2 = crearHoja("ID",$3,@3.first_line,@3.first_column);
-		$$.add(nuevito);
-		$$.add(ident2);
-		$$.add($5);
-		
-	}
-	| nuevo TIPO '(' ')'
-	{
-		$$ = crearNodo("NUEVO",null,null);
-		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
-		$$.add(nuevito);
-		$$.add($3);
-
-	}
-	| nuevo TIPO '(' TIPO ')'
-	{
-		$$ = crearNodo("NUEVO",null,null);
-		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
-		$$.add($3);
-		$$.add($5);
-
-	}
-	| nuevo TIPO '(' id ')'
-	{
-		$$ = crearNodo("NUEVO",null,null);
-		nuevito = crearNodo("Nuevo",@2.first_line,@2.first_column );
-		ident2 = crearHoja("ID",$5,@5.first_line,@5.first_column);
-		$$.add(nuevito);
-		$$.add($3);
-		$$.add(ident2);
-	};
 
 
 

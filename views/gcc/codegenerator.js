@@ -1081,14 +1081,14 @@ class GeneradorDeCodigo
                             var hijo2=arbol.hijos[2].etiqueta;
                             var hijo3=arbol.hijos[3].etiqueta;
                             var hijo4=arbol.hijos[4].etiqueta;
-                            var hijo5=arbil.hijos[5].etiqueta;
+                            var hijo5=arbol.hijos[5].etiqueta;
                             if(hijo0=="VISIBILIDAD" && hijo1=="TIPO" && hijo2=="Dimension" && hijo3=="ID" && hijo4=="PARAMETROS" && hijo5=="INSTRUCCIONES"){
                                 acceso=arbol.hijos[0].valor;
                                 tipo=arbol.hijos[1].valor;
                                 id=arbol.hijos[3].valor;
 
                                 var dimensione=[];
-                                dimensione=this.getDimensiones(dimensione,arbo.hijos[2]);
+                                dimensione=this.getDimensiones(dimensione,arbol.hijos[2]);
                                 //recorremos los parametros
                                 this.llenarTabla(arbol.hijos[4]);
 
@@ -2201,12 +2201,14 @@ getDimensiones(dimension, arbol){
     
     for(var i=0;i<arbol.hijos.length;i++){
         if(arbol.hijos[i].etiqueta=="ENTERO"){
-            dimension.add(arbol.hijos[i].valor);
+            dimension.push(arbol.hijos[i].valor);
         }
 
     }
     return dimension;
 }
+
+
 
 
 }
