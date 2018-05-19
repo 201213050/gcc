@@ -34,7 +34,8 @@ class TablaSimbolos
                             this.tabla[element].rol,
                             this.tabla[element].tamano,
                             this.tabla[element].visibilidad,
-                            1
+                            0,
+                            this.tabla[element].tipo
                         );                         
                     }
                     else
@@ -48,7 +49,8 @@ class TablaSimbolos
                             this.tabla[element].rol,
                             this.tabla[element].tamano,
                             this.tabla[element].visibilidad,
-                            this.tabla[element].dimensiones.length
+                            this.tabla[element].dimensiones.length,
+                            this.tabla[element].tipo
                         );                         
                     }
 

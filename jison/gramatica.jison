@@ -451,16 +451,21 @@ INSTRUCCION : PRINCIPAL
 		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
 		$$.add($1);
 	}
-	| retorno ';'
-	{
-		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
-		$$.add($1);
-	}
 	| retorno E ';'
 	{
 		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
 		$$.add($2);
 	}
+	| retorno  NEW ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($2);
+	}	
+	| retorno ';'
+	{
+		$$=crearNodo("INSTRUCCION",@1.first_line,@1.first_column);
+		$$.add($1);
+	}	
 	;
 
 
@@ -653,6 +658,9 @@ DECLARACION :  VISIBILIDAD TIPO id DIMENSION ASIGNAR ';'
 		$$.add($3);
 	}
 	;
+
+
+
 
 	
 ASIGNAR	: '=' E 
