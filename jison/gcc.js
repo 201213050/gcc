@@ -469,7 +469,7 @@ case 79:
 break;
 case 80:
 
-		this.$= crearNodo("DECLARACION_VAR",_$[$0-3].first_line,_$[$0-3].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-3].first_line,_$[$0-3].first_column);
 		this.$.add($$[$0-3]);
 		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
 		var hijo=crearNodo("VAR",_$[$0-2].first_line,_$[$0-2].first_column);
@@ -481,7 +481,7 @@ case 80:
 break;
 case 81:
 
-		this.$= crearNodo("DECLARACION_VAR",_$[$0-3].first_line,_$[$0-3].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-3].first_line,_$[$0-3].first_column);
 		this.$.add(crearHoja("TIPO",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
 		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
 		var hijo=crearNodo("VAR",_$[$0-2].first_line,_$[$0-2].first_column);
@@ -493,7 +493,7 @@ case 81:
 break;
 case 82:
 
-		this.$= crearNodo("DECLARACION_VAR",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-4].first_line,_$[$0-4].first_column);
 		this.$.add(crearHoja("TIPO",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));
 		var nodo =  crearNodo("LISTAID",_$[$0-3].first_line,_$[$0-3].first_column);
 		var hijo=crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);

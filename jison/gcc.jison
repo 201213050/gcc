@@ -726,7 +726,7 @@ DECLARACION :
 	
 	| TIPO id  ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add($1);
 		var nodo =  crearNodo("LISTAID",@2.first_line,@2.first_column);
 		var hijo=crearNodo("VAR",@2.first_line,@2.first_column);
@@ -737,7 +737,7 @@ DECLARACION :
 	}
 	| id id  ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));
 		var nodo =  crearNodo("LISTAID",@2.first_line,@2.first_column);
 		var hijo=crearNodo("VAR",@2.first_line,@2.first_column);
@@ -748,7 +748,7 @@ DECLARACION :
 	}
 	| id id DIMENSION ASIGNAR ';'
 	{
-		$$= crearNodo("DECLARACION_VAR",@1.first_line,@1.first_column);
+		$$= crearNodo("DECLARACION",@1.first_line,@1.first_column);
 		$$.add(crearHoja("TIPO",$1,@1.first_line,@1.first_column));
 		var nodo =  crearNodo("LISTAID",@2.first_line,@2.first_column);
 		var hijo=crearNodo("VAR",@2.first_line,@2.first_column);

@@ -2047,16 +2047,16 @@ class GeneradorDeCodigo
                             l_ids=arbol.hijos[2];
 
                             var i=0;
-                            for(i=0;i<l_ids.hijos.lenght;i++){
+                            for(i=0;i<l_ids.hijos.length;i++){
                                 es_arreglo=false;
                                 dimensioness=[];
                                 id="";
                                 var variable=l_ids.hijos[i];
 
-                                if(variable.hijos.lenght==1){
+                                if(variable.hijos.length==1){
                                     id=variable.hijos[0].valor;
                                     rol="variable"
-                                }else if(variable.hijos.lenght==2){
+                                }else if(variable.hijos.length==2){
                                     id=variable.hijos[0].valor;
                                     dimensioness=this.getDimensiones(dimensioness,variable.hijos[1]);
                                     es_arreglo=true;
@@ -2066,14 +2066,16 @@ class GeneradorDeCodigo
                                 nombre = this.ambito+"_"+id;
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     if(this.nivel>0){
-                                        var s = new simbolo(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,"N/A","N/A","N/A");
+                                        var s = new simbolo();
+                                        s.setValores(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,"N/A","N/A","N/A");                                    
                                         s.arreglo=es_arreglo;
                                         s.dimensiones=dimensioness;
 
                                         this.tabla.agregarSimbolo(nombre,s);
                                         this.posicion++;
                                     }else if(this.nivel==0){
-                                        var s = new simbolo(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,acceso,"N/A","N/A");
+                                        var s = new simbolo();
+                                        s.setValores(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,acceso,"N/A","N/A");
                                         s.arreglo=es_arreglo;
                                         s.dimensiones=dimensioness;
 
@@ -2081,7 +2083,7 @@ class GeneradorDeCodigo
                                         this.posicion++;
                                     }
                                 } else {
-                                    ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
 
 
@@ -2096,16 +2098,16 @@ class GeneradorDeCodigo
                             l_ids=arbol.hijos[1];
 
                             var i=0;
-                            for(i=0;i<l_ids.hijos.lenght;i++){
+                            for(i=0;i<l_ids.hijos.length;i++){
                                 es_arreglo=false;
                                 dimensioness=[];
                                 id="";
                                 var variable=l_ids.hijos[i];
 
-                                if(variable.hijos.lenght==1){
+                                if(variable.hijos.length==1){
                                     id=variable.hijos[0].valor;
                                     rol="variable"
-                                }else if(variable.hijos.lenght==2){
+                                }else if(variable.hijos.length==2){
                                     id=variable.hijos[0].valor;
                                     dimensioness=this.getDimensiones(dimensioness,variable.hijos[1]);
                                     es_arreglo=true;
@@ -2115,23 +2117,25 @@ class GeneradorDeCodigo
                                 nombre = this.ambito+"_"+id;
                                 if(!this.tabla.existeSimbolo(nombre)){
                                     if(this.nivel>0){
-                                        var s = new simbolo(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,"N/A","N/A","N/A");
+                                        var s = new simbolo();
+                                        s.setValores(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,"N/A","N/A","N/A");
                                         s.arreglo=es_arreglo;
                                         s.dimensiones=dimensioness;
 
-                                        tabla.agregarSimbolo(nombre,s);
-                                        posicion++;
+                                        this.tabla.agregarSimbolo(nombre,s);
+                                        this.posicion++;
                                     }else if(this.nivel==0){
                                         acceso=this.accesoClase;
-                                        var s = new simbolo(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,acceso,"N/A","N/A");
+                                        var s = new simbolo();
+                                        s.setValores(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,acceso,"N/A","N/A");
                                         s.arreglo=es_arreglo;
                                         s.dimensiones=dimensioness;
 
-                                        tabla.agregarSimbolo(nombre,s);
-                                        posicion++;
+                                        this.tabla.agregarSimbolo(nombre,s);
+                                        this.posicion++;
                                     }
                                 } else {
-                                    ExisteSimbolo(id,ambito);
+                                    this.ExisteSimbolo(id,this.ambito);
                                 }
 
 
