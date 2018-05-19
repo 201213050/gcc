@@ -353,61 +353,69 @@ case 61:
 break;
 case 69:
 
-		this.$= crearNodo("DECLARACION_VECTOR",_$[$0-5].first_line,_$[$0-5].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-5].first_line,_$[$0-5].first_column);
 		this.$.add($$[$0-5]);
 		this.$.add($$[$0-4]);
 		var nodo =  crearNodo("LISTAID",_$[$0-3].first_line,_$[$0-3].first_column);
-		nodo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));		
+		var hijo=crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
+		hijo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
+		hijo.add($$[$0-2]);
+		nodo.add(hijo);
 		this.$.add(nodo);
-		this.$.add($$[$0-2]);
 		this.$.add($$[$0-1]);		
 	
 break;
 case 70:
 
-		this.$= crearNodo("DECLARACION_VECTOR",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-4].first_line,_$[$0-4].first_column);
 		this.$.add($$[$0-4]);
-		var nodo =  crearNodo("LISTAID",_$[$0-3].first_line,_$[$0-3].first_column);
-		nodo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));		
-		nodo.add($$[$0-2]);
+		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
+		var hijo=crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
+		hijo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
+		hijo.add($$[$0-2]);
+		nodo.add(hijo);
 		this.$.add(nodo);
 		this.$.add($$[$0-1]);		
 	
 break;
 case 71:
 
-		this.$= crearNodo("DECLARACION_VAR",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-4].first_line,_$[$0-4].first_column);
 		this.$.add($$[$0-4]);
 		this.$.add($$[$0-3]);
 		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
-		nodo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));
+		var hijo=crearNodo("VAR",_$[$0-2].first_line,_$[$0-2].first_column);
+		hijo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));
+		nodo.add(hijo);
 		this.$.add(nodo);
-		this.$.add($$[$0-1]);		
+		this.$.add($$[$0-1]);	
 	
 break;
 case 72:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-4].first_line,_$[$0-4].first_column);
-		this.$.add($$[$0-4]);	
-		this.$.add(crearNodo("TIPO",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));	
+		this.$= crearNodo("DECLARACION",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$.add($$[$0-4]);
+		this.$.add(crearHoja("TIPO",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
 		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
-		nodo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));		
+		var hijo=crearNodo("VAR",_$[$0-2].first_line,_$[$0-2].first_column);
+		hijo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));
+		nodo.add(hijo);
 		this.$.add(nodo);
 		this.$.add($$[$0-1]);
 	
 break;
 case 73:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-5].first_line,_$[$0-5].first_column);
-		this.$.add($$[$0-5]);	
-		this.$.add(crearNodo("TIPO",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));	
+		this.$= crearNodo("DECLARACION",_$[$0-5].first_line,_$[$0-5].first_column);
+		this.$.add($$[$0-5]);
+		this.$.add(crearHoja("TIPO",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));
 		var nodo =  crearNodo("LISTAID",_$[$0-3].first_line,_$[$0-3].first_column);
-		var id = crearNodo("ID",_$[$0-3].first_line,_$[$0-3].first_column);	
-		id.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
-		id.add($$[$0-2]);
-		nodo.add(id);
+		var hijo=crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
+		hijo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
+		hijo.add($$[$0-2]);
+		nodo.add(hijo);
 		this.$.add(nodo);
-		this.$.add($$[$0-2]);
+		this.$.add($$[$0-1]);	
 	
 break;
 case 74:
@@ -415,35 +423,41 @@ case 74:
 		this.$= crearNodo("DECLARACION_VAR",_$[$0-3].first_line,_$[$0-3].first_column);
 		this.$.add($$[$0-3]);
 		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
-		nodo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));
+		var hijo=crearNodo("VAR",_$[$0-2].first_line,_$[$0-2].first_column);
+		hijo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));
+		nodo.add(hijo);
 		this.$.add(nodo);
 		this.$.add($$[$0-1]);
 	
 break;
 case 75:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-3].first_line,_$[$0-3].first_column);
+		this.$= crearNodo("DECLARACION_VAR",_$[$0-3].first_line,_$[$0-3].first_column);
 		this.$.add(crearHoja("TIPO",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
 		var nodo =  crearNodo("LISTAID",_$[$0-2].first_line,_$[$0-2].first_column);
-		nodo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));		
+		var hijo=crearNodo("VAR",_$[$0-2].first_line,_$[$0-2].first_column);
+		hijo.add(crearHoja("ID",$$[$0-2],_$[$0-2].first_line,_$[$0-2].first_column));
+		nodo.add(hijo);
 		this.$.add(nodo);
 		this.$.add($$[$0-1]);
 	
 break;
 case 76:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$= crearNodo("DECLARACION_VAR",_$[$0-4].first_line,_$[$0-4].first_column);
 		this.$.add(crearHoja("TIPO",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));
 		var nodo =  crearNodo("LISTAID",_$[$0-3].first_line,_$[$0-3].first_column);
-		nodo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));		
-		nodo.add($$[$0-1]);
+		var hijo=crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
+		hijo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
+		hijo.add($$[$0-2]);
+		nodo.add(hijo);
 		this.$.add(nodo);
-		this.$.add($$[$0-2]);
+		this.$.add($$[$0-1]);
 	
 break;
 case 77:
 
-		this.$= crearNodo("DECLARACION_VECTOR",_$[$0-5].first_line,_$[$0-5].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-5].first_line,_$[$0-5].first_column);
 		this.$.add($$[$0-5]);
 		this.$.add($$[$0-4]);
 		nodo = crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
@@ -455,7 +469,7 @@ case 77:
 break;
 case 78:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-5].first_line,_$[$0-5].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-5].first_line,_$[$0-5].first_column);
 		this.$.add($$[$0-5]);
 		this.$.add(crearHoja("TIPO",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));
 		nodo = crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
@@ -467,7 +481,7 @@ case 78:
 break;
 case 79:
 
-		this.$= crearNodo("DECLARACION_VECTOR",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-4].first_line,_$[$0-4].first_column);
 		this.$.add($$[$0-4]);		
 		nodo = crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
 		nodo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));		
@@ -478,7 +492,7 @@ case 79:
 break;
 case 80:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-4].first_line,_$[$0-4].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-4].first_line,_$[$0-4].first_column);
 		this.$.add(crearHoja("TIPO",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));	
 		nodo = crearNodo("VAR",_$[$0-3].first_line,_$[$0-3].first_column);
 		nodo.add(crearHoja("ID",$$[$0-3],_$[$0-3].first_line,_$[$0-3].first_column));
@@ -489,7 +503,7 @@ case 80:
 break;
 case 81:
 
-		this.$= crearNodo("DECLARACION_VECTOR",_$[$0-6].first_line,_$[$0-6].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-6].first_line,_$[$0-6].first_column);
 		this.$.add($$[$0-6]);
 		this.$.add($$[$0-5]);
 		nodo = crearNodo("VAR",_$[$0-4].first_line,_$[$0-4].first_column);
@@ -502,7 +516,7 @@ case 81:
 break;
 case 82:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-6].first_line,_$[$0-6].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-6].first_line,_$[$0-6].first_column);
 		this.$.add($$[$0-6]);
 		this.$.add(crearHoja("TIPO",$$[$0-5],_$[$0-5].first_line,_$[$0-5].first_column));	
 		nodo = crearNodo("VAR",_$[$0-4].first_line,_$[$0-4].first_column);
@@ -515,7 +529,7 @@ case 82:
 break;
 case 83:
 
-		this.$= crearNodo("DECLARACION_VECTOR",_$[$0-5].first_line,_$[$0-5].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-5].first_line,_$[$0-5].first_column);
 		this.$.add($$[$0-5]);		
 		nodo = crearNodo("VAR",_$[$0-4].first_line,_$[$0-4].first_column);
 		nodo.add(crearHoja("ID",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));
@@ -527,7 +541,7 @@ case 83:
 break;
 case 84:
 
-		this.$= crearNodo("DECLARACION_OBJETO",_$[$0-5].first_line,_$[$0-5].first_column);
+		this.$= crearNodo("DECLARACION",_$[$0-5].first_line,_$[$0-5].first_column);
 		this.$.add(crearHoja("TIPO",$$[$0-5],_$[$0-5].first_line,_$[$0-5].first_column));		
 		nodo = crearNodo("VAR",_$[$0-4].first_line,_$[$0-4].first_column);
 		nodo.add(crearHoja("ID",$$[$0-4],_$[$0-4].first_line,_$[$0-4].first_column));

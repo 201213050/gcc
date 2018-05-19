@@ -1081,14 +1081,14 @@ class GeneradorDeCodigo
                             var hijo2=arbol.hijos[2].etiqueta;
                             var hijo3=arbol.hijos[3].etiqueta;
                             var hijo4=arbol.hijos[4].etiqueta;
-                            var hijo5=arbil.hijos[5].etiqueta;
+                            var hijo5=arbol.hijos[5].etiqueta;
                             if(hijo0=="VISIBILIDAD" && hijo1=="TIPO" && hijo2=="Dimension" && hijo3=="ID" && hijo4=="PARAMETROS" && hijo5=="INSTRUCCIONES"){
                                 acceso=arbol.hijos[0].valor;
                                 tipo=arbol.hijos[1].valor;
                                 id=arbol.hijos[3].valor;
 
                                 var dimensione=[];
-                                dimensione=this.getDimensiones(dimensione,arbo.hijos[2]);
+                                dimensione=this.getDimensiones(dimensione,arbol.hijos[2]);
                                 //recorremos los parametros
                                 this.llenarTabla(arbol.hijos[4]);
 
@@ -1123,6 +1123,8 @@ class GeneradorDeCodigo
                                 {
                                     var ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss.dimensiones=dimensione;
+                                    ss.arreglo=true;
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", ss);
@@ -1347,6 +1349,8 @@ class GeneradorDeCodigo
                                 {
                                     var ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss.dimensiones=dimensione;
+                                    ss.arreglo=true;
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", ss);
@@ -1422,6 +1426,8 @@ class GeneradorDeCodigo
                                 {
                                     var ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss.dimensiones=dimensione;
+                                    ss.arreglo=true;
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", ss);
@@ -1788,6 +1794,8 @@ class GeneradorDeCodigo
                                 {
                                     var ss = new simbolo();
                                     ss.setValores(this.ambito+"_return", id, this.ambito, this.nivel, this.posicion*4, tipo, "retorno", 4, "N/A", "N/A", "N/A");
+                                    ss.dimensiones=dimensio;
+                                    ss.arreglo=true;
                                     if(!this.tabla.existeSimbolo(this.ambito+"_return")) 
                                     {
                                         this.tabla.agregarSimbolo(this.ambito+"_return", ss);
@@ -1977,20 +1985,16 @@ class GeneradorDeCodigo
                     }
 
                 }
-
-                else if (etiqueta == "PARAMETROS"){
-                    for ( var i = 0; i<arbol.hijos.length; i++){
-                        this.lenarTabla(arbolhijos[i]);
-                    }
-                }else if (etiqueta == "PARAMETRO"){
-                    params += "_"+arbol.hijos[1].hijos[0].etiqueta;
-                } else if (etiqueta == "INSTRUCCIONES"){
+                else if (etiqueta == "INSTRUCCIONES"){
                     var i = 0;
                     for(i=0;i<arbol.hijos.length;i++){
                         this.llenarTabla(arbol.hijos[i]);
                     }
                 }
                 else if(etiqueta == "INSTRUCCION"){
+                    this.llenarTabla(arbol.hijos[0]);
+                }
+                else if(etiqueta == "ESTRUCTURA"){
                     this.llenarTabla(arbol.hijos[0]);
                 }                
     
@@ -2201,7 +2205,7 @@ getDimensiones(dimension, arbol){
     
     for(var i=0;i<arbol.hijos.length;i++){
         if(arbol.hijos[i].etiqueta=="ENTERO"){
-            dimension.add(arbol.hijos[i].valor);
+            dimension.push(arbol.hijos[i].valor);
         }
 
     }
