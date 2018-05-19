@@ -1,86 +1,290 @@
-digraph lista{  rankdir=TB;node [shape = box, style=rounded]; nodo42[fontsize=50 label="INICIO  {1,1} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo42"-> "nodo40"
-nodo40[fontsize=50 label="CLASE  {1,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo40"-> "nodo0"
-"nodo40"-> "nodo41"
-"nodo40"-> "nodo7"
-nodo0[fontsize=50 label="publico  [VISIBILIDAD]{1,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo41[fontsize=50 label="Node  [ID]{1,15} ", color="cyan", style ="filled", shape="circle"]; 
-nodo7[fontsize=50 label="INSTRUCCIONESCUERPO  {2,5} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo7"-> "nodo3"
-"nodo7"-> "nodo10"
-"nodo7"-> "nodo15"
-"nodo7"-> "nodo21"
-"nodo7"-> "nodo38"
-nodo3[fontsize=50 label="DECLARACION_VAR  {2,5} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo3"-> "nodo1"
-"nodo3"-> "nodo4"
-"nodo3"-> "nodo2"
-nodo1[fontsize=50 label="entero  [TIPO]{2,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo4[fontsize=50 label="LISTAID  {2,12} ", color="cyan", style ="filled", shape="circle"]; 
+digraph lista{  rankdir=TB;node [shape = box, style=rounded]; nodo144[fontsize=50 label="INICIO  {4,1} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo144"-> "nodo142"
+nodo142[fontsize=50 label="CLASE  {4,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo142"-> "nodo0"
+"nodo142"-> "nodo143"
+"nodo142"-> "nodo8"
+nodo0[fontsize=50 label="publico  [VISIBILIDAD]{4,1} ", color="cyan", style ="filled", shape="circle"]; 
+nodo143[fontsize=50 label="Avl  [ID]{4,15} ", color="cyan", style ="filled", shape="circle"]; 
+nodo8[fontsize=50 label="INSTRUCCIONESCUERPO  {5,2} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo8"-> "nodo4"
+"nodo8"-> "nodo141"
+nodo4[fontsize=50 label="DECLARACION  {5,2} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo4"-> "nodo1"
+"nodo4"-> "nodo2"
 "nodo4"-> "nodo5"
-nodo5[fontsize=50 label="VAR  {2,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo4"-> "nodo3"
+nodo1[fontsize=50 label="publico  [VISIBILIDAD]{5,2} ", color="cyan", style ="filled", shape="circle"]; 
+nodo2[fontsize=50 label="entero  [TIPO]{5,10} ", color="cyan", style ="filled", shape="circle"]; 
+nodo5[fontsize=50 label="LISTAID  {5,17} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo5"-> "nodo6"
-nodo6[fontsize=50 label="key  [ID]{2,12} ", color="cyan", style ="filled", shape="circle"]; 
-nodo2[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo10[fontsize=50 label="DECLARACION_VAR  {3,5} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo10"-> "nodo8"
-"nodo10"-> "nodo11"
-"nodo10"-> "nodo9"
-nodo8[fontsize=50 label="ENTERO  [TIPO]{3,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo11[fontsize=50 label="LISTAID  {3,12} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo11"-> "nodo12"
-nodo12[fontsize=50 label="VAR  {3,12} ", color="cyan", style ="filled", shape="circle"]; 
+nodo6[fontsize=50 label="VAR  {5,17} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo6"-> "nodo7"
+nodo7[fontsize=50 label="uno  [ID]{5,17} ", color="cyan", style ="filled", shape="circle"]; 
+nodo3[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
+nodo141[fontsize=50 label="PRINCIPAL  [MET_PRINCIPAL]{7,5} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo141"-> "nodo17"
+nodo17[fontsize=50 label="INSTRUCCIONES  {9,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo17"-> "nodo12"
+"nodo17"-> "nodo33"
+"nodo17"-> "nodo51"
+"nodo17"-> "nodo69"
+"nodo17"-> "nodo87"
+"nodo17"-> "nodo105"
+"nodo17"-> "nodo123"
+"nodo17"-> "nodo127"
+"nodo17"-> "nodo138"
+nodo12[fontsize=50 label="DECLARACION_VAR  {9,9} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo12"-> "nodo13"
-nodo13[fontsize=50 label="height  [ID]{3,12} ", color="cyan", style ="filled", shape="circle"]; 
-nodo9[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo15[fontsize=50 label="DECLARACION_VAR  {4,5} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo12"-> "nodo14"
+"nodo12"-> "nodo9"
+nodo13[fontsize=50 label="Tree  [TIPO]{9,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo14[fontsize=50 label="LISTAID  {9,14} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo14"-> "nodo15"
+nodo15[fontsize=50 label="VAR  {9,14} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo15"-> "nodo16"
-"nodo15"-> "nodo17"
-"nodo15"-> "nodo14"
-nodo16[fontsize=50 label="Node  [TIPO]{4,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo17[fontsize=50 label="LISTAID  {4,10} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo17"-> "nodo18"
-nodo18[fontsize=50 label="VAR  {4,10} ", color="cyan", style ="filled", shape="circle"]; 
+nodo16[fontsize=50 label="tree  [ID]{9,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo9[fontsize=50 label="FUNCION  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo9"-> "nodo10"
+"nodo9"-> "nodo11"
+nodo10[fontsize=50 label="NUEVO  {9,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo11[fontsize=50 label="Tree  [ID]{9,27} ", color="cyan", style ="filled", shape="circle"]; 
+nodo33[fontsize=50 label="ASIGNACION  {12,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo33"-> "nodo34"
+"nodo33"-> "nodo31"
+nodo34[fontsize=50 label="INSTANCIA  {12,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo34"-> "nodo35"
+"nodo34"-> "nodo18"
+nodo35[fontsize=50 label="tree  [ID]{12,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo18[fontsize=50 label="INSTANCIAP  {11,12} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo18"-> "nodo19"
-nodo19[fontsize=50 label="left  [ID]{4,10} ", color="cyan", style ="filled", shape="circle"]; 
-nodo14[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo21[fontsize=50 label="DECLARACION_VAR  {5,5} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo21"-> "nodo22"
-"nodo21"-> "nodo23"
-"nodo21"-> "nodo20"
-nodo22[fontsize=50 label="Node  [TIPO]{5,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo23[fontsize=50 label="LISTAID  {5,10} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo23"-> "nodo24"
-nodo24[fontsize=50 label="VAR  {5,10} ", color="cyan", style ="filled", shape="circle"]; 
+nodo19[fontsize=50 label="ACCESOVAR  {12,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo19"-> "nodo20"
+nodo20[fontsize=50 label="root  [ID]{12,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo31[fontsize=50 label="INSTANCIA  {12,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo31"-> "nodo32"
+"nodo31"-> "nodo30"
+nodo32[fontsize=50 label="tree  [ID]{12,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo30[fontsize=50 label="INSTANCIAP  {11,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo30"-> "nodo28"
+nodo28[fontsize=50 label="LLAMADA  {11,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo28"-> "nodo29"
+"nodo28"-> "nodo26"
+nodo29[fontsize=50 label="insert  [ID]{12,26} ", color="cyan", style ="filled", shape="circle"]; 
+nodo26[fontsize=50 label="VALOR  {11,32} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo26"-> "nodo24"
+"nodo26"-> "nodo27"
+nodo24[fontsize=50 label="INSTANCIA  {12,33} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo24"-> "nodo25"
-nodo25[fontsize=50 label="right  [ID]{5,10} ", color="cyan", style ="filled", shape="circle"]; 
-nodo20[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
-nodo38[fontsize=50 label="CONSTRUCTOR  {6,4} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo38"-> "nodo26"
-"nodo38"-> "nodo39"
-"nodo38"-> "nodo30"
-"nodo38"-> "nodo34"
-nodo26[fontsize=50 label="publico  [VISIBILIDAD]{7,5} ", color="cyan", style ="filled", shape="circle"]; 
-nodo39[fontsize=50 label="Node  [ID]{7,13} ", color="cyan", style ="filled", shape="circle"]; 
-nodo30[fontsize=50 label="PARAMETROS  {6,17} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo30"-> "nodo27"
-nodo27[fontsize=50 label="PARAMETRO  {6,17} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo27"-> "nodo28"
-"nodo27"-> "nodo29"
-nodo28[fontsize=50 label="int  [ID]{7,18} ", color="cyan", style ="filled", shape="circle"]; 
-nodo29[fontsize=50 label="d  [ID]{7,22} ", color="cyan", style ="filled", shape="circle"]; 
-nodo34[fontsize=50 label="INSTRUCCIONES  {8,9} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo34"-> "nodo32"
-"nodo34"-> "nodo36"
-nodo32[fontsize=50 label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
-"nodo32"-> "nodo33"
-"nodo32"-> "nodo31"
-nodo33[fontsize=50 label="key  [ID]{8,9} ", color="cyan", style ="filled", shape="circle"]; 
-nodo31[fontsize=50 label="d  [ID]{8,15} ", color="cyan", style ="filled", shape="circle"]; 
-nodo36[fontsize=50 label="ASIGNACION  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo24"-> "nodo21"
+nodo25[fontsize=50 label="tree  [ID]{12,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo21[fontsize=50 label="INSTANCIAP  {11,36} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo21"-> "nodo22"
+nodo22[fontsize=50 label="ACCESOVAR  {12,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo22"-> "nodo23"
+nodo23[fontsize=50 label="root  [ID]{12,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo27[fontsize=50 label="10  [ENTERO]{12,44} ", color="cyan", style ="filled", shape="circle"]; 
+nodo51[fontsize=50 label="ASIGNACION  {13,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo51"-> "nodo52"
+"nodo51"-> "nodo49"
+nodo52[fontsize=50 label="INSTANCIA  {13,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo52"-> "nodo53"
+"nodo52"-> "nodo36"
+nodo53[fontsize=50 label="tree  [ID]{13,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo36[fontsize=50 label="INSTANCIAP  {12,12} ", color="cyan", style ="filled", shape="circle"]; 
 "nodo36"-> "nodo37"
-"nodo36"-> "nodo35"
-nodo37[fontsize=50 label="height  [ID]{9,9} ", color="cyan", style ="filled", shape="circle"]; 
-nodo35[fontsize=50 label="1  [ENTERO]{9,18} ", color="cyan", style ="filled", shape="circle"]; 
+nodo37[fontsize=50 label="ACCESOVAR  {13,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo37"-> "nodo38"
+nodo38[fontsize=50 label="root  [ID]{13,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo49[fontsize=50 label="INSTANCIA  {13,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo49"-> "nodo50"
+"nodo49"-> "nodo48"
+nodo50[fontsize=50 label="tree  [ID]{13,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo48[fontsize=50 label="INSTANCIAP  {12,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo48"-> "nodo46"
+nodo46[fontsize=50 label="LLAMADA  {12,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo46"-> "nodo47"
+"nodo46"-> "nodo44"
+nodo47[fontsize=50 label="insert  [ID]{13,26} ", color="cyan", style ="filled", shape="circle"]; 
+nodo44[fontsize=50 label="VALOR  {12,32} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo44"-> "nodo42"
+"nodo44"-> "nodo45"
+nodo42[fontsize=50 label="INSTANCIA  {13,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo42"-> "nodo43"
+"nodo42"-> "nodo39"
+nodo43[fontsize=50 label="tree  [ID]{13,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo39[fontsize=50 label="INSTANCIAP  {12,36} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo39"-> "nodo40"
+nodo40[fontsize=50 label="ACCESOVAR  {13,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo40"-> "nodo41"
+nodo41[fontsize=50 label="root  [ID]{13,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo45[fontsize=50 label="20  [ENTERO]{13,44} ", color="cyan", style ="filled", shape="circle"]; 
+nodo69[fontsize=50 label="ASIGNACION  {14,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo69"-> "nodo70"
+"nodo69"-> "nodo67"
+nodo70[fontsize=50 label="INSTANCIA  {14,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo70"-> "nodo71"
+"nodo70"-> "nodo54"
+nodo71[fontsize=50 label="tree  [ID]{14,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo54[fontsize=50 label="INSTANCIAP  {13,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo54"-> "nodo55"
+nodo55[fontsize=50 label="ACCESOVAR  {14,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo55"-> "nodo56"
+nodo56[fontsize=50 label="root  [ID]{14,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo67[fontsize=50 label="INSTANCIA  {14,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo67"-> "nodo68"
+"nodo67"-> "nodo66"
+nodo68[fontsize=50 label="tree  [ID]{14,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo66[fontsize=50 label="INSTANCIAP  {13,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo66"-> "nodo64"
+nodo64[fontsize=50 label="LLAMADA  {13,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo64"-> "nodo65"
+"nodo64"-> "nodo62"
+nodo65[fontsize=50 label="insert  [ID]{14,26} ", color="cyan", style ="filled", shape="circle"]; 
+nodo62[fontsize=50 label="VALOR  {13,32} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo62"-> "nodo60"
+"nodo62"-> "nodo63"
+nodo60[fontsize=50 label="INSTANCIA  {14,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo60"-> "nodo61"
+"nodo60"-> "nodo57"
+nodo61[fontsize=50 label="tree  [ID]{14,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo57[fontsize=50 label="INSTANCIAP  {13,36} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo57"-> "nodo58"
+nodo58[fontsize=50 label="ACCESOVAR  {14,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo58"-> "nodo59"
+nodo59[fontsize=50 label="root  [ID]{14,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo63[fontsize=50 label="30  [ENTERO]{14,44} ", color="cyan", style ="filled", shape="circle"]; 
+nodo87[fontsize=50 label="ASIGNACION  {15,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo87"-> "nodo88"
+"nodo87"-> "nodo85"
+nodo88[fontsize=50 label="INSTANCIA  {15,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo88"-> "nodo89"
+"nodo88"-> "nodo72"
+nodo89[fontsize=50 label="tree  [ID]{15,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo72[fontsize=50 label="INSTANCIAP  {14,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo72"-> "nodo73"
+nodo73[fontsize=50 label="ACCESOVAR  {15,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo73"-> "nodo74"
+nodo74[fontsize=50 label="root  [ID]{15,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo85[fontsize=50 label="INSTANCIA  {15,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo85"-> "nodo86"
+"nodo85"-> "nodo84"
+nodo86[fontsize=50 label="tree  [ID]{15,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo84[fontsize=50 label="INSTANCIAP  {14,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo84"-> "nodo82"
+nodo82[fontsize=50 label="LLAMADA  {14,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo82"-> "nodo83"
+"nodo82"-> "nodo80"
+nodo83[fontsize=50 label="insert  [ID]{15,26} ", color="cyan", style ="filled", shape="circle"]; 
+nodo80[fontsize=50 label="VALOR  {14,32} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo80"-> "nodo78"
+"nodo80"-> "nodo81"
+nodo78[fontsize=50 label="INSTANCIA  {15,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo78"-> "nodo79"
+"nodo78"-> "nodo75"
+nodo79[fontsize=50 label="tree  [ID]{15,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo75[fontsize=50 label="INSTANCIAP  {14,36} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo75"-> "nodo76"
+nodo76[fontsize=50 label="ACCESOVAR  {15,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo76"-> "nodo77"
+nodo77[fontsize=50 label="root  [ID]{15,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo81[fontsize=50 label="40  [ENTERO]{15,44} ", color="cyan", style ="filled", shape="circle"]; 
+nodo105[fontsize=50 label="ASIGNACION  {16,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo105"-> "nodo106"
+"nodo105"-> "nodo103"
+nodo106[fontsize=50 label="INSTANCIA  {16,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo106"-> "nodo107"
+"nodo106"-> "nodo90"
+nodo107[fontsize=50 label="tree  [ID]{16,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo90[fontsize=50 label="INSTANCIAP  {15,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo90"-> "nodo91"
+nodo91[fontsize=50 label="ACCESOVAR  {16,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo91"-> "nodo92"
+nodo92[fontsize=50 label="root  [ID]{16,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo103[fontsize=50 label="INSTANCIA  {16,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo103"-> "nodo104"
+"nodo103"-> "nodo102"
+nodo104[fontsize=50 label="tree  [ID]{16,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo102[fontsize=50 label="INSTANCIAP  {15,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo102"-> "nodo100"
+nodo100[fontsize=50 label="LLAMADA  {15,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo100"-> "nodo101"
+"nodo100"-> "nodo98"
+nodo101[fontsize=50 label="insert  [ID]{16,26} ", color="cyan", style ="filled", shape="circle"]; 
+nodo98[fontsize=50 label="VALOR  {15,32} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo98"-> "nodo96"
+"nodo98"-> "nodo99"
+nodo96[fontsize=50 label="INSTANCIA  {16,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo96"-> "nodo97"
+"nodo96"-> "nodo93"
+nodo97[fontsize=50 label="tree  [ID]{16,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo93[fontsize=50 label="INSTANCIAP  {15,36} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo93"-> "nodo94"
+nodo94[fontsize=50 label="ACCESOVAR  {16,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo94"-> "nodo95"
+nodo95[fontsize=50 label="root  [ID]{16,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo99[fontsize=50 label="50  [ENTERO]{16,44} ", color="cyan", style ="filled", shape="circle"]; 
+nodo123[fontsize=50 label="ASIGNACION  {17,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo123"-> "nodo124"
+"nodo123"-> "nodo121"
+nodo124[fontsize=50 label="INSTANCIA  {17,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo124"-> "nodo125"
+"nodo124"-> "nodo108"
+nodo125[fontsize=50 label="tree  [ID]{17,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo108[fontsize=50 label="INSTANCIAP  {16,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo108"-> "nodo109"
+nodo109[fontsize=50 label="ACCESOVAR  {17,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo109"-> "nodo110"
+nodo110[fontsize=50 label="root  [ID]{17,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo121[fontsize=50 label="INSTANCIA  {17,21} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo121"-> "nodo122"
+"nodo121"-> "nodo120"
+nodo122[fontsize=50 label="tree  [ID]{17,21} ", color="cyan", style ="filled", shape="circle"]; 
+nodo120[fontsize=50 label="INSTANCIAP  {16,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo120"-> "nodo118"
+nodo118[fontsize=50 label="LLAMADA  {16,25} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo118"-> "nodo119"
+"nodo118"-> "nodo116"
+nodo119[fontsize=50 label="insert  [ID]{17,26} ", color="cyan", style ="filled", shape="circle"]; 
+nodo116[fontsize=50 label="VALOR  {16,32} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo116"-> "nodo114"
+"nodo116"-> "nodo117"
+nodo114[fontsize=50 label="INSTANCIA  {17,33} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo114"-> "nodo115"
+"nodo114"-> "nodo111"
+nodo115[fontsize=50 label="tree  [ID]{17,33} ", color="cyan", style ="filled", shape="circle"]; 
+nodo111[fontsize=50 label="INSTANCIAP  {16,36} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo111"-> "nodo112"
+nodo112[fontsize=50 label="ACCESOVAR  {17,37} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo112"-> "nodo113"
+nodo113[fontsize=50 label="root  [ID]{17,38} ", color="cyan", style ="filled", shape="circle"]; 
+nodo117[fontsize=50 label="25  [ENTERO]{17,44} ", color="cyan", style ="filled", shape="circle"]; 
+nodo127[fontsize=50 label="IMPRIMIR  {25,8} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo127"-> "nodo126"
+nodo126[fontsize=50 label="\"Preorder traversal of constructed tree is : \"  [CADENA]{26,18} ", color="cyan", style ="filled", shape="circle"]; 
+nodo138[fontsize=50 label="ASIGNACION  {27,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo138"-> "nodo139"
+"nodo138"-> "nodo137"
+nodo139[fontsize=50 label="INSTANCIA  {27,9} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo139"-> "nodo140"
+"nodo139"-> "nodo136"
+nodo140[fontsize=50 label="tree  [ID]{27,9} ", color="cyan", style ="filled", shape="circle"]; 
+nodo136[fontsize=50 label="INSTANCIAP  {26,12} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo136"-> "nodo134"
+nodo134[fontsize=50 label="LLAMADA  {26,13} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo134"-> "nodo135"
+"nodo134"-> "nodo133"
+nodo135[fontsize=50 label="postOrder  [ID]{27,14} ", color="cyan", style ="filled", shape="circle"]; 
+nodo133[fontsize=50 label="VALOR  {26,23} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo133"-> "nodo131"
+nodo131[fontsize=50 label="INSTANCIA  {27,24} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo131"-> "nodo132"
+"nodo131"-> "nodo128"
+nodo132[fontsize=50 label="tree  [ID]{27,24} ", color="cyan", style ="filled", shape="circle"]; 
+nodo128[fontsize=50 label="INSTANCIAP  {26,27} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo128"-> "nodo129"
+nodo129[fontsize=50 label="ACCESOVAR  {27,28} ", color="cyan", style ="filled", shape="circle"]; 
+"nodo129"-> "nodo130"
+nodo130[fontsize=50 label="root  [ID]{27,29} ", color="cyan", style ="filled", shape="circle"]; 
+nodo137[fontsize=50 label="NIMIERDA  {null,1} ", color="cyan", style ="filled", shape="circle"]; 
 }

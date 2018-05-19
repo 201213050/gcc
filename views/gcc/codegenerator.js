@@ -2142,27 +2142,7 @@ class GeneradorDeCodigo
                             break;
                         }
 
-                    }
-
-
-
-
-
-
-
-
-                    
-        
-        
-                    if(!tabla.existeSimbolo(nombre)){
-                        var dimensione = [];
-                        dimensione = getDimensiones(dimensione,arbol.hijos[3]);
-                        var s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,rol,4,acceso,dimensiones);
-                        tabla.agregarSimbolo(nombre,s);
-                        posicion++;
-                    } else {
-                        ExisteSimbolo(id,ambito);
-                    }
+                    }                
                 }                
     
             }
