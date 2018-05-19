@@ -2034,7 +2034,7 @@ class GeneradorDeCodigo
                     var id = "";
                     var tipo = "";;
                     var rol = "";
-                    var l_ids="";
+                    var l_ids;
                     var es_arreglo=false;
                     var dimensioness=[];
                     var nombre="";
@@ -2070,15 +2070,15 @@ class GeneradorDeCodigo
                                         s.arreglo=es_arreglo;
                                         s.dimensiones=dimensioness;
 
-                                        tabla.agregarSimbolo(nombre,s);
-                                        posicion++;
+                                        this.tabla.agregarSimbolo(nombre,s);
+                                        this.posicion++;
                                     }else if(this.nivel==0){
                                         var s = new simbolo(nombre,id,this.ambito,this.nivel,this.posicion*4,tipo,rol,4,acceso,"N/A","N/A");
                                         s.arreglo=es_arreglo;
                                         s.dimensiones=dimensioness;
 
-                                        tabla.agregarSimbolo(nombre,s);
-                                        posicion++;
+                                        this.tabla.agregarSimbolo(nombre,s);
+                                        this.posicion++;
                                     }
                                 } else {
                                     ExisteSimbolo(id,ambito);
@@ -2142,26 +2142,6 @@ class GeneradorDeCodigo
                             break;
                         }
 
-                    }
-
-
-
-
-
-
-
-
-                    
-        
-        
-                    if(!tabla.existeSimbolo(nombre)){
-                        var dimensione = [];
-                        dimensione = getDimensiones(dimensione,arbol.hijos[3]);
-                        var s = new Simbolo(nombre,id,ambito,nivel,posicion*4,tipo,rol,4,acceso,dimensiones);
-                        tabla.agregarSimbolo(nombre,s);
-                        posicion++;
-                    } else {
-                        ExisteSimbolo(id,ambito);
                     }
                 }                
     
