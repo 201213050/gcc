@@ -58,6 +58,10 @@ class Nodo{
 \"(\\.|[^"])*\" 	  return 'texto'
 \'(\\.|[^'])*\' 	  return 'textosimple'
 
+// nulo 
+"{'\0'}"                %{ console.log(yytext);return 'nulo'; %}
+"{\"\0\"}"                %{ console.log(yytext);return 'nulo'; %}
+
 //AUMENTO DECREMENTO
 "++"                  %{ console.log('++');return '++'; %}
 "--"                  %{ console.log('--');return '--'; %}
@@ -141,7 +145,7 @@ class Nodo{
 //SENTENCIAS
 "importar"			  %{ console.log(yytext);return 'importar'; %}
 "nuevo"               %{ console.log(yytext);return 'nuevo'; %}
-"'\0'"                %{ console.log(yytext);return 'nulo'; %}
+
 "nada"				  %{ console.log(yytext);return 'nada'; %}
 //ROMPER CICLOS
 "romper"              %{ console.log(yytext);return 'romper'; %}
@@ -215,7 +219,8 @@ class Nodo{
 %% /* language grammar */
 
 
-INICIO	:  CUERPO EOF{
+INICIO	:  CUERPO EOF
+{
 	console.log($1+ "//Ultima linea");
 	reiniciar();
 	return $1; 

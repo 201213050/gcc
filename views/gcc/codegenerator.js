@@ -153,13 +153,28 @@ class GeneradorDeCodigo
                       raiz = gcc.parse(datos.contenido);	  	
                         if(raiz==null)
                         {
-                            addError(nodo.hash.loc.first_line, nodo.hash.loc.first_column, "Vergas", "El archivo "+ nodo.value+" No existe");                      
+                            addError(data.linea, data.columna, "Archivo", "El archivo "+ data.valor+" No existe");                      
                         }
                         else
-                        {            
-                            grafica(raiz);          
-                            generador.listaAboles.push(raiz); 
-                            generador.AgregarArbol(raiz);                                                   
+                        {     
+                            if(raiz.hijos==undefined)
+                            {
+                                addError(data.linea, data.columna, "Archivo", "El archivo "+ data.valor+" No existe");                      
+                            }   
+                            else
+                            {   
+                                if(raiz.hijos.length == 0)
+                                {
+                                    addError(data.linea, data.columna, "Archivo", "El archivo "+ data.valor+" No existe");                      
+                                }
+                                else
+                                {
+                                    grafica(raiz);          
+                                    generador.listaAboles.push(raiz); 
+                                    generador.AgregarArbol(raiz);
+                                }
+                                                   
+                            }
                         }                          		  			
                   }
                   catch (e) 
