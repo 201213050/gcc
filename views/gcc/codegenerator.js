@@ -2011,13 +2011,16 @@ class GeneradorDeCodigo
                 }
                 else if(etiqueta == "ESTRUCTURA"){
                     //this.llenarTabla(arbol.hijos[0]);
-                    /*
+                    
                     var ambitotemporal=this.ambito
                     var ambitoidtemporal=this.ambitoid;
                     var niveltemporal=this.nivel;
                     var posiciontemporal=this.posicion;
-                    
-                    
+                    var heredadotemporal =this.heredado;
+                    var idClasetemporal=this.idClase;
+                    var tipotemporal=this.tipo;
+                    var accesoClasetemporal=this.accesoClase;
+
 
                     this.ambitoid = 0;
                     this.nivel = 0;
@@ -2025,7 +2028,41 @@ class GeneradorDeCodigo
                     var id = "";
                     this.accesoClase="publico";
                     this.heredado="N/A";
-                    */
+
+                    var hijo2=arbol.hijos[0];
+                    var hijo3=arbol.hijos[1];
+
+                        id=hijo2.valor.toLowerCase();
+                        this.idClase=id;
+                        this.ambito=id;
+
+                        this.llenarTabla(arbol.hijos[3]);
+
+                    
+                    var s=new simbolo();
+                    s.setValores(id,id,"N/A",-1,-1,"N/A","estructura",this.posicion*4,this.accesoClase,"N/A","N/A");
+                    if(!this.tabla.existeSimbolo(id)){
+                        this.tabla.agregarSimbolo(id,s);
+                    } else {
+                        this.ExisteSimbolo(id,this.ambito);
+                    }
+
+                    this.ambito=ambitotemporal;
+                    this.ambitoid=ambitoidtemporal;
+                    this.nivel=niveltemporal;
+                    this.posicion=posiciontemporal;
+                    this.heredado=heredadotemporal;
+                    this.idClase=idClasetemporal;
+                    this.tipo=tipotemporal;
+                    this.accesoClase=accesoClasetemporal;
+
+
+
+                    
+                    
+
+
+                    
 
 
                 }
