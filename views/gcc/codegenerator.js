@@ -2035,7 +2035,8 @@ class GeneradorDeCodigo
                         id=hijo2.valor.toLowerCase();
                         this.idClase=id;
                         this.ambito=id;
-
+                        
+                        //llenamos los atributos de la estructura
                         this.llenarTabla(hijo3);
 
                     
@@ -2184,7 +2185,67 @@ class GeneradorDeCodigo
                         }
 
                     }
-                }                
+                } 
+                else if(etiqueta=="SI"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_si"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        this.llenarTabla(arbol.hijos[1]);
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+
+
+
+
+                    //this.llenarTabla(arbol.hijos[1]);
+
+                }               
+                else if(etiqueta=="CUERPO_IF"){
+                    var esverdadero=arbol.hijos[0];
+                    var esfalso=arbol.hijos[1];
+
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_esverdadero"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal= this.ambitoid;
+                    this.ambitoid=0;
+                    for(i=0;i<esverdadero.hijos.length;i++){
+
+                        
+                        
+                        this.llenarTabla(esverdadero.hijos[i]);
+                        
+
+
+                    }
+                    this.ambito = ambitotemporal;
+                    this.ambitoid = ambitoidtemporal;
+
+                    ambitotemporal = this.ambito;
+                    this.ambito+="_esfalso"+this.ambitoid;
+                    this.ambitoid++;
+                    ambitoidtemporal = this.ambitoid;
+                   
+                    this.ambitoid=0;
+                    for(i=0;i<esfalso.hijos.length;i++){
+                        
+                        
+                        this.llenarTabla(esfalso.hijos[i]);
+                        
+
+
+                    }
+                    this.ambito = ambitotemporal;
+                    this.ambitoid = ambitoidtemporal;
+                    
+
+                }
     
             }
         }
