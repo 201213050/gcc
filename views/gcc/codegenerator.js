@@ -2337,7 +2337,7 @@ class GeneradorDeCodigo
                         this.nivel++;
                         if(arbol.hijos.length==2){
 
-                            this.llenarTabla(arbol.hijos[1]);
+                            this.llenarTabla(arbol.hijos[0]);
                         }
                         
                         this.nivel--;
