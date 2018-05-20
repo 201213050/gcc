@@ -2246,6 +2246,198 @@ class GeneradorDeCodigo
                     
 
                 }
+                else if (etiqueta=="SWITCH"){
+
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_evaluarsi"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==2){
+
+                            this.llenarTabla(arbol.hijos[1]);
+                        }
+                        else if(arbol.hijos.length==3){
+                            this.llenarTabla(arbol.hijos[1]);
+                            this.llenarTabla(arbol.hijos[2]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;                    
+                }
+                else if(etiqueta=="DEFECTO"){
+
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_defecto"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal= this.ambitoid;
+                    this.ambitoid=0;
+                        
+                        
+                        this.llenarTabla(arbol.hijos[0]);
+                        
+
+
+                    this.ambito = ambitotemporal;
+                    this.ambitoid = ambitoidtemporal;
+
+                }
+                else if(etiqueta=="CASOS"){
+                    var i=0;
+                    for (i=0;i<arbol.hijos.length;i++){
+                        this.llenarTabla(arbol.hijos[i]);
+
+                    }
+                }
+                else if(etiqueta=="CASO"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_caso"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+
+                    if (arbol.hijos.length==2){
+                        this.ambitoid = 0;
+                        
+                        this.llenarTabla(arbol.hijos[1]);
+                        
+                    }
+                    this.ambito = ambitotemporal;
+                    this.ambitoid = ambitoidtemporal;
+                }
+                else if(etiqueta=="WHILE"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_repetirmientras"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==2){
+
+                            this.llenarTabla(arbol.hijos[1]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+
+                }
+                else if(etiqueta=="DOWHILE"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_hacermientras"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==2){
+
+                            this.llenarTabla(arbol.hijos[1]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+                }
+                else if(etiqueta=="REPETIR"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_repetirhastaque"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==2){
+
+                            this.llenarTabla(arbol.hijos[0]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+                }
+                else if(etiqueta=="CICLOX"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_ciclodoble"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==3){
+
+                            this.llenarTabla(arbol.hijos[2]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;                    
+                }
+                else if(etiqueta=="ENCICLAR"){
+                    var identificadorr=arbol.hijos[0].valor;
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_enciclar"+identificador+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==2){
+
+                            this.llenarTabla(arbol.hijos[1]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+
+                }
+                else if(etiqueta=="FOR"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_repetircontando"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==4){
+
+                            this.llenarTabla(arbol.hijos[3]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+                }
+                else if(etiqueta=="CONTADOR"){
+                    var ambitotemporal = this.ambito;
+                    this.ambito+="_contador"+this.ambitoid;
+                    this.ambitoid++;
+                    var ambitoidtemporal = this.ambitoid;
+                    //for(int i = 0; i<arbol->cantHijos; i++){
+                        this.ambitoid = 0;
+                        this.nivel++;
+                        if(arbol.hijos.length==2){
+
+                            this.llenarTabla(arbol.hijos[1]);
+                        }
+                        
+                        this.nivel--;
+                    //}
+                    this.ambitoid = ambitoidtemporal;
+                    this.ambito = ambitotemporal;
+                }
+
     
             }
         }
