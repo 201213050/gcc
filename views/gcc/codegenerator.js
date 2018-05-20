@@ -2036,7 +2036,7 @@ class GeneradorDeCodigo
                         this.idClase=id;
                         this.ambito=id;
 
-                        this.llenarTabla(arbol.hijos[3]);
+                        this.llenarTabla(hijo3);
 
                     
                     var s=new simbolo();
